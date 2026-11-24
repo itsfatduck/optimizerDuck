@@ -66,10 +66,7 @@
   <value>대시보드</value>
 </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>화면 스냅샷을 캡처하고 인덱싱하는 Windows Recall AI 기능을 사용하지 않도록 설정합니다. 또한 Recall 구성 요소를 제거하고 이전에 저장된 스냅샷을 삭제합니다. 적용하려면 다시 시작해야 합니다.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>뉴스 및 관심사 피드를 끄고 작업 표시줄 버튼을 숨기며(Windows 10), 위젯 보드를 사용하지 않도록 설정합니다(Windows 11).</value>
+    <value>그룹 정책으로 Windows Recall 스냅샷을 비활성화하고 저장된 스냅샷 데이터를 삭제하며 재부팅 후 활성화를 차단합니다.</value>
   </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
   <value>대시보드</value>
@@ -207,7 +204,7 @@
   <value>상세 설명</value>
 </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-  <value>서비스 호스트 분할 임계값을 시스템 총 RAM으로 높여 서비스를 더 적은 프로세스에 통합된 상태로 유지하여 메모리 사용량과 프로세스 수를 줄입니다.</value>
+  <value>12 GB 이하 RAM PC에서 서비스 호스트 분할 임계값을 설치된 RAM 크기로 높여 서비스를 공유 프로세스로 묶어 메모리를 절약합니다.</value>
 </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
   <value>현재 활성 전원 계획을 감지하지 못했습니다</value>
@@ -228,7 +225,7 @@
   <value>디스크</value>
 </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-  <value>네트워크 연결 필요</value>
+  <value>인터넷 필요</value>
 </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
   <value>네트워크</value>
@@ -250,7 +247,7 @@
 </data>
 
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
-  <value>전원</value>
+  <value>전원/전력</value>
 </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
   <value>{0}에 대한 복원 데이터를 찾을 수 없습니다</value>
@@ -259,7 +256,7 @@
   <value>복원하는 중...</value>
 </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-  <value>{0}을(를) 성공적으로 복원했습니다!</value>
+  <value>{0} 항목을 되돌렸습니다.</value>
 </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
   <value>{0}을(를) 복원했지만 실패한 단계가 {1}개 있습니다</value>
@@ -316,7 +313,7 @@
   <value>시간 초과</value>
 </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-  <value>복원 파일</value>
+  <value>복원 백업 열기</value>
 </data>
   <data name="OptimizationResultDialog.Header" xml:space="preserve">
   <value>실패한 단계 {0}개</value>
@@ -397,10 +394,10 @@
   <value>방금 적용됨</value>
 </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-  <value>최적화를 완전히 적용하지 못했습니다</value>
+  <value>일부 변경을 적용하지 못했습니다</value>
 </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
-  <value>최적화를 복원하지 못했습니다</value>
+  <value>최적화를 되돌리지 못했습니다</value>
 </data>
   <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
   <value>최적화가 성공적으로 적용되었습니다</value>
@@ -472,7 +469,7 @@
   <value>백그라운드 앱 비활성화</value>
 </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-  <value>비활성 상태의 앱이 백그라운드에서 실행되지 않도록 하여 RAM을 확보하고 CPU 부담을 줄입니다</value>
+  <value>Microsoft Store 앱의 백그라운드 작업 실행을 차단해 유휴 RAM 사용량과 CPU 절전 해제 횟수를 줄입니다.</value>
 </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
   <value>서비스 호스트 통합</value>
@@ -480,134 +477,92 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
   <value>잘못된 RAM 값: {0}</value>
 </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-  <value>활성 앱 우선 처리</value>
-</data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-  <value>현재 사용 중인 앱에 더 많은 CPU 자원을 할당해 더 빠르고 반응성 높은 환경을 제공합니다</value>
-</data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-  <value>멀티미디어 스케줄러 최적화</value>
-</data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-  <value>MMCSS를 게이밍 및 저지연 환경에 맞게 구성하여 멀티미디어 작업의 우선순위를 높이고 네트워크 스로틀링을 비활성화합니다</value>
-</data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
   <value>키보드 반복 최적화</value>
 </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-  <value>키보드 반복 지연과 반복 속도를 가장 빠르게 설정해 입력 반응성을 높입니다</value>
+  <value>키 반복 지연 시간을 가장 짧게, 반복 속도를 최대로 설정해 키를 누르고 있을 때 더 빠르게 입력되도록 합니다.</value>
 </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
   <value>접근성 키보드 단축키 비활성화</value>
 </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-  <value>고정 키, 필터 키, 토글 키 단축키를 비활성화하여 게임이나 타이핑 중 실수로 팝업이 뜨는 것을 방지합니다</value>
+  <value>Shift 또는 잠금 키를 반복하거나 길게 누를 때 고정 키, 필터 키, 토글 키 안내를 띄우는 단축키를 비활성화합니다.</value>
 </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
   <value>최대 절전 모드 및 빠른 시작 비활성화</value>
 </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-  <value>최대 절전 모드와 빠른 시작을 끄면 디스크 공간을 확보하고, 부팅 시 하드웨어가 더 깔끔하게 초기화되도록 완전 종료를 보장합니다</value>
+  <value>빠른 시작만 꺼서 깔끔한 콜드 부팅을 유지하거나 최대 절전 모드를 완전히 비활성화해 수 기가바이트의 저장 공간을 확보합니다.</value>
 </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
   <value>USB 절전 기능 비활성화</value>
 </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-  <value>Windows가 USB 포트 전원을 차단하지 못하게 하여 마우스, 키보드 등 주변기기의 절전 해제 지연을 없앱니다</value>
+  <value>Windows가 유휴 USB 루트 허브와 주변기기를 절전 정지하는 것을 막아 마우스, 키보드, 오디오의 응답 지연을 줄입니다.</value>
 </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
   <value>최적화 전원 계획 적용</value>
 </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-  <value>성능 중심의 사용자 지정 전원 계획을 설치해 시스템이 항상 최대 속도로 동작하도록 합니다. 경고: 일부 시스템에서 작업 관리자가 CPU 사용률을 100%로 잘못 표시할 수 있으며, 실제 CPU 부하는 영향을 받지 않습니다.</value>
+  <value>CPU 코어 파킹과 클럭 전환 지연을 줄이는 맞춤형 고성능 전원 관리 옵션을 설치하고 활성화합니다.</value>
 </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-  <value>전원 계획을 가져오고 활성화하는 중...</value>
+  <value>Power Plan 설치 및 활성화 중...</value>
 </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
   <value>시스템 전력 스로틀링 비활성화</value>
 </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-  <value>Windows가 활성 작업 중 CPU 성능을 제한하지 못하도록 하여 최대 성능을 유지합니다</value>
+  <value>Windows 전원 제한(Power Throttling)을 꺼서 활성 앱과 백그라운드 앱이 CPU 클럭 제한 없이 실행되도록 합니다.</value>
 </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
   <value>데이터 수집(텔레메트리) 비활성화</value>
 </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-  <value>Windows 텔레메트리와 사용 추적 서비스를 비활성화해 개인정보 보호를 강화하고 백그라운드 활동을 줄입니다</value>
-</data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-  <value>정책 및 레지스트리 변경 사항 적용 중...</value>
-</data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-  <value>텔레메트리 서비스 비활성화 중...</value>
-</data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-  <value>예약된 텔레메트리 작업 비활성화 중...</value>
+  <value>Windows 진단 데이터 수집, 앱 호환성 인벤토리 및 피드백 요청을 최소화합니다.</value>
 </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>오류 보고 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>Windows 오류 보고 및 프로그램 호환성 관리자 서비스를 비활성화합니다</value>
+    <value>Windows 오류 보고를 끄고 충돌 및 디스크 진단 보고서를 수집하거나 업로드하는 예약 작업을 중지합니다.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
     <value>광고 및 제안 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>개인화된 광고, Windows 소비자 기능 및 시스템 제안을 비활성화합니다</value>
+    <value>Windows 광고 ID, 진단 데이터 기반 맞춤 환경, 일반 사용자용 프로모션 및 설정 추천 알림을 끕니다.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
     <value>활동 기록 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>Windows에서 활동 기록을 수집하고 동기화하는 것을 방지합니다</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>위치 및 센서 비활성화</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>위치 추적, 시스템 센서 및 오프라인 지도 업데이트를 비활성화합니다</value>
+    <value>Windows가 앱 및 파일 활동 기록을 Microsoft에 게시하거나 업로드하지 않도록 중지합니다.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>백그라운드 로깅 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>필수적이지 않은 WMI/ETW AutoLogger 세션(Diagtrack-Listener, SQMLogger 등)이 부팅 시 시작되지 않도록 하여 백그라운드 디스크 및 CPU 활동을 줄입니다. 참고: 보안 소프트웨어는 진단 추적을 변경하므로 AutoLogger 변경 사항을 플래그로 표시할 수 있습니다.</value>
+    <value>부팅 시 불필요한 Windows ETW 진단 추적 세션을 비활성화해 백그라운드 디스크 쓰기와 CPU 오버헤드를 줄입니다.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Cortana 및 웹 검색 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Cortana 음성 도우미를 끄고 Windows 검색에서 클라우드 검색 및 웹 결과를 사용하지 않도록 설정합니다(Windows 10 전용).</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>Windows Copilot 비활성화</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>작업 표시줄과 시스템 셸에서 AI Copilot 도우미를 제거하여 메모리와 화면 공간을 확보합니다</value>
+    <value>Windows 10에서 Cortana 비서를 끄고 Windows Search가 로컬 검색어를 클라우드로 보내지 않도록 차단합니다.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>클라우드 콘텐츠 전달 비활성화</value>
+    <value>백그라운드 클라우드 추천 콘텐츠 끄기</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>시스템 팁, 추천 제안, 소비자 기능 자동 전달 등 Windows 클라우드 제공 콘텐츠를 끕니다</value>
+    <value>Windows가 백그라운드에서 잠금 화면 Spotlight 추천, 팁 및 홍보용 콘텐츠를 다운로드하지 못하게 합니다.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>사전 설치된 불필요한 앱 차단</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Windows가 원치 않는 타사 앱과 승격된 소프트웨어를 자동으로 다시 설치하는 것을 방지합니다</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>시스템 서비스 최적화</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>필수가 아닌 백그라운드 서비스를 조정하여 필요한 모든 Windows 기능을 유지하면서 리소스를 확보합니다</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>{0}의 시작 유형을 {1}(으)로 설정 중...</value>
+    <value>Windows가 홍보용 일반 소비자 앱을 조용히 다운로드하고 시작 메뉴에 고정하지 않도록 막습니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>Display</value>
@@ -622,65 +577,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>사용자 경험</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>탐색기 및 메뉴 속도 향상</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>Explorer 시작 지연을 제거하고 메뉴 호버 지연을 최소로 줄이려면 StartupDelayInMSec=0, MenuShowDelay=0을 설정합니다</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>시각 효과 비활성화</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>더 나은 성능을 위해 GPU/CPU 리소스를 확보하기 위해 작업 표시줄 애니메이션, 목록 보기 그림자, 창 투명도 및 Aero Peek를 비활성화합니다</value>
-  </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>AMD ULPS 비활성화</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>초저전력 상태 깨우기 지연 및 다중 모니터 문제를 방지하려면 AMD GPU 레지스트리에서 EnableULPS=0을 설정합니다 유휴 상태에서 절전 효과가 줄어듭니다</value>
+    <value>AMD GPU의 초저전력 상태(ULPS)를 꺼서 보조 GPU 절전 해제 끊김 및 다중 모니터 깜빡임을 방지합니다.</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>AMD 파워 게이팅 비활성화</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>AMD GPU 전원 상태 전환을 방지하려면 비활성화PowerGating=1, PP_GPUPowerDownEnabled=0, 비활성화DynamicPstate=1을 설정합니다 더 높은 유휴 전력을 사용하여 일관된 클록을 유지합니다</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>AMD 비디오 클럭 게이팅 비활성화</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>인코딩/디코딩 안정성을 향상시키기 위해 AMD 비디오 엔진(VCE/UVD)에 대해DisableVCEPowerGating=1,DisableVceClockGating=1,EnableUvdClockGating=0을 설정합니다 비디오 재생 성능을 높입니다</value>
+    <value>AMD GPU 파워 게이팅과 동적 전력 상태 조절을 꺼 짧은 작업 사이에도 그래픽 엔진 전원을 유지합니다.</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>AMD ASPM 비활성화</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>AMD GPU에서 활성 상태 전원 관리를 비활성화하려면 EnableAspmL0s=0, EnableAspmL1=0을 설정하여 PCIe 버스 대기 시간을 줄입니다 슬롯 전력 소비가 증가합니다</value>
+    <value>AMD 그래픽의 PCIe 활성 상태 전원 관리(L0s 및 L1)를 꺼 PCIe 링크 절전 해제 지연을 줄입니다.</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>NVIDIA 동적 P-State 비활성화</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>NVIDIA GPU를 고정된 성능 상태로 잠그도록 비활성화DynamicPstate=1로 설정하여 클럭 속도 변동을 방지합니다 유휴 전력 소모량이 증가합니다</value>
+    <value>NVIDIA GPU가 동적 저전력 P-state로 내려가지 않도록 해 가볍거나 간헐적인 작업 중 클럭 저하 전환을 방지합니다.</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>NVIDIA Async P-State 비활성화</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>NVIDIA 비동기 전원 상태 전환을 방지하고 VR/실시간 앱에 결정적인 성능을 제공하려면 비활성화ASyncPstates=1로 설정합니다</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Intel Async Flip 비활성화</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Intel iGPU에서 동기식 버퍼 반전을 강제하도록 Display1_DisableAsyncFlips=1을 설정하여 입력-디스플레이 지연 시간과 화면 찢김을 줄입니다</value>
+    <value>부하 변동 시 NVIDIA 드라이버의 비동기 성능 상태 전환을 막아 프레임 페이싱을 고르게 유지합니다.</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>Intel Adaptive V-Sync 비활성화</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>안정적인 타이밍 대신 고정 V-Sync를 사용하여 프레임 속도에 동적으로 조정되는 Intel의 적응형 V-Sync를 비활성화하려면 AdaptiveVsyncEnable=0을 설정합니다</value>
+    <value>Intel 드라이버 수준의 적응형 V-Sync를 꺼 앱 기본값이나 고정 동기화 방식으로 동작하게 합니다.</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1200,22 +1131,22 @@
     <value>기타</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>이 최적화의 롤백 데이터가 담긴 JSON 파일을 엽니다</value>
+    <value>되돌릴 때 이전 설정을 복구하는 데 쓰이는 JSON 백업을 엽니다.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>브라우저에서 이 최적화를 위한 소스 코드를 엽니다</value>
+    <value>GitHub에서 이 최적화의 C# 구현 코드를 확인합니다.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
-    <value>GitHub에서 소스 보기</value>
+    <value>소스 코드 보기</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
-    <value>기술적인 세부사항</value>
+    <value>기술 정보</value>
   </data>
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
     <value>최적화 ID</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>클래스 이름</value>
+    <value>식별 키</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>시작 프로그램</value>
@@ -1679,12 +1610,6 @@
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>알림 영역의 배터리 아이콘 옆에 현재 배터리 백분율을 표시합니다.</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>시작 메뉴 웹 검색 비활성화</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>Windows 시작 메뉴의 웹 검색을 끄면 로컬 검색 결과를 더 빠르게 불러올 수 있습니다.</value>
-  </data>
   <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
     <value>파일이 영구적으로 삭제됩니다. 이 작업은 되돌릴 수 없습니다.</value>
   </data>
@@ -1721,14 +1646,11 @@
   <data name="Customize.CustomOption.NotSet" xml:space="preserve">
     <value>설정 안 됨</value>
   </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>뉴스 및 관심사 비활성화</value>
-  </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>Meet Now 버튼 숨기기</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>작업 표시줄 알림 영역에서 Meet Now(Skype) 버튼을 숨깁니다. Windows 10 전용입니다.</value>
+    <value>Windows 10 작업 표시줄 알림 영역에서 Meet Now 단추를 숨깁니다.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
     <value>빠른 실행</value>
@@ -1743,34 +1665,34 @@
     <value>Click To Do 비활성화</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>화면의 텍스트와 이미지를 분석하는 AI 기반 Click To Do 오버레이를 끕니다.</value>
+    <value>화면의 텍스트와 이미지를 분석해 AI 작업을 제안하는 Click To Do 오버레이를 비활성화합니다.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Windows Recall 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>배달 최적화(P2P) 비활성화</value>
+    <value>Delivery Optimization (P2P) 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Windows가 다른 PC와 P2P로 업데이트 파일을 공유하거나 다운로드하지 못하게 하여 업데이트가 Microsoft 서버에서만 제공되도록 합니다.</value>
+    <value>PC 간 P2P 업데이트 공유를 중지하고 Microsoft 서버에서만 업데이트를 다운로드합니다.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>내 디바이스 찾기 비활성화</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>디바이스 위치를 주기적으로 Microsoft에 보고하는 '내 디바이스 찾기' 기능을 비활성화합니다.</value>
+    <value>내 장치 찾기를 비활성화해 PC가 Microsoft 계정으로 위치 정보를 주기적으로 전송하지 않도록 합니다.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>설정의 Microsoft 365 광고 비활성화</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>설정 홈 페이지에서 Microsoft 365 및 Copilot 홍보 콘텐츠를 제거합니다.</value>
+    <value>Windows 설정 홈 페이지에서 Microsoft 365 및 계정 홍보 배너를 제거합니다.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>시작 메뉴의 권장 섹션 숨기기</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>권장 섹션을 숨겨 시작 메뉴를 깔끔하게 유지하고, 최근 파일과 앱이 표시되지 않도록 합니다.</value>
+    <value>Windows 11 시작 메뉴의 권장 섹션을 숨겨 최근 파일과 앱 추천 표시를 제거합니다.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>호환성 확인 실패</value>
@@ -1863,16 +1785,10 @@
     <value>일부 설정은 현재 시스템에서 사용할 수 없습니다.</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
-    <value>WebDAV 50MB 제한 해제</value>
+    <value>WebDAV 50 MB 제한 해제</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>WebDAV 마운트에 대한 WebClient 파일 크기 제한을 50MB에서 4GB로 늘려 네트워크 위치의 대용량 파일 전송 실패를 방지합니다.</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>업데이트 일시 중지 한도 최대화</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>Windows 업데이트 일시 중지 상한을 지원되는 최대값으로 설정합니다. 이 설정을 계속 지원하는 Windows 버전에서만 적용되며, 활성화되어 있는 동안 보안 업데이트도 일시 중지됩니다.</value>
+    <value>Windows WebClient 전송 한도를 50 MB에서 4 GB로 올려 WebDAV 네트워크 드라이브의 대용량 파일 실패를 막습니다.</value>
   </data>
   <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
     <value>DLSS 오버레이 표시기</value>
@@ -2187,10 +2103,10 @@
     <value> ({0}마다 {1} 동안 반복)</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
-    <value>이미 최적 상태</value>
+    <value>이미 최적화됨</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>이 PC는 이미 이 최적화와 일치하므로 변경할 필요가 없습니다.</value>
+    <value>이 PC는 이미 목표 설정과 같아 변경할 사항이 없습니다.</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>변경할 내용이 없습니다. {0}은(는) 이미 이 PC와 일치합니다.</value>
@@ -2211,13 +2127,13 @@
     <value>Windows에서 다음 패키지를 제거하지 않았습니다: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>클릭하면 지난 적용의 각 단계를 볼 수 있습니다. {0}</value>
+    <value>클릭하여 기록된 모든 변경 내역을 확인하세요. {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>클릭하면 지난 적용의 각 단계를 볼 수 있습니다.</value>
+    <value>클릭하여 기록된 모든 변경 내역을 확인하세요.</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>단계 {0}개 변경, {1}개는 이미 일치, {2}개는 해당 없음, {3}개는 Windows가 거부</value>
+    <value>{0}개 변경, {1}개 이미 일치, {2}개 건너뜀, {3}개 Windows 거부</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>마지막으로 기록된 실행</value>
@@ -2244,58 +2160,58 @@
     <value>실패</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>이 최적화는 Windows의 보안 설정에 관한 것입니다.</value>
+    <value>Windows 보안, 격리 보호 또는 암호화 설정을 변경합니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>이 최적화는 Windows가 수집하고 보내는 데이터에 관한 것입니다.</value>
+    <value>원격 분석, 진단 정보 및 Microsoft나 앱으로 전송되는 데이터를 제한합니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>이 최적화는 Windows의 핵심 부분, 즉 구성 요소나 정책에 관한 것이므로 무엇을 하는지 먼저 확인하는 것이 좋습니다.</value>
+    <value>핵심 Windows 구성 요소나 시스템 정책을 변경하므로 적용 전 세부 정보를 확인하세요.</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>이 최적화는 성능과 백그라운드 작업에 관한 것입니다.</value>
+    <value>시스템 반응성, CPU 스케줄링 및 백그라운드 부하를 최적화합니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>이 최적화는 입력, 게임, 소리의 지연에 관한 것입니다.</value>
+    <value>입력, 오디오 및 프레임 타이밍 반응 지연을 줄입니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>이 최적화는 Windows가 디스크를 사용하는 방식에 관한 것입니다.</value>
+    <value>Windows의 드라이브 읽기, 쓰기 및 색인 동작을 변경합니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>이 최적화는 Windows가 메모리를 사용하는 방식에 관한 것입니다.</value>
+    <value>백그라운드 RAM 점유율과 메모리 사용량을 줄입니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>이 최적화는 화면이나 그래픽 카드의 출력에 관한 것입니다.</value>
+    <value>화면 출력, 주사율 동작 또는 GPU 디스플레이 기능을 조정합니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>이 최적화는 NVIDIA 그래픽 카드가 있는 PC에만 관련되며 다른 PC에는 영향이 없습니다.</value>
+    <value>NVIDIA 그래픽이 탑재된 PC에만 적용되며 다른 하드웨어는 건드리지 않습니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>이 최적화는 AMD 그래픽 카드가 있는 PC에만 관련되며 다른 PC에는 영향이 없습니다.</value>
+    <value>AMD 그래픽이 탑재된 PC에만 적용되며 다른 하드웨어는 건드리지 않습니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>이 최적화는 Intel 그래픽 카드가 있는 PC에만 관련되며 다른 PC에는 영향이 없습니다.</value>
+    <value>Intel 그래픽이 탑재된 PC에만 적용되며 다른 하드웨어는 건드리지 않습니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>이 최적화는 전원, 즉 배터리 지속 시간, 발열, 팬 소음에 관한 것입니다.</value>
+    <value>전력 사용량, 배터리 시간, 발열 및 팬 속도에 영향을 줍니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>이 최적화는 네트워크, 연결, 그리고 그 위의 트래픽에 관한 것입니다.</value>
+    <value>Windows 네트워크 어댑터, 전송 또는 백그라운드 트래픽 동작을 변경합니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>이 최적화는 무언가를 내려받아야 하므로 인터넷 연결이 필요합니다.</value>
+    <value>필요한 파일을 다운로드하려면 인터넷 연결이 필요합니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>이 최적화는 소리가 재생되고 처리되는 방식에 관한 것입니다.</value>
+    <value>Windows가 사운드를 처리하고 출력하는 방식을 조정합니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>이 최적화는 Windows의 모양, 효과, 애니메이션에 관한 것입니다.</value>
+    <value>Windows UI 요소, 추천 표시 및 시각 효과를 조정합니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>이 최적화는 Windows 10 전용이며 Windows 11에서는 아무 일도 하지 않습니다.</value>
+    <value>Windows 10 전용이며 Windows 11에서는 자동으로 숨겨집니다.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>이 최적화는 Windows 11 전용이며 Windows 10에서는 차단됩니다.</value>
+    <value>Windows 11 전용이며 Windows 10에서는 자동으로 숨겨집니다.</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>적용 시각 {0}</value>
@@ -2430,10 +2346,10 @@
     <value>값</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>기록 파일 보기</value>
+    <value>기록 파일 열기</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>이 최적화가 무엇을 했는지 optimizerDuck이 기록한 파일을 엽니다. 되돌린 뒤에도 남아 있어 나중에 확인할 수 있습니다.</value>
+    <value>optimizerDuck이 기록한 JSON 변경 로그를 표시합니다 (되돌린 후에도 유지됨).</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>레지스트리</value>
@@ -2509,5 +2425,620 @@
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>자세한 내용은 로그 파일에 있습니다.</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>Windows Copilot 비활성화</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Windows Copilot을 비활성화하고 로그아웃 후 작업 표시줄에서 Copilot 단추를 제거합니다.</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>노트북 필요</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>이 최적화는 배터리가 장착된 휴대용 기기에만 적용됩니다.</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>12 GB 이하 RAM 필요</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>12 GB 초과 RAM 시스템은 과도한 메모리 부담 없이 이미 서비스 호스트 분리의 이점을 누립니다.</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>메모리 무결성 사용 불가</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>이 기기에서 Memory Integrity (HVCI)가 감지되지 않았거나 지원되지 않습니다.</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>물리적 네트워크 어댑터 없음</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>이 시스템에서 물리적 Ethernet 또는 Wi-Fi 어댑터를 찾을 수 없습니다.</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>Windows AI 서비스 없음</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>이 Windows 빌드에는 백그라운드 Windows AI 서비스가 포함되어 있지 않습니다.</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>투명 효과</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>작업 표시줄, 시작 메뉴 및 앱 창에 Acrylic 및 Mica 반투명 효과를 적용합니다.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>작업 표시줄 애니메이션</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>창을 열거나 전환할 때 작업 표시줄 아이콘 애니메이션을 켜거나 끕니다.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>호환 GPU Driver가 하드웨어에서 화면 레이어를 직접 합성합니다. 깜빡임이나 검은 화면 오류가 있을 때만 끄세요.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>최신 GPU는 MPO로 테두리 없는 창 모드 지연 시간을 줄입니다. 화면 깜빡임이나 버그가 있을 때만 비활성화하세요.</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>서비스 시작 유형이 이미 목표보다 엄격하여 건너뛰었습니다</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>Explorer 다시 시작 필요</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>로그아웃 필요</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>다시 시작 필요</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>적용 전 옵션 구성 가능</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>Windows Group Policy 설정을 사용합니다. 활성 상태에서는 Windows 설정에 '일부 설정은 조직에서 관리합니다'가 표시될 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>외부에서 변경됨</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>백업 파일이 남아 있지만 현재 Windows 설정이 일치하지 않습니다 (예: Windows Update 또는 수동 변경).</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>옵션 다시 구성</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>세부 정보 및 기록</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>이 항목은 시스템이나 보안에 큰 영향을 줍니다. 계속하기 전에 아래 절충 사항을 확인하세요.</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>그래도 적용</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>선택 항목 적용</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>이미 적용됨</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>계속하려면 옵션을 하나 이상 선택하세요.</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>사용</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>사용 안 함</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>백업이 남아 있는 이전 최적화 항목</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>최신 업데이트에서 제거되거나 대체된 항목이지만, 원본 백업이 디스크에 안전하게 보관되어 있어 언제든 되돌릴 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>되돌리기</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>되돌릴 단계 {0}개</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>"{0}" 항목을 되돌리고 저장된 백업을 제거했습니다.</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>이전 백업 되돌리기 실패: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>트레이드오프</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>영향</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>참고 자료</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>적용된 옵션</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>설정이 외부에서 변경됨</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>백업은 남아 있지만 현재 Windows 설정이 이 최적화와 다릅니다. 스위치를 다시 켜서 재적용하거나, 남은 항목을 되돌리거나, 오래된 백업을 삭제할 수 있습니다.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>남은 항목 되돌리기</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>오래된 백업 삭제</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>다시 구성</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>표준 Windows Group Policy 설정을 적용합니다. 활성 중에는 일부 Windows 설정 페이지에 '일부 설정은 조직에서 관리합니다'가 표시될 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>AI Fabric Service 수동으로 설정</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>Windows AI Fabric 백그라운드 서비스를 수동 시작으로 전환하여 AI 기능이 요청할 때만 실행되도록 합니다.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>이 서비스에 의존하는 Windows AI 기능은 처음 실행 시 몇 초 더 걸릴 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>Microsoft Edge AI 비활성화</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>Microsoft Edge의 Copilot 사이드바, 인라인 글쓰기 프롬프트, AI 기록 검색, 로컬 AI 모델을 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>Windows Recall 타임라인 검색이 비활성화되고 저장된 모든 스냅샷이 영구 삭제됩니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>사용하지 않는 레거시 서비스 끄기</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>일반 PC에 거의 필요하지 않은 팩스, 원격 레지스트리, 소매 데모, App-V, 라우팅 및 원격 액세스 등 구형 및 기업용 서비스를 비활성화하고 오프라인 파일은 수동으로 전환합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>구형 팩스, 원격 레지스트리, 라우팅 및 원격 액세스, App-V는 되돌리기 전까지 꺼진 상태를 유지하며 오프라인 파일은 수동으로만 시작됩니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>선택적 기능 서비스 비활성화</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>인쇄, Bluetooth, Xbox, LAN 공유, 생체 인식 또는 원격 데스크톱 등 사용하지 않는 선택적 Windows 기능 서비스 그룹을 골라 끕니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>선택한 하드웨어 또는 네트워크 기능은 재구성하거나 되돌릴 때까지 사용할 수 없습니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>선택된 서비스 그룹이 없습니다</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>인쇄 및 스풀러</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>인쇄 스풀러 및 프린터 알림 백그라운드 서비스를 중지합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>로컬 프린터, 네트워크 프린터 및 Microsoft Print to PDF가 작동하지 않습니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>Windows Bluetooth 검색, 페어링 및 핸즈프리 오디오 서비스를 중지합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>Bluetooth 키보드, 마우스, 컨트롤러 및 오디오 기기가 연결되지 않습니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>Xbox Live 서비스</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>Xbox Live 로그인, 클라우드 저장 동기화, 액세서리 및 Xbox 네트워킹 서비스를 중지합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>Xbox 앱 로그인, Game Pass 클라우드 저장 및 Xbox Live 멀티플레이가 작동하지 않습니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>LAN 파일 공유 및 네트워크 검색</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>로컬 폴더 공유 및 UPnP 네트워크 장치 검색 서비스를 중지합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>LAN 폴더 공유 및 미디어 캐스팅 기기 검색이 작동하지 않습니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>Windows 생체 인식 (Windows Hello)</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>Windows 생체 인식 백그라운드 서비스를 중지합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>지문 인식기와 Windows Hello 얼굴 인식이 작동하지 않습니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>원격 데스크톱 서비스</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>원격 데스크톱 수신 연결 및 리디렉션 서비스를 중지합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>다른 PC에서 Remote Desktop (RDP)로 이 컴퓨터에 접속할 수 없습니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>Windows Search 인덱싱 끄기</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>Windows Search 색인 서비스를 중지해 백그라운드 파일 색인에 따른 디스크 쓰기와 CPU 급증을 없앱니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>Windows가 요청 시 폴더를 직접 스캔해야 하므로 파일 탐색기의 파일 내용 검색과 Outlook 즉시 검색이 느려집니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>Edge 백그라운드 및 시작 부스트 끄기</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>모든 창을 닫으면 Microsoft Edge를 완전히 종료하고 로그인 시 Startup Boost 사전 로드를 중단합니다.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>처음 Edge 창을 콜드 스타트할 때 약간 더 걸릴 수 있으며, 모든 창이 닫히면 웹 알림이 중지됩니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>유휴 상태 그래픽 어댑터와 다중 GPU 노트북이 부하 없을 때 전력을 더 소비합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>유휴 상태 GPU 전력 소모, 발열 및 팬 속도가 증가하고 노트북 배터리 수명이 줄어듭니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>GPU의 PCIe 링크가 저전력 절전 상태에 들어가지 않아 유휴 전력 소모와 배터리 소모가 증가합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>유휴 상태 GPU 전력 소비, 온도 및 팬 소음이 증가합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>NVIDIA GPU의 유휴 전력 소모가 증가합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>프레임 속도가 모니터 주사율 아래로 내려가면 간헐적 화면 끊김이나 티어링이 생길 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>수동으로 열기 전까지 Microsoft Store 앱이 메일, 알람, 실시간 알림을 백그라운드에서 동기화하지 못합니다.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>12 GB 이하 PC에서 RAM을 절약하지만, 한 서비스가 충돌하면 같은 호스트 프로세스를 공유하는 다른 서비스에도 영향을 줄 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>짧은 반복 지연 때문에 타이핑 중 키를 약간 오래 누르면 의도치 않게 글자가 중복 입력될 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>Shift를 5번 누르거나 NumLock을 길게 눌러도 접근성 창이 열리지 않으며 Windows 설정에서 직접 켤 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>탐색기 폴더 유형 자동 감지 끄기</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>폴더를 열 때마다 File Explorer가 내용을 스캔해 사진이나 음악 보기를 자동 추정하지 않도록 합니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>큰 이미지나 음악 폴더도 사용자가 직접 바꾸기 전까지 기본 자세히 보기로 열립니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>검색 WebView2 호스트 비활성화</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>Windows 11 검색이 내장 Microsoft Edge WebView2 프로세스를 실행하지 않도록 해 검색 RAM 및 CPU 사용량을 줄입니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>검색 내 웹 카드를 끄는 내부 기능 재정의를 사용하며 대규모 Windows 업데이트 후 초기화될 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>메모리 무결성 (HVCI) 비활성화</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>가상화 기반 메모리 무결성(HVCI) 검사를 꺼 게임에서 CPU 성능과 프레임 시간 일관성을 되찾습니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>악성 드라이버 및 코드 인젝션에 대한 커널 보안 보호가 약해집니다. Microsoft는 게임 외 시간에는 다시 켜길 권장합니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>네트워크 어댑터 절전 끄기</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>물리적 Ethernet 및 Wi-Fi 어댑터가 절전을 위해 꺼지는 것을 막아 유휴 연결 끊김과 절전 해제 지연을 예방합니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>유휴 상태에서 이더넷 및 Wi-Fi의 전력 소비가 늘어나 노트북 배터리 시간이 줄어듭니다.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>구성 가능한 물리적 네트워크 어댑터를 찾지 못했습니다</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>최대 절전 모드를 끄면 배터리 부족 시 RAM 자동 백업이 사라지며, 빠른 시작을 끄면 콜드 부팅이 약간 느려집니다.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>종료 및 최대 절전 모드</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>빠른 시작만 끄기 (노트북 권장)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>일반 최대 절전 모드는 유지한 채 종료 시 커널 최대 절전 스냅샷 저장만 중단합니다.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>최대 절전 및 빠른 시작 모두 끄기</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>최대 절전 모드를 완전히 끄고 최대 절전 파일을 삭제해 수 기가바이트 공간을 확보합니다.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>모던 스탠바이 네트워크 차단</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>노트북이 Modern Standby로 절전 중일 때 Wi-Fi 연결과 백그라운드 네트워크 깨우기를 끊습니다.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>절전 중에는 화면을 깨우기 전까지 메일, 업데이트, 푸시 알림이 대기합니다.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>USB 허브와 연결된 주변기기가 선택적 일시 중단으로 전환되지 않고 계속 전원을 유지하므로 노트북 배터리 수명이 약간 줄어듭니다.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>CPU 코어를 활성 상태로 유지하면 발열, 팬 소음, 전력 소모가 늘며 작업 관리자에 실제 부하보다 높은 사용률이 표시될 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>배터리 사용 중에도 백그라운드 작업이 최대 CPU 속도로 실행될 수 있어 발열과 배터리 소모가 증가합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>Microsoft 사용량 진단, Windows Insider 비행 및 맞춤형 문제 해결 피드백이 비활성화됩니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>응용 프로그램 충돌 시 Microsoft에 진단 보고서를 생성하거나 업로드하지 않습니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>Microsoft 문제 해결용 저수준 진단 추적을 비활성화하며, 일부 보안 제품이 부팅 추적 변경을 알릴 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>분실 또는 도난 시 Microsoft 계정 대시보드에서 이 PC를 원격으로 찾거나 잠글 수 없습니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>Windows Update 정책 구성</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>선택한 Windows 업데이트 그룹 정책을 적용해 자동 재부팅, 미리 보기 배포, 업데이트 연기 및 Driver 업데이트를 제어합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>업데이트를 미루거나 Driver를 제외하면 GPU·칩셋 Driver를 직접 업데이트해야 합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>선택된 Windows Update 옵션이 없습니다</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>로그인 상태에서 자동 다시 시작 방지</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>로그인한 상태에서 Windows Update가 자동으로 PC를 다시 시작하지 않도록 합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>'최신 업데이트가 제공되는 즉시 받기' 끄기</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>업데이트 확인 시 최신 미리 보기 기능 및 구성의 조기 적용을 거부합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>Windows Update에서 드라이버 업데이트 제외</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>Windows Update에서 하드웨어 드라이버 패키지를 제외합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>GPU 및 OEM 제조사에서 하드웨어 Driver를 직접 내려받아야 합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>품질 업데이트(4일) 및 기능 업데이트(365일) 연기</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>Group Policy 유예 기간을 적용해 안정화가 검증된 후 설치합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>월간 품질 패치가 4일, 연간 주요 버전 업그레이드가 1년 늦어집니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>BitLocker 자동 암호화 방지</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>새 드라이브나 Windows 재설치 시 BitLocker 장치 암호화가 자동으로 켜지지 않도록 차단합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>이미 암호화된 드라이브는 해제되지 않으며, 새 드라이브는 수동으로 BitLocker를 켜기 전까지 암호화되지 않습니다.</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>성능 향상</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>성능에 영향 가능</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>지연 시간 감소</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>지연 시간 증가 가능</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>RAM 사용 감소</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>RAM 사용 증가</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>디스크 공간 절약</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>디스크 공간 더 사용</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>전력 소모 감소</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>전력 소모 증가</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>개인정보 보호 강화</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>개인정보 보호 약화</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>보안 강화</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>보안 수준 저하</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>네트워크 개선</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>네트워크 제한</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>안정성 향상</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>안정성에 영향 가능</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>UI 정돈</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>UI 요소 추가</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>더 많은 기능</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>일부 기능 비활성화</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>{0} 시작 유형을 {1}(으)로 설정 중...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>Microsoft Edge의 Copilot 사이드바, AI 작성 도우미, AI 검색 기록 기능이 비활성화됩니다.</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>이전 백업</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>이전 백업 {0}개 발견됨</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>백업 제거</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>Windows 설정을 변경하지 않고 저장된 백업 기록만 삭제</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>Windows 설정을 바꾸지 않고 저장된 백업을 삭제할까요? 삭제 후에는 optimizerDuck에서 이 변경 사항을 되돌릴 수 없습니다.</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>탐색기에서 백업 파일 보기</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>적용 시각: {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>남은 이전 백업 없음</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>모든 이전 최적화 백업이 복원되었거나 정리되었습니다.</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>최적화 되돌리기</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>모든 옵션이 꺼져 있습니다. 확인하면 이 최적화가 이전 상태로 되돌려집니다.</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>시스템이 이미 이 옵션과 일치하므로 변경할 필요가 없습니다.</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>여기의 모든 옵션이 시스템에 이미 구성되어 있어 변경할 항목이 없습니다.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>Windows 그림판 AI 비활성화</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>Windows 그림판의 Cocreator, 생성형 채우기, Image Creator, 생성형 지우기 및 AI 배경 제거 정책을 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>Windows 그림판 도구 모음에서 AI 이미지 생성 및 편집 도구가 제거됩니다.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>Windows 메모장 AI 비활성화</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>정책을 통해 Windows 메모장 내부의 AI 텍스트 다시 쓰기 및 요약 기능을 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>Windows 메모장에서 AI 다시 쓰기 및 요약 작업을 사용할 수 없게 됩니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>프로그램 호환성 도우미 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>백그라운드에서 앱 실행과 구형 설치 프로그램을 감시하는 Windows 프로그램 호환성 도우미 서비스를 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>구형 프로그램 및 설치 관리자에 대한 자동 호환성 경고와 호환성 쉼 적용이 비활성화됩니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>수동 입력 및 입력 개인 설정 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>입력 개인 설정을 위해 손글씨, 타이핑 패턴, 로컬 연락처 및 사용자 언어 기본 설정을 수집하지 않도록 중지합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>사용자 지정 손글씨 인식, 연락처 기반 자동 고침 및 로컬 타이핑 사전 학습 업데이트가 중단됩니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>위치 추적 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>Windows 위치 서비스, 앱 위치 액세스 권한, 오프라인 지도 자동 업데이트 및 Wi-Fi 핫스팟 보고를 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>활성 상태에서는 날씨, 지도 및 시스템 위치를 사용하는 앱이 현재 위치를 확인할 수 없습니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>하드웨어 동작 및 조도 센서 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>그룹 정책으로 앱과 Windows가 동작, 방향 및 주변 조도 센서를 읽지 못하도록 차단합니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>노트북 자동 밝기 조절과 2-in-1 기기의 화면 자동 회전 기능이 작동하지 않습니다.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>시작 프로그램 지연 제거</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>로그인 후 탐색기의 기본 지연 시간과 CPU 유휴 대기를 제거하여 시작 프로그램이 즉시 실행되도록 합니다.</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>메뉴 호버 지연 제거</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>Windows 계단식 메뉴의 호버 지연을 0으로 설정하여 마우스를 올리면 하위 메뉴가 즉시 열리게 합니다.</value>
   </data>
 </root>

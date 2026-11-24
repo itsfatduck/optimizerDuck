@@ -134,10 +134,7 @@
   </data>
 
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>Desactiva la función de IA Windows Recall, que captura e indexa instantáneas de la pantalla. También elimina el componente Recall y borra las instantáneas guardadas anteriormente; es necesario reiniciar para que surta efecto.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Desactiva el feed de Noticias e intereses y oculta su botón de la barra de tareas (Windows 10) y deshabilita el panel de Widgets (Windows 11).</value>
+    <value>Desactiva las capturas de Windows Recall por directiva de grupo, borra las guardadas y bloquea su habilitación tras reiniciar.</value>
   </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
 
@@ -416,7 +413,7 @@
 
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
 
-    <value>Eleva el umbral de división del host de servicios al total de RAM del sistema, manteniendo los servicios consolidados en menos procesos para reducir el uso de memoria y el número de procesos.</value>
+    <value>Eleva el umbral de división de Service Host hasta tu RAM instalada en equipos con 12 GB o menos, agrupando servicios en procesos compartidos para ahorrar memoria.</value>
 
   </data>
 
@@ -459,7 +456,7 @@
 
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
 
-    <value>Se requeire una conexión de red</value>
+    <value>Requiere Internet</value>
 
   </data>
 
@@ -504,7 +501,7 @@
 
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
 
-    <value>Energia</value>
+    <value>Energía</value>
 
   </data>
 
@@ -523,7 +520,7 @@
 
   <data name="Optimization.Revert.Success" xml:space="preserve">
 
-    <value>Reversion exitosa {0}!</value>
+    <value>Se revirtió {0}.</value>
 
   </data>
 
@@ -654,7 +651,7 @@
 
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
 
-    <value>Archivo de reversión</value>
+    <value>Abrir copia de reversión</value>
 
   </data>
 
@@ -817,7 +814,7 @@
 
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
 
-      <value>No se pudo aplicar correctamente la optimización</value>
+      <value>No se pudieron aplicar todos los cambios</value>
 
     </data>
 
@@ -964,7 +961,7 @@
 
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
 
-    <value>Evita que las aplicaciones inactivas se ejecuten en segundo plano para liberar RAM y reducir el consumo de CPU.</value>
+    <value>Impide que las apps de Microsoft Store ejecuten tareas en segundo plano, reduciendo RAM en reposo y activaciones de CPU.</value>
 
   </data>
 
@@ -980,29 +977,9 @@
 
   </data>
 
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
 
-    <value>Priorizar aplicaciones activas</value>
 
-  </data>
 
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-
-    <value>Asigna más recursos de CPU a la aplicación que estás usando actualmente para una experiencia más rápida y con mayor respuesta.</value>
-
-  </data>
-
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-
-    <value>Optimizar programador multimedia</value>
-
-  </data>
-
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-
-    <value>Configura el Servicio del Programador de clases multimedia (MMCSS) para juegos y baja latencia, priorizando las tareas multimedia y desactivando la limitación de red.</value>
-
-  </data>
 
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
 
@@ -1012,7 +989,7 @@
 
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
 
-    <value>Establece el menor retraso y la mayor velocidad de repetición del teclado para una escritura más rápida y una respuesta mejorada al mantener teclas presionadas.</value>
+    <value>Ajusta el retardo de repetición del teclado al mínimo y la velocidad de repetición al máximo para una respuesta más rápida al mantener teclas.</value>
 
   </data>
 
@@ -1024,7 +1001,7 @@
 
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva las teclas especiales, teclas filtro y teclas de alternancia para evitar ventanas emergentes accidentales durante juegos y escritura.</value>
+    <value>Desactiva los atajos de teclado que muestran avisos de Teclas especiales, Filtro y Alternancia al pulsar o mantener Shift o teclas de bloqueo.</value>
 
   </data>
 
@@ -1036,7 +1013,7 @@
 
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva la hibernación y el Inicio Rápido para liberar espacio en disco y asegurar un apagado completo, logrando una inicialización más limpia del hardware al arrancar.</value>
+    <value>Desactiva solo el Inicio rápido para arranques en frío limpios o deshabilita la Hibernación por completo para recuperar varios gigabytes de disco.</value>
 
   </data>
 
@@ -1048,7 +1025,7 @@
 
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
 
-    <value>Evita que Windows apague los puertos USB, eliminando los retrasos de encendido para ratones, teclados y otros periféricos.</value>
+    <value>Impide que Windows suspenda concentradores raíz USB y periféricos, eliminando retrasos al despertar ratones, teclados o interfaces de audio.</value>
 
   </data>
 
@@ -1060,13 +1037,13 @@
 
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
 
-    <value>Instala un plan de energía personalizado centrado en el rendimiento para asegurar que el sistema funcione siempre a máxima velocidad. Advertencia: Puede provocar que el Administrador de tareas muestre incorrectamente un 100% de uso de CPU en algunos sistemas, la carga real de CPU no se ve afectada.</value>
+    <value>Instala y activa un plan de energía de alto rendimiento que mantiene activos los núcleos de CPU y reduce latencias de frecuencia.</value>
 
   </data>
 
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
 
-    <value>Importando y activando el plan de energía...</value>
+    <value>Instalando y activando plan de energía...</value>
 
   </data>
 
@@ -1078,7 +1055,7 @@
 
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
 
-    <value>Evita que Windows limite el rendimiento de la CPU (Power Throttling) para mantener la máxima potencia en las tareas activas.</value>
+    <value>Desactiva Windows Power Throttling para que las apps activas y en segundo plano funcionen sin limitación de frecuencia de CPU.</value>
 
   </data>
 
@@ -1090,27 +1067,12 @@
 
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva los servicios de telemetría y rastreo de uso de Windows para mejorar tu privacidad y reducir la actividad en segundo plano.</value>
+    <value>Reduce al mínimo la telemetría diagnóstica de Windows, inventarios de compatibilidad y avisos de comentarios.</value>
 
   </data>
 
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
 
-    <value>Aplicando políticas y cambios en el registro...</value>
 
-  </data>
-
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-
-    <value>Desactivando servicios de telemetría...</value>
-
-  </data>
-
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-
-    <value>Desactivando tareas programadas de telemetría...</value>
-
-  </data>
 
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
 
@@ -1120,7 +1082,7 @@
 
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva los servicios de Informe de Errores de Windows y el Asistente de Compatibilidad de Programas.</value>
+    <value>Desactiva el Informe de errores de Windows y detiene las tareas programadas que recopilan o envían informes de fallos y disco.</value>
 
   </data>
 
@@ -1132,7 +1094,7 @@
 
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva los anuncios personalizados, funciones para consumidores y sugerencias del sistema.</value>
+    <value>Desactiva el ID de publicidad de Windows, las experiencias personalizadas con datos de diagnóstico, promociones y sugerencias de configuración.</value>
 
   </data>
 
@@ -1144,19 +1106,7 @@
 
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
 
-    <value>Evita que Windows recopile y sincronice tu historial de actividad.</value>
-
-  </data>
-
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-
-    <value>Desactivar Ubicación y Sensores</value>
-
-  </data>
-
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-
-    <value>Desactiva el rastreo de ubicación, los sensores del sistema y las actualizaciones de mapas sin conexión.</value>
+    <value>Impide que Windows publique y envíe tu historial de actividad de aplicaciones y archivos a Microsoft.</value>
 
   </data>
 
@@ -1168,7 +1118,7 @@
 
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
 
-    <value>Impide que las sesiones WMI/ETW AutoLogger no esenciales (Diagtrack-Listener, SQMLogger, etc.) se inicien al arrancar para reducir la actividad de disco y CPU en segundo plano. Nota: el software de seguridad puede marcar los cambios de AutoLogger, ya que alteran el seguimiento de diagnóstico.</value>
+    <value>Desactiva sesiones de registro diagnóstico ETW de Windows no esenciales al arrancar para reducir escrituras en disco y carga de CPU.</value>
 
   </data>
 
@@ -1180,31 +1130,21 @@
 
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva el asistente de voz Cortana y deshabilita la búsqueda en la nube y los resultados web en la búsqueda de Windows (solo Windows 10).</value>
+    <value>Apaga Cortana y evita que la búsqueda de Windows 10 envíe consultas locales a la búsqueda en la nube.</value>
 
   </data>
 
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
 
-    <value>Desactivar Windows Copilot</value>
-
-  </data>
-
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-
-    <value>Elimina el asistente de IA Copilot de la barra de tareas y el sistema para liberar memoria y espacio en pantalla.</value>
-
-  </data>
 
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
 
-    <value>Desactivar Entrega de Contenido en la Nube</value>
+    <value>Desactivar contenido en la nube en segundo plano</value>
 
   </data>
 
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva el contenido distribuido por la nube de Windows, incluyendo consejos del sistema, sugerencias y descargas automáticas.</value>
+    <value>Impide que Windows descargue sugerencias de Spotlight en pantalla de bloqueo, consejos y promociones en segundo plano.</value>
 
   </data>
 
@@ -1216,27 +1156,12 @@
 
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
 
-    <value>Evita que Windows vuelva a instalar automáticamente aplicaciones no deseadas y software promocionado.</value>
+    <value>Evita que Windows descargue e instale en silencio aplicaciones promocionales de consumo en el menú Inicio.</value>
 
   </data>
 
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
 
-    <value>Optimizar Servicios del Sistema</value>
 
-  </data>
-
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-
-    <value>Ajusta los servicios en segundo plano no esenciales para liberar recursos, manteniendo la funcionalidad de Windows intacta.</value>
-
-  </data>
-
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-
-    <value>Configurando tipo de inicio de {0} a {1}...</value>
-
-  </data>
 
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
 
@@ -1264,29 +1189,7 @@
 
   </data>
 
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
 
-    <value>Acelerar Explorador y Menús</value>
-
-  </data>
-
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-
-    <value>Establece los retrasos de inicio y de menú en 0 para eliminar los tiempos de espera del Explorador y reducir la latencia de los menús al mínimo.</value>
-
-  </data>
-
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-
-    <value>Desactivar Efectos Visuales</value>
-
-  </data>
-
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-
-    <value>Desactiva las animaciones de la barra de tareas, sombras de listas y transparencia para liberar recursos de CPU/GPU.</value>
-
-  </data>
 
 <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
 
@@ -1296,7 +1199,7 @@
 
 <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
 
-    <value>Evita los retrasos al despertar del Estado de Ultra Bajo Consumo (ULPS) y problemas con múltiples monitores. Reduce el ahorro de energía en inactividad.</value>
+    <value>Desactiva el estado de consumo ultrabajo (ULPS) en GPU AMD para evitar tirones al despertar la GPU secundaria y parpadeos en varios monitores.</value>
 
   </data>
 
@@ -1308,21 +1211,11 @@
 
 <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
 
-    <value>Evita las transiciones de estado de energía en la GPU AMD, manteniendo frecuencias consistentes a costa de un mayor consumo.</value>
+    <value>Desactiva el power gating de GPU AMD y la escala dinámica para mantener los motores gráficos alimentados entre ráfagas.</value>
 
   </data>
 
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
 
-    <value>Desactivar Control de Reloj de Video AMD</value>
-
-  </data>
-
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-
-    <value>Desactiva el control de energía de los motores de video AMD (VCE/UVD) para mejorar la estabilidad de codificación/decodificación.</value>
-
-  </data>
 
 <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
 
@@ -1332,7 +1225,7 @@
 
 <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva el Active State Power Management (ASPM) en GPUs AMD, reduciendo la latencia del bus PCIe.</value>
+    <value>Desactiva PCIe Active State Power Management (L0s y L1) en GPU AMD para eliminar latencia de reactivación del enlace PCIe.</value>
 
   </data>
 
@@ -1344,7 +1237,7 @@
 
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
 
-    <value>Bloquea la GPU NVIDIA en un estado de rendimiento fijo, evitando fluctuaciones de frecuencia. Aumenta el consumo inactivo.</value>
+    <value>Evita que las GPU NVIDIA bajen a estados P-state dinámicos de bajo consumo, evitando caídas de frecuencia en cargas breves o ligeras.</value>
 
   </data>
 
@@ -1356,21 +1249,11 @@
 
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
 
-    <value>Previene el cambio asíncrono de estado de energía, proporcionando un rendimiento determinista en aplicaciones en tiempo real y RV.</value>
+    <value>Impide que los controladores NVIDIA cambien estados de rendimiento de forma asíncrona para estabilizar el frame pacing.</value>
 
   </data>
 
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
 
-    <value>Desactivar Volteos Asíncronos Intel</value>
-
-  </data>
-
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-
-    <value>Fuerza volteos de búfer síncronos en la iGPU de Intel, reduciendo el desgarro de pantalla (tearing) y la latencia.</value>
-
-  </data>
 
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
 
@@ -1380,7 +1263,7 @@
 
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva el V-Sync adaptativo de Intel para usar V-Sync fijo, asegurando una tasa de fotogramas estable.</value>
+    <value>Desactiva Adaptive V-Sync del controlador Intel para seguir la sincronización fija o controlada por cada aplicación.</value>
 
   </data>
 
@@ -2395,38 +2278,38 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
 
-    <value>Abre el archivo JSON con los datos de reversión para esta optimización.</value>
+    <value>Muestra la copia JSON usada para restaurar la configuración anterior al revertir.</value>
 
   </data>
 
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
 
-    <value>Mira el código fuente de esta optimización en tu navegador.</value>
+    <value>Inspecciona la implementación en C# de esta optimización en GitHub.</value>
 
   </data>
 
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
 
-    <value>Ver en GitHub</value>
+    <value>Ver código fuente</value>
 
   </data>
 
 
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
 
-    <value>Detalles Técnicos</value>
+    <value>Detalles técnicos</value>
 
   </data>
 
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
 
-    <value>ID de Optimización</value>
+    <value>ID de optimización</value>
 
   </data>
 
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
 
-    <value>Clase</value>
+    <value>Clave de clase</value>
 
   </data>
 
@@ -3339,17 +3222,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   </data>
   
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
 
-    <value>Desactivar búsqueda web en el menú Inicio</value>
-
-  </data>
-
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-
-    <value>Desactiva la búsqueda web en el menú Inicio de Windows para cargar más rápido los resultados de búsqueda locales.</value>
-
-  </data>
 
   <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
     <value>Los archivos se eliminarán permanentemente. Esta acción no se puede deshacer.</value>
@@ -3393,11 +3266,6 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   </data>
 
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-
-    <value>Desactivar Noticias e intereses</value>
-
-  </data>
 
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
 
@@ -3407,7 +3275,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
 
-    <value>Oculta el botón Meet Now (Skype) del área de notificación de la barra de tareas. Solo Windows 10.</value>
+    <value>Oculta el botón Meet Now del área de notificaciones en la barra de tareas de Windows 10.</value>
 
   </data>
 
@@ -3437,7 +3305,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva la superposición Click To Do con IA que analiza texto e imágenes en pantalla.</value>
+    <value>Desactiva la superposición Click To Do que analiza texto e imágenes en pantalla para sugerir acciones con IA.</value>
 
   </data>
 
@@ -3449,13 +3317,13 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
 
-    <value>Desactivar Optimización de entrega (P2P)</value>
+    <value>Desactivar Delivery Optimization (P2P)</value>
 
   </data>
 
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
 
-    <value>Impide que Windows comparta o descargue archivos de actualización desde otros PC mediante P2P, para que las actualizaciones solo lleguen de los servidores de Microsoft.</value>
+    <value>Detiene el intercambio P2P de actualizaciones entre equipos para descargar solo desde los servidores de Microsoft.</value>
 
   </data>
 
@@ -3467,7 +3335,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
 
-    <value>Desactiva la función Buscar mi dispositivo, que informa periódicamente de la ubicación de tu dispositivo a Microsoft.</value>
+    <value>Desactiva Buscar mi dispositivo para que el equipo deje de enviar su ubicación periódicamente a tu cuenta de Microsoft.</value>
 
   </data>
 
@@ -3479,7 +3347,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
 
-    <value>Elimina el contenido promocional de Microsoft 365 y Copilot de la página de inicio de Configuración.</value>
+    <value>Quita los avisos promocionales de Microsoft 365 y de cuenta en la página de Inicio de Configuración de Windows.</value>
 
   </data>
 
@@ -3491,7 +3359,7 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
 
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
 
-    <value>Oculta la sección Recomendados del menú Inicio para dejar el menú más limpio y evitar que se muestren archivos y aplicaciones recientes.</value>
+    <value>Oculta la sección Recomendado del menú Inicio en Windows 11 para eliminar archivos recientes y sugerencias de aplicaciones.</value>
 
   </data>
 
@@ -3677,16 +3545,10 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
   </data>
 
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
-    <value>Quitar límite de 50 MB de WebDAV</value>
+    <value>Quitar límite de 50 MB en WebDAV</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>Aumenta el límite de tamaño de archivo de WebClient para montajes WebDAV de 50 MB a 4 GB para que los archivos grandes no fallen en ubicaciones de red.</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>Maximizar límite de pausa de actualizaciones</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>Establece el límite máximo de pausa de Windows Update al valor más alto admitido. Solo se aplica en versiones de Windows compatibles; las actualizaciones de seguridad permanecerán pausadas mientras esté activo.</value>
+    <value>Sube el límite de transferencia de Windows WebClient de 50 MB a 4 GB para que archivos grandes no fallen en unidades WebDAV.</value>
   </data>
   <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
     <value>Indicador superpuesto de DLSS</value>
@@ -4001,10 +3863,10 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value> (repetir cada {0} durante {1})</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
-    <value>Ya está optimizado</value>
+    <value>Ya optimizado</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>Este equipo ya cumple con esta optimización, así que no hay nada que cambiar.</value>
+    <value>Tu PC ya tiene esta configuración aplicada, así que no hay nada que cambiar.</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>Nada que cambiar: {0} ya cumple con este equipo.</value>
@@ -4025,13 +3887,13 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>Windows no eliminó estos paquetes: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>Haz clic para ver cada paso de la última aplicación. {0}</value>
+    <value>Haz clic para ver cada cambio registrado. {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>Haz clic para ver cada paso de la última aplicación.</value>
+    <value>Haz clic para ver cada cambio registrado.</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} pasos cambiados, {1} ya eran correctos, {2} no se aplicaban, {3} fueron rechazados por Windows</value>
+    <value>{0} cambiados, {1} ya óptimos, {2} omitidos, {3} bloqueados por Windows</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>Última ejecución registrada</value>
@@ -4058,58 +3920,58 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>Error</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata de la configuración de seguridad de Windows.</value>
+    <value>Modifica opciones de seguridad, aislamiento o cifrado en Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata de los datos que Windows recopila y envía.</value>
+    <value>Limita telemetría, diagnósticos y datos compartidos con Microsoft o aplicaciones.</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>Esta optimización toca una parte central de Windows, un componente o una directiva, así que conviene leer antes qué hace.</value>
+    <value>Cambia componentes centrales o directivas de Windows; revisa los detalles antes de aplicar.</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata del rendimiento y del trabajo en segundo plano.</value>
+    <value>Mejora la capacidad de respuesta del sistema, planificación de CPU o carga en segundo plano.</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata del retardo en la entrada, los juegos o el sonido.</value>
+    <value>Reduce retrasos de respuesta en entrada, audio o ritmo de fotogramas.</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata de cómo Windows usa tus discos.</value>
+    <value>Cambia cómo Windows lee, escribe o indexa las unidades de disco.</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata de cómo Windows usa la memoria.</value>
+    <value>Reduce el uso de RAM en segundo plano y sobrecarga de memoria.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata de lo que emiten la pantalla o la tarjeta gráfica.</value>
+    <value>Ajusta la salida de pantalla, frecuencia de actualización o funciones visuales de GPU.</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>Esta optimización solo afecta a equipos con tarjeta gráfica NVIDIA y no hace nada en otros.</value>
+    <value>Solo aplica a PC con gráficos NVIDIA; se ignora en otro hardware.</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>Esta optimización solo afecta a equipos con tarjeta gráfica AMD y no hace nada en otros.</value>
+    <value>Solo aplica a PC con gráficos AMD; se ignora en otro hardware.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>Esta optimización solo afecta a equipos con tarjeta gráfica Intel y no hace nada en otros.</value>
+    <value>Solo aplica a PC con gráficos Intel; se ignora en otro hardware.</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata de la energía: autonomía, calor o ruido del ventilador.</value>
+    <value>Influye en el consumo eléctrico, duración de batería, calor y ventiladores.</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata de la red, la conexión y el tráfico que pasa por ella.</value>
+    <value>Modifica el adaptador de red, transferencias o tráfico en segundo plano.</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>Esta optimización necesita internet, porque descarga algo.</value>
+    <value>Requiere conexión a Internet activa para descargar archivos necesarios.</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata de cómo se reproduce y se procesa el sonido.</value>
+    <value>Ajusta cómo Windows procesa y dirige el audio.</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>Esta optimización trata del aspecto de Windows, sus efectos y sus animaciones.</value>
+    <value>Ajusta elementos de la interfaz, promociones o efectos visuales de Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>Esta optimización es solo para Windows 10 y no hace nada en Windows 11.</value>
+    <value>Diseñado para Windows 10; se oculta por compatibilidad en Windows 11.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>Esta optimización es solo para Windows 11 y se bloquea en Windows 10.</value>
+    <value>Diseñado para Windows 11; se oculta por compatibilidad en Windows 10.</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>Aplicado el {0}</value>
@@ -4244,10 +4106,10 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
     <value>Valor</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>Mostrar el archivo del registro</value>
+    <value>Abrir registro histórico</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>Abre el archivo donde optimizerDuck anota lo que hizo esta optimización. Se conserva tras revertir, así que puedes consultarlo después.</value>
+    <value>Muestra el archivo JSON con los cambios registrados por optimizerDuck (se conserva tras revertir).</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>Registro</value>
@@ -4323,5 +4185,620 @@ Actualiza ahora para disfrutar de las nuevas funciones y mejoras.</value>
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>Los detalles están en el archivo de registro.</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>Desactivar Windows Copilot</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Deshabilita Windows Copilot y quita el botón de Copilot de la barra de tareas tras cerrar sesión.</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>Se requiere un portátil</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>Esta optimización solo se aplica a dispositivos portátiles con batería.</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>Se requiere 12 GB de RAM o menos</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>Equipos con más de 12 GB ya aprovechan la separación de Service Host sin consumo excesivo.</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>Integridad de memoria no disponible</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>No se detectó o no es compatible Memory Integrity (HVCI) en este equipo.</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>No se hallaron adaptadores de red físicos</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>No se detectó ningún adaptador físico Ethernet o Wi-Fi en este equipo.</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>Servicio Windows AI no encontrado</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>Esta compilación de Windows no incluye el servicio de Windows AI en segundo plano.</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>Efectos de transparencia</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>Activa transparencias Acrylic y Mica en barra de tareas, menú Inicio y ventanas.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>Animaciones de la barra de tareas</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>Anima los iconos de la barra de tareas al abrir o cambiar de ventana.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>Permite al Driver GPU componer capas en hardware. Desactívalo solo si ves parpadeos o pantallas negras.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>Las GPUs actuales manejan bien MPO con menor latencia; desactívalo solo ante parpadeos o fallos multimonitor.</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>Omitido porque el tipo de inicio del servicio ya es más estricto que el objetivo</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>Requiere reiniciar Explorer</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>Requiere cerrar sesión</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>Requiere reiniciar</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>Opciones configurables antes de aplicar</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>Usa directivas de Windows Group Policy. Configuración de Windows puede mostrar 'Algunas opciones están administradas por tu organización' mientras esté activo.</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>Cambiado externamente</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>Existe una copia de seguridad, pero la configuración actual de Windows ya no coincide (por ejemplo tras una actualización de Windows o un cambio manual).</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>Reconfigurar opciones</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>Detalles e historial</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>Este ajuste realiza cambios profundos en el sistema o la seguridad. Revisa las implicaciones antes de continuar.</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>Aplicar de todos modos</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>Aplicar selección</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>Ya aplicado</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>Selecciona al menos una opción para continuar.</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>Activado</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>Desactivado</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>Optimizaciones retiradas con copia de seguridad</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>Estas optimizaciones se eliminaron o sustituyeron en una actualización reciente, pero tu copia de seguridad original sigue guardada en disco para restaurarla cuando quieras.</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>Revertir</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>{0} paso(s) por revertir</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>Se revirtió "{0}" y se eliminó su copia de seguridad.</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>No se pudo revertir la copia antigua: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>Contrapartida</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>Impactos</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>Referencias</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>Opciones aplicadas</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>Ajustes modificados externamente</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>La configuración actual de Windows ya no coincide con esta optimización mientras queda una copia en disco. Actívala de nuevo, revierte lo que quede o descarta la copia obsoleta.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>Revertir lo restante</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>Descartar copia obsoleta</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>Reconfigurar</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>Aplica valores estándar de Windows Group Policy. Algunas páginas de Configuración pueden mostrar 'Algunas opciones están administradas por tu organización' mientras esté activo.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>Poner AI Fabric Service en Manual</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>Cambia el servicio en segundo plano Windows AI Fabric a inicio manual para que permanezca inactivo hasta que una función de IA lo solicite.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>Las herramientas de IA de Windows que usan este servicio pueden tardar unos segundos más al abrirse por primera vez.</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>Desactivar AI en Microsoft Edge</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>Desactiva la barra lateral de Copilot, redacción integrada, búsqueda con IA en el historial y modelos locales en Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>Desactiva la búsqueda en línea de tiempo de Windows Recall y elimina de forma permanente las capturas guardadas.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>Desactivar servicios antiguos sin uso</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>Desactiva servicios heredados y empresariales poco usados en PC domésticos como Fax, Registro remoto, Retail Demo, App-V y Enrutamiento y acceso remoto, y deja Archivos sin conexión en manual.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>Fax clásico, Registro remoto, Enrutamiento y acceso remoto y App-V permanecerán apagados hasta revertir; Archivos sin conexión solo inicia manualmente.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>Desactivar servicios de funciones opcionales</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>Desactiva grupos de servicios opcionales de Windows que no necesites, como Impresión, Bluetooth, Xbox, Uso compartido LAN, Biometría o Escritorio remoto.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>Solo las funciones de hardware o red que elijas dejarán de funcionar hasta reconfigurar o revertir este ajuste.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>No se seleccionó ningún grupo de servicios</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>Impresión y Cola de impresión</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>Detiene los servicios de cola de impresión y notificaciones de impresora en segundo plano.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>Las impresoras locales, de red y Microsoft Print to PDF dejarán de funcionar.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>Detiene los servicios de detección, emparejamiento y audio manos libres de Bluetooth.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>Teclados, ratones, mandos y auriculares Bluetooth no se conectarán.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>Servicios de Xbox Live</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>Detiene los servicios de inicio de sesión de Xbox Live, guardado en la nube, accesorios y red Xbox.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>El inicio de sesión de Xbox, las partidas en la nube de Game Pass y el multijugador Xbox Live dejarán de funcionar.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>Uso compartido LAN y detección</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>Detiene los servicios de carpetas compartidas locales y detección de dispositivos UPnP.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>Dejará de funcionar compartir carpetas por LAN y descubrir dispositivos multimedia.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>Biometría de Windows Hello</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>Detiene el servicio biométrico en segundo plano de Windows.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>Los lectores de huellas y reconocimiento facial dejarán de funcionar.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>Servicios de Escritorio remoto</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>Detiene los servicios de conexiones entrantes y redirección de Escritorio remoto.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>Otros PCs no podrán conectarse por Remote Desktop (RDP) a este equipo.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>Desactivar indexación de Windows Search</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>Detiene el servicio de indexación de Windows Search para eliminar escrituras de disco y picos de CPU por indexar archivos.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>Buscar dentro del contenido de los archivos en el Explorador y la búsqueda instantánea de Outlook irán más lentos al escanear carpetas bajo demanda.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>Desactivar Edge en segundo plano</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>Cierra Microsoft Edge por completo al cerrar sus ventanas e impide que Inicio rápido lo precargue al iniciar sesión.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>Abrir la primera ventana de Edge en frío tarda un momento más y las notificaciones web se pausan al cerrar todas las ventanas.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>Las GPU en reposo y portátiles multi-GPU consumen más energía cuando no están bajo carga.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>Aumenta el consumo de energía en reposo, el calor y el ruido de los ventiladores de la GPU, reduciendo la batería en portátiles.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>Evita que el enlace PCIe de la GPU entre en estados de reposo de bajo consumo, elevando el gasto eléctrico y de batería en reposo.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>Aumenta el consumo en reposo, la temperatura de la GPU y el ruido del ventilador.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>Eleva el consumo energético en reposo en GPU NVIDIA.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>Los juegos que caigan por debajo de la frecuencia del monitor pueden mostrar tirones breves o screen tearing.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>Las apps de Microsoft Store no sincronizarán correo, alarmas ni notificaciones en segundo plano hasta que las abras manualmente.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>Ahorra RAM en PC con 12 GB o menos, aunque el fallo de un servicio puede afectar a otros en el mismo proceso host.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>Un retardo corto puede provocar letras repetidas por error si mantienes ligeramente pulsada una tecla al escribir.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>Pulsar Shift cinco veces o mantener NumLock ya no abrirá avisos de accesibilidad; siguen disponibles en Configuración de Windows.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>Desactivar autodetección de carpetas</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>Evita que File Explorer escanee el contenido de cada carpeta para adivinar vistas de Imágenes o Música al abrirla.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>Las carpetas grandes de imágenes o música mostrarán la vista Detalles estándar hasta que configures una vista manual.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>Desactivar Search WebView2 Host</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>Impide que la búsqueda de Windows 11 abra procesos integrados de Microsoft Edge WebView2, reduciendo el uso de RAM y CPU.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>Usa una anulación interna de Windows que desactiva tarjetas web enriquecidas y puede restablecerse tras actualizaciones grandes.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>Desactivar Integridad de memoria (HVCI)</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>Desactiva la seguridad de virtualización Memory Integrity (HVCI) para recuperar rendimiento de CPU y estabilidad de fotogramas en juegos.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>Reduce la protección del kernel frente a controladores maliciosos e inyección de código. Microsoft recomienda reactivarlo fuera de juegos.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>Desactivar ahorro de energía de red</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Evita que Windows apague adaptadores físicos Ethernet y Wi-Fi para ahorrar energía, previniendo cortes en reposo y latencia.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>Aumenta el consumo en reposo de los adaptadores Ethernet y Wi-Fi, reduciendo la autonomía en portátiles.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>No se encontraron adaptadores de red físicos configurables</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>Desactivar la hibernación quita el volcado automático de RAM ante batería crítica; desactivar Fast Startup alarga un poco el arranque en frío.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>Modo de apagado e hibernación</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>Solo desactivar Fast Startup (Recomendado en portátiles)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>Impide guardar la imagen de hibernación del kernel al apagar manteniendo intacta la hibernación normal.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>Desactivar Hibernación y Fast Startup</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>Desactiva la hibernación por completo y elimina el archivo de hibernación para recuperar varios gigabytes.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>Desactivar red en Modern Standby</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>Desconecta el Wi-Fi y detiene activaciones de red en segundo plano mientras el portátil duerme en Modern Standby.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>En suspensión, el correo, las actualizaciones y notificaciones esperarán hasta que despiertes la pantalla.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>Los concentradores y dispositivos USB siguen recibiendo energía en vez de usar suspensión selectiva, reduciendo levemente la batería.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>Mantener núcleos de CPU sin estacionar aumenta calor, ruido de ventiladores y consumo; el Administrador de tareas puede mostrar mayor uso en reposo.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>Las tareas en segundo plano pueden usar toda la velocidad de la CPU incluso con batería, aumentando el calor y el consumo.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>Desactiva el diagnóstico de uso de Microsoft, Windows Insider y sugerencias de solución de problemas.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>Los cierres inesperados de aplicaciones dejarán de generar o enviar informes de diagnóstico a Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>Apaga registros de diagnóstico de bajo nivel para soporte de Microsoft; algunos antivirus pueden advertir de cambios en sesiones de inicio.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>No podrás localizar ni bloquear este PC de forma remota desde tu cuenta de Microsoft en caso de pérdida o robo.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>Configurar política de Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>Aplica las directivas de grupo de Windows Update seleccionadas para controlar reinicios forzados, versiones preliminares, aplazamientos y Driver.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>Diferir actualizaciones o excluir drivers requiere actualizar manualmente tus Drivers de GPU o chipset.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>No se seleccionaron opciones de Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>Evitar reinicio automático con sesión iniciada</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>Impide que Windows Update reinicie automáticamente mientras tienes la sesión abierta.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>Desactivar 'Obtén las últimas actualizaciones en cuanto estén disponibles'</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>Desactiva la inscripción temprana en despliegues preliminares al buscar actualizaciones.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>Excluir controladores de Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>Excluye paquetes de controladores de hardware en Windows Update.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>Deberás descargar e instalar controladores directamente desde el fabricante.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>Diferir calidad (4 días) y características (365 días)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>Aplica retrasos por Group Policy para esperar parches más probados.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>Retrasa los parches mensuales 4 días y las actualizaciones anuales 1 año.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>Evitar cifrado automático BitLocker</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>Evita que Windows active automáticamente el cifrado de dispositivo BitLocker en unidades nuevas o al reinstalar.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>No descifra unidades ya cifradas; las futuras unidades quedarán sin cifrar si no activas BitLocker.</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>Mayor rendimiento</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>Puede afectar el rendimiento</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>Menor latencia</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>Puede aumentar latencia</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>Menos RAM usada</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>Usa más RAM</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>Ahorra espacio</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>Usa más espacio</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>Menor consumo eléctrico</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>Mayor consumo</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>Más privacidad</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>Reduce privacidad</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>Mayor seguridad</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>Reduce seguridad</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>Mejor red</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>Restringe la red</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>Más estabilidad</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>Puede afectar estabilidad</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>Menos ruido visual</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>Añade elementos de UI</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>Más funciones</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>Desactiva funciones</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>Cambiando inicio de {0} a {1}...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>La barra lateral de Copilot, la ayuda de redacción con IA y la búsqueda por historial con IA dejarán de estar disponibles en Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>Copias antiguas</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>{0} copia(s) de seguridad antigua(s)</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>Eliminar copia</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>Eliminar esta copia guardada sin cambiar la configuración de Windows</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>¿Eliminar esta copia de seguridad sin cambiar Windows? Ya no podrás revertir estos cambios antiguos desde optimizerDuck.</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>Mostrar archivo de respaldo en el Explorador</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>Aplicado el {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>No quedan copias antiguas</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>Todas las copias de seguridad de optimizaciones retiradas han sido revertidas o eliminadas.</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>Revertir optimización</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>Todas las opciones están desactivadas. Al confirmar se revertirá esta optimización a su estado anterior.</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>Tu sistema ya coincide con esta opción, por lo que no se necesitan cambios.</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>Todas las opciones aquí ya están configuradas en tu sistema. No hace falta cambiar nada.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>Desactivar IA en Windows Paint</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>Desactiva mediante directiva Cocreator, Relleno generativo, Image Creator, Borrado generativo y eliminación de fondo con IA en Windows Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>Las herramientas de generación y edición de imágenes con IA se ocultarán de las barras de herramientas de Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>Desactivar IA en Bloc de notas de Windows</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>Desactiva mediante directiva las funciones de reescritura y resumen con IA dentro del Bloc de notas de Windows.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>Las opciones de reescritura y resumen con IA dejarán de estar disponibles en el Bloc de notas.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>Desactivar Asistente para compatibilidad de programas</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>Desactiva el servicio del Asistente para compatibilidad de programas que supervisa en segundo plano apps e instaladores antiguos.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>Se desactivan los avisos automáticos de compatibilidad y los ajustes heredados para programas antiguos.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>Desactivar personalización de escritura y lápiz</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>Impide que Windows recopile escritura a mano, patrones de tecleo, contactos locales y preferencias de idioma para personalizar la entrada.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>El reconocimiento manuscrito personalizado, la autocorrección basada en contactos y el diccionario local dejan de actualizarse.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>Desactivar rastreo de ubicación</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>Desactiva el servicio de ubicación de Windows, el permiso de ubicación en apps, las actualizaciones automáticas de Mapas sin conexión y reportes Wi-Fi.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>El Tiempo, Mapas y las aplicaciones que usan la ubicación del sistema no podrán detectar tu posición mientras esté activo.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>Desactivar sensores de movimiento y luz</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>Bloquea por directiva de grupo el acceso de las aplicaciones y Windows a sensores de movimiento, orientación y luz ambiental.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>El brillo automático en portátiles y la rotación automática en equipos 2 en 1 dejarán de funcionar mientras esté activo.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>Quitar retardo de aplicaciones al inicio</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>Elimina el retardo integrado del Explorador tras iniciar sesión y la espera de CPU inactiva para que los programas de inicio arranquen al instante.</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>Quitar retardo al abrir submenús</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>Pone a cero el retardo de apertura al pasar el cursor sobre menús de Windows para que los submenús aparezcan al instante.</value>
   </data>
 </root>

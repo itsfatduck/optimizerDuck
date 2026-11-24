@@ -251,7 +251,7 @@
     <value>Deskripsi detail</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>Menaikkan ambang pemisahan Service Host ke total RAM sistem, menjaga layanan tetap terkonsolidasi dalam lebih sedikit proses untuk mengurangi penggunaan memori dan jumlah proses.</value>
+    <value>Menaikkan batas pemisahan Service Host sesuai total RAM pada PC dengan 12 GB ke bawah agar layanan Windows digabung ke proses bersama untuk menghemat memori.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Gagal mendeteksi paket daya aktif saat ini.</value>
@@ -272,7 +272,7 @@
     <value>Disk</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>Membutuhkan koneksi jaringan</value>
+    <value>Perlu Internet</value>
   </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>Jaringan</value>
@@ -303,7 +303,7 @@
     <value>Mengembalikan...</value>
   </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>Berhasil mengembalikan {0}!</value>
+    <value>{0} telah dipulihkan.</value>
   </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>Mengembalikan {0} dengan {1} langkah yang gagal.</value>
@@ -360,7 +360,7 @@
     <value>Waktu habis</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>File revert</value>
+    <value>Buka file cadangan</value>
   </data>
   <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} Langkah gagal</value>
@@ -441,10 +441,10 @@
     <value>Baru saja diterapkan</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-      <value>Tidak dapat menerapkan optimasi sepenuhnya</value>
+      <value>Sebagian perubahan gagal diterapkan</value>
     </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
-    <value>Tidak dapat mengembalikan optimasi</value>
+    <value>Gagal memulihkan optimasi</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
     <value>Optimasi berhasil diterapkan</value>
@@ -516,7 +516,7 @@
     <value>Nonaktifkan Aplikasi Latar Belakang</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Mencegah aplikasi yang tidak aktif berjalan di latar belakang untuk membebaskan RAM dan mengurangi beban CPU.</value>
+    <value>Memblokir aplikasi Microsoft Store menjalankan tugas latar belakang sehingga mengurangi penggunaan RAM idle dan CPU wake-up.</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>Optimalkan Isolasi Layanan</value>
@@ -524,134 +524,92 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>RAM tidak valid: {0}</value>
   </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>Prioritaskan Aplikasi Aktif</value>
-  </data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>Mengalokasikan lebih banyak sumber daya CPU ke aplikasi yang sedang Anda gunakan untuk pengalaman yang lebih cepat dan responsif.</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-    <value>Optimalkan Penjadwal Multimedia</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-    <value>Mengonfigurasi Layanan Penjadwal Kelas Multimedia (MMCSS) untuk gaming dan latensi rendah dengan memprioritaskan beban kerja multimedia dan menonaktifkan pembatasan jaringan.</value>
-  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Optimalkan Pengulangan Keyboard</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>Mengatur jeda pengulangan keyboard dan kecepatan pengulangan tercepat untuk pengetikan yang lebih responsif dan penekanan tombol berulang.</value>
+    <value>Mengatur jeda pengulangan tombol ke interval tercepat dan kecepatan pengulangan maksimal agar input saat tombol ditahan lebih responsif.</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
     <value>Nonaktifkan Hotkey Aksesibilitas Keyboard</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan pintasan keyboard Sticky Keys, Filter Keys, dan Toggle Keys untuk mencegah pop-up yang tidak disengaja saat bermain game dan mengetik.</value>
+    <value>Menonaktifkan pintasan keyboard yang memunculkan Sticky Keys, Filter Keys, dan Toggle Keys saat menekan atau menahan Shift maupun tombol kunci.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
     <value>Nonaktifkan Hibernasi &amp; Fast Startup</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan hibernasi dan Fast Startup untuk mengklaim kembali ruang disk dan memastikan shutdown penuh untuk inisialisasi perangkat keras yang lebih bersih saat boot.</value>
+    <value>Mematikan Fast Startup saja agar cold boot bersih, atau menonaktifkan Hibernasi sepenuhnya untuk mengosongkan beberapa gigabyte ruang disk.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>Nonaktifkan Penghematan Daya USB</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Mencegah Windows mematikan port USB, menghilangkan jeda bangun (wake-up) untuk mouse, keyboard, dan periferal lainnya.</value>
+    <value>Mencegah Windows menangguhkan USB root hub dan periferal, menghilangkan jeda bangun pada mouse, keyboard, dan perangkat audio.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>Terapkan Paket Daya yang Dioptimalkan</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Menginstal paket daya kustom yang berfokus pada performa untuk memastikan sistem Anda selalu berjalan pada kecepatan maksimum. Peringatan: Mungkin menyebabkan Task Manager menampilkan penggunaan CPU 100% secara tidak benar pada beberapa sistem, beban CPU sebenarnya tidak terpengaruh.</value>
+    <value>Memasang dan mengaktifkan rencana daya performa tinggi khusus agar inti CPU tetap responsif tanpa jeda penskalaan frekuensi.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-    <value>Mengimpor dan mengaktifkan paket daya...</value>
+    <value>Memasang dan mengaktifkan power plan...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>Nonaktifkan Pembatasan Daya Sistem</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>Mencegah Windows membatasi performa CPU (Power Throttling) untuk mempertahankan daya puncak untuk tugas aktif.</value>
+    <value>Mematikan Windows Power Throttling agar aplikasi aktif dan latar belakang berjalan tanpa pembatasan frekuensi CPU.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>Nonaktifkan Pengumpulan Data (Telemetri)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan telemetri Windows dan layanan pelacakan penggunaan untuk meningkatkan privasi pribadi Anda dan mengurangi aktivitas latar belakang.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-    <value>Menerapkan perubahan kebijakan dan registri...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-    <value>Menonaktifkan layanan telemetri...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>Menonaktifkan tugas terjadwal telemetri...</value>
+    <value>Meminimalkan pengumpulan data diagnostik Windows, inventaris kompatibilitas aplikasi, dan permintaan masukan.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>Nonaktifkan Pelaporan Kesalahan</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan layanan Windows Error Reporting dan Program Compatibility Assistant.</value>
+    <value>Mematikan Windows Error Reporting serta menghentikan tugas terjadwal yang mengumpulkan atau mengunggah laporan kerusakan dan diagnostik disk.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
     <value>Nonaktifkan Iklan dan Saran</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan iklan yang dipersonalisasi, fitur konsumen Windows, dan saran sistem.</value>
+    <value>Mematikan ID iklan Windows, pengalaman personalisasi berbasis data diagnostik, promosi konsumen, dan saran pengaturan.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
     <value>Nonaktifkan Riwayat Aktivitas</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>Mencegah Windows mengumpulkan dan menyinkronkan riwayat aktivitas Anda.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>Nonaktifkan Lokasi dan Sensor</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan pelacakan lokasi, sensor sistem, dan pembaruan peta offline.</value>
+    <value>Menghentikan Windows mencatat dan mengunggah riwayat aktivitas aplikasi serta file Anda ke Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>Nonaktifkan Pencatatan Latar Belakang</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Menghentikan pencatatan peristiwa sistem yang tidak penting untuk mengurangi aktivitas disk berkelanjutan dan menghemat siklus CPU.</value>
+    <value>Menonaktifkan sesi pelacakan diagnostik ETW Windows yang tidak penting saat boot untuk mengurangi penulisan disk dan beban CPU.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Nonaktifkan Cortana &amp; Pencarian Web</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan asisten suara Cortana dan menghapus hasil web Bing dari bilah Pencarian Windows.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>Nonaktifkan Windows Copilot</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>Menghapus asisten AI Copilot dari taskbar dan shell sistem untuk membebaskan memori dan ruang layar.</value>
+    <value>Mematikan asisten Cortana dan memblokir pencarian Windows 10 mengirim kueri desktop lokal ke pencarian cloud.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>Nonaktifkan Pengiriman Konten Cloud</value>
+    <value>Nonaktifkan konten cloud latar belakang</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan konten yang dikirim melalui cloud Windows, termasuk tips sistem, saran spotlight, dan pengiriman otomatis fitur konsumen.</value>
+    <value>Menghentikan Windows mengunduh saran Spotlight layar kunci, tips sistem, dan konten promosi di latar belakang.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>Blokir Bloatware Bawaan</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Mencegah Windows menginstal ulang secara otomatis aplikasi pihak ketiga yang tidak diinginkan dan perangkat lunak yang dipromosikan.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>Optimalkan Layanan Sistem</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>Menyesuaikan layanan latar belakang yang tidak penting untuk membebaskan sumber daya sambil mempertahankan semua fungsionalitas Windows yang diperlukan.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>Mengatur tipe startup untuk {0} menjadi {1}...</value>
+    <value>Menghentikan Windows mengunduh diam-diam dan menyematkan aplikasi promosi konsumen di menu Start.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>Layar</value>
@@ -672,71 +630,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Pengalaman Pengguna</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>Percepat Explorer &amp; Menu</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>Mengatur StartupDelayInMSec=0, MenuShowDelay=0 untuk menghilangkan jeda startup Explorer dan mempercepat animasi pembukaan menu.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>Nonaktifkan Pencarian Web Menu Start</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>Matikan pencarian web pada Menu Start Windows agar hasil pencarian lokal dimuat lebih cepat.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>Nonaktifkan Efek Visual</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan animasi taskbar, bayangan listview, transparansi jendela, dan Aero Peek untuk membebaskan sumber daya GPU/CPU demi performa yang lebih baik.</value>
-  </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>Nonaktifkan ULPS AMD</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>Menyetel EnableULPS=0 di registri GPU AMD untuk mencegah penundaan bangun dari Ultra Low Power State dan masalah multi-monitor. Mengurangi penghematan daya saat idle.</value>
+    <value>Mematikan Ultra Low Power State (ULPS) pada GPU AMD untuk mencegah stutter saat bangun dan kedipan multi-monitor.</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>Nonaktifkan Power Gating AMD</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>Menyetel DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 untuk mencegah transisi status daya GPU AMD. Menjaga clock tetap konsisten dengan mengorbankan daya idle yang lebih tinggi.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>Nonaktifkan Video Clock Gating AMD</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Menyetel DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 untuk mesin video AMD (VCE/UVD) agar stabilitas encode/decode lebih baik. Meningkatkan daya pemutaran video.</value>
+    <value>Menonaktifkan GPU power gating AMD dan penskalaan daya dinamis agar mesin grafis tetap menyala di sela beban singkat.</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>Nonaktifkan ASPM AMD</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>Menyetel EnableAspmL0s=0, EnableAspmL1=0 untuk menonaktifkan Active State Power Management pada GPU AMD, mengurangi latensi bus PCIe. Meningkatkan konsumsi daya slot.</value>
+    <value>Menonaktifkan PCIe Active State Power Management (L0s dan L1) pada grafis AMD untuk mengurangi latensi bangun tautan PCIe.</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>Nonaktifkan P-State Dinamis NVIDIA</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>Menyetel DisableDynamicPstate=1 untuk mengunci GPU NVIDIA pada status performa tetap, mencegah fluktuasi kecepatan clock. Meningkatkan konsumsi daya idle.</value>
+    <value>Menjaga GPU NVIDIA agar tidak turun ke P-state hemat daya dinamis, menghindari perpindahan clock saat beban ringan atau singkat.</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>Nonaktifkan Async P-States NVIDIA</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>Menyetel DisableASyncPstates=1 untuk mencegah peralihan status daya asinkron NVIDIA, memberikan performa deterministik untuk aplikasi VR/real-time.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Nonaktifkan Async Flips Intel</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Menyetel Display1_DisableAsyncFlips=1 untuk memaksa pembalikan buffer sinkron pada iGPU Intel, mengurangi latensi input-ke-tampilan dan screen tearing.</value>
+    <value>Menghentikan driver NVIDIA beralih status performa secara asinkron selama beban singkat agar frame pacing lebih stabil.</value>
   </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>Nonaktifkan Adaptive V-Sync Intel</value>
   </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>Menyetel AdaptiveVsyncEnable=0 untuk menonaktifkan V-Sync adaptif Intel yang menyesuaikan dengan frame rate, menggunakan V-Sync tetap untuk timing yang stabil.</value>
+    <value>Mematikan Adaptive V-Sync tingkat driver Intel agar waktu tampil mengikuti standar aplikasi atau V-Sync tetap.</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1265,22 +1193,22 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Lainnya</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>Buka file json mentah yang berisi data revert untuk optimasi ini.</value>
+    <value>Menampilkan file JSON cadangan yang digunakan untuk mengembalikan pengaturan awal.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>Buka kode sumber untuk optimasi ini di browser Anda.</value>
+    <value>Periksa implementasi C# optimasi ini di GitHub.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
-    <value>Lihat Sumber di GitHub</value>
+    <value>Lihat kode sumber</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
-    <value>Detail Teknis</value>
+    <value>Detail teknis</value>
   </data>
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
     <value>ID Optimasi</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>Nama Kelas</value>
+    <value>Kunci kelas</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>Aplikasi Startup</value>
@@ -1781,17 +1709,11 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Customize.CustomOption.NotSet" xml:space="preserve">
     <value>Belum diatur</value>
   </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>Nonaktifkan Berita &amp; Minat</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Mematikan feed Berita &amp; Minat dan menyembunyikan tombol taskbar-nya (Windows 10), serta menonaktifkan papan Widget (Windows 11).</value>
-  </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>Sembunyikan Tombol Meet Now</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>Menyembunyikan tombol Meet Now (Skype) dari area notifikasi taskbar. Khusus Windows 10.</value>
+    <value>Menyembunyikan tombol Meet Now dari area notifikasi taskbar Windows 10.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
     <value>Akses Cepat</value>
@@ -1806,37 +1728,37 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Nonaktifkan Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan overlay Click To Do bertenaga AI yang menganalisis teks dan gambar di layar Anda.</value>
+    <value>Menonaktifkan lapisan Click To Do yang menganalisis teks dan gambar di layar untuk saran tindakan AI.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Nonaktifkan Windows Recall</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan fitur AI Windows Recall yang menangkap dan mengindeks cuplikan layar Anda. Juga menghapus komponen Recall dan menghapus cuplikan yang tersimpan sebelumnya di Windows 11 24H2+ (Build 26100.3915+); restart diperlukan agar perubahan berlaku.</value>
+    <value>Menonaktifkan cuplikan Windows Recall via Group Policy, menghapus data cuplikan tersimpan, dan memblokir pengaktifan Recall setelah restart.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
     <value>Nonaktifkan Delivery Optimization (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Menghentikan Windows berbagi atau mengunduh file pembaruan dari PC lain melalui peer-to-peer, sehingga pembaruan hanya berasal dari server Microsoft.</value>
+    <value>Menghentikan berbagi pembaruan peer-to-peer P2P antar PC sehingga Windows hanya mengunduh pembaruan dari server Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Nonaktifkan Find My Device</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>Menonaktifkan fitur Find My Device yang secara berkala melaporkan lokasi perangkat Anda ke Microsoft.</value>
+    <value>Menonaktifkan Temukan Perangkat Saya agar PC berhenti mengirimkan lokasi secara berkala ke akun Microsoft.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>Nonaktifkan Iklan Microsoft 365 di Pengaturan</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>Menghapus konten promosi Microsoft 365 dan Copilot dari halaman Beranda Pengaturan.</value>
+    <value>Menghapus banner promosi Microsoft 365 dan akun dari halaman Beranda Pengaturan Windows.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>Sembunyikan Bagian Recommended di Start</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Menyembunyikan bagian Recommended dari menu Start agar menu lebih rapi dan file serta aplikasi terbaru tidak muncul.</value>
+    <value>Menyembunyikan bagian Disarankan di menu Start Windows 11 untuk menghapus daftar file terbaru dan saran aplikasi.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Pemeriksaan kompatibilitas gagal</value>
@@ -1929,16 +1851,10 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Beberapa pengaturan tidak tersedia pada sistem Anda saat ini.</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
-    <value>Buka batas 50 MB WebDAV</value>
+    <value>Hapus Batas 50 MB WebDAV</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>Meningkatkan batas ukuran file WebClient untuk mount WebDAV dari 50 MB menjadi 4 GB agar transfer file besar di lokasi jaringan tidak gagal.</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>Maksimalkan batas jeda pembaruan</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>Mengatur batas jeda Windows Update ke nilai maksimum yang didukung. Hanya berlaku pada versi Windows yang masih mendukung pengaturan ini; pembaruan keamanan tetap dijeda saat aktif.</value>
+    <value>Menaikkan batas transfer Windows WebClient dari 50 MB menjadi 4 GB agar file besar tidak gagal di drive jaringan WebDAV.</value>
   </data>
   <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
     <value>Indikator overlay DLSS</value>
@@ -2256,7 +2172,7 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Sudah optimal</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>PC ini sudah sesuai dengan optimasi ini, jadi tidak ada yang perlu diubah.</value>
+    <value>PC kamu sudah menggunakan pengaturan ini, jadi tidak ada yang perlu diubah.</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>Tidak ada yang perlu diubah: {0} sudah sesuai dengan PC ini.</value>
@@ -2277,13 +2193,13 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Windows tidak menghapus paket berikut: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>Klik untuk melihat setiap langkah penerapan terakhir. {0}</value>
+    <value>Klik untuk melihat setiap perubahan yang tercatat. {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>Klik untuk melihat setiap langkah penerapan terakhir.</value>
+    <value>Klik untuk melihat setiap perubahan yang tercatat.</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} langkah diubah, {1} sudah sesuai, {2} tidak berlaku, {3} ditolak Windows</value>
+    <value>{0} diubah, {1} sudah sesuai, {2} dilewati, {3} ditolak Windows</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>Eksekusi terakhir yang tercatat</value>
@@ -2310,58 +2226,58 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Gagal</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan pengaturan keamanan di Windows.</value>
+    <value>Mengubah pengaturan keamanan, isolasi, atau enkripsi Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan data yang dikumpulkan dan dikirim Windows.</value>
+    <value>Membatasi telemetri, diagnostik, dan data yang dikirim ke Microsoft atau aplikasi.</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>Optimasi ini menyentuh bagian inti Windows, sebuah komponen atau kebijakan, jadi sebaiknya baca dulu apa yang dilakukannya.</value>
+    <value>Mengubah komponen inti Windows atau kebijakan sistem; tinjau detail sebelum menerapkan.</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan performa dan pekerjaan di latar belakang.</value>
+    <value>Meningkatkan responsivitas sistem, penjadwalan CPU, atau mengurangi beban latar belakang.</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan jeda pada masukan, game, atau suara.</value>
+    <value>Mengurangi jeda respons input, audio, atau frame-time.</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan cara Windows memakai disk Anda.</value>
+    <value>Mengubah cara Windows membaca, menulis, atau mengindeks drive penyimpanan.</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan cara Windows memakai memori.</value>
+    <value>Mengurangi penggunaan RAM di latar belakang dan overhead memori.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan keluaran layar atau kartu grafis.</value>
+    <value>Mengatur keluaran layar, refresh rate, atau fitur tampilan GPU.</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>Optimasi ini hanya berkaitan dengan PC berkaru grafis NVIDIA dan tidak berdampak pada yang lain.</value>
+    <value>Hanya berlaku untuk PC dengan grafis NVIDIA; diabaikan pada perangkat keras lain.</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>Optimasi ini hanya berkaitan dengan PC berkaru grafis AMD dan tidak berdampak pada yang lain.</value>
+    <value>Hanya berlaku untuk PC dengan grafis AMD; diabaikan pada perangkat keras lain.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>Optimasi ini hanya berkaitan dengan PC berkaru grafis Intel dan tidak berdampak pada yang lain.</value>
+    <value>Hanya berlaku untuk PC dengan grafis Intel; diabaikan pada perangkat keras lain.</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan daya, yaitu masa pakai baterai, panas, atau suara kipas.</value>
+    <value>Memengaruhi konsumsi daya, daya tahan baterai, suhu, dan kecepatan kipas.</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan jaringan, koneksi, dan lalu lintas di atasnya.</value>
+    <value>Mengubah perilaku adaptor jaringan, transfer, atau lalu lintas latar belakang Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>Optimasi ini butuh internet karena mengunduh sesuatu.</value>
+    <value>Memerlukan koneksi Internet aktif untuk mengunduh file yang dibutuhkan.</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan cara suara diputar dan diproses.</value>
+    <value>Mengatur cara Windows memproses dan merutekan suara.</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>Optimasi ini berkaitan dengan tampilan Windows, efek, dan animasinya.</value>
+    <value>Menyesuaikan elemen UI Windows, promosi, atau efek visual.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>Optimasi ini hanya untuk Windows 10 dan tidak melakukan apa pun di Windows 11.</value>
+    <value>Dibuat untuk Windows 10; disembunyikan otomatis pada Windows 11.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>Optimasi ini hanya untuk Windows 11 dan diblokir di Windows 10.</value>
+    <value>Dibuat untuk Windows 11; disembunyikan otomatis pada Windows 10.</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>Diterapkan pada {0}</value>
@@ -2496,10 +2412,10 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
     <value>Nilai</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>Tampilkan file catatan</value>
+    <value>Buka catatan riwayat</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>Membuka file tempat optimizerDuck mencatat apa yang dilakukan optimasi ini. File tetap ada setelah dikembalikan, jadi Anda bisa melihatnya nanti.</value>
+    <value>Menampilkan log JSON perubahan yang dicatat optimizerDuck (tetap tersimpan meski sudah dipulihkan).</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>Registri</value>
@@ -2575,5 +2491,620 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>Detailnya ada di file log.</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>Nonaktifkan Windows Copilot</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan Windows Copilot dan menghapus tombol Copilot dari taskbar setelah keluar akun.</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>Khusus Laptop</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>Optimasi ini hanya berlaku untuk perangkat portabel berbaterai.</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>Maksimal 12 GB RAM</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>Sistem dengan RAM di atas 12 GB sudah diuntungkan oleh isolasi Service Host tanpa beban memori berlebih.</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>Memory Integrity tidak tersedia</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>Memory Integrity (HVCI) tidak terdeteksi atau tidak didukung di perangkat ini.</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>Adapter jaringan fisik tidak ditemukan</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>Tidak ada adaptor Ethernet atau Wi-Fi fisik yang terdeteksi pada sistem ini.</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>Layanan Windows AI tidak ditemukan</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>Build Windows ini tidak menyertakan layanan latar belakang Windows AI.</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>Efek Transparansi</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>Mengaktifkan efek tembus pandang Acrylic dan Mica pada taskbar, Start menu, dan aplikasi.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>Animasi Taskbar</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>Mengatur animasi ikon taskbar saat membuka atau berpindah jendela.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>Mengizinkan Driver GPU menyusun lapisan desktop dan game langsung di hardware. Nonaktifkan hanya bila layar berkedip.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>GPU modern menangani MPO dengan baik untuk latensi rendah; matikan hanya jika layar berkedip atau hitam.</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>Dilewati karena tipe startup layanan sudah lebih ketat daripada target</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>Perlu restart Explorer</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>Perlu keluar akun</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>Perlu restart PC</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>Opsi dapat diatur sebelum menerapkan</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>Menggunakan pengaturan Windows Group Policy. Settings Windows dapat menampilkan 'Beberapa pengaturan dikelola oleh organisasi Anda' saat aktif.</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>Diubah dari luar</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>Ada cadangan tersimpan, namun pengaturan Windows saat ini sudah tidak cocok lagi (misalnya setelah Windows Update atau ubah manual).</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>Atur ulang opsi</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>Detail dan riwayat</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>Pengaturan ini membuat perubahan sistem atau keamanan yang lebih dalam. Periksa konsekuensinya di bawah sebelum lanjut.</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>Tetap terapkan</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>Terapkan pilihan</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>Sudah diatur</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>Pilih setidaknya satu opsi untuk melanjutkan.</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>Aktif</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>Nonaktif</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>Optimasi lama dengan data cadangan tersimpan</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>Opsi ini telah dihapus atau diganti di pembaruan terbaru, namun cadangan aslimu tetap aman di disk agar dapat dipulihkan kapan saja.</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>Kembalikan</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>{0} langkah untuk dikembalikan</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>"{0}" dipulihkan dan cadangannya telah dihapus.</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>Gagal memulihkan cadangan lama: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>Konsekuensi</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>Dampak</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>Referensi</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>Opsi diterapkan</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>Pengaturan berubah secara eksternal</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>Pengaturan Windows saat ini tidak lagi cocok dengan optimasi ini sementara cadangan masih ada di disk. Aktifkan lagi untuk menerapkan ulang, pulihkan sisanya, atau hapus catatan lama.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>Kembalikan sisa langkah</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>Hapus cadangan lama</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>Atur ulang</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>Menerapkan pengaturan standar Windows Group Policy. Beberapa halaman Settings dapat menampilkan pesan dikelola organisasi saat aktif.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>Ubah AI Fabric Service ke Manual</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>Mengubah layanan latar belakang Windows AI Fabric ke start manual agar tetap diam sampai diminta fitur AI.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>Fitur Windows AI yang bergantung pada layanan ini mungkin butuh beberapa detik lebih lama saat pertama kali dijalankan.</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>Nonaktifkan AI di Microsoft Edge</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan bilah sisi Copilot, prompt tulis inline, pencarian riwayat AI, dan model AI lokal di Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>Menonaktifkan pencarian linimasa Windows Recall dan menghapus semua cuplikan yang tersimpan secara permanen.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>Matikan Layanan Lama Tidak Terpakai</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan layanan lama dan perusahaan yang jarang dipakai di PC rumahan, seperti Fax, Remote Registry, Retail Demo, App-V, Routing and Remote Access, dan mengatur Offline Files ke manual.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>Fax lama, Remote Registry, Routing and Remote Access, dan App-V tetap nonaktif hingga dikembalikan; Offline Files hanya berjalan secara manual.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>Matikan Layanan Fitur Opsional</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan grup layanan fitur Windows pilihan yang tidak Anda pakai, seperti Pencetakan, Bluetooth, Xbox, Berbagi LAN, Biometrik, atau Remote Desktop.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>Fitur perangkat keras atau jaringan yang Anda pilih tetap tidak aktif sampai Anda mengonfigurasi ulang atau mengembalikannya.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>Tidak ada grup layanan yang dipilih</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>Pencetakan &amp; Spooler</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>Menghentikan layanan latar Print Spooler dan notifikasi printer.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>Printer lokal, jaringan, dan Microsoft Print to PDF tidak dapat dipakai.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>Menghentikan layanan penemuan Bluetooth, pairing, dan audio hands-free Windows.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>Keyboard, mouse, kontroler, dan audio Bluetooth tidak akan terhubung.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>Layanan Xbox Live</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>Menghentikan layanan login Xbox Live, sinkronisasi cloud save, aksesori, dan jaringan Xbox.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>Login aplikasi Xbox, simpanan cloud Game Pass, dan multipemain Xbox Live berhenti berfungsi.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>Berbagi File &amp; Penemuan LAN</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>Menghentikan layanan berbagi folder lokal dan penemuan perangkat jaringan UPnP.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>Berbagi folder lewat LAN dan pencarian perangkat transmisi media berhenti berfungsi.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>Biometrik Windows Hello</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>Menghentikan layanan latar Windows Biometric.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>Pemindai sidik jari dan pengenalan wajah Windows Hello tidak berfungsi.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>Layanan Remote Desktop</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>Menghentikan layanan koneksi masuk dan pengalihan Remote Desktop.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>PC lain tidak dapat terhubung ke komputer ini lewat Remote Desktop (RDP).</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>Matikan Pengindeksan Windows Search</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>Menghentikan layanan pengindeks Windows Search untuk menghilangkan penulisan disk latar belakang dan lonjakan CPU akibat pengindeksan file.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>Pencarian isi file di File Explorer dan pencarian instan di Outlook menjadi lebih lambat karena Windows harus memindai folder saat diminta.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>Matikan Edge Latar Belakang &amp; Startup Boost</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>Menutup Microsoft Edge sepenuhnya saat semua jendela ditutup dan menghentikan Startup Boost agar tidak dimuat di awal.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>Membuka jendela Edge pertama saat cold-start butuh sesaat lebih lama, dan notifikasi situs berhenti saat semua jendela ditutup.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>Kartu grafis saat idle dan laptop multi-GPU mengonsumsi daya lebih tinggi saat tanpa beban.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>Meningkatkan konsumsi daya GPU saat idle, suhu, dan kecepatan kipas, serta mengurangi daya tahan baterai laptop.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>Menjaga tautan PCIe GPU tetap aktif tanpa masuk ke mode tidur hemat daya, meningkatkan konsumsi daya idle dan pemakaian baterai.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>Meningkatkan konsumsi daya GPU saat idle, suhu, dan kebisingan kipas.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>Meningkatkan konsumsi daya saat idle pada GPU NVIDIA.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>Game yang turun di bawah refresh rate layar dapat mengalami sedikit tersendat atau screen tearing.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>Aplikasi Microsoft Store tidak bisa menyinkronkan email, alarm, atau notifikasi langsung hingga dibuka manual.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>Menghemat RAM pada PC 12 GB ke bawah, namun satu layanan yang bermasalah dapat memengaruhi layanan lain di proses host yang sama.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>Jeda pengulangan yang singkat dapat memicu huruf ganda tak sengaja jika jari menahan tombol terlalu lama saat mengetik.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>Menekan Shift 5 kali atau menahan NumLock tidak lagi memunculkan dialog aksesibilitas; fitur tetap bisa dibuka dari Pengaturan Windows.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>Matikan Deteksi Otomatis Tipe Folder</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>Menghentikan File Explorer memindai isi folder untuk menebak tata letak Gambar atau Musik setiap membuka folder.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>Folder gambar atau musik besar memakai tampilan Details standar sampai kamu menyesuaikannya secara manual.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>Matikan Host Search WebView2</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>Menghentikan Windows 11 Search menjalankan proses Microsoft Edge WebView2 tertanam sehingga memangkas pemakaian RAM dan CPU.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>Memakai penimpaan fitur internal Windows yang menonaktifkan kartu web kaya di Search dan dapat tereset setelah pembaruan besar.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>Matikan Memory Integrity (HVCI)</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>Mematikan pemeriksaan keamanan virtualisasi Memory Integrity (HVCI) untuk memulihkan performa CPU dan kestabilan frame-time saat bermain game.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>Menurunkan perlindungan kernel Windows terhadap driver berbahaya dan injeksi kode. Microsoft menyarankan menyalakannya lagi di luar gaming.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>Matikan Hemat Daya Kartu Jaringan (NIC)</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Mencegah Windows mematikan adaptor Ethernet dan Wi-Fi fisik untuk hemat daya, menghindari putus koneksi idle dan jeda bangun.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>Meningkatkan penggunaan daya idle pada Ethernet dan Wi-Fi, sehingga mengurangi masa pakai baterai laptop.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>Tidak ada adapter jaringan fisik yang dapat dikonfigurasi</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>Menonaktifkan Hibernate menghapus cadangan RAM saat baterai kritis; mematikan Fast Startup sedikit memperlambat boot dingin.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>Mode Matikan &amp; Hibernasi</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>Matikan Fast Startup Saja (Disarankan untuk Laptop)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>Mencegah Windows menyimpan snapshot hibernasi kernel saat shutdown sambil menjaga Hibernate biasa tetap aktif.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>Matikan Hibernasi &amp; Fast Startup</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>Mematikan Hibernate sepenuhnya dan menghapus file hibernasi untuk membebaskan beberapa gigabyte penyimpanan.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>Matikan Jaringan Modern Standby</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>Memutus Wi-Fi dan menghentikan bangun jaringan latar saat laptop tidur dalam mode Modern Standby.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>Saat tidur, email, pembaruan Windows, dan notifikasi menunggu sampai layar dibangunkan.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>Hub USB dan perangkat terhubung tetap dialiri daya alih-alih masuk Selective Suspend, sedikit mengurangi daya tahan baterai laptop.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>Menjaga inti CPU tetap aktif menaikkan panas, kecepatan kipas, dan daya; Task Manager bisa menampilkan beban CPU lebih tinggi dari aslinya.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>Tugas latar belakang dapat berjalan pada kecepatan CPU penuh meski memakai baterai, sehingga panas dan pemakaian baterai meningkat.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>Diagnostik penggunaan Microsoft, program Windows Insider, dan pemecahan masalah terarah ikut dinonaktifkan.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>Kerusakan aplikasi tidak lagi membuat atau mengunggah laporan diagnostik ke Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>Mematikan pelacakan diagnostik tingkat rendah untuk pemecahan masalah Microsoft; beberapa software keamanan dapat memberi peringatan atas perubahan sesi boot.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>Kamu tidak bisa melacak atau mengunci PC ini jarak jauh dari akun Microsoft jika hilang atau dicuri.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>Konfigurasi Kebijakan Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>Menerapkan Group Policy Windows Update pilihan Anda untuk mengatur restart paksa, pembaruan awal, penundaan pembaruan, dan pembaruan Driver.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>Menunda patch atau mengecualikan driver mengharuskan Anda memperbarui Driver GPU dan chipset secara manual.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>Tidak ada opsi Windows Update yang dipilih</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>Cegah restart otomatis saat sedang login</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>Mencegah Windows Update melakukan restart otomatis saat kamu masih masuk.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>Matikan 'Dapatkan pembaruan terbaru segera setelah tersedia'</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>Berhenti berlangganan peluncuran awal fitur dan konfigurasi pratinjau saat memeriksa pembaruan.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>Kecualikan pembaruan Driver dari Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>Mengecualikan paket driver perangkat keras dari Windows Update.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>Anda harus menginstal Driver perangkat keras langsung dari situs GPU atau OEM.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>Tunda pembaruan kualitas (4 hari) &amp; fitur (365 hari)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>Menerapkan jeda Group Policy agar pembaruan cukup teruji sebelum dipasang.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>Menunda patch bulanan selama 4 hari dan pembaruan versi tahunan selama 1 tahun.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>Cegah Enkripsi Otomatis BitLocker</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>Mencegah Windows mengaktifkan enkripsi BitLocker Device Encryption secara otomatis pada drive baru atau instalasi ulang.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>Tidak mendekripsi drive yang sudah terenkripsi; drive baru dibiarkan tidak terenkripsi kecuali diaktifkan manual.</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>Performa lebih cepat</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>Dapat memengaruhi performa</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>Latensi lebih rendah</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>Dapat menambah latensi</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>RAM lebih hemat</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>Pakai lebih banyak RAM</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>Hemat ruang disk</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>Pakai lebih banyak ruang</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>Lebih hemat daya</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>Daya lebih boros</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>Privasi lebih baik</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>Kurangi privasi</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>Keamanan lebih kuat</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>Keamanan menurun</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>Jaringan lebih baik</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>Batasi jaringan</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>Lebih stabil</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>Dapat memengaruhi stabilitas</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>Tampilan lebih bersih</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>Menambah elemen UI</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>Lebih banyak fitur</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>Menonaktifkan fitur</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>Mengatur jenis startup {0} ke {1}...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>Bilah sisi Copilot, bantuan menulis AI, dan pencarian riwayat AI tidak tersedia di Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>Cadangan lama</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>{0} cadangan lama ditemukan</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>Hapus cadangan</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>Hapus cadangan ini tanpa mengubah pengaturan Windows</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>Hapus cadangan tersimpan ini tanpa mengubah Windows? Kamu tidak akan bisa membatalkan perubahan lama ini lewat optimizerDuck lagi.</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>Tampilkan file cadangan di Explorer</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>Diterapkan {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>Tidak ada cadangan lama tersisa</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>Semua cadangan optimasi versi lama telah dipulihkan atau dibersihkan.</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>Kembalikan optimasi</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>Semua opsi dimatikan. Konfirmasi akan mengembalikan optimasi ini ke kondisi sebelumnya.</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>Sistem Anda sudah sesuai dengan opsi ini, sehingga tidak ada perubahan yang diperlukan.</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>Semua opsi di sini sudah dikonfigurasi di sistem Anda. Tidak ada yang perlu diubah.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>Nonaktifkan AI di Windows Paint</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan kebijakan Cocreator, Generative Fill, Image Creator, Generative Erase, dan penghapusan latar belakang AI di Windows Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>Alat pembuatan dan pengeditan gambar AI akan dihapus dari bilah alat Windows Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>Nonaktifkan AI di Windows Notepad</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan fitur penulisan ulang dan ringkasan teks AI di dalam Windows Notepad melalui kebijakan sistem.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>Tindakan AI Rewrite dan ringkasan tidak tersedia lagi di dalam Windows Notepad.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>Nonaktifkan Program Compatibility Assistant</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan layanan Windows Program Compatibility Assistant yang memantau peluncuran aplikasi dan penginstal lawas di latar belakang.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>Peringatan kompatibilitas otomatis dan perbaikan kompatibilitas untuk program atau penginstal lawas akan dinonaktifkan.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>Nonaktifkan Personalisasi Penulisan &amp; Ketikan</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>Menghentikan Windows mengumpulkan tulisan tangan, pola mengetik, kontak lokal, dan preferensi bahasa untuk personalisasi input.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>Pengenalan tulisan tangan khusus, koreksi otomatis berbasis kontak, dan kamus ketikan lokal berhenti diperbarui.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>Nonaktifkan Pelacakan Lokasi</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan layanan Lokasi Windows, izin lokasi aplikasi, pembaruan otomatis Peta offline, dan pelaporan hotspot Wi-Fi.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>Cuaca, Peta, dan aplikasi yang bergantung pada lokasi sistem tidak dapat mengetahui posisi Anda saat aktif.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>Nonaktifkan Sensor Gerak &amp; Cahaya Perangkat Keras</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>Memblokir aplikasi dan fitur Windows membaca sensor gerak, orientasi, dan cahaya sekitar melalui Group Policy.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>Kecerahan otomatis laptop dan rotasi layar otomatis pada perangkat 2-in-1 berhenti berfungsi saat aktif.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>Hapus Jeda Peluncuran Aplikasi Startup</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>Menghapus jeda masuk bawaan Explorer dan waktu tunggu CPU menganggur agar program startup langsung berjalan setelah login.</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>Hapus Jeda Hover Menu</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>Mengatur jeda tampil submenu Windows ke nol agar submenu langsung terbuka saat kursor diarahkan.</value>
   </data>
 </root>

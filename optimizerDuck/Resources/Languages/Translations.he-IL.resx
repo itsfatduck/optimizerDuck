@@ -116,10 +116,7 @@
     <value>לוח בקרה</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>משבית את תכונת הבינה המלאכותית Windows Recall, הלוכדת ומבנה אינדקס של צילומי מסך. כמו כן מסיר את רכיב Recall ומוחק צילומים שנשמרו בעבר; נדרשת הפעלה מחדש כדי שהשינוי ייכנס לתוקף.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>מכבה את עדכון החדשות והעניינים ומסתיר את הכפתור שלו בשורת המשימות (Windows 10), ומשבית את לוח הווידג'טים (Windows 11).</value>
+    <value>משבית צילומי מסך של Windows Recall באמצעות מדיניות קבוצתית, מנקה צילומים שמורים וחוסם הפעלה מחדש לאחר אתחול.</value>
   </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>לוח בקרה</value>
@@ -257,7 +254,7 @@
     <value>תיאור מפורט</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>מעלה את סף פיצול מארח השירותים לסך הזיכרון של המערכת, ושומר על שירותים מאוחדים בפחות תהליכים כדי להפחית את צריכת הזיכרון ואת מספר התהליכים.</value>
+    <value>מגדיל את סף פיצול Service Host לנפח ה-RAM המותקן במחשבים עם 12 GB ומטה כדי לאחד שירותים לתהליכים משותפים ולחסוך זיכרון.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>זיהוי תוכנית צריכת החשמל הפעילה הנוכחית נכשל.</value>
@@ -272,13 +269,13 @@
     <value>מערכת</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
-    <value>זיכרון RAM</value>
+    <value>RAM</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
     <value>דיסק</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>נדרש חיבור לרשת</value>
+    <value>נדרש אינטרנט</value>
   </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>רשת</value>
@@ -300,7 +297,7 @@
   </data>
 
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
-    <value>צריכת חשמל</value>
+    <value>חשמל</value>
   </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>לא נמצאו נתוני ביטול עבור {0}.</value>
@@ -309,7 +306,7 @@
     <value>מבטל...</value>
   </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>{0} בוטל בהצלחה!</value>
+    <value>{0} שוחזר.</value>
   </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>{0} בוטל עם {1} שלבים שנכשלו.</value>
@@ -366,7 +363,7 @@
     <value>תם הזמן הקצוב</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>קובץ ביטול</value>
+    <value>פתח גיבוי שחזור</value>
   </data>
   <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} שלבים שנכשלו</value>
@@ -447,10 +444,10 @@
     <value>הוחל הרגע</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-      <value>לא ניתן היה להחיל את המיטוב במלואו</value>
+      <value>לא ניתן היה להחיל את כל השינויים</value>
     </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
-    <value>לא ניתן היה לבטל את המיטוב</value>
+    <value>לא ניתן היה לשחזר את האופטימיזציה</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
     <value>המיטוב הוחל בהצלחה</value>
@@ -522,7 +519,7 @@
     <value>השבתת אפליקציות רקע</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>מונע מאפליקציות לא פעילות לרוץ ברקע כדי לפנות זיכרון RAM ולהפחית עומס על המעבד.</value>
+    <value>חוסם משימות רקע של אפליקציות Microsoft Store להפחתת צריכת RAM במנוחה והתעוררויות CPU.</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>איחוד מארחי שירותים</value>
@@ -530,134 +527,92 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>זיכרון RAM לא תקין: {0}</value>
   </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>תעדוף אפליקציות פעילות</value>
-  </data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>מקצה יותר משאבי מעבד לאפליקציה שבה משתמשים כעת, לחוויה מהירה ומגיבה יותר.</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-    <value>מיטוב מתזמן המולטימדיה</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-    <value>מגדיר את שירות מתזמן מחלקת המולטימדיה (MMCSS) לגיימינג ולהשהיה נמוכה, על ידי תעדוף עומסי מולטימדיה והשבתת ויסות (throttling) של הרשת.</value>
-  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>מיטוב חזרת מקלדת</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>מגדיר את השהיית החזרה ואת קצב החזרה המהירים ביותר של המקלדת, להקלדה ולהקשות חוזרות מגיבות יותר.</value>
+    <value>מגדיר את השהיית החזרה של המקלדת למינימום ואת קצב החזרה למקסימום לקלט מהיר יותר בעת החזקת מקשים.</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
     <value>השבתת קיצורי מקלדת של נגישות</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-    <value>משבית את קיצורי המקלדת מקשים דביקים, מקשי סינון ומקשי החלפה כדי למנוע חלוניות קופצות לא רצויות בזמן משחק והקלדה.</value>
+    <value>משבית קיצורי מקשים המקפיצים מקשים דביקים, מקשי סינון ומקשי החלפה בלחיצה חוזרת או ממושכת על Shift ומקשי נעילה.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
     <value>השבתת מצב שינה והפעלה מהירה</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-    <value>מכבה את מצב השינה (Hibernation) ואת ההפעלה המהירה (Fast Startup) כדי לפנות שטח דיסק ולהבטיח כיבוי מלא לאתחול חומרה נקי יותר.</value>
+    <value>משבית את האתחול המהיר בלבד לאתחולים קרים נקיים, או מכבה לחלוטין את מצב השינה לפינוי כמה גיגה-בייט בכונן.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>השבתת חיסכון בחשמל ל-USB</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>מונע מ-Windows לכבות יציאות USB, ומבטל השהיות התעוררות עבור עכברים, מקלדות ואביזרים נוספים.</value>
+    <value>מונע מ-Windows להשעות רכזות USB וציוד היקפי לחיסכון בחשמל כדי למנוע השהיה בעכבר, מקלדת ואודיו.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>החלת תוכנית צריכת חשמל ממוטבת</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>מתקין תוכנית צריכת חשמל מותאמת וממוקדת ביצועים כדי להבטיח שהמערכת תמיד פועלת במהירות מרבית. אזהרה: עלול לגרום למנהל המשימות להציג בטעות 100% שימוש במעבד בחלק מהמערכות; עומס המעבד בפועל אינו מושפע.</value>
+    <value>מתקין ומפעיל תוכנית צריכת חשמל מותאמת לביצועים גבוהים השומרת על ליבות CPU ערות ומפחיתה השהיות תדר.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-    <value>מייבא ומפעיל את תוכנית צריכת החשמל...</value>
+    <value>מתקין ומפעיל תוכנית צריכת חשמל...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>השבתת ויסות צריכת חשמל של המערכת</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>מונע מ-Windows להגביל את ביצועי המעבד (Power Throttling) כדי לשמור על עוצמה מרבית עבור משימות פעילות.</value>
+    <value>מכבה את Windows Power Throttling כך שיישומים פעילים וברקע ירוצו ללא הגבלת תדר CPU.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>השבתת איסוף נתונים (Telemetry)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>משבית את שירותי הטלמטריה ומעקב השימוש של Windows כדי לשפר את הפרטיות האישית שלך ולהפחית פעילות רקע.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-    <value>מחיל שינויי מדיניות ורישום...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-    <value>משבית שירותי טלמטריה...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>משבית משימות טלמטריה מתוזמנות...</value>
+    <value>מצמצם למינימום איסוף נתוני אבחון של Windows, מלאי תאימות יישומים ובקשות משוב.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>השבתת דיווח שגיאות</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>משבית את שירותי דיווח השגיאות של Windows ואת מסייע תאימות התוכניות.</value>
+    <value>מכבה את דיווח השגיאות של Windows ועוצר משימות מתוזמנות שאוספות או שולחות דוחות קריסה ואבחון דיסק.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
     <value>השבתת פרסומות והצעות</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>משבית פרסומות מותאמות אישית, תכונות צרכניות של Windows והצעות מערכת.</value>
+    <value>מכבה את מזהה הפרסום של Windows, חוויות מותאמות מנתוני אבחון, מבצעי צרכנים והצעות הגדרה.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
     <value>השבתת היסטוריית פעילות</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>מונע מ-Windows לאסוף ולסנכרן את היסטוריית הפעילות שלך.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>השבתת מיקום וחיישנים</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>משבית מעקב מיקום, חיישני מערכת ועדכוני מפות לא מקוונות.</value>
+    <value>עוצר מ-Windows לתעד ולהעלות את היסטוריית הפעילות באפליקציות ובקבצים ל-Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>השבתת רישום פעילות ברקע</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>מונע הפעלת מושבי WMI/ETW AutoLogger שאינם חיוניים (Diagtrack-Listener, SQMLogger וכו') בעת האתחול כדי להפחית פעילות דיסק ומעבד ברקע. הערה: תוכנת אבטחה עשויה לסמן שינויים ב-AutoLogger מכיוון שהם משנים את מעקב האבחון.</value>
+    <value>משבית הפעלות מעקב אבחון ETW לא חיוניות באתחול כדי לצמצם כתיבות דיסק ועומס CPU ברקע.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>השבתת Cortana וחיפוש באינטרנט</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>מכבה את העוזרת הקולית Cortana ומשבית חיפוש ענן ותוצאות אינטרנט בחיפוש Windows (Windows 10 בלבד).</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>השבתת Windows Copilot</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>מסיר את עוזר ה-AI‏ Copilot משורת המשימות וממעטפת המערכת כדי לפנות זיכרון ושטח מסך.</value>
+    <value>מכבה את Cortana ומונע מחיפוש Windows 10 לשלוח שאילתות שולחן עבודה לענן.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>השבתת אספקת תוכן מהענן</value>
+    <value>השבתת תוכן ענן ברקע</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>מכבה תוכן של Windows המסופק מהענן, כולל עצות מערכת, הצעות Spotlight ואספקה אוטומטית של תכונות צרכניות.</value>
+    <value>מונע מ-Windows להוריד ברקע הצעות Spotlight למסך הנעילה, טיפים ותוכן שיווקי.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>חסימת תוכנות מיותרות מותקנות מראש</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>מונע מ-Windows להתקין מחדש באופן אוטומטי אפליקציות צד-שלישי לא רצויות ותוכנות מקודמות.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>מיטוב שירותי המערכת</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>מכוונן שירותי רקע לא חיוניים כדי לפנות משאבים תוך שמירה על כל הפונקציונליות הנחוצה של Windows.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>מגדיר את סוג ההפעלה של {0} ל-{1}...</value>
+    <value>מונע מ-Windows להוריד בשקט ולהצמיד אפליקציות צרכניות מקודמות בתפריט Start.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>תצוגה</value>
@@ -678,71 +633,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>חוויית משתמש</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>האצת הסייר והתפריטים</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>מגדיר StartupDelayInMSec=0, MenuShowDelay=0 כדי לבטל את השהיית הפעלת הסייר ולצמצם למינימום את השהיית ריחוף התפריטים.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>השבתת חיפוש באינטרנט בתפריט התחלה</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>כיבוי החיפוש באינטרנט בתפריט התחלה של Windows לטעינה מהירה יותר של תוצאות החיפוש המקומיות.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>השבתת אפקטים חזותיים</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>משבית אנימציות של שורת המשימות, צללים ברשימות, שקיפות חלונות ו-Aero Peek כדי לפנות משאבי מעבד גרפי/מעבד לשיפור הביצועים.</value>
-  </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>השבתת AMD ULPS</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>מגדיר EnableULPS=0 ברישום של מעבד גרפי AMD כדי למנוע השהיות התעוררות ממצב Ultra Low Power ובעיות ריבוי מסכים. מפחית חיסכון בחשמל במצב סרק.</value>
+    <value>מכבה מצב צריכת חשמל נמוכה במיוחד (ULPS) בכרטיסי AMD GPU כדי למנוע גמגום בהתעוררות GPU משני והבהוב ריבוי מסכים.</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>השבתת AMD Power Gating</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>מגדיר DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 כדי למנוע מעברי מצב חשמל של מעבד גרפי AMD. שומר על תדרים עקביים במחיר צריכת חשמל גבוהה יותר בסרק.</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>השבתת AMD Video Clock Gating</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>מגדיר DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 עבור מנועי הווידאו של AMD‏ (VCE/UVD) לשיפור יציבות הקידוד/פענוח. מגדיל את צריכת החשמל בהפעלת וידאו.</value>
+    <value>משבית את Power Gating ואת דירוג החשמל הדינמי ב-AMD GPU כדי שיחידות הגרפיקה יישארו דלוקות בין עומסים.</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>השבתת AMD ASPM</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>מגדיר EnableAspmL0s=0, EnableAspmL1=0 כדי להשבית ניהול צריכת חשמל לפי מצב פעיל (ASPM) במעבדים גרפיים של AMD, ומפחית את השהיית אפיק ה-PCIe. מגדיל את צריכת החשמל של החריץ.</value>
+    <value>משבית את ניהול צריכת PCIe ASPM (L0s ו-L1) בכרטיסי AMD להסרת השהיית התעוררות של אפיק PCIe.</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>השבתת NVIDIA Dynamic P-State</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>מגדיר DisableDynamicPstate=1 כדי לנעול את המעבד הגרפי של NVIDIA למצב ביצועים קבוע ולמנוע תנודות במהירות השעון. מגדיל את צריכת החשמל בסרק.</value>
+    <value>מונע מכרטיסי NVIDIA GPU לרדת למצבי P-state דינמיים חסכוניים כדי למנוע שינויי תדר בעומסים קצרים.</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>השבתת NVIDIA Async P-States</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>מגדיר DisableASyncPstates=1 כדי למנוע החלפת מצבי חשמל אסינכרונית של NVIDIA, ומספק ביצועים דטרמיניסטיים לאפליקציות VR/זמן-אמת.</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>השבתת Intel Async Flips</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>מגדיר Display1_DisableAsyncFlips=1 כדי לאלץ החלפות מאגר סינכרוניות במעבד הגרפי המשולב של Intel, ומפחית את ההשהיה מקלט לתצוגה וקרעי מסך.</value>
+    <value>עוצר החלפה אסינכרונית של מצבי ביצועים בדרייברים של NVIDIA בעומסים קצרים ליציבות פריימים עדיפה.</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>השבתת Intel Adaptive V-Sync</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>מגדיר AdaptiveVsyncEnable=0 כדי להשבית את ה-V-Sync המסתגל של Intel שמתאים את עצמו דינמית לקצב הפריימים, ומשתמש ב-V-Sync קבוע במקום לתזמון יציב.</value>
+    <value>מכבה את Adaptive V-Sync ברמת דרייבר Intel כך שהסנכרון פועל לפי היישום או V-Sync קבוע.</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1262,22 +1187,22 @@
     <value>אחר</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>פתיחת קובץ ה-json הגולמי המכיל את נתוני הביטול עבור מיטוב זה.</value>
+    <value>מציג את גיבוי ה-JSON המשמש לשחזור הגדרות קודמות בעת ביטול.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>פתיחת קוד המקור של מיטוב זה בדפדפן.</value>
+    <value>עיין במימוש ה-C# של אופטימיזציה זו ב-GitHub.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
-    <value>הצג מקור ב-GitHub</value>
+    <value>צפה בקוד המקור</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>פרטים טכניים</value>
   </data>
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
-    <value>מזהה מיטוב</value>
+    <value>מזהה אופטימיזציה</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>שם מחלקה</value>
+    <value>מפתח מזהה</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>אפליקציות בהפעלה</value>
@@ -1787,14 +1712,11 @@
   <data name="Customize.CustomOption.NotSet" xml:space="preserve">
     <value>לא מוגדר</value>
   </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>השבתת חדשות ותחומי עניין</value>
-  </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>הסתרת כפתור Meet Now</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>מסתיר את כפתור Meet Now (Skype) מאזור ההודעות בשורת המשימות. רק ב-Windows 10.</value>
+    <value>מסתיר את לחצן Meet Now מאזור ההתראות בשורת המשימות של Windows 10.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
     <value>גישה מהירה</value>
@@ -1809,34 +1731,34 @@
     <value>השבתת Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>מכבה את שכבת-העל Click To Do המבוססת על בינה מלאכותית ומנתחת טקסט ותמונות על המסך.</value>
+    <value>משבית את שכבת העל Click To Do הסורקת טקסט ותמונות על המסך לפעולות AI.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>השבתת Windows Recall</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>השבתת אופטימיזציית מסירה (P2P)</value>
+    <value>השבתת Delivery Optimization (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>מונע מ-Windows לשתף או להוריד קבצי עדכון ממחשבים אחרים בעמית-לעמית, כך שעדכונים מגיעים רק משרתי Microsoft.</value>
+    <value>עוצר שיתוף עדכוני P2P בין מחשבים כך ש-Windows יוריד עדכונים אך ורק משרתי Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>השבתת איתור המכשיר שלי</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>משבית את תכונת איתור המכשיר שלי המדווחת מעת לעת על מיקום המכשיר שלך ל-Microsoft.</value>
+    <value>משבית את 'אתר את המכשיר שלי' כדי שהמחשב יפסיק לדווח מיקום לחשבון Microsoft.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>השבתת פרסומות Microsoft 365 בהגדרות</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>מסיר את התוכן השיווקי של Microsoft 365 ו-Copilot מדף הבית של ההגדרות.</value>
+    <value>מסיר כרזות פרסומיות של Microsoft 365 וחשבון מדף הבית של הגדרות Windows.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>הסתרת קטע מומלצים בתפריט התחל</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>מסתיר את קטע מומלצים מתפריט התחל כדי לשמור על תפריט נקי ולמנוע הצגת קבצים ואפליקציות אחרונים.</value>
+    <value>מסתיר את האזור 'מומלצים' מתפריט התחל של Windows 11 להסרת קבצים אחרונים והצעות אפליקציות.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>בדיקת התאימות נכשלה</value>
@@ -1929,16 +1851,10 @@
     <value>חלק מההגדרות אינן זמינות במערכת הנוכחית שלך.</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
-    <value>הסרת מגבלת 50 מגה-בייט של WebDAV</value>
+    <value>הסרת מגבלת 50 MB של WebDAV</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>מעלה את מגבלת גודל הקבצים של WebClient עבור כונני WebDAV מ-50 מגה-בייט ל-4 גיגה-בייט כדי למנוע כשלים בהעברת קבצים גדולים ברשת.</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>מקסום הגבלת השהיית העדכונים</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>מגדיר את תקרת ההשהיה של Windows Update לערך המרבי הנתמך. תקף רק בגירסאות Windows שעדיין תומכות בהגדרה זו; עדכוני אבטחה יישארו מושהים בזמן שזה פעיל.</value>
+    <value>מעלה את מגבלת ההעברה של Windows WebClient מ-50 MB ל-4 GB כדי שקבצים גדולים לא ייכשלו בכונני WebDAV.</value>
   </data>
   <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
     <value>מחוון שכבת-על של DLSS</value>
@@ -2253,10 +2169,10 @@
     <value> (חזרה כל {0} במשך {1})</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
-    <value>כבר מיטבי</value>
+    <value>כבר מוגדר</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>המחשב הזה כבר תואם את האופטימיזציה הזו, ולכן אין מה לשנות.</value>
+    <value>המחשב שלך כבר משתמש בהגדרה זו, כך שאין צורך לשנות דבר.</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>אין מה לשנות: {0} כבר תואם למחשב הזה.</value>
@@ -2277,13 +2193,13 @@
     <value>Windows לא הסיר את החבילות האלה: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>לחץ כדי לראות כל שלב בהחלה האחרונה. {0}</value>
+    <value>לחץ כדי לראות כל שינוי שנרשם. {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>לחץ כדי לראות כל שלב בהחלה האחרונה.</value>
+    <value>לחץ כדי לראות כל שינוי שנרשם.</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} שלבים השתנו, {1} כבר היו תואמים, {2} לא חלים, {3} נדחו על ידי Windows</value>
+    <value>{0} שונו, {1} כבר תקינים, {2} דולגו, {3} נחסמו על ידי Windows</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>ההרצה האחרונה שנרשמה</value>
@@ -2310,58 +2226,58 @@
     <value>נכשל</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת בהגדרות האבטחה ב-Windows.</value>
+    <value>משנה הגדרות אבטחה, בידוד או הצפנה של Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת בנתונים ש-Windows אוסף ושולח.</value>
+    <value>מגביל טלמטריה, אבחון ונתונים המשותפים עם Microsoft או אפליקציות.</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו נוגעת בחלק ליבה של Windows, ברכיב או במדיניות, כדאי לקרוא קודם מה היא עושה.</value>
+    <value>משנה רכיבי Windows מרכזיים או מדיניות מערכת; עיין בפרטים לפני ההפעלה.</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת בביצועים ובעבודה שרצה ברקע.</value>
+    <value>משפר תגובתיות מערכת, תזמון CPU או עומס ברקע.</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת בהשהיה בקלט, במשחקים או בצליל.</value>
+    <value>מפחית עיכובי תגובה בקלט, בשמע או בתזמון פריימים.</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת באופן שבו Windows משתמש בדיסקים.</value>
+    <value>משנה את אופן הקריאה, הכתיבה או הוספת האינדקס לכוננים ב-Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת באופן שבו Windows משתמש בזיכרון.</value>
+    <value>מפחית שימוש ב-RAM ברקע ותקורת זיכרון.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת בפלט של המסך או של הכרטיס הגרפי.</value>
+    <value>מתאים פלט מסך, קצב רענון או תכונות תצוגה של GPU.</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת רק במחשבים עם כרטיס גרפי NVIDIA ואינה עושה דבר באחרים.</value>
+    <value>חל רק על מחשבים עם גרפיקת NVIDIA; מתעלם מחומרה אחרת.</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת רק במחשבים עם כרטיס גרפי AMD ואינה עושה דבר באחרים.</value>
+    <value>חל רק על מחשבים עם גרפיקת AMD; מתעלם מחומרה אחרת.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת רק במחשבים עם כרטיס גרפי Intel ואינה עושה דבר באחרים.</value>
+    <value>חל רק על מחשבים עם גרפיקת Intel; מתעלם מחומרה אחרת.</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת בחשמל, כלומר חיי סוללה, חום או רעש המאוורר.</value>
+    <value>משפיע על צריכת חשמל, חיי סוללה, חום ומהירות מאווררים.</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת ברשת, בחיבור ובתעבורה שעוברת בו.</value>
+    <value>משנה התנהגות מתאם רשת, העברות או תעבורת רקע ב-Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו דורשת חיבור לאינטרנט, כי היא מורידה משהו.</value>
+    <value>דורש חיבור אינטרנט פעיל להורדת הקבצים הדרושים.</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת באופן שבו הצליל מושמע ומעובד.</value>
+    <value>מתאים את אופן עיבוד וניתוב השמע ב-Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו עוסקת במראה של Windows, באפקטים ובאנימציות שלו.</value>
+    <value>מתאים רכיבי ממשק, הצעות או אפקטים חזותיים ב-Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו מיועדת ל-Windows 10 בלבד ואינה עושה דבר ב-Windows 11.</value>
+    <value>מיועד ל-Windows 10; מוסתר אוטומטית ב-Windows 11.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>האופטימיזציה הזו מיועדת ל-Windows 11 בלבד ובאחרות היא חסומה.</value>
+    <value>מיועד ל-Windows 11; מוסתר אוטומטית ב-Windows 10.</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>הוחל ב-{0}</value>
@@ -2496,10 +2412,10 @@
     <value>ערך</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>הצג קובץ רשומה</value>
+    <value>פתח רשומת היסטוריה</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>פותח את הקובץ שבו optimizerDuck רושם מה עשתה האופטימיזציה הזו. הוא נשאר גם אחרי ביטול, כדי שתוכל לעיין בו.</value>
+    <value>מציג את יומן ה-JSON של השינויים שתועדו על ידי optimizerDuck (נשמר גם לאחר שחזור).</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>רישום</value>
@@ -2575,5 +2491,620 @@
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>הפרטים נמצאים בקובץ היומן.</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>השבתת Windows Copilot</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>משבית את Windows Copilot ומסיר את לחצן Copilot משורת המשימות לאחר התנתקות.</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>נדרש מחשב נייד</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>מיטוב זה חל רק על מחשבים ניידים עם סוללה.</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>נדרש עד 12 GB RAM</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>מערכות עם מעל 12 GB RAM כבר נהנות מהפרדת Service Host ללא תקורת זיכרון מופרזת.</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>שלמות הזיכרון אינה זמינה</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>תכונת Memory Integrity (HVCI) לא זוהתה או אינה נתמכת במכשיר זה.</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>לא נמצא מתאם רשת פיזי</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>לא זוהה מתאם Ethernet או Wi-Fi פיזי במערכת זו.</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>שירות Windows AI לא נמצא</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>מהדורת Windows זו אינה כוללת את שירות הרקע של Windows AI.</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>אפקטי שקיפות</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>מפעיל אפקטי שקיפות Acrylic ו-Mica בשורת המשימות, תפריט התחל וחלונות.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>הנפשות שורת המשימות</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>שולט בהנפשות סמלים בשורת המשימות בעת פתיחת חלונות או מעבר ביניהם.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>מאפשר ל-Driver כרטיס המסך למזג שכבות חומרה. כבה רק אם מופיעים הבהובים או מסכים שחורים.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>כרטיסי GPU מודרניים מנצלים MPO להפחתת השהייה; כבה רק אם יש תקלות תצוגה.</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>דולג משום שסוג ההפעלה של השירות כבר מחמיר יותר מהיעד</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>נדרש הפעלה מחדש של Explorer</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>נדרשת התנתקות</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>נדרשת הפעלה מחדש</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>ניתן להתאמה לפני ההחלה</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>משתמש בהגדרות Windows Group Policy. ייתכן שיופיע בהגדרות Windows 'חלק מההגדרות מנוהלות על ידי הארגון שלך' בזמן הפעלה.</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>שונה חיצונית</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>קיים גיבוי שמור, אך הגדרות Windows הנוכחיות אינן תואמות עוד (למשל לאחר עדכון Windows או עריכה ידנית).</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>הגדר אפשרויות מחדש</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>פרטים והיסטוריה</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>התאמה זו משנה הגדרות מערכת או אבטחה עמוקות יותר. בדוק את ההשלכות למטה לפני ההמשך.</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>החל בכל זאת</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>החל נבחרים</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>כבר מוגדר</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>בחר לפחות אפשרות אחת כדי להמשיך.</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>מופעל</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>מושבת</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>אופטימיזציות ישנות עם גיבוי שמור</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>התאמות אלו הוסרו או הוחלפו בעדכון חדש יותר, אך הגיבוי המקורי שלך נשמר בבטחה בדיסק לשחזור בכל עת.</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>שחזר</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>{0} שלבים לשחזור</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>"{0}" שוחזר והגיבוי השמור שלו הוסר.</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>לא ניתן לשחזר גיבוי ישן: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>פשרה</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>השפעות</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>מקורות</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>אפשרויות שהוחלו</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>ההגדרות שונו מבחוץ</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>הגדרות Windows הנוכחיות אינן תואמות עוד לאופטימיזציה זו בזמן שגיבוי נשאר בדיסק. הפעל מחדש את המתג להחלה חוזרת, שחזר את מה שנותר או מחק את הגיבוי הישן.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>שחזר את השאר</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>מחק גיבוי ישן</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>הגדר מחדש</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>מחיל הגדרות Windows Group Policy תקניות. דפי הגדרות מסוימים ב-Windows עשויים להציג 'חלק מההגדרות מנוהלות על ידי הארגון שלך' בזמן הפעלה.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>העבר AI Fabric Service לידני</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>מעביר את שירות הרקע Windows AI Fabric להפעלה ידנית כך שיישאר כבוי עד שיידרש על ידי תכונת AI.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>כלי Windows AI התלויים בשירות זה עשויים להיפתח כמה שניות לאט יותר בהפעלה הראשונה.</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>השבתת AI ב-Microsoft Edge</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>משבית את סרגל הצד של Copilot, הצעות כתיבה, חיפוש AI בהיסטוריה ומודלים מקומיים ב-Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>משבית את החיפוש בציר הזמן של Windows Recall ומוחק לצמיתות את כל הצילומים השמורים.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>השבת שירותים ישנים מיותרים</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>משבית שירותים ישנים וארגוניים הנדרשים לעיתים רחוקות במחשבים ביתיים כגון פקס, רישום מרוחק, Retail Demo, App-V וניתוב וגישה מרחוק, ומעביר קבצים לא מקוונים לידני.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>פקס ישן, רישום מרוחק, ניתוב וגישה מרחוק ו-App-V יישארו כבויים עד לשחזור; קבצים לא מקוונים יפעלו רק ידנית.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>השבת שירותי תכונות אופציונליים</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>משבית קבוצות שירותי תכונות אופציונליות של Windows שאינך משתמש בהן, כמו הדפסה, Bluetooth, Xbox, שיתוף LAN, ביומטריה או שולחן עבודה מרוחק.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>רק תכונות החומרה או הרשת שבחרת יישארו מושבתות עד להגדרה מחדש או שחזור.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>לא נבחרו קבוצות שירותים</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>הדפסה ומנהל הדפסה</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>עוצר את שירותי הרקע של תור ההדפסה והתראות מדפסת.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>מדפסות מקומיות, מדפסות רשת ו-Microsoft Print to PDF לא יעבדו.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>עוצר את שירותי הגילוי, הצימוד והשמע הדיבורי של Bluetooth.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>מקלדות, עכברים, בקרים ואוזניות Bluetooth לא יתחברו.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>שירותי Xbox Live</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>עוצר את שירותי ההתחברות, שמירות הענן, האביזרים והרשת של Xbox Live.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>התחברות לאפליקציית Xbox, שמירות ענן של Game Pass ומשחק רשת ב-Xbox Live יפסיקו לפעול.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>שיתוף קבצים וגילוי ב-LAN</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>עוצר את שירותי שיתוף התיקיות המקומי וגילוי רשת UPnP.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>שיתוף תיקיות ברשת המקומית וגילוי הזרמת מדיה יפסיקו לעבוד.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>ביומטריה של Windows Hello</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>עוצר את שירות הרקע הביומטרי של Windows.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>קורא טביעות אצבע וזיהוי פנים Windows Hello יפסיקו לעבוד.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>שירותי שולחן עבודה מרוחק</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>עוצר את שירותי קבלת חיבורי Remote Desktop נכנסים והפניית התקנים.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>מחשבים אחרים לא יוכלו להתחבר למחשב זה דרך Remote Desktop (RDP).</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>השבת אינדקס חיפוש Windows</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>עוצר את שירות הוספת האינדקס של חיפוש Windows כדי למנוע כתיבות דיסק וקפיצות CPU ברקע.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>חיפוש בתוכן קבצים בסייר הקבצים וחיפוש מיידי ב-Outlook יהיו איטיים יותר כי Windows נאלץ לסרוק תיקיות לפי דרישה.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>השבת Edge ברקע והאצת הפעלה</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>סוגר את Microsoft Edge לחלוטין עם סגירת החלונות ומונע טעינה מוקדמת של Startup Boost בכניסה למערכת.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>הפתיחה הקרה של חלון Edge הראשון תיקח רגע נוסף, והתראות אתרים ייפסקו כשכל החלונות סגורים.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>כרטיסי מסך במנוחה ומחשבים ניידים מרובי GPU יצורכו יותר חשמל ללא עומס.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>מגדיל צריכת חשמל במנוחה, חום ומהירות מאווררים של ה-GPU ומקצר חיי סוללה במחשב נייד.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>מונע מקישור PCIe של ה-GPU להיכנס למצבי שינה חסכוניים, ומעלה צריכת חשמל במנוחה ושימוש בסוללה.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>מעלה צריכת חשמל במנוחה, טמפרטורות GPU ורעש מאווררים.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>מגביר צריכת חשמל במנוחה בכרטיסי NVIDIA GPU.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>משחקים שיורדים מתחת לקצב רענון המסך עלולים להציג גמגומים קלים או קריעת תמונה.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>אפליקציות Microsoft Store לא יסנכרנו דואר, שעונים מעוררים או התראות ברקע עד לפתיחה ידנית.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>חוסך RAM במחשבים עם 12 GB או פחות, אך קריסה של שירות אחד עלולה להשפיע על שירותים אחרים החולקים את אותו תהליך.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>השהיה קצרה עלולה לגרום לכפילות תווים מקרית אם משהים מעט את האצבע על מקש בזמן הקלדה.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>לחיצה חמש פעמים על Shift או החזקת NumLock לא יפתחו הודעות נגישות; הן עדיין זמינות בהגדרות Windows.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>השבת זיהוי אוטומטי של סוג תיקיות</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>עוצר סריקת תוכן אוטומטית של תיקיות ב-File Explorer לניחוש תצוגות תמונות או מוזיקה בכל פתיחה.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>תיקיות גדולות של תמונות ומוזיקה ייפתחו כברירת מחדל בתצוגת פרטים רגילה עד שתתאים אותן ידנית.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>השבת מארח WebView2 בחיפוש</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>מונע מחיפוש Windows 11 להפעיל תהליכי Microsoft Edge WebView2 מוטמעים, ומפחית צריכת RAM ו-CPU.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>משתמש בעקיפת תכונה פנימית המבטלת כרטיסי אינטרנט עשירים בחיפוש ועשויה להתאפס בעדכון גדול.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>השבת שלמות זיכרון (HVCI)</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>מכבה את בדיקות האבטחה הווירטואליות Memory Integrity (HVCI) כדי להחזיר ביצועי CPU ויציבות זמני פריים במשחקים.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>מחליש את הגנת הליבה של Windows מפני מנהלי התקנים זדוניים והזרקת קוד. Microsoft ממליצה להפעיל חזרה מחוץ למשחקים.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>השבת חיסכון בחשמל למתאם רשת</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>מונע מ-Windows לכבות מתאמי Ethernet ו-Wi-Fi פיזיים לחיסכון בחשמל, ומונע ניתוקים במנוחה והשהיות התעוררות.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>מעלה את צריכת החשמל במנוחה של מתאמי Ethernet ו-Wi-Fi ומקצר את חיי הסוללה בניידים.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>לא נמצאו מתאמי רשת פיזיים להגדרה</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>כיבוי Hibernate מבטל גיבוי RAM אוטומטי בהתרוקנות סוללה; כיבוי Fast Startup מאט מעט הפעלה קרה.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>מצב כיבוי ושינה עמוקה</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>השבת אתחול מהיר בלבד (מומלץ לניידים)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>מונע שמירת תמונת ליבה בעת כיבוי תוך שמירה על מצב Hibernate רגיל.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>השבת שינה עמוקה ואתחול מהיר</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>מכבה את מצב Hibernate לחלוטין ומוחק את קובץ ההיברנציה לפינוי כמה גיגה-בייט.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>השבת רשת ב-Modern Standby</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>מנתק Wi-Fi ועוצר התעוררויות רשת ברקע בזמן שהמחשב הנייד ישן במצב Modern Standby.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>בזמן שינה, דואר, עדכונים והתראות ימתינו עד שתעיר את המכשיר.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>רכזות USB והתקנים מחוברים נשארים עם אספקת חשמל במקום השעיה סלקטיבית, מה שמפחית מעט את הסוללה.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>שמירה על ליבות CPU פעילות מעלה חום, מהירות מאווררים וצריכת חשמל; מנהל המשימות עשוי להציג עומס גבוה מהאמיתי.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>משימות רקע עלולות לרוץ במהירות CPU מלאה גם על סוללה, מה שמעלה חום וצריכת סוללה.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>אבחון השימוש של Microsoft, טיסות Windows Insider ומשוב פתרון בעיות מותאם משבתים.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>קריסות יישומים לא ייצרו ולא ישלחו יותר דוחות אבחון אל Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>מכבה עקבות אבחון ברמה נמוכה לתמיכת Microsoft; חלק מתוכנות האבטחה עשויות להתריע על שינוי הפעלות אתחול.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>לא תוכל לאתר או לנעול מחשב זה מרחוק מחשבון Microsoft במקרה של אובדן או גניבה.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>הגדר מדיניות Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>מחיל מדיניות קבוצתית נבחרת של Windows Update לשליטה באתחולים כפויים, עדכונים מוקדמים, דחיות ועדכוני Driver.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>דחיית עדכונים או החרגת Driver-ים מחייבת עדכון ידני של מנהלי התקן GPU וערכת שבבים.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>לא נבחרו אפשרויות Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>מנע אתחול אוטומטי בזמן חיבור</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>מונע מ-Windows Update לבצע הפעלה מחדש אוטומטית בזמן שאתה מחובר.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>בטל 'קבל את העדכונים האחרונים מיד עם זמינותם'</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>מבטל הצטרפות לקבלת תצורות ותכונות מקדימות מוקדמות בעת בדיקת עדכונים.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>אל תכלול עדכוני מנהלי התקנים ב-Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>מחריג חבילות דרייברים של חומרה מ-Windows Update.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>יהיה עליך להוריד ולהתקין Driver-ים ישירות מהיצרן.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>דחה עדכוני איכות (4 ימים) ותכונות (365 ימים)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>קובע השהייה ב-Group Policy כדי שעדכונים יתייצבו לפני ההתקנה.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>דוחה תיקונים חודשיים ב-4 ימים ושדרוגי תכונות שנתיים בשנה אחת.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>מנע הצפנת BitLocker אוטומטית</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>מונע מ-Windows להפעיל אוטומטית הצפנת BitLocker בכוננים חדשים או בהתקנה מחדש.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>אינו מפענח כוננים שכבר הוצפנו; כוננים חדשים יישארו לא מוצפנים ללא הפעלה ידנית.</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>ביצועים מהירים יותר</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>עלול להשפיע על הביצועים</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>השהיה נמוכה יותר</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>עלול להוסיף השהיה</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>פחות שימוש ב-RAM</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>צורך יותר RAM</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>חוסך מקום בדיסק</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>צורך יותר שטח דיסק</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>צריכת חשמל נמוכה יותר</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>צריכת חשמל גבוהה יותר</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>פרטיות מוגברת</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>מפחית פרטיות</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>אבטחה חזקה יותר</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>מחליש אבטחה</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>רשת יציבה יותר</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>מגביל רשת</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>יציבות גבוהה יותר</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>עלול לפגוע ביציבות</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>פחות עומס חזותי</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>מוסיף רכיבי ממשק</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>יותר תכונות</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>משבית תכונות</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>מגדיר את סוג האתחול של {0} ל-{1}...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>סרגל הצד של Copilot, סיוע כתיבה ב-AI וחיפוש היסטוריה חכם לא יהיו זמינים ב-Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>גיבויים ישנים</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>נמצאו {0} גיבויים ישנים</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>הסר גיבוי</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>מחיקת גיבוי שמור זה מבלי לשנות את הגדרות Windows</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>למחוק את הגיבוי השמור מבלי לשנות את Windows? לא תוכל עוד לשחזר שינויים ישנים אלו דרך optimizerDuck.</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>הצג קובץ גיבוי ב-Explorer</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>הוחל ב-{0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>אין גיבויים ישנים שנותרו</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>כל הגיבויים של האופטימיזציות הישנות שוחזרו או הוסרו.</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>בטל אופטימיזציה</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>כל האפשרויות כבויות. אישור יחזיר אופטימיזציה זו למצבה הקודם.</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>המערכת שלך כבר תואמת לאפשרות זו, כך שאין צורך בשינויים.</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>כל האפשרויות כאן כבר מוגדרות במערכת שלך. אין צורך לשנות דבר.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>השבתת בינה מלאכותית ב-Windows Paint</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>משבית באמצעות מדיניות את Cocreator, מילוי גנרטיבי, Image Creator, מחיקה גנרטיבית והסרת רקע מבוססת AI ב-Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>כלי היצירה והעריכה מבוססי AI יוסרו מסרגלי הכלים של Windows Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>השבתת בינה מלאכותית ב-Windows Notepad</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>משבית באמצעות מדיניות את כלי השכתוב והסיכום מבוססי AI בתוך Windows Notepad.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>פעולות שכתוב וסיכום באמצעות AI לא יהיו זמינות ב-Windows Notepad.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>השבתת מסייע תאימות התוכניות</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>משבית את שירות הרקע Program Compatibility Assistant שעוקב אחר הפעלת יישומים ומתקינים ישנים.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>התרעות תאימות אוטומטיות והתאמות תאימות לתוכנות ומתקינים ישנים יושבתו.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>השבתת התאמה אישית של כתב יד והקלדה</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>עוצר איסוף כתב יד, הרגלי הקלדה, אנשי קשר מקומיים והעדפות שפה להתאמה אישית של הקלט ב-Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>זיהוי כתב יד מותאם אישית, תיקון אוטומטי מבוסס אנשי קשר ולימוד המילון המקומי יפסיקו להתעדכן.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>השבתת מעקב מיקום</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>משבית את שירות המיקום של Windows, הרשאות מיקום לאפליקציות, עדכון אוטומטי של מפות לא מקוונות ודיווח נקודות Wi-Fi.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>מזג אוויר, מפות ואפליקציות המסתמכות על מיקום המערכת לא יוכלו לזהות את מיקומך.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>השבתת חיישני תנועה ותאורה</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>חוסם באמצעות מדיניות קבוצתית קריאה של חיישני תנועה, כיוון ותאורת סביבה על ידי אפליקציות ו-Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>בהירות אוטומטית במחשבים ניידים וסיבוב מסך אוטומטי במכשירי 2-ב-1 יפסיקו לפעול.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>הסרת השהיית יישומי אתחול</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>מסיר את השהיית הכניסה המובנית של סייר הקבצים ואת ההמתנה למנוחת CPU כדי שתוכניות אתחול יעלו מיד.</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>הסרת השהיית פתיחת תפריטים</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>מגדיר את השהיית הריחוף בתפריטי משנה של Windows לאפס כדי שיפתחו מיד תחת הסמן.</value>
   </data>
 </root>

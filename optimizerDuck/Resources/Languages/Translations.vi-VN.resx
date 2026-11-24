@@ -67,10 +67,7 @@
     <value>Dashboard</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>Tắt tính năng AI Windows Recall, tính năng chụp và lập chỉ mục ảnh chụp màn hình. Đồng thời gỡ bỏ thành phần Recall và xóa các ảnh chụp đã lưu trữ trước đó; cần khởi động lại máy để có hiệu lực.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Tắt nguồn cấp tin tức và sở thích (News and Interests) và ẩn nút của nó trên thanh tác vụ (Windows 10), đồng thời vô hiệu hóa bảng Widgets (Windows 11).</value>
+    <value>Tắt chụp màn hình Windows Recall qua Group Policy, xóa dữ liệu ảnh đã lưu và chặn kích hoạt Recall sau khi khởi động lại.</value>
   </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>Dashboard</value>
@@ -211,7 +208,7 @@
     <value>Khác</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>Nâng ngưỡng phân tách Service Host lên bằng tổng RAM hệ thống, giữ các dịch vụ gộp trong ít tiến trình hơn để giảm mức sử dụng bộ nhớ và số tiến trình.</value>
+    <value>Nâng ngưỡng tách Service Host bằng tổng RAM trên máy từ 12 GB trở xuống để gom dịch vụ vào tiến trình chung và tiết kiệm bộ nhớ.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Không thể phát hiện power plan đang hoạt động hiện tại.</value>
@@ -226,13 +223,13 @@
     <value>Hệ thống</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
-    <value>Ram</value>
+    <value>RAM</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
     <value>Ổ cứng</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>Cần kết nối mạng</value>
+    <value>Cần Internet</value>
   </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>Mạng</value>
@@ -254,7 +251,7 @@
   </data>
 
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
-    <value>Công suất/Điện năng</value>
+    <value>Điện năng</value>
   </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>Không tìm thấy dữ liệu hoàn tác cho {0}.</value>
@@ -263,7 +260,7 @@
     <value>Đang hoàn tác...</value>
   </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>Hoàn tác {0} thành công!</value>
+    <value>Đã hoàn tác {0}.</value>
   </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>Hoàn tác {0} nhưng có {1} bước thất bại.</value>
@@ -398,10 +395,10 @@
     <value>Vừa áp dụng</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-      <value>Đã xảy ra lỗi sau khi áp dụng</value>
+      <value>Không thể áp dụng trọn vẹn</value>
     </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
-    <value>Đã xảy ra lỗi sau khi hoàn tác</value>
+    <value>Không thể hoàn tác tối ưu</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
     <value>Áp dụng tối ưu thành công</value>
@@ -458,10 +455,10 @@
     <value>Bloatware &amp; Dịch vụ</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.Name" xml:space="preserve">
-    <value>Vô hiệu hóa ứng dụng nền</value>
+    <value>Tắt ứng dụng chạy nền</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Ngăn các ứng dụng chạy ngầm khi không sử dụng để giải phóng RAM và giảm tải cho CPU.</value>
+    <value>Chặn ứng dụng Microsoft Store chạy tác vụ nền giúp giảm lượng RAM chiếm dụng và số lần đánh thức CPU khi rảnh.</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>Hợp nhất các tiến trình dịch vụ</value>
@@ -469,134 +466,92 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>RAM không hợp lệ: {0}</value>
   </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>Ưu tiên ứng dụng đang dùng</value>
-  </data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>Cấu hình Win32PrioritySeparation thành 38 (Short, Variable, High foreground boost), ưu tiên ứng dụng đang hoạt động và giảm độ trễ đầu vào.</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-    <value>Tối ưu hóa Multimedia Scheduler</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-    <value>Cấu hình dịch vụ Multimedia Class Scheduler Service (MMCSS) cho gaming và độ trễ thấp bằng cách ưu tiên multimedia và tắt giới hạn băng thông mạng.</value>
-  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
-    <value>Tối ưu lặp phím bàn phím</value>
+    <value>Tối ưu tốc độ lặp phím</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>Đặt độ trễ lặp và tốc độ lặp phím ở mức nhanh nhất để gõ phím và giữ phím phản hồi nhanh hơn.</value>
+    <value>Đặt độ trễ lặp phím ở mức ngắn nhất và tốc độ lặp tối đa giúp thao tác giữ phím phản hồi nhanh hơn.</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
     <value>Tắt phím tắt trợ năng bàn phím</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-    <value>Tắt các phím tắt Sticky Keys, Filter Keys và Toggle Keys để tránh bật nhầm khi chơi game hoặc gõ phím.</value>
+    <value>Tắt các phím tắt mở hộp thoại Sticky Keys, Filter Keys và Toggle Keys khi bấm lặp hoặc giữ lâu phím Shift hay phím khóa.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
-    <value>Vô hiệu hóa Ngủ đông &amp; Fast Startup</value>
+    <value>Tắt Hibernation &amp; Fast Startup</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-    <value>Tắt Hibernate và Fast Startup để giải phóng dung lượng ổ đĩa và đảm bảo máy tắt hoàn toàn để khởi tạo phần cứng sạch hơn khi bật lại.</value>
+    <value>Tắt riêng Fast Startup để khởi động lạnh sạch sẽ, hoặc tắt hẳn Hibernation để thu hồi nhiều gigabyte dung lượng ổ đĩa.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
-    <value>Ngăn ngắt nguồn cổng USB</value>
+    <value>Tắt tiết kiệm điện cổng USB</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Ngăn Windows tự động ngắt điện các cổng USB khi không dùng, tránh độ trễ cho chuột và bàn phím.</value>
+    <value>Ngăn Windows tạm ngưng cấp nguồn cổng USB gốc và thiết bị gắn ngoài, tránh độ trễ khựng khi di chuột, gõ phím hay thiết bị âm thanh.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
-    <value>Cài đặt Sơ đồ năng lượng tối ưu</value>
+    <value>Áp dụng Power Plan tối ưu</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Kích hoạt sơ đồ năng lượng đặc biệt giúp máy luôn đạt hiệu năng cao nhất. Cảnh báo: Có thể khiến Task Manager hiển thị sai 100% CPU trên một số hệ thống, mức sử dụng CPU thực tế không bị ảnh hưởng.</value>
+    <value>Cài đặt và kích hoạt gói năng lượng hiệu năng cao tùy chỉnh giúp các nhân CPU luôn sẵn sàng và giảm trễ nâng xung nhịp.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-    <value>Đang import và set active power plan...</value>
+    <value>Đang cài đặt và kích hoạt power plan...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
-    <value>Vô hiệu hóa giới hạn năng lượng</value>
+    <value>Tắt Power Throttling hệ thống</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>Ngăn Windows tự động giảm hiệu năng CPU (Power Throttling) để duy trì sức mạnh tối đa cho hệ thống.</value>
+    <value>Tắt Windows Power Throttling để ứng dụng đang mở và chạy nền không bị giới hạn xung nhịp CPU.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
-    <value>Vô hiệu hóa thu thập dữ liệu (Telemetry)</value>
+    <value>Tắt thu thập dữ liệu (Telemetry)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>Tắt các dịch vụ theo dõi và gửi báo cáo sử dụng của Windows về Microsoft, giúp bảo vệ quyền riêng tư cá nhân.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-    <value>Đang áp dụng các chính sách và registry...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-    <value>Đang tắt các dịch vụ telemetry...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>Đang tắt các tác vụ telemetry theo lịch trình...</value>
+    <value>Giảm tối đa việc thu thập dữ liệu chẩn đoán Windows, kiểm kê tương thích ứng dụng và lời nhắc gửi phản hồi.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
-    <value>Vô hiệu hóa báo cáo lỗi</value>
+    <value>Tắt báo cáo lỗi (Error Reporting)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>Tắt dịch vụ Báo cáo lỗi của Windows và Trình hỗ trợ tương thích chương trình để tiết kiệm tài nguyên.</value>
+    <value>Tắt Báo cáo lỗi Windows và dừng các tác vụ chẩn đoán lỗi, ổ đĩa chạy theo lịch.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
-    <value>Vô hiệu hóa quảng cáo và gợi ý</value>
+    <value>Tắt quảng cáo và gợi ý</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>Tắt các quảng cáo cá nhân hóa, gợi ý hệ thống và các tính năng tiêu dùng của Microsoft.</value>
+    <value>Tắt ID quảng cáo Windows, trải nghiệm cá nhân hóa theo dữ liệu chẩn đoán, nội dung quảng bá và gợi ý thiết lập hệ thống.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
-    <value>Vô hiệu hóa lịch sử hoạt động</value>
+    <value>Tắt lịch sử hoạt động (Activity History)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>Ngăn Windows thu thập và đồng bộ hóa lịch sử hoạt động của bạn trên các thiết bị.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>Vô hiệu hóa vị trí và cảm biến</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>Tắt theo dõi vị trí, các cảm biến hệ thống và tự động cập nhật bản đồ ngoại tuyến.</value>
+    <value>Ngăn Windows ghi nhận và tải lịch sử mở ứng dụng và tệp của bạn lên máy chủ Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
-    <value>Vô hiệu hóa nhật ký hệ thống</value>
+    <value>Tắt ghi nhật ký nền (AutoLogger)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Ngăn các phiên WMI/ETW AutoLogger không thiết yếu (Diagtrack-Listener, SQMLogger, v.v.) khởi động cùng hệ thống để giảm hoạt động đĩa và CPU nền. Lưu ý: phần mềm bảo mật có thể cảnh báo các thay đổi AutoLogger vì chúng làm thay đổi quá trình theo dõi chẩn đoán.</value>
+    <value>Tắt các phiên ghi dấu vết chẩn đoán ETW không thiết yếu khi khởi động để giảm ghi đĩa nền và tải CPU.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
-    <value>Vô hiệu hóa Cortana &amp; Tìm kiếm</value>
+    <value>Tắt Cortana &amp; Tìm kiếm Web</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Tắt trợ lý giọng nói Cortana và vô hiệu hóa tìm kiếm đám mây cũng như kết quả web trong Windows Search (chỉ dành cho Windows 10).</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>Vô hiệu hóa Windows Copilot</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>Gỡ bỏ trợ lý AI Copilot khỏi thanh tác vụ và hệ thống để tiết kiệm dung lượng RAM.</value>
+    <value>Tắt trợ lý Cortana và chặn Windows Search gửi truy vấn tìm kiếm máy tính lên tìm kiếm đám mây trên Windows 10.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>Tắt Phân phối Nội dung Đám mây</value>
+    <value>Tắt tải nội dung gợi ý &amp; Spotlight</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Vô hiệu hóa các nội dung được phân phối qua đám mây của Windows, bao gồm các mẹo hệ thống, gợi ý tiêu điểm (spotlight) và các tính năng tiêu dùng tự động.</value>
+    <value>Ngăn Windows tải ngầm gợi ý màn hình khóa Spotlight, mẹo sử dụng và nội dung quảng bá.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>Chặn ứng dụng rác cài sẵn</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Chặn Windows tự động cài app OEM/bundled và “suggested apps”, giúp máy sạch bloatware hơn (đặc biệt sau cài mới/reset).</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>Tối ưu hóa các dịch vụ hệ thống</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>Điều chỉnh các dịch vụ chạy ngầm để giải phóng tài nguyên mà vẫn đảm bảo tính năng cần thiết.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>Đang đặt kiểu khởi động cho dịch vụ {0} thành {1}...</value>
+    <value>Ngăn Windows âm thầm tải xuống và ghim các ứng dụng quảng cáo lên menu Start.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>Màn hình</value>
@@ -611,65 +566,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Trải nghiệm người dùng</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>Tăng tốc Explorer &amp; Menu</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>Loại bỏ thời gian trễ khi mở thư mục và hiển thị menu để giao diện phản hồi tức thì.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>Tắt hiệu ứng hình ảnh</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>Tắt hiệu ứng chuyển động, bóng đổ, độ trong suốt và Aero Peek để giải phóng tài nguyên GPU/CPU cho hiệu suất tốt hơn.</value>
-  </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
-    <value>Vô hiệu hóa AMD ULPS</value>
+    <value>Tắt AMD ULPS</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>Tắt chế độ siêu tiết kiệm điện của AMD để tránh hiện tượng GPU bị khựng hoặc trễ khi thức dậy.</value>
+    <value>Tắt chế độ tiết kiệm siêu thấp ULPS trên GPU AMD để tránh khựng khi đánh thức GPU phụ và nháy đa màn hình.</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>Tắt AMD Power Gating</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>Duy trì hiệu năng GPU ổn định bằng cách ngăn việc tự động ngắt nguồn các thành phần bên trong.</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>Tắt AMD Video Clock Gating</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Tăng cường độ ổn định cho quá trình xử lý video bằng cách giữ xung nhịp engine video luôn sẵn sàng.</value>
+    <value>Tắt cơ chế ngắt nguồn khối GPU và hạ xung động trên AMD để các nhân đồ họa luôn cấp nguồn sẵn giữa các nhịp tải.</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
-    <value>Vô hiệu hóa AMD ASPM</value>
+    <value>Tắt AMD ASPM</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>Giảm độ trễ giao tiếp PCIe cho card đồ họa AMD, giúp tăng tốc độ phản hồi.</value>
+    <value>Tắt quản lý năng lượng liên kết PCIe ASPM (L0s và L1) cho card AMD để giảm độ trễ đánh thức bus PCIe.</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
-    <value>Khóa trạng thái năng lượng NVIDIA</value>
+    <value>Tắt NVIDIA Dynamic P-State</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>Ngăn NVIDIA GPU tự động thay đổi mức năng lượng để duy trì mức hiệu năng nhất quán nhất.</value>
+    <value>Ngăn GPU NVIDIA tự hạ sang trạng thái P-state điện áp thấp động, tránh chuyển xung đột ngột trong các nhịp tải nhẹ.</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
-    <value>Vô hiệu hóa Async P-States</value>
+    <value>Tắt NVIDIA Async P-States</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>Tắt việc chuyển đổi trạng thái hiệu năng không đồng bộ để đạt được sự ổn định cao nhất.</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Bật đồng bộ hình ảnh Intel</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Sử dụng cơ chế làm mới khung hình đồng bộ để giảm độ trễ hiển thị và hạn chế xé hình.</value>
+    <value>Ngăn driver NVIDIA chuyển trạng thái hiệu năng bất đồng bộ trong các nhịp tải ngắn để khung hình đều hơn.</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>Vô hiệu hóa Adaptive V-Sync</value>
+    <value>Tắt Intel Adaptive V-Sync</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>Duy trì thời gian xuất khung hình ổn định bằng cách tắt tính năng V-Sync thích ứng của Intel.</value>
+    <value>Tắt Adaptive V-Sync ở mức driver Intel để đồng bộ khung hình theo thiết lập chuẩn của ứng dụng hoặc V-Sync cố định.</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1111,25 +1042,25 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Quản lý các ứng dụng và tác vụ tự động chạy khi Windows khởi động.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>Mở tệp JSON gốc chứa dữ liệu khôi phục cho tính năng tối ưu hóa này.</value>
+    <value>Mở thư mục chứa tệp JSON lưu cấu hình gốc dùng để hoàn tác.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>Mở dữ liệu khôi phục</value>
+    <value>Mở tệp sao lưu hoàn tác</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>Mở mã nguồn của tính năng tối ưu hóa này trên trình duyệt của bạn.</value>
+    <value>Mở xem đoạn mã C# thực thi mục tối ưu này trên GitHub.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
     <value>Xem mã nguồn trên GitHub</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
-    <value>Chi tiết kỹ thuật</value>
+    <value>Thông tin kỹ thuật</value>
   </data>
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
-    <value>ID Tối ưu hóa</value>
+    <value>ID tối ưu</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>Tên Lớp (Class)</value>
+    <value>Mã định danh lớp</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>Ứng dụng Khởi động</value>
@@ -1680,12 +1611,6 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Hiển thị phần trăm pin hiện tại cạnh biểu tượng pin trong khu vực thông báo.</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>Tắt tìm kiếm web trên Start Menu</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>Tắt tìm kiếm web trên Start Menu của Windows để tải kết quả tìm kiếm cục bộ nhanh hơn.</value>
-  </data>
   <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
     <value>Các tệp sẽ bị xóa vĩnh viễn. Hành động này không thể hoàn tác.</value>
   </data>
@@ -1722,14 +1647,11 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Customize.CustomOption.NotSet" xml:space="preserve">
     <value>Chưa đặt</value>
   </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>Tắt Tin tức &amp; Sở thích</value>
-  </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>Ẩn nút Meet Now</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>Ẩn nút Meet Now (Skype) khỏi vùng thông báo trên thanh tác vụ. Chỉ dành cho Windows 10.</value>
+    <value>Ẩn nút Meet Now khỏi vùng thông báo trên thanh tác vụ Windows 10.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
     <value>Truy cập nhanh</value>
@@ -1744,34 +1666,34 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Tắt Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Tắt lớp phủ Click To Do (tính năng AI phân tích văn bản và hình ảnh trên màn hình).</value>
+    <value>Tắt lớp phủ Click To Do chuyên phân tích văn bản và hình ảnh trên màn hình cho các tác vụ AI.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Tắt Windows Recall</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>Tắt Tối ưu hóa phân phối (P2P)</value>
+    <value>Tắt Delivery Optimization (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Ngăn Windows chia sẻ hoặc tải tệp cập nhật từ các PC khác qua mạng ngang hàng (P2P); bản cập nhật chỉ tải trực tiếp từ máy chủ Microsoft.</value>
+    <value>Ngừng chia sẻ bản cập nhật ngang hàng P2P giữa các PC để Windows chỉ tải cập nhật trực tiếp từ máy chủ Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Tắt Tìm thiết bị của tôi</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>Tắt tính năng Tìm thiết bị của tôi - tính năng định kỳ gửi vị trí thiết bị của bạn cho Microsoft.</value>
+    <value>Tắt Tìm thiết bị của tôi để máy tính ngừng gửi thông tin vị trí định kỳ lên tài khoản Microsoft.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>Tắt quảng cáo Microsoft 365 trong Cài đặt</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>Gỡ nội dung quảng bá Microsoft 365 và Copilot khỏi trang chủ Cài đặt.</value>
+    <value>Xóa các biểu ngữ quảng cáo Microsoft 365 và tài khoản khỏi trang chủ Cài đặt Windows.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>Ẩn mục Đề xuất trong Start</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Ẩn mục Đề xuất trong menu Start để giao diện gọn gàng hơn và không hiện các tệp/ứng dụng gần đây.</value>
+    <value>Ẩn mục Được đề xuất trong menu Start của Windows 11 để loại bỏ danh sách tệp mở gần đây và gợi ý ứng dụng.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Kiểm tra tương thích không thành công</value>
@@ -1867,13 +1789,7 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Bỏ giới hạn 50 MB của WebDAV</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>Tăng giới hạn dung lượng tệp của WebClient cho ổ đĩa WebDAV từ 50 MB lên 4 GB để các tệp lớn không bị lỗi truyền qua mạng.</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>Tối đa hóa thời gian tạm dừng cập nhật</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>Đặt mức trần thời gian tạm dừng Windows Update lên giá trị lớn nhất được hỗ trợ. Chỉ có hiệu lực trên các phiên bản Windows còn hỗ trợ thiết lập này; cập nhật bảo mật cũng sẽ tạm dừng khi đang bật.</value>
+    <value>Tăng giới hạn truyền tệp của Windows WebClient từ 50 MB lên 4 GB để không bị lỗi khi chép tệp lớn qua ổ mạng WebDAV.</value>
   </data>
   <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
     <value>Lớp phủ hiển thị DLSS</value>
@@ -2188,10 +2104,10 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value> (lặp lại mỗi {0} trong {1})</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
-    <value>Đã đúng sẵn</value>
+    <value>Đã tối ưu sẵn</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>Máy bạn đã ở đúng cấu hình này, nên không có gì cần thay đổi.</value>
+    <value>Máy của bạn đã ở sẵn cấu hình này nên không cần thay đổi gì thêm.</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>Không cần thay đổi: {0} đã đúng với máy này.</value>
@@ -2212,13 +2128,13 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Windows chưa gỡ các gói sau: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>Bấm để xem từng bước của lần áp dụng gần nhất. {0}</value>
+    <value>Nhấn để xem chi tiết từng thay đổi đã lưu. {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>Bấm để xem từng bước của lần áp dụng gần nhất.</value>
+    <value>Nhấn để xem chi tiết từng thay đổi đã lưu.</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} bước đã thay đổi, {1} bước đã đúng sẵn, {2} bước không áp dụng, {3} bước bị Windows từ chối</value>
+    <value>{0} đã đổi, {1} đã đúng sẵn, {2} bỏ qua, {3} bị Windows từ chối</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>Lượt chạy gần nhất</value>
@@ -2245,58 +2161,58 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Lỗi</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến việc chỉnh sửa các thiết lập bảo mật trong Windows.</value>
+    <value>Thay đổi các thiết lập bảo vệ hệ thống, cách ly bộ nhớ hoặc mã hóa.</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến dữ liệu mà Windows thu thập và gửi đi.</value>
+    <value>Hạn chế thu thập dữ liệu sử dụng, chẩn đoán và chia sẻ thông tin nền.</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến một thành phần hoặc chính sách cốt lõi của Windows, nên bạn nên đọc kỹ nó làm gì trước.</value>
+    <value>Chỉnh sửa thành phần cốt lõi hoặc chính sách hệ thống; nên đọc kỹ trước khi bật.</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến hiệu năng và các việc chạy nền.</value>
+    <value>Tập trung cải thiện độ mượt hệ thống, CPU hoặc giảm tải tiến trình nền.</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến độ trễ khi nhập liệu, chơi game hoặc nghe nhạc.</value>
+    <value>Giảm độ trễ phản hồi nhập liệu, âm thanh hoặc thời gian khung hình.</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến cách Windows dùng ổ đĩa.</value>
+    <value>Thay đổi cách Windows đọc, ghi hoặc lập chỉ mục ổ đĩa.</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến cách Windows dùng bộ nhớ trong.</value>
+    <value>Giảm lượng RAM tiêu thụ bởi các tiến trình và dịch vụ chạy nền.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến thứ mà màn hình hoặc card đồ hoạ xuất ra.</value>
+    <value>Điều chỉnh hiển thị màn hình, tần số quét hoặc tính năng xuất hình GPU.</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>Tối ưu này chỉ liên quan đến máy dùng card đồ hoạ NVIDIA, máy khác không bị ảnh hưởng.</value>
+    <value>Chỉ áp dụng cho máy dùng card đồ họa NVIDIA, máy khác không bị ảnh hưởng.</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>Tối ưu này chỉ liên quan đến máy dùng card đồ hoạ AMD, máy khác không bị ảnh hưởng.</value>
+    <value>Chỉ áp dụng cho máy dùng card đồ họa AMD, máy khác không bị ảnh hưởng.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>Tối ưu này chỉ liên quan đến máy dùng card đồ hoạ Intel, máy khác không bị ảnh hưởng.</value>
+    <value>Chỉ áp dụng cho máy dùng card đồ họa Intel, máy khác không bị ảnh hưởng.</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến điện năng, tức thời lượng pin, nhiệt độ hoặc tiếng quạt.</value>
+    <value>Ảnh hưởng tới mức tiêu thụ điện, thời lượng pin, nhiệt độ và tốc độ quạt.</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến mạng, kết nối và lưu lượng truyền đi.</value>
+    <value>Điều chỉnh hành vi card mạng, truyền tải hoặc lưu lượng chạy nền.</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>Tối ưu này cần kết nối mạng, vì nó phải tải dữ liệu về.</value>
+    <value>Cần kết nối Internet để tải về các thành phần cần thiết.</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến cách âm thanh được phát và xử lý.</value>
+    <value>Điều chỉnh cách Windows xử lý và phát âm thanh.</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>Tối ưu này liên quan đến giao diện, hiệu ứng và hoạt ảnh của Windows.</value>
+    <value>Điều chỉnh thành phần giao diện, gợi ý hiển thị và hiệu ứng của Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>Tối ưu này chỉ dành cho Windows 10 và không làm gì trên Windows 11.</value>
+    <value>Dành riêng cho Windows 10; tự ẩn trên Windows 11.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>Tối ưu này chỉ dành cho Windows 11 và bị chặn trên Windows 10.</value>
+    <value>Dành riêng cho Windows 11; tự ẩn trên Windows 10.</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>Lượt áp dụng lúc {0}</value>
@@ -2431,10 +2347,10 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
     <value>Giá trị</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>Mở tệp bản ghi</value>
+    <value>Mở tệp lịch sử</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>Mở thư mục và chọn tệp nơi optimizerDuck ghi lại tối ưu này đã làm gì. Tệp vẫn còn sau khi hoàn tác, nên bạn xem lại được.</value>
+    <value>Mở thư mục chứa tệp JSON ghi lại các thay đổi đã thực hiện (được giữ lại ngay cả sau khi hoàn tác).</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>Registry</value>
@@ -2510,5 +2426,620 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>Chi tiết có trong tệp log.</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>Tắt Windows Copilot</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Tắt Windows Copilot và ẩn nút Copilot khỏi thanh tác vụ sau khi bạn đăng xuất.</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>Chỉ hỗ trợ Laptop</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>Tối ưu này chỉ áp dụng cho thiết bị di động có pin như laptop.</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>Yêu cầu RAM tối đa 12 GB</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>Máy có trên 12 GB RAM hưởng lợi từ tách tiến trình Service Host mà không tốn quá nhiều bộ nhớ.</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>Không khả dụng Memory Integrity</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>Không phát hiện hoặc thiết bị không hỗ trợ Memory Integrity (HVCI).</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>Không thấy card mạng vật lý</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>Không phát hiện thấy bộ điều hợp mạng Ethernet hoặc Wi-Fi vật lý nào trên máy.</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>Không thấy dịch vụ Windows AI</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>Bản dựng Windows này không có dịch vụ nền Windows AI.</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>Hiệu ứng trong suốt</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>Bật hiệu ứng trong suốt Acrylic và Mica cho taskbar, Start menu và cửa sổ ứng dụng.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>Hiệu ứng chuyển động Taskbar</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>Bật hoặc tắt hoạt ảnh biểu tượng trên taskbar khi mở, chuyển đổi hoặc gom nhóm cửa sổ.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>Cho phép GPU driver kết hợp lớp desktop và game trực tiếp bằng phần cứng. Chỉ nên tắt nếu gặp lỗi nhấp nháy hoặc chớp đen nhiều màn hình.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>GPU hiện đại xử lý MPO hiệu quả giúp giảm độ trễ ở chế độ borderless; chỉ tắt khi gặp lỗi giật hình, chớp đen hoặc nháy màn hình.</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>Bỏ qua vì kiểu khởi động hiện tại của dịch vụ đã chặt chẽ hơn mức mục tiêu</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>Cần khởi động lại Explorer</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>Cần đăng xuất lại</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>Cần khởi động lại máy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>Có tùy chọn cấu hình trước khi áp dụng</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>Sử dụng thiết lập Windows Group Policy. Một số trang Cài đặt Windows có thể hiển thị dòng 'Được quản lý bởi tổ chức của bạn' khi bật.</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>Bị thay đổi bên ngoài</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>Bản sao lưu hoàn tác vẫn còn, nhưng thiết lập Windows hiện tại không còn khớp mục tiêu (ví dụ sau Windows Update hoặc do chỉnh sửa bên ngoài).</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>Cấu hình lại tùy chọn</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>Chi tiết và lịch sử</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>Tùy chọn này tác động sâu tới hệ thống hoặc bảo mật. Hãy xem kỹ đánh đổi bên dưới trước khi áp dụng.</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>Vẫn áp dụng</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>Áp dụng mục đã chọn</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>Đã thiết lập sẵn</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>Vui lòng chọn ít nhất một mục để tiếp tục.</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>Bật</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>Tắt</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>Các tối ưu cũ còn bản sao lưu hoàn tác</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>Các mục này đã được gỡ bỏ hoặc thay thế ở phiên bản mới, nhưng bản sao lưu gốc của bạn vẫn được giữ an toàn để hoàn tác bất cứ lúc nào.</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>Hoàn tác</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>{0} bước sẽ được hoàn tác</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>Đã hoàn tác "{0}" và xóa bản sao lưu.</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>Không thể hoàn tác bản sao lưu cũ: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>Đánh đổi cần lưu ý</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>Tác động</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>Tài liệu tham chiếu</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>Tùy chọn đã chọn</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>Cấu hình đã thay đổi bên ngoài</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>Thiết lập Windows hiện tại không còn khớp mục tiêu trong khi bản sao lưu vẫn còn trên máy. Bạn có thể bật lại công tắc để áp dụng lại, hoàn tác phần còn sót hoặc xóa bản ghi cũ.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>Hoàn tác phần còn lại</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>Xóa bản ghi cũ</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>Cấu hình lại</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>Áp dụng các khóa Group Policy chuẩn của Windows. Một số mục trong Windows Settings có thể hiển thị thông báo đang được quản lý bởi tổ chức trong khi bật.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>Chuyển AI Fabric Service sang Manual</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>Chuyển dịch vụ nền Windows AI Fabric sang khởi động thủ công để chỉ chạy khi có tính năng AI yêu cầu.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>Các công cụ Windows AI phụ thuộc vào dịch vụ này có thể mất thêm vài giây ở lần mở đầu tiên.</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>Tắt AI trong Microsoft Edge</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>Tắt thanh bên Copilot, gợi ý viết lại nội dung, tìm kiếm lịch sử bằng AI và các mô hình AI cục bộ trong Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>Tắt tìm kiếm dòng thời gian Windows Recall và xóa vĩnh viễn toàn bộ ảnh chụp màn hình đã lưu.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>Tắt dịch vụ cũ ít dùng</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>Tắt các dịch vụ cũ và doanh nghiệp ít dùng trên PC cá nhân như Fax, Remote Registry, Retail Demo, App-V, Routing and Remote Access, đồng thời chuyển Offline Files sang thủ công.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>Fax cũ, Remote Registry, Routing and Remote Access và App-V sẽ ngừng chạy cho tới khi hoàn tác; Offline Files chỉ chạy khi cần.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>Tắt dịch vụ tính năng tùy chọn</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>Tắt các nhóm dịch vụ tính năng Windows bạn không dùng tới như Máy in, Bluetooth, Xbox, Chia sẻ LAN, Sinh trắc học hoặc Remote Desktop.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>Các tính năng phần cứng hoặc mạng bạn đã chọn tắt sẽ ngừng hoạt động cho tới khi cấu hình lại hoặc hoàn tác.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>Chưa chọn nhóm dịch vụ nào</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>Máy in &amp; Spooler</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>Dừng dịch vụ hàng đợi in và thông báo máy in chạy nền.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>Máy in nội bộ, máy in mạng và Microsoft Print to PDF sẽ không hoạt động.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>Dừng các dịch vụ dò tìm, ghép nối và âm thanh rảnh tay Bluetooth của Windows.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>Bàn phím, chuột, tay cầm và tai nghe Bluetooth sẽ không kết nối được.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>Dịch vụ Xbox Live</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>Dừng các dịch vụ đăng nhập Xbox Live, lưu game đám mây, phụ kiện và mạng Xbox.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>Đăng nhập ứng dụng Xbox, đồng bộ lưu game Game Pass và chơi mạng Xbox Live sẽ ngừng hoạt động.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>Chia sẻ tệp &amp; dò thiết bị LAN</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>Dừng dịch vụ chia sẻ thư mục nội bộ LAN và dò thiết bị mạng UPnP.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>Không thể chia sẻ thư mục qua mạng LAN hoặc phát hiện thiết bị truyền media.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>Sinh trắc học Windows Hello</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>Dừng dịch vụ sinh trắc học chạy nền của Windows.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>Cảm biến vân tay và mở khóa khuôn mặt Windows Hello sẽ ngừng hoạt động.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>Remote Desktop Services</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>Dừng các dịch vụ nhận kết nối Remote Desktop từ máy khác và chuyển hướng thiết bị.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>Máy khác sẽ không thể điều khiển máy này qua Remote Desktop (RDP).</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>Tắt lập chỉ mục Windows Search</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>Dừng dịch vụ lập chỉ mục Windows Search để loại bỏ thao tác ghi ổ đĩa và xung CPU chạy nền.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>Tìm kiếm nội dung bên trong tệp ở File Explorer và tìm kiếm tức thì trong Outlook sẽ chậm hơn do phải quét thư mục trực tiếp.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>Tắt chạy nền &amp; Startup Boost của Edge</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>Đóng hoàn toàn Microsoft Edge khi tắt hết cửa sổ và ngăn Startup Boost nạp sẵn lúc đăng nhập.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>Mở cửa sổ Edge đầu tiên sau khi khởi động mất thêm một nhịp ngắn, và thông báo trang web tạm ngừng khi đóng hết cửa sổ.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>Card đồ họa khi rảnh và laptop nhiều GPU sẽ tiêu thụ nhiều điện hơn lúc không tải.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>Tăng mức tiêu thụ điện khi rảnh, nhiệt độ và tốc độ quạt GPU, đồng thời giảm thời lượng pin laptop.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>Giữ liên kết PCIe của GPU không vào trạng thái ngủ tiết kiệm điện, làm tăng điện năng tiêu thụ và hao pin hơn khi rảnh.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>Tăng mức điện năng tiêu thụ khi rảnh, nhiệt độ GPU và tiếng ồn quạt tản nhiệt.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>Tăng mức tiêu thụ điện khi rảnh trên GPU NVIDIA.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>Game hoặc ứng dụng tụt dưới tần số quét màn hình có thể bị khựng nhẹ hoặc xé hình.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>Ứng dụng Microsoft Store không thể tự đồng bộ thư, báo thức hay thông báo trực tiếp cho tới khi bạn tự mở lên.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>Tiết kiệm RAM trên máy từ 12 GB trở xuống, nhưng một dịch vụ gặp lỗi có thể ảnh hưởng tới các dịch vụ dùng chung tiến trình host.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>Độ trễ lặp ngắn có thể gây lặp ký tự ngoài ý muốn nếu bạn giữ ngón tay trên phím hơi lâu khi gõ.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>Bấm Shift 5 lần hoặc giữ NumLock sẽ không bật thông báo trợ năng nữa; bạn vẫn bật được thủ công trong Cài đặt Windows.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>Tắt tự nhận diện loại thư mục Explorer</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>Ngăn File Explorer quét nội dung từng thư mục để đoán bố cục Ảnh hay Nhạc mỗi khi bạn mở thư mục.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>Các thư mục nhiều ảnh hoặc nhạc sẽ mặc định mở ở chế độ Chi tiết chuẩn cho tới khi bạn tự chỉnh lại.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>Tắt Search WebView2 Host</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>Ngăn Tìm kiếm Windows 11 khởi chạy các tiến trình Microsoft Edge WebView2 nhúng giúp giảm RAM và CPU sử dụng.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>Dùng ghi đè tính năng nội bộ của Windows khiến thẻ web trong Tìm kiếm bị tắt và có thể tự đặt lại sau các bản cập nhật lớn.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>Tắt Memory Integrity (HVCI)</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>Tắt kiểm tra ảo hóa Memory Integrity (HVCI) để lấy lại hiệu năng CPU và độ ổn định thời gian khung hình khi chơi game.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>Giảm lớp bảo vệ nhân Windows trước driver độc hại và chèn mã. Microsoft khuyên bật lại khi không chơi game.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>Tắt tiết kiệm điện card mạng (NIC)</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Ngăn Windows tự ngắt nguồn bộ điều hợp Ethernet và Wi-Fi vật lý để tiết kiệm điện, tránh rớt mạng lúc rảnh và trễ đánh thức.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>Tăng điện năng tiêu thụ khi rảnh của card Ethernet và Wi-Fi, làm giảm thời lượng pin laptop.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>Không tìm thấy card mạng vật lý nào phù hợp</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>Tắt ngủ đông bỏ cơ chế tự lưu RAM xuống đĩa khi sắp cạn pin; tắt Fast Startup làm thời gian mở máy từ tắt hẳn chậm hơn một chút.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>Chế độ tắt máy &amp; ngủ đông</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>Chỉ tắt Fast Startup (Khuyên dùng cho Laptop)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>Ngăn Windows lưu ảnh ngủ đông của nhân khi tắt máy nhưng vẫn giữ nguyên tính năng ngủ đông thông thường.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>Tắt hẳn Hibernate &amp; Fast Startup</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>Tắt hoàn toàn chế độ ngủ đông và xóa tệp ngủ đông để thu hồi hàng gigabyte dung lượng lưu trữ.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>Ngắt mạng khi Modern Standby</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>Ngắt kết nối Wi-Fi và chặn các tác vụ đánh thức mạng chạy nền khi laptop ngủ ở chế độ Modern Standby.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>Khi máy đang ngủ, email, bản cập nhật và thông báo đẩy sẽ đợi đến lúc bạn mở sáng màn hình mới đồng bộ.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>Các hub USB và thiết bị cắm ngoài luôn được cấp nguồn thay vì tạm ngắt Selective Suspend, giảm nhẹ thời lượng pin laptop.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>Giữ nhân CPU không ngủ làm tăng nhiệt độ, tốc độ quạt và điện năng; Task Manager có thể hiển thị mức tải CPU cao hơn thực tế trên một số máy.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>Tác vụ nền có thể chạy hết tốc độ CPU ngay cả khi dùng pin, làm máy nóng và hao pin hơn.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>Dữ liệu sử dụng gửi Microsoft, nhánh thử nghiệm Windows Insider và chẩn đoán khắc phục sự cố riêng bị tắt.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>Ứng dụng bị sự cố sẽ không còn tạo hoặc gửi báo cáo chẩn đoán về Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>Tắt dấu vết chẩn đoán cấp thấp phục vụ hỗ trợ của Microsoft; một số phần mềm bảo mật có thể cảnh báo khi thay đổi phiên ghi khi khởi động.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>Bạn sẽ không thể định vị hoặc khóa máy tính này từ xa qua tài khoản Microsoft nếu bị thất lạc hoặc mất trộm.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>Cấu hình chính sách Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>Áp dụng các chính sách Group Policy Windows Update bạn chọn để kiểm soát tự khởi động lại, bản xem trước, trì hoãn cập nhật và cập nhật Driver.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>Trì hoãn cập nhật hoặc chặn cập nhật Driver sẽ làm chậm bản vá không khẩn cấp và yêu cầu tự cài Driver GPU/chipset.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>Chưa chọn tùy chọn Windows Update nào</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>Chặn tự động khởi động lại khi đang dùng</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>Ngăn Windows Update tự động khởi động lại máy trong lúc bạn đang đăng nhập.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>Tắt 'Nhận các bản cập nhật mới nhất ngay khi sẵn sàng'</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>Từ chối nhận sớm các tính năng và cấu hình thử nghiệm khi kiểm tra cập nhật.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>Loại bỏ cập nhật Driver khỏi Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>Loại trừ các gói driver phần cứng khỏi Windows Update.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>Bạn sẽ cần tự tải và cập nhật Driver phần cứng từ trang chủ hãng GPU hoặc OEM.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>Hoãn bản vá chất lượng (4 ngày) và bản tính năng (365 ngày)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>Áp dụng độ trễ qua Group Policy để đợi các bản cập nhật ổn định hơn trước khi cài.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>Làm chậm bản vá chất lượng hàng tháng 4 ngày và lùi nâng cấp phiên bản Windows lớn thêm 1 năm.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>Chặn tự động mã hóa BitLocker</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>Ngăn Windows tự động bật mã hóa BitLocker Device Encryption trên ổ đĩa mới hoặc khi cài lại máy.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>Không giải mã các ổ đĩa đã mã hóa sẵn, và ổ cài mới sẽ không tự mã hóa bảo vệ dữ liệu nếu không tự bật BitLocker.</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>Hiệu năng cao hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>Có thể giảm hiệu năng</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>Độ trễ thấp hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>Có thể tăng độ trễ</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>Tiết kiệm RAM</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>Tốn nhiều RAM hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>Tiết kiệm ổ cứng</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>Tốn thêm dung lượng</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>Tiết kiệm điện/pin</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>Hao điện/pin hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>Riêng tư hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>Giảm quyền riêng tư</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>Bảo mật cao hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>Giảm lớp bảo mật</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>Mạng ổn định hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>Giới hạn mạng</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>Ổn định hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>Có thể kém ổn định</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>Giao diện gọn hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>Thêm mục giao diện</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>Nhiều tính năng hơn</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>Tắt bớt tính năng</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>Đang đặt kiểu khởi động của {0} thành {1}...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>Thanh bên Copilot, hỗ trợ viết bằng AI và tìm kiếm lịch sử AI sẽ ngừng hoạt động trong Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>Bản sao lưu cũ</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>{0} bản sao lưu cũ đang có</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>Xóa bản sao lưu</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>Xóa bản sao lưu này khỏi đĩa mà không sửa lại cấu hình Windows</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>Xóa bản sao lưu này mà không hoàn tác lại cấu hình Windows? Sau khi xóa, bạn sẽ không thể dùng optimizerDuck để hoàn tác các thay đổi cũ này nữa.</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>Mở thư mục chứa tệp sao lưu</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>Áp dụng lúc {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>Không còn bản sao lưu cũ nào</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>Mọi bản sao lưu từ các phiên bản cũ đều đã được hoàn tác hoặc dọn dẹp.</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>Hoàn tác tối ưu</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>Tất cả tùy chọn đang tắt. Xác nhận sẽ hoàn tác tối ưu này về trạng thái trước đó.</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>Hệ thống của bạn đã khớp với tùy chọn này nên không cần thay đổi gì thêm.</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>Mọi tùy chọn ở đây đều đã được thiết lập sẵn trên máy của bạn nên không có gì cần thay đổi.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>Tắt AI trong Windows Paint</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>Tắt các chính sách Cocreator, Generative Fill, Image Creator, Generative Erase và xóa nền AI trong Windows Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>Các công cụ tạo và chỉnh sửa ảnh AI sẽ bị ẩn khỏi thanh công cụ Windows Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>Tắt AI trong Windows Notepad</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>Tắt tính năng viết lại và tóm tắt văn bản bằng AI trong Windows Notepad qua chính sách hệ thống.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>Các thao tác viết lại và tóm tắt bằng AI sẽ không còn khả dụng trong Windows Notepad.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>Tắt Trợ lý tương thích (Compatibility Assistant)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>Tắt dịch vụ Program Compatibility Assistant chạy nền theo dõi khi mở ứng dụng và trình cài đặt cũ.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>Windows sẽ ngừng tự động hiện cảnh báo tương thích hoặc áp dụng chế độ tương thích cho phần mềm cũ.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>Tắt cá nhân hóa viết tay &amp; gõ phím</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>Ngăn Windows thu thập mẫu viết tay, thói quen gõ phím, danh bạ cục bộ và tùy chọn ngôn ngữ để cá nhân hóa nhập liệu.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>Nhận diện viết tay cá nhân, gợi ý sửa chữ theo danh bạ và từ điển gõ phím cục bộ sẽ ngừng cập nhật.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>Tắt theo dõi vị trí (Location)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>Tắt dịch vụ định vị Windows, quyền vị trí của ứng dụng, tự động cập nhật bản đồ ngoại tuyến và báo cáo điểm phát Wi-Fi.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>Thời tiết, Bản đồ và các ứng dụng cần vị trí sẽ không xác định được vị trí của bạn khi bật.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>Tắt cảm biến chuyển động &amp; ánh sáng</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>Chặn ứng dụng và Windows đọc dữ liệu từ cảm biến chuyển động, xoay hướng và ánh sáng môi trường qua Group Policy.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>Tự động chỉnh độ sáng màn hình laptop và tự xoay màn hình trên thiết bị 2-trong-1 sẽ ngừng hoạt động.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>Bỏ độ trễ mở ứng dụng khởi động</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>Loại bỏ thời gian chờ rảnh CPU của Explorer sau khi đăng nhập để các ứng dụng khởi động chạy ngay lập tức.</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>Bỏ độ trễ mở menu con</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>Đặt độ trễ hiện menu con khi di chuột về 0 để các menu thả xuống mở ra tức thì.</value>
   </data>
 </root>

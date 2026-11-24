@@ -194,7 +194,7 @@
     <value>Támogatás</value>
   </data>
   <data name="Dashboard.Actions.SupportMe.Description" xml:space="preserve">
-    <value>Csillagozd meg a tárolót a GitHubon, oszd meg barátaiddal, vagy adományozz — minden segít a projekt növekedésében!</value>
+    <value>Csillagozd meg a tárolót a GitHubon, oszd meg barátaiddal, vagy adományozz, minden segít a projekt növekedésében!</value>
   </data>
   <data name="Button.Ok" xml:space="preserve">
     <value>OK</value>
@@ -257,7 +257,7 @@
     <value>Részletes leírás</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>A Service Host felosztási küszöbértékét a rendszer teljes memóriájára emeli, így a szolgáltatások kevesebb folyamatban összevontan maradnak, csökkentve a memóriahasználatot és a folyamatszámot.</value>
+    <value>A telepített RAM méretére emeli a Service Host szétválasztási küszöbét 12 GB vagy kevesebb RAM esetén, közös folyamatokba vonva a szolgáltatásokat a memória érdekében.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Nem sikerült felismerni az aktuális aktív energiatervet.</value>
@@ -278,7 +278,7 @@
     <value>Lemez</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>Hálózati kapcsolat szükséges</value>
+    <value>Internet szükséges</value>
   </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>Hálózat</value>
@@ -309,7 +309,7 @@
     <value>Visszaállítás...</value>
   </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>{0} sikeresen visszaállítva!</value>
+    <value>{0} visszaállítva.</value>
   </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>{0} visszaállítva, {1} lépés sikertelen.</value>
@@ -391,7 +391,7 @@
     <value>Időtúllépés</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>Visszaállítási fájl</value>
+    <value>Visszaállító mentés megnyitása</value>
   </data>
   <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} sikertelen lépés</value>
@@ -478,10 +478,10 @@
     <value>Minden lépés sikertelen.</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-    <value>Az optimalizálást nem sikerült teljesen alkalmazni</value>
+    <value>Nem sikerült minden módosítás</value>
     </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
-    <value>Az optimalizálást nem sikerült visszaállítani</value>
+    <value>Nem sikerült visszaállítani az optimalizálást</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
     <value>Az optimalizálás sikeresen alkalmazva</value>
@@ -550,7 +550,7 @@
     <value>Háttéralkalmazások kikapcsolása</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Megakadályozza, hogy az inaktív alkalmazások a háttérben fussanak, így memóriát szabadít fel és csökkenti a CPU-terhelést.</value>
+    <value>Megakadályozza a Microsoft Store alkalmazások háttérfeladatait, csökkentve az üresjárati RAM-használatot és a CPU-felébresztéseket.</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>Service Host-folyamatok összevonása</value>
@@ -558,152 +558,104 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>Érvénytelen RAM: {0}</value>
   </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>Aktív alkalmazások előnyben részesítése</value>
-  </data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>Több CPU-erőforrást ad az éppen használt alkalmazásnak a gyorsabb, gördülékenyebb működésért.</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-    <value>Multimédia-ütemező optimalizálása</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-    <value>A Multimedia Class Scheduler Service (MMCSS) beállítása játékhoz és alacsony késleltetéshez: a multimédiás feladatok előnyben részesítése és a hálózati szabályozás kikapcsolása.</value>
-  </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
     <value>WebDAV 50 MB-os korlát feloldása</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>A WebClient fájlméret-korlátját 50 MB-ról 4 GB-ra emeli a WebDAV-csatolásoknál, hogy a nagy fájlok ne hiúsuljanak meg a hálózati helyeken.</value>
+    <value>Megemeli a Windows WebClient átviteli korlátját 50 MB-ról 4 GB-ra a nagy WebDAV hálózati fájlok hibáinak elkerüléséhez.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Billentyűismétlés optimalizálása</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>A legrövidebb billentyűismétlési késleltetést és a leggyorsabb ismétlési sebességet állítja be a gyorsabb gépelésért és ismételt lenyomásokért.</value>
+    <value>A legrövidebbre állítja a billentyűismétlési késleltetést és maximumra a sebességet a gyorsabb nyomvatartott bevitelhez.</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
     <value>Kisegítő billentyűparancsok kikapcsolása</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a Ragadós billentyűk, a Szűrőbillentyűk és a Váltóbillentyűk gyorsparancsait, hogy játék és gépelés közben ne ugorjon fel véletlenül.</value>
+    <value>Letiltja a Beragadó billentyűk, Szűrőbillentyűk és Állapotjelző billentyűk ablakát felhozó gyorsbillentyűket.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
     <value>Hibernálás és gyorsindítás kikapcsolása</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a hibernálást és a gyorsindítást, hogy helyet szabadítson fel a lemezen, és a teljes leállítás tisztább hardverinicializálást biztosítson indításkor.</value>
+    <value>Kikapcsolja csak a Gyors rendszerindítást a tiszta hidegindításért, vagy teljesen letiltja a Hibernálást több gigabájt tárhely felszabadításához.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>USB energiatakarékosság kikapcsolása</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Megakadályozza, hogy a Windows lekapcsolja az USB-portokat, így megszűnik az egér, a billentyűzet és más perifériák felébredési késleltetése.</value>
+    <value>Megakadályozza az USB gyökérhubok és eszközök szelektív felfüggesztését az egér, billentyűzet és hangeszköz ébredési késései ellen.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>Optimalizált energiaterv alkalmazása</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Egy egyéni, teljesítményre optimalizált energiatervet telepít, hogy a rendszer mindig maximális sebességen működjön. Figyelem: egyes rendszereken a Feladatkezelő tévesen 100%-os CPU-használatot mutathat, a tényleges terhelés nem változik.</value>
+    <value>Egyedi nagy teljesítményű energiagazdálkodási sémát telepít, amely ébren tartja a CPU magokat és mérsékli az órajelváltási késleltetést.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-    <value>Energiaterv importálása és aktiválása...</value>
+    <value>Power plan telepítése és aktiválása...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>Rendszer energia-visszafogásának kikapcsolása</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>Megakadályozza, hogy a Windows korlátozza a CPU teljesítményét (energia-visszafogás), így az aktív feladatok csúcsteljesítményen futnak.</value>
+    <value>Kikapcsolja a Windows Power Throttlingot, hogy az aktív és háttéralkalmazások CPU-órajelkorlátozás nélkül fussanak.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>Adatgyűjtés (telemetria) kikapcsolása</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a Windows telemetriai és használatkövető szolgáltatásait, hogy javítsa a személyes adatvédelmet és csökkentse a háttértevékenységet.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-    <value>Házirend- és registry-módosítások alkalmazása...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-    <value>Telemetriai szolgáltatások kikapcsolása...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>Ütemezett telemetriai feladatok kikapcsolása...</value>
+    <value>Minimálisra csökkenti a Windows diagnosztikai adatgyűjtését, alkalmazás-kompatibilitási leltárait és visszajelzési kéréseit.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>Hibajelentés kikapcsolása</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a Windows hibajelentő és a programkompatibilitási segéd szolgáltatásait.</value>
+    <value>Kikapcsolja a Windows Hibajelentést és az összeomlási vagy lemezdiagnosztikai jelentéseket küldő ütemezett feladatokat.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
     <value>Hirdetések és javaslatok kikapcsolása</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a személyre szabott hirdetéseket, a Windows fogyasztói funkcióit és a rendszerjavaslatokat.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>Hírek és érdeklődési körök kikapcsolása</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a Hírek és érdeklődési körök hírfolyamot és elrejti a tálcagombját (Windows 10), valamint kikapcsolja a Widgetek panelt (Windows 11).</value>
+    <value>Kikapcsolja a Windows hirdetési azonosítót, a diagnosztika alapú ajánlatokat, a fogyasztói promóciókat és a beállítási javaslatokat.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>Meet Now gomb elrejtése</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>Elrejti a Meet Now (Skype) gombot a tálca értesítési területéről. Csak Windows 10.</value>
+    <value>Elrejti a Meet Now gombot a Windows 10 tálca értesítési területéről.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
     <value>Tevékenységelőzmények kikapcsolása</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>Megakadályozza, hogy a Windows gyűjtse és szinkronizálja a tevékenységelőzményeidet.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>Helymeghatározás és érzékelők kikapcsolása</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a helykövetést, a rendszerérzékelőket és az offline térképfrissítéseket.</value>
+    <value>Megakadályozza, hogy a Windows rögzítse és feltöltse a Microsoftnak az alkalmazás- és fájlelőzményeidet.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>Háttérnaplózás kikapcsolása</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Leállítja a nem létfontosságú WMI/ETW AutoLogger-munkamenetek (Diagtrack-Listener, SQMLogger stb.) indítását a rendszerindításkor, csökkentve a háttérbeli lemez- és CPU-tevékenységet. Megjegyzés: a biztonsági szoftverek jelezhetik az AutoLogger módosításait, mert azok a diagnosztikai nyomkövetést érintik.</value>
+    <value>Letiltja a nem létfontosságú Windows ETW diagnosztikai naplózási munkameneteket rendszerindításkor a háttérbeli lemezírás és CPU-terhelés csökkentésére.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Cortana és webes keresés kikapcsolása</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a Cortana hangasszisztenst, valamint letiltja a felhőkeresést és a webes találatokat a Windows keresésben (csak Windows 10).</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>Windows Copilot kikapcsolása</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>Eltávolítja az AI Copilot asszisztenst a tálcáról és a rendszerhéjból, memóriát és képernyőhelyet szabadítva fel.</value>
+    <value>Kikapcsolja Cortanát, és megakadályozza, hogy a Windows 10 keresője felhős keresésbe küldje a helyi kéréseket.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>Felhőalapú tartalomszolgáltatás kikapcsolása</value>
+    <value>Háttérbeli felhőtartalom letiltása</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a Windows felhőből érkező tartalmait, beleértve a rendszertippeket, a kiemelt javaslatokat és a fogyasztói funkciók automatikus kézbesítését.</value>
+    <value>Megakadályozza, hogy a Windows a háttérben letöltse a Spotlight zárolási tippeket és reklámozott fogyasztói tartalmakat.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>Előre telepített felesleges programok blokkolása</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Megakadályozza, hogy a Windows automatikusan újratelepítse a nem kívánt harmadik féltől származó alkalmazásokat és reklámozott szoftvereket.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>Rendszerszolgáltatások optimalizálása</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>A nem létfontosságú háttérszolgáltatásokat állítja be úgy, hogy erőforrásokat szabadítson fel, miközben minden szükséges Windows-funkció megmarad.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>A(z) {0} indítási típusának beállítása erre: {1}...</value>
+    <value>Megakadályozza, hogy a Windows csendben letöltse és kitűzze a reklámozott alkalmazásokat a Start menübe.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>Megjelenítés</value>
@@ -724,77 +676,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Felhasználói élmény</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>Intéző és menük gyorsítása</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>A StartupDelayInMSec=0 és a MenuShowDelay=0 beállításával megszünteti az Intéző indítási késleltetését, és minimálisra csökkenti a menük fölé mozgatásának késleltetését.</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>Frissítésszüneteltetési korlát maximalizálása</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>A Windows Update szüneteltetésének felső határát a legnagyobb támogatott értékre állítja. Csak azok a Windows-verziók veszik figyelembe, amelyek még támogatják ezt a beállítást; amíg aktív, a biztonsági frissítések szünetelnek.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>Start menü webes keresésének kikapcsolása</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a webes keresést a Windows Start menüben, hogy a helyi találatok gyorsabban betöltődjenek.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>Vizuális effektek kikapcsolása</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a tálcaanimációkat, a lista nézet árnyékait, az ablakok átlátszóságát és az Aero Peeket, hogy GPU/CPU-erőforrásokat szabadítson fel a jobb teljesítményért.</value>
-  </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>AMD ULPS kikapcsolása</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>EnableULPS=0 beállítása az AMD GPU registryben, hogy elkerülje az Ultra Low Power State felébredési késleltetéseit és a többmonitoros problémákat. Csökkenti az energiatakarékosságot tétlen állapotban.</value>
+    <value>Kikapcsolja az Ultra Low Power State (ULPS) módot az AMD GPU-kon a másodlagos GPU ébredési akadozása és a többmonitoros villogás ellen.</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>AMD Power Gating kikapcsolása</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 beállítása, hogy megakadályozza az AMD GPU energiaállapot-váltásait. Állandó órajelet tart fenn, nagyobb tétlen fogyasztás árán.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>AMD videó-órajel-kapuzás kikapcsolása</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 beállítása az AMD videomotorokhoz (VCE/UVD) a kódolási/dekódolási stabilitás javításáért. Növeli a videolejátszás fogyasztását.</value>
+    <value>Letiltja az AMD GPU power gatinget és a dinamikus energiaszabályozást, így a grafikus motorok áram alatt maradnak.</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>AMD ASPM kikapcsolása</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>EnableAspmL0s=0, EnableAspmL1=0 beállítása, hogy kikapcsolja az Active State Power Managementet az AMD GPU-kon, csökkentve a PCIe-busz késleltetését. Növeli a foglalat fogyasztását.</value>
+    <value>Letiltja a PCIe Active State Power Management (L0s és L1) módot AMD kártyákon a PCIe-ébredési késleltetés mérséklésére.</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>NVIDIA dinamikus P-state kikapcsolása</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>DisableDynamicPstate=1 beállítása, hogy az NVIDIA GPU fix teljesítményállapotban maradjon, megakadályozva az órajel-ingadozást. Növeli a tétlen fogyasztást.</value>
+    <value>Megakadályozza, hogy az NVIDIA GPU dinamikus alacsony fogyasztású P-state állapotba váltson, elkerülve az órajelugrásokat rövid terheléseknél.</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>NVIDIA aszinkron P-state-ek kikapcsolása</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>DisableASyncPstates=1 beállítása, hogy megakadályozza az NVIDIA aszinkron energiaállapot-váltásait, kiszámítható teljesítményt adva VR- és valós idejű alkalmazásokhoz.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Intel aszinkron flipek kikapcsolása</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Display1_DisableAsyncFlips=1 beállítása, hogy szinkron puffercserét kényszerítsen az Intel iGPU-n, csökkentve a bemenet-kijelző késleltetést és a képernyőszakadást.</value>
+    <value>Megakadályozza az NVIDIA illesztőprogramok aszinkron teljesítményállapot-váltását az egyenletesebb képkockaidőzítés érdekében.</value>
   </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>Intel adaptív V-Sync kikapcsolása</value>
   </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>AdaptiveVsyncEnable=0 beállítása, hogy kikapcsolja az Intel adaptív V-Syncjét, amely dinamikusan igazodik a képsebességhez; helyette fix V-Sync biztosít stabil időzítést.</value>
+    <value>Kikapcsolja az Intel illesztőprogram adaptív V-Sync funkcióját, így az alkalmazás vagy a rögzített szinkron érvényesül.</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1443,22 +1359,22 @@ Frissíts most, hogy élvezhesd a legújabb funkciókat, javításokat és hibaj
     <value>Egyéb</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>A visszaállítási adatokat tartalmazó nyers JSON-fájl megnyitása ehhez az optimalizáláshoz.</value>
+    <value>Megmutatja a korábbi beállítások helyreállításához használt JSON-mentést.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>Az optimalizálás forráskódjának megnyitása a böngészőben.</value>
+    <value>Tekintse meg az optimalizálás C# kódját a GitHubon.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
-    <value>Forrás megtekintése a GitHubon</value>
+    <value>Forráskód megtekintése</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>Technikai részletek</value>
   </data>
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
-    <value>Optimalizálás azonosítója</value>
+    <value>Optimalizálás ID</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>Osztálynév</value>
+    <value>Osztályazonosító</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>Indítási alkalmazások</value>
@@ -1974,37 +1890,37 @@ Frissíts most, hogy élvezhesd a legújabb funkciókat, javításokat és hibaj
     <value>Click To Do kikapcsolása</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja az AI-alapú Click To Do átfedést, amely a képernyőn lévő szöveget és képeket elemzi.</value>
+    <value>Kikapcsolja a Click To Do réteget, amely elemzi a képernyő szövegeit és képeit AI-műveletekhez.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Windows Recall kikapcsolása</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja a Windows Recall AI-funkciót, amely pillanatképeket rögzít és indexel a képernyődről. A Recall összetevőt is eltávolítja, és törli a korábban mentett pillanatképeket Windows 11 24H2+ rendszeren (Build 26100.3915+); a módosítás érvénybe lépéséhez újraindítás szükséges.</value>
+    <value>Csoportházirenddel kikapcsolja a Windows Recall pillanatképeket, törli a mentett képeket, és újraindítás után blokkolja az engedélyezést.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>Delivery Optimization (P2P) kikapcsolása</value>
+    <value>Delivery Optimization (P2P) letiltása</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Megakadályozza, hogy a Windows peer-to-peer kapcsolaton keresztül osszon meg vagy töltsön frissítési fájlokat más számítógépekről; a frissítések csak a Microsoft szervereiről érkeznek.</value>
+    <value>Leállítja a frissítések P2P megosztását más PC-kkel, így a frissítések csak a Microsoft szervereiről töltődnek le.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Eszközkeresés kikapcsolása</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>Kikapcsolja az Eszközkeresés funkciót, amely rendszeresen jelenti az eszköz helyét a Microsoftnak.</value>
+    <value>Kikapcsolja a Készülék keresése funkciót, így a PC nem küldi el rendszeresen a helyzetét a Microsoft-fiókodba.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>Microsoft 365 hirdetések kikapcsolása a Beállításokban</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>Eltávolítja a Microsoft 365 és Copilot promóciós tartalmat a Beállítások kezdőlapjáról.</value>
+    <value>Eltávolítja a Microsoft 365 és fiókhirdetési sávokat a Windows Gépház kezdőlapjáról.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>Ajánlott szakasz elrejtése a Startban</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Elrejti az Ajánlott szakaszt a Start menüből, hogy csökkentse a zsúfoltságot, és ne jelenjenek meg a legutóbbi fájlok és alkalmazások.</value>
+    <value>Elrejti a Windows 11 Start menü Ajánlott szakaszát, eltávolítva a legutóbbi fájlokat és alkalmazásjavaslatokat.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>A kompatibilitás ellenőrzése sikertelen</value>
@@ -2256,7 +2172,7 @@ Frissíts most, hogy élvezhesd a legújabb funkciókat, javításokat és hibaj
     <value>Már optimális</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>Ez a gép már megfelel ennek az optimalizálásnak, így nincs mit módosítani.</value>
+    <value>A gép már ezt a beállítást használja, így nincs mit módosítani.</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>Nincs mit módosítani: {0} már megfelel ennek a gépnek.</value>
@@ -2277,13 +2193,13 @@ Frissíts most, hogy élvezhesd a legújabb funkciókat, javításokat és hibaj
     <value>A Windows nem távolította el ezeket a csomagokat: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>Kattints az utolsó alkalmazás lépéseinek megtekintéséhez. {0}</value>
+    <value>Kattintson minden rögzített lépés megtekintéséhez. {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>Kattints az utolsó alkalmazás lépéseinek megtekintéséhez.</value>
+    <value>Kattintson minden rögzített lépés megtekintéséhez.</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} lépés módosult, {1} már helyes volt, {2} nem érvényesült, {3}-at a Windows elutasított</value>
+    <value>{0} módosítva, {1} már optimális, {2} kihagyva, {3} Windows által tiltva</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>Utolsó rögzített futás</value>
@@ -2310,58 +2226,58 @@ Frissíts most, hogy élvezhesd a legújabb funkciókat, javításokat és hibaj
     <value>Sikertelen</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás a Windows biztonsági beállításait érinti.</value>
+    <value>A Windows biztonsági, elkülönítési vagy titkosítási beállításait módosítja.</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás azokat az adatokat érinti, amelyeket a Windows gyűjt és továbbít.</value>
+    <value>Korlátozza a telemetriát, diagnosztikát és a Microsoft felé küldött adatokat.</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás a Windows egy alapelemét, összetevőjét vagy házirendjét érinti, ezért érdemes előbb elolvasni, hogy mit tesz.</value>
+    <value>Alapvető Windows-összetevőket vagy házirendeket érint; alkalmazás előtt ellenőrizze a részleteket.</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás a teljesítményt és a háttértevékenységeket érinti.</value>
+    <value>A rendszer reakcióidejét, CPU-ütemezést vagy háttérterhelést javítja.</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás a bevitel, a játékok vagy a hang késleltetését érinti.</value>
+    <value>Csökkenti a bevitel, hang vagy képkockaidő késleltetését.</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás azt érinti, hogyan használja a Windows a lemezeket.</value>
+    <value>Módosítja, hogyan olvas, ír vagy indexel meghajtókat a Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás azt érinti, hogyan használja a Windows a memóriát.</value>
+    <value>Csökkenti a háttérben futó folyamatok RAM-használatát.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás azt érinti, hogy mit jelenít meg a képernyőd vagy a grafikus kártyád.</value>
+    <value>Módosítja a kijelző kimenetét, képfrissítését vagy GPU megjelenítési funkcióit.</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás az NVIDIA grafikus kártyával rendelkező PC-kre vonatkozik, más gépeken nem tesz semmit.</value>
+    <value>Csak NVIDIA grafikával rendelkező gépekre vonatkozik; más hardveren nem csinál semmit.</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás az AMD grafikus kártyával rendelkező PC-kre vonatkozik, más gépeken nem tesz semmit.</value>
+    <value>Csak AMD grafikával rendelkező gépekre vonatkozik; más hardveren nem csinál semmit.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás az Intel grafikus kártyával rendelkező PC-kre vonatkozik, más gépeken nem tesz semmit.</value>
+    <value>Csak Intel grafikával rendelkező gépekre vonatkozik; más hardveren nem csinál semmit.</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás az energiát érinti: az akkumulátor üzemidejét, a melegedést vagy a ventilátor zaját.</value>
+    <value>Befolyásolja az energiafogyasztást, akkumulátor-üzemidőt, hőt és ventilátorzajt.</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás a hálózatot, a kapcsolatot és a rajta futó forgalmat érinti.</value>
+    <value>Módosítja a hálózati adapter, adatátvitel vagy háttérforgalom viselkedését.</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás internetkapcsolatot igényel, mert letölt valamit.</value>
+    <value>Aktív internetkapcsolat szükséges a fájlok letöltéséhez.</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás a hang lejátszását és feldolgozását érinti.</value>
+    <value>Módosítja, hogyan dolgozza fel és irányítja a Windows a hangot.</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás a Windows megjelenését, effektjeit és animációit érinti.</value>
+    <value>A Windows felületi elemeit, ajánlásait vagy vizuális effektjeit módosítja.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás csak Windows 10-hez készült, Windows 11-en nem tesz semmit.</value>
+    <value>Windows 10-hez készült; Windows 11-en automatikusan rejtve marad.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>Ez az optimalizálás csak Windows 11-hez készült, Windows 10-en le van tiltva.</value>
+    <value>Windows 11-hez készült; Windows 10-en automatikusan rejtve marad.</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>Alkalmazva: {0}</value>
@@ -2496,10 +2412,10 @@ Frissíts most, hogy élvezhesd a legújabb funkciókat, javításokat és hibaj
     <value>Érték</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>A rekordfájl megjelenítése</value>
+    <value>Előzménynapló megnyitása</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>Megmutatja azt a fájlt, amelybe az optimizerDuck feljegyezte, hogy mit tett ez az optimalizálás. Visszaállítás után is megmarad, így az előzmények továbbra is megtekinthetők.</value>
+    <value>Megmutatja az optimizerDuck által rögzített változások JSON-naplóját (visszaállítás után is megmarad).</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>Registry</value>
@@ -2575,5 +2491,620 @@ Frissíts most, hogy élvezhesd a legújabb funkciókat, javításokat és hibaj
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>A részletek a naplófájlban találhatók.</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>Windows Copilot kikapcsolása</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Letiltja a Windows Copilotot, és kijelentkezés után eltávolítja a Copilot gombot a tálcáról.</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>Laptop szükséges</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>Ez az optimalizálás kizárólag akkumulátoros hordozható eszközökre vonatkozik.</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>Legfeljebb 12 GB RAM szükséges</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>A 12 GB-nál több RAM-mal rendelkező gépek már túlzott memóriaterhelés nélkül kihasználják a Service Host elkülönítést.</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>A Memóriaintegritás nem érhető el</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>A Memory Integrity (HVCI) nem észlelhető vagy nem támogatott ezen az eszközön.</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>Nem található fizikai hálózati adapter</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>Nem található fizikai Ethernet vagy Wi-Fi adapter ezen a rendszeren.</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>A Windows AI szolgáltatás nem található</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>Ez a Windows build nem tartalmazza a háttérben futó Windows AI szolgáltatást.</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>Átlátszósági effektusok</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>Engedélyezi az Acrylic és Mica áttetszőséget a tálcán, a Start menüben és az ablakokban.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>Tálca animációk</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>Szabályozza a tálca ikonjainak animációját ablakok megnyitásakor és váltásakor.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>A kompatibilis GPU Driver közvetlenül hardveren egyesíti az asztali és játék-rétegeket. Csak villogás esetén kapcsolja ki.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>A modern GPU-k az MPO-val csökkentik a késleltetést; csak képernyővillogás vagy fekete képernyő esetén tiltsa le.</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>Kihagyva, mert a szolgáltatás indítási típusa már szigorúbb a megadott célnál</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>Explorer újraindítás szükséges</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>Kijelentkezés szükséges</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>Újraindítás szükséges</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>Alkalmazás előtt testreszabható</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>Windows Group Policy beállításokat használ. A Windows Gépház jelezheti, hogy 'Egyes beállításokat a szervezete kezel'.</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>Kívülről módosítva</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>Van mentett biztonsági mentés, de a Windows jelenlegi beállításai már eltérnek (pl. Windows Update vagy kézi módosítás után).</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>Beállítások módosítása</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>Részletek és előzmények</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>Ez a módosítás mélyebb rendszer- vagy biztonsági változtatást végez. Folytatás előtt nézze meg a kompromisszumot.</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>Alkalmazás mindenképp</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>Kijelöltek alkalmazása</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>Már beállítva</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>Válasszon legalább egy opciót a folytatáshoz.</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>Engedélyezve</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>Letiltva</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>Kivezetett optimalizálások mentett biztonsági mentéssel</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>Ezeket a finomhangolásokat egy újabb frissítés eltávolította vagy lecserélte, de az eredeti biztonsági mentés biztonságban megmaradt a lemezen, így bármikor visszaállítható.</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>Visszaállítás</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>{0} visszaállítandó lépés</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>"{0}" visszaállítva, a mentett fájl törölve.</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>A régi mentés visszaállítása sikertelen: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>Kompromisszum</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>Hatások</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>Hivatkozások</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>Alkalmazott opciók</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>A beállítások kívülről megváltoztak</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>A Windows jelenlegi állapota már nem egyezik az optimalizálással, miközben a lemezen van biztonsági mentés. Kapcsolja BE az újraalkalmazáshoz, állítsa vissza a maradékot, vagy törölje az elavult mentést.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>Maradék visszaállítása</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>Elavult mentés törlése</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>Újrakonfigurálás</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>Szabványos Windows Group Policy kulcsokat alkalmaz. Egyes Gépház-oldalakon megjelenhet az 'Egyes beállításokat a szervezete kezel' jelzés.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>AI Fabric Service állítása Kézire</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>Kézi indításra állítja a Windows AI Fabric háttérszolgáltatást, így az csak AI-funkció kérésekor indul el.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>Az erre a szolgáltatásra épülő Windows AI-eszközök első indítása néhány másodperccel tovább tarthat.</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>AI letiltása a Microsoft Edge-ben</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Copilot oldalsávot, a beágyazott AI-írást, az AI előzménykeresést és a helyi modelleket a Microsoft Edge-ben.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>Kikapcsolja a Windows Recall idővonal-keresését és végleg törli az elmentett pillanatképeket.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>Használaton kívüli régi szolgáltatások tiltása</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja az otthoni PC-ken ritkán használt régi és vállalati szolgáltatásokat (Fax, Távoli beállításjegyzék, Kiskereskedelmi bemutató, App-V, Útválasztás és távoli elérés), és kézire teszi a Kapcsolat nélküli fájlokat.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>A régi Fax, a Távoli beállításjegyzék, az Útválasztás és távoli elérés és az App-V visszaállításig kikapcsolva marad; a Kapcsolat nélküli fájlok csak kézzel indulnak.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>Opcionális szolgáltatáscsoportok tiltása</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a kiválasztott, nem használt opcionális Windows-szolgáltatáscsoportokat, például Nyomtatás, Bluetooth, Xbox, LAN-megosztás, Biometria vagy Távoli asztal.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>Csak a kiválasztott hardveres vagy hálózati funkciók maradnak kikapcsolva az újrakonfigurálásig vagy visszaállításig.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>Nincs kiválasztva szolgáltatáscsoport</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>Nyomtatás és Nyomtatásisor-kezelő</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>Leállítja a nyomtatási sor és nyomtatóértesítési háttérszolgáltatásokat.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>A helyi, hálózati nyomtatók és a Microsoft Print to PDF nem fognak működni.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>Leállítja a Windows Bluetooth felderítési, párosítási és kihangosító hangszolgáltatásait.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>Bluetooth billentyűzetek, egerek, kontrollerek és fülesek nem csatlakoznak.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>Xbox Live szolgáltatások</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>Leállítja az Xbox Live bejelentkezési, felhőmentési, kiegészítő és hálózati szolgáltatásait.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>Az Xbox alkalmazás bejelentkezése, a Game Pass felhőmentések és az Xbox Live többjátékos mód nem fog működni.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>LAN fájlmegosztás és felderítés</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>Leállítja a helyi mappamegosztást és az UPnP hálózati eszközfelderítést.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>A helyi hálózati mappamegosztás és médiatovábbítási felderítés leáll.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>Windows Biometria (Windows Hello)</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>Leállítja a Windows biometrikus háttérszolgáltatását.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>Az ujjlenyomat-olvasók és a Windows Hello arcfelismerés nem fog működni.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>Távoli asztali szolgáltatások</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>Leállítja a bejövő Távoli asztal kapcsolati és átirányítási szolgáltatásokat.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>Más számítógépek nem csatlakozhatnak ehhez a géphez Remote Desktop (RDP) segítségével.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>Windows Keresés indexelés tiltása</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>Leállítja a Windows Keresés indexelő szolgáltatást, megszüntetve a háttérbeli lemezírást és CPU-terhelési csúcsokat.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>A Fájlkezelő fájltartalom-keresése és az Outlook azonnali keresése lassabb lesz, mert a Windowsnak igény szerint kell átvizsgálnia a mappákat.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>Edge háttér és indításgyorsítás tiltása</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>Bezárás után teljesen leállítja a Microsoft Edge-et, és tiltja a bejelentkezéskori Startup Boost előtöltést.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>Az első Edge-ablak hidegindítása egy pillanattal tovább tarthat, és az összes ablak bezárásakor a webes értesítések szünetelnek.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>Az üresjáratú grafikus adapterek és több GPU-s laptopok több áramot fogyasztanak terhelés nélkül.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>Növeli az üresjárati GPU-fogyasztást, hőtermelést és ventilátorfordulatot, csökkentve a laptop akkuidejét.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>Megakadályozza a GPU PCIe kapcsolatának mélyalvásba lépését, ami növeli az üresjárati áram- és akkuhasználatot.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>Növeli az üresjárati GPU-fogyasztást, a hőmérsékletet és a ventilátorzajt.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>Megemeli az NVIDIA GPU-k üresjárati energiafogyasztását.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>Ha a képkockasebesség a kijelző képfrissítése alá esik, enyhe akadozás vagy képtörés jelentkezhet.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>A Microsoft Store alkalmazások nem szinkronizálnak leveleket, ébresztőket vagy élő értesítéseket kézi megnyitásig.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>RAM-ot takarít meg legfeljebb 12 GB RAM-mal rendelkező PC-ken, de egy szolgáltatás összeomlása a közös folyamat többi tagját is érintheti.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>A rövid késleltetés miatt véletlen dupla betűk jelenhetnek meg gépelés közben, ha picit tovább nyomod a billentyűt.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>A Shift ötszöri lenyomása vagy a NumLock nyomva tartása nem nyit meg kisegítő ablakokat; ezek a Windows Gépházban továbbra is elérhetők.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>Intéző mappa-felismerés tiltása</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy a File Explorer minden mappa megnyitásakor átvizsgálja a tartalmat Képek vagy Zene elrendezéshez.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>A nagy kép- vagy zenemappák alapértelmezetten Részletek nézetben nyílnak meg, amíg testre nem szabod őket.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>Keresés WebView2 gazda tiltása</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy a Windows 11 Keresés beágyazott Microsoft Edge WebView2 folyamatokat indítson, csökkentve a RAM- és CPU-terhelést.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>Belső Windows funkciófelülbírálást használ, amely letiltja a keresés webes kártyáit, és nagyobb frissítések után visszaállhat.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>Memóriaintegritás (HVCI) tiltása</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Memóriaintegritás (HVCI) virtualizációs ellenőrzést a játékok CPU-teljesítményének és egyenletesebb képidejének növeléséhez.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>Csökkenti a kernel védelmét a kártékony illesztőprogramok és kódbefecskendezés ellen. A Microsoft játékokon kívül az engedélyezést javasolja.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>Hálózati kártya energiatakarékosság tiltása</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza a fizikai Ethernet és Wi-Fi adapterek energiatakarékos lekapcsolását az üresjárati szakadások és késések elkerülésére.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>Növeli az Ethernet és Wi-Fi adapterek üresjárati áramfelvételét, csökkentve a laptop akkuidejét.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>Nem található beállítható fizikai hálózati adapter</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>A hibernálás kikapcsolása megszünteti a kritikus merüléskori RAM-mentést; a Gyors indítás tiltása picit lassítja a hideg bootot.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>Leállítás és hibernálás módja</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>Csak a Gyors rendszerindítás tiltása (Laptopokhoz ajánlott)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>Megakadályozza a kernel hibernálási képének mentését leállításkor, miközben a normál Hibernálás működik.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>Hibernálás és Gyors rendszerindítás tiltása</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>Teljesen letiltja a hibernálást és törli a hibernációs fájlt több gigabájt felszabadításával.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>Modern Standby hálózat tiltása</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>Leválasztja a Wi-Fi-t és leállítja a háttérhálózati ébresztéseket, amíg a laptop Modern Standby alvó módban van.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>Alvás közben az e-mailek, frissítések és értesítések csak a kijelző felébresztése után érkeznek meg.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>Az USB-elosztók és csatlakoztatott eszközök áram alatt maradnak szelektív felfüggesztés helyett, enyhén csökkentve az akkuidőt.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>A parkolatlan CPU magok növelik a hőtermelést, a ventilátorhangot és a fogyasztást; a Feladatkezelő a valódi terhelésnél magasabb értéket mutathat.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>A háttérfeladatok akkumulátorról is teljes CPU-sebességgel futhatnak, növelve a melegedést és az energiafelhasználást.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>Kikapcsolja a Microsoft használati diagnosztikáját, a Windows Insider futamokat és a testreszabott hibajavításokat.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>Alkalmazás-összeomlásokkor nem készülnek és nem küldődnek diagnosztikai jelentések a Microsoft felé.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>Kikapcsolja a Microsoft hibaelhárításához használt alacsony szintű nyomkövetést; egyes biztonsági szoftverek riaszthatnak a módosításra.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>Elvesztés vagy lopás esetén nem tudod távolról megkeresni vagy lezárni ezt a gépet a Microsoft-fiókodban.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>Windows Update házirend beállítása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>Alkalmazza a választott Windows Update csoportházirendeket az automatikus újraindítás, az előzetes csomagok, a halasztás és a Driver frissítések szabályozására.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>Halasztás vagy illesztőtiltás esetén kézzel kell frissíteni a GPU- és lapkakészlet-Driver-eket.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>Nincs kiválasztott Windows Update opció</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>Automatikus újraindítás tiltása bejelentkezéskor</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>Megakadályozza az automatikus újraindítást a Windows Update után, amíg be vagy jelentkezve.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>„Legfrissebb frissítések azonnali beszerzése” kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>Letiltja a korai előzetes funkciók és konfigurációk automatikus felajánlását frissítéskereséskor.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>Illesztőprogram-frissítések kizárása a Windows Update-ből</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>Kizárja a hardveres illesztőprogram-csomagokat a Windows Update-ből.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>A hardverillesztőket közvetlenül a gyártótól kell telepítenie.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>Minőségi (4 nap) és funkciófrissítések (365 nap) halasztása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>Group Policy késleltetést alkalmaz a kiforrottabb frissítések érdekében.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>A havi javításokat 4 nappal, az éves nagy frissítéseket 1 évvel késlelteti.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>Automatikus BitLocker titkosítás tiltása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy a Windows automatikusan bekapcsolja a BitLocker eszköztitkosítást új meghajtókon vagy újratelepítéskor.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>A már titkosított meghajtókat nem fejti vissza; az új meghajtók kézi bekapcsolásig titkosítatlanok.</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>Gyorsabb működés</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>Befolyásolhatja a teljesítményt</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>Kisebb késleltetés</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>Növelheti a késleltetést</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>Kevesebb RAM-igény</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>Több RAM-ot használ</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>Tárhelyet takarít meg</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>Több tárhelyet foglal</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>Kisebb áramfelvétel</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>Nagyobb fogyasztás</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>Több adatvédelem</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>Csökkenti az adatvédelmet</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>Erősebb biztonság</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>Gyengébb biztonság</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>Jobb hálózat</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>Korlátozza a hálózatot</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>Nagyobb stabilitás</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>Befolyásolhatja a stabilitást</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>Tisztább felület</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>UI elemeket ad hozzá</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>Több funkció</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>Funkciókat tilt le</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>{0} indítási módjának beállítása erre: {1}...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>A Copilot oldalsáv, az AI írássegéd és az AI előzménykeresés nem lesz elérhető a Microsoft Edge-ben.</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>Régi mentések</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>{0} régi mentés található</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>Mentés törlése</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>A mentett biztonsági mentés törlése a Windows beállításainak módosítása nélkül</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>Törli ezt a mentést a Windows módosítása nélkül? Ezt követően ezek a korábbi módosítások nem állíthatók vissza az optimizerDuck segítségével.</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>Mentési fájl megnyitása az Explorerben</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>Alkalmazva: {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>Nincs több régi mentés</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>Minden korábbi optimalizálási mentés vissza lett állítva vagy törölve lett.</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>Optimalizálás visszaállítása</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>Minden beállítás ki van kapcsolva. A megerősítés visszaállítja ezt az optimalizálást az előző állapotára.</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>A rendszered már megfelel ennek a beállításnak, így nincs szükség módosításra.</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>Itt minden opció már be van állítva a rendszereden. Nincs mit módosítani.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>AI kikapcsolása a Windows Paintban</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>Házirenddel kikapcsolja a Cocreator, a Generatív kitöltés, az Image Creator, a Generatív radír és az AI-háttéreltávolítás funkciókat a Paintban.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>Az AI-alapú képgeneráló és szerkesztő eszközök eltűnnek a Windows Paint eszköztáráról.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>AI kikapcsolása a Windows Jegyzettömbben</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>Házirenddel letiltja az AI szövegátírási és összefoglaló funkciókat a Windows Jegyzettömbben.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>Az AI-átírás és összefoglalás nem lesz elérhető a Windows Jegyzettömbben.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>Programkompatibilitási segéd kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Programkompatibilitási segéd háttérszolgáltatást, amely figyeli az alkalmazások és régebbi telepítők indítását.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>A régebbi programokhoz és telepítőkhöz kapcsolódó automatikus kompatibilitási figyelmeztetések megszűnnek.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>Kézírás- és gépelés-testreszabás kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>Megakadályozza, hogy a Windows kézírásmintákat, gépelési szokásokat, helyi névjegyeket és nyelvi beállításokat gyűjtsön beviteli személyre szabáshoz.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>Az egyéni kézírás-felismerés, a névjegy alapú automatikus javítás és a helyi szótár tanulása leáll.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>Helymeghatározás kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Windows helymeghatározási szolgáltatását, az alkalmazásengedélyeket, az offline Térképek frissítését és a Wi-Fi hotspot jelentést.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>Az Időjárás, a Térképek és a helyadatokat használó alkalmazások nem tudják meghatározni a tartózkodási helyed.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>Mozgás- és fényérzékelők kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>Csoportházirenddel tiltja az alkalmazásoknak és a Windowsnak a mozgás-, tájolás- és környezetifény-érzékelők olvasását.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>Laptopokon leáll az automatikus fényerőszabályzás, 2 az 1-ben gépeken pedig az automatikus képernyőforgatás.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>Indítási késleltetés eltávolítása</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>Eltávolítja az Explorer bejelentkezés utáni késleltetését és CPU-üresjárati várakozását, így az automatikusan induló appok azonnal elindulnak.</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>Menü-késleltetés eltávolítása</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>Nullára állítja a Windows almenük megjelenítési késleltetését, így az almenük azonnal megnyílnak.</value>
   </data>
 </root>

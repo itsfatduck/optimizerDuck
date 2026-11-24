@@ -66,10 +66,7 @@
     <value>ダッシュボード</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>画面のスナップショットをキャプチャしてインデックス化する Windows Recall AI 機能を無効にします。また、Recall コンポーネントを削除し、以前に保存されたスナップショットを削除します。有効にするには再起動が必要です。</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>ニュースと関心事項フィードをオフにしてタスクバー ボタンを非表示にし (Windows 10)、ウィジェット ボードを無効にします (Windows 11)。</value>
+    <value>グループ ポリシーで Windows Recall のスナップショットを無効にし、保存済みデータを消去して再起動後の有効化をブロックします。</value>
   </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>ダッシュボード</value>
@@ -207,7 +204,7 @@
     <value>詳細な説明</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>サービス ホストの分割しきい値をシステムの合計 RAM に引き上げ、サービスをより少ないプロセスに統合したままにすることで、メモリ使用量とプロセス数を削減します。</value>
+    <value>RAM 12 GB 以下の PC でサービス ホストの分割しきい値を搭載 RAM 量まで引き上げ、サービスを共有プロセスにまとめてメモリを節約します。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>現在のアクティブな電源プランを検出できませんでした</value>
@@ -228,7 +225,7 @@
     <value>ディスク</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>ネットワーク接続が必要</value>
+    <value>インターネット必須</value>
   </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>ネットワーク</value>
@@ -250,7 +247,7 @@
   </data>
 
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
-    <value>電源</value>
+    <value>電源・電力</value>
   </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>{0} の元に戻すデータが見つかりません</value>
@@ -259,7 +256,7 @@
     <value>元に戻しています…</value>
   </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>{0} を正常に元に戻しました！</value>
+    <value>{0} を元に戻しました。</value>
   </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>{0} を元に戻しましたが、{1} 個のステップが失敗しました</value>
@@ -316,7 +313,7 @@
     <value>タイムアウト</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>元に戻すファイル</value>
+    <value>バックアップを開く</value>
   </data>
   <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>失敗したステップ {0} 個</value>
@@ -397,7 +394,7 @@
     <value>たった今適用</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-      <value>最適化を完全に適用できませんでした</value>
+      <value>一部の変更を適用できませんでした</value>
     </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
     <value>最適化を元に戻せませんでした</value>
@@ -472,7 +469,7 @@
     <value>バックグラウンド アプリを無効化</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>非アクティブなアプリケーションがバックグラウンドで実行されないようにして RAM を解放し、CPU オーバーヘッドを削減します</value>
+    <value>Microsoft Store アプリのバックグラウンド タスク実行を止め、アイドル時の RAM 使用量と CPU 復帰回数を減らします。</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>サービス ホストの統合</value>
@@ -480,134 +477,92 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>無効な RAM: {0}</value>
   </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>アクティブなアプリを優先</value>
-  </data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>現在使用中のアプリケーションにより多くの CPU リソースを割り当て、より高速で応答性の高い体験を提供します</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-    <value>マルチメディア スケジューラーを最適化</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-    <value>MMCSS をゲームと低遅延向けに構成し、マルチメディア ワークロードを優先してネットワーク スロットリングを無効化します</value>
-  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>キーボード リピートを最適化</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>最も速いキーボード リピート遅延とリピート レートを設定し、より応答性の高い入力を実現します</value>
+    <value>キーリピート開始までの遅延を最短に、リピート速度を最大に設定してキー長押し時の入力を速めます。</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
     <value>アクセシビリティ キーボード ショートカットを無効化</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-    <value>スティッキーキー、フィルター キー、トグル キーのショートカットを無効化し、ゲームや入力中の誤ったポップアップを防ぎます</value>
+    <value>Shift やロック キーの連打・長押しで固定キーやフィルター キー、切り替えキーの案内が出るショートカットを無効にします。</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
     <value>休止状態と高速スタートアップを無効化</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-    <value>休止状態と高速スタートアップをオフにしてディスク容量を回収し、完全シャットダウンで起動時のハードウェア初期化を確実にします</value>
+    <value>高速スタートアップだけをオフにしてクリーンなコールド ブートにするか、休止状態を完全に無効にして数 GB の空き容量を確保します。</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>USB 省電力を無効化</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Windows が USB ポートの電源を切らないようにして、マウス、キーボード、その他の周辺機器のウェイクアップ遅延を解消します</value>
+    <value>USB ルートハブと接続機器のセレクティブサスペンドを防ぎ、マウスやキーボード、オーディオ機器の復帰遅延をなくします。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>最適化された電源プランを適用</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>パフォーマンス重視のカスタム電源プランをインストールし、システムが常に最大速度で動作するようにします。警告：一部のシステムでタスクマネージャーが CPU 使用率を 100% と誤表示する可能性がありますが、実際の CPU 負荷に影響はありません。</value>
+    <value>CPU コアのパーキングやクロック変動遅延を抑えるカスタム高パフォーマンス電源プランを導入し有効化します。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-    <value>電源プランをインポートして有効化しています…</value>
+    <value>Power Plan をインストールして有効化中...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>システム電源スロットリングを無効化</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>Windows が CPU パフォーマンスを制限（電源スロットリング）しないようにして、アクティブなタスクで最大性能を維持します</value>
+    <value>Windows の電源調整 (Power Throttling) をオフにし、起動中・バックグラウンドのアプリが CPU 周波数制限を受けないようにします。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>データ収集（テレメトリ）を無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>Windows テレメトリと使用状況追跡サービスを無効化して、プライバシーを強化しバックグラウンド アクティビティを削減します</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-    <value>ポリシーとレジストリの変更を適用しています…</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-    <value>テレメトリ サービスを無効化しています…</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>スケジュールされたテレメトリ タスクを無効化しています…</value>
+    <value>Windows の診断データ送信、アプリ互換性インベントリ、フィードバック通知を最小限に抑えます。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>エラー レポートを無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>Windows エラー レポートとプログラム互換性アシスタント サービスを無効化します</value>
+    <value>Windows エラー報告を無効にし、クラッシュやディスク診断レポートを定期収集・送信するタスクを停止します。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
     <value>広告と提案を無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>パーソナライズされた広告、Windows コンシューマー機能、システムの提案を無効化します</value>
+    <value>Windows 広告識別子、診断データに基づくカスタマイズ体験、コンシューマー向けプロモーション、セットアップの提案通知をオフにします。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
     <value>アクティビティ履歴を無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>Windows がアクティビティ履歴を収集・同期するのを防ぎます</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>位置情報とセンサーを無効化</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>位置情報の追跡、システム センサー、オフライン マップの更新を無効化します</value>
+    <value>アプリやファイルの使用履歴を Microsoft へ送信・アップロードしないようにします。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>バックグラウンド ロギングを無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>必須ではない WMI/ETW AutoLogger セッション (Diagtrack-Listener、SQMLogger など) が起動時に開始されないようにして、バックグラウンドのディスクと CPU のアクティビティを削減します。注: AutoLogger の変更は診断トレースを変更するため、セキュリティ ソフトウェアが警告する可能性があります。</value>
+    <value>起動時の不要な Windows ETW 診断トレース セッションを停止し、バックグラウンドのディスク書き込みと CPU 負荷を削減します。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Cortana と Web 検索を無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Cortana 音声アシスタントをオフにし、Windows 検索のクラウド検索と Web 結果を無効にします (Windows 10 のみ)。</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>Windows Copilot を無効化</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>タスクバーとシステム シェルから AI Copilot アシスタントを削除して、メモリと画面スペースを解放します</value>
+    <value>Windows 10 で Cortana アシスタントを停止し、ローカルのデスクトップ検索がクラウド検索へ送信されるのを防ぎます。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>クラウド コンテンツ配信を無効化</value>
+    <value>バックグラウンドのクラウド推奨コンテンツを無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>システムのヒント、スポットライトの提案、コンシューマー機能の自動配信など、Windows クラウド配信コンテンツをオフにします</value>
+    <value>ロック画面の Spotlight おすすめ、ヒント、プロモーション用コンシューマーコンテンツのバックグラウンド取得を止めます。</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>プリインストールされた不要アプリをブロック</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Windows が不要なサードパーティ アプリやプロモーション ソフトウェアを自動的に再インストールするのを防ぎます</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>システム サービスの最適化</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>必要な Windows 機能を維持しながら、非必須のバックグラウンド サービスを調整してリソースを解放します</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>{0} の開始タイプを {1} に設定しています…</value>
+    <value>Windows が宣伝目的のコンシューマー向けアプリを密かにダウンロードし、スタートメニューへピン留めする動作を止めます。</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>表示</value>
@@ -622,65 +577,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>ユーザー エクスペリエンス</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>エクスプローラーとメニューを高速化</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>StartupDelayInMSec=0、MenuShowDelay=0 を設定してエクスプローラーの起動遅延を解消し、メニューのホバー遅延を最小にします</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>ビジュアル効果を無効化</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>タスクバー アニメーション、リスト ビューの影、ウィンドウの透明度、Aero Peek を無効化して GPU/CPU リソースを解放し、パフォーマンスを向上させます</value>
-  </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>AMD ULPS を無効化</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>AMD GPU レジストリで EnableULPS=0 を設定し、Ultra Low Power State のウェイクアップ遅延とマルチモニター問題を防ぎます。アイドル時の省電力は減少します</value>
+    <value>AMD GPU の超低電力ステート (ULPS) をオフにし、サブ GPU 復帰時のカクつきやマルチモニターのちらつきを防ぎます。</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>AMD パワー ゲーティングを無効化</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>DisablePowerGating=1、PP_GPUPowerDownEnabled=0、DisableDynamicPstate=1 を設定して AMD GPU の電源状態遷移を防ぎます。アイドル電力は増加しますが、クロックは安定します</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>AMD ビデオ クロック ゲーティングを無効化</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>AMD ビデオ エンジン (VCE/UVD) に DisableVCEPowerGating=1、DisableVceClockGating=1、EnableUvdClockGating=0 を設定してエンコード/デコードの安定性を向上します。ビデオ再生時の電力消費が増加します</value>
+    <value>AMD GPU のパワーゲーティングと動的電力制御を無効化し、断続的な処理の間も演算ユニットの通電を保ちます。</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>AMD ASPM を無効化</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>EnableAspmL0s=0、EnableAspmL1=0 を設定して AMD GPU の Active State Power Management を無効化し、PCIe バスの遅延を削減します。スロットの電力消費が増加します</value>
+    <value>AMD GPU の PCIe Active State Power Management (L0s/L1) を無効化し、PCIe リンク復帰の遅延をなくします。</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>NVIDIA Dynamic P-State を無効化</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>DisableDynamicPstate=1 を設定して NVIDIA GPU を固定パフォーマンス状態にロックし、クロック速度の変動を防ぎます。アイドル時の電力消費が増加します</value>
+    <value>NVIDIA GPU が動的な低電力 P-state に落ちないようにし、軽負荷やバースト負荷時のクロック変動を防ぎます。</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>NVIDIA Async P-State を無効化</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>DisableASyncPstates=1 を設定して NVIDIA の非同期電源状態切り替えを防ぎ、VR/リアルタイム アプリに決定論的なパフォーマンスを提供します</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Intel Async Flip を無効化</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Display1_DisableAsyncFlips=1 を設定して Intel iGPU で同期バッファ フリップを強制し、入力から表示までの遅延と画面のちらつきを削減します</value>
+    <value>バースト負荷時の NVIDIA ドライバーによる非同期電力ステート切り替えを止め、フレームペーシングを安定させます。</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>Intel Adaptive V-Sync を無効化</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>AdaptiveVsyncEnable=0 を設定して、フレーム レートに動的に調整される Intel の Adaptive V-Sync を無効化し、安定したタイミングのため固定 V-Sync を使用します</value>
+    <value>Intel ドライバー側の適応型 V-Sync をオフにし、アプリ標準または固定の同期動作に従わせます。</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1200,22 +1131,22 @@
     <value>その他</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>この最適化の元に戻すデータを含む JSON ファイルを開きます</value>
+    <value>元の設定を復元するための JSON バックアップを表示します。</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>ブラウザーでこの最適化のソース コードを開きます</value>
+    <value>GitHub でこの最適化の C# 実装を確認します。</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
-    <value>GitHub でソースを表示</value>
+    <value>ソースコードを表示</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
-    <value>技術的な詳細</value>
+    <value>技術情報</value>
   </data>
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
     <value>最適化 ID</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>クラス名</value>
+    <value>識別キー</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>スタートアップ アプリ</value>
@@ -1680,12 +1611,6 @@
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>通知領域のバッテリー アイコンの横に現在の残量を表示します。</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>スタートメニューのウェブ検索を無効化</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>Windows のスタートメニューのウェブ検索をオフにして、ローカル検索結果の読み込みを高速化します。</value>
-  </data>
   <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
     <value>ファイルは完全に削除されます。この操作は元に戻せません。</value>
   </data>
@@ -1722,14 +1647,11 @@
   <data name="Customize.CustomOption.NotSet" xml:space="preserve">
     <value>未設定</value>
   </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>ニュースと関心事項を無効にする</value>
-  </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>Meet Now ボタンを非表示にする</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>タスクバーの通知領域から Meet Now (Skype) ボタンを非表示にします。Windows 10 のみ。</value>
+    <value>Windows 10 タスクバーの通知領域から「Meet Now」ボタンを非表示にします。</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
     <value>クイック アクセス</value>
@@ -1744,34 +1666,34 @@
     <value>Click To Do を無効にする</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>画面上のテキストや画像を分析する AI 搭載の Click To Do オーバーレイをオフにします。</value>
+    <value>画面上のテキストや画像を解析して AI アクションを提示する Click To Do オーバーレイを無効にします。</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Windows Recall を無効にする</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>配信の最適化 (P2P) を無効にする</value>
+    <value>Delivery Optimization (P2P) を無効化</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Windows が他の PC とピアツーピアで更新ファイルを共有またはダウンロードするのを止め、更新が Microsoft サーバーからのみ配信されるようにします。</value>
+    <value>PC 間での P2P 更新共有を停止し、Microsoft サーバーからのみ更新ファイルをダウンロードします。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>デバイスの検索を無効にする</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>デバイスの位置情報を定期的に Microsoft に報告する「デバイスの検索」機能を無効にします。</value>
+    <value>「デバイスの検索」を無効にし、Microsoft アカウントへの定期的な位置情報送信を停止します。</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>設定の Microsoft 365 広告を無効にする</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>設定のホーム ページから Microsoft 365 と Copilot のプロモーション コンテンツを削除します。</value>
+    <value>Windows 設定のホーム画面から Microsoft 365 やアカウント宣伝バナーを取り除きます。</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>スタート メニューのおすすめセクションを非表示にする</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>スタート メニューのおすすめセクションを非表示にしてスッキリさせ、最近使ったファイルやアプリも表示されないようにします。</value>
+    <value>Windows 11 のスタート メニューから「おすすめ」セクションを非表示にし、最近使ったファイルやアプリ提案を隠します。</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>互換性チェックに失敗しました</value>
@@ -1864,16 +1786,10 @@
     <value>一部の設定は、現在のシステムでは利用できません。</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
-    <value>WebDAV 50MB 制限を解除</value>
+    <value>WebDAV の 50 MB 上限を解除</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>WebDAV マウントの WebClient ファイルサイズ制限を 50MB から 4GB に引き上げ、ネットワーク上の大容量ファイル転送の失敗を防止します。</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>更新プログラムの一時停止上限を最大化</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>Windows Update の一時停止上限をサポートされている最大値に設定します。この設定をサポートしている Windows バージョンでのみ有効です。有効期間中はセキュリティ更新プログラムも停止されます。</value>
+    <value>Windows WebClient の転送上限を 50 MB から 4 GB へ引き上げ、WebDAV ネットワークドライブで大容量ファイルが失敗するのを防ぎます。</value>
   </data>
   <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
     <value>DLSS オーバーレイ インジケーター</value>
@@ -2188,10 +2104,10 @@
     <value> ({0} ごとに {1} まで繰り返し)</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
-    <value>既に最適化済み</value>
+    <value>最適化済み</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>この PC は既にこの最適化に一致しているため、変更する必要はありません。</value>
+    <value>PC はすでにこの設定になっているため、変更は不要です。</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>変更はありません。{0} は既にこの PC に一致しています。</value>
@@ -2212,13 +2128,13 @@
     <value>Windows は次のパッケージを削除しませんでした: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>クリックすると前回の適用の各手順を表示します。{0}</value>
+    <value>クリックして記録された変更一覧を表示します。{0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>クリックすると前回の適用の各手順を表示します。</value>
+    <value>クリックして記録された変更一覧を表示します。</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} 件の手順を変更、{1} 件は既に一致、{2} 件は対象外、{3} 件は Windows に拒否されました</value>
+    <value>{0} 件変更、{1} 件既に適切、{2} 件スキップ、{3} 件拒否</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>最後に記録された実行</value>
@@ -2245,58 +2161,58 @@
     <value>失敗</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>この最適化は Windows のセキュリティ設定に関わるものです。</value>
+    <value>Windows のセキュリティ保護、分離機能、暗号化設定を変更します。</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>この最適化は Windows が収集・送信するデータに関わるものです。</value>
+    <value>テレメトリ、診断情報、Microsoft やアプリへのデータ送信を制限します。</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>この最適化は Windows の中核部分、つまりコンポーネントやポリシーに関わるので、内容を確認してから有効にしてください。</value>
+    <value>Windows の中核機能やシステムポリシーを変更します。適用前に詳細を確認してください。</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>この最適化はパフォーマンスとバックグラウンドの処理に関わるものです。</value>
+    <value>システム応答性、CPU スケジューリング、バックグラウンド負荷を改善します。</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>この最適化は入力、ゲーム、音の遅延に関わるものです。</value>
+    <value>入力、音声、フレーム処理の応答遅延を軽減します。</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>この最適化は Windows がディスクをどう使うかに関わるものです。</value>
+    <value>Windows のドライブ読み書きや検索インデックスの動作を変更します。</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>この最適化は Windows がメモリをどう使うかに関わるものです。</value>
+    <value>バックグラウンドの RAM 使用量とメモリ負荷を抑えます。</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>この最適化は画面やグラフィックの出力に関わるものです。</value>
+    <value>画面出力、リフレッシュ制御、GPU 表示機能を調整します。</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>この最適化は NVIDIA のグラフィックカードを搭載した PC だけに関わり、他の PC には影響しません。</value>
+    <value>NVIDIA グラフィックス搭載 PC のみに適用され、他の環境では動作しません。</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>この最適化は AMD のグラフィックカードを搭載した PC だけに関わり、他の PC には影響しません。</value>
+    <value>AMD グラフィックス搭載 PC のみに適用され、他の環境では動作しません。</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>この最適化は Intel のグラフィックカードを搭載した PC だけに関わり、他の PC には影響しません。</value>
+    <value>Intel グラフィックス搭載 PC のみに適用され、他の環境では動作しません。</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>この最適化は電力、つまりバッテリー持ち、発熱、ファンの音に関わるものです。</value>
+    <value>消費電力、バッテリー持続時間、発熱、ファン回転数に影響します。</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>この最適化はネットワーク、接続、そしてその通信量に関わるものです。</value>
+    <value>ネットワークアダプター、通信転送、バックグラウンド通信を制御します。</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>この最適化は何かをダウンロードするため、インターネット接続が必要です。</value>
+    <value>必要なファイルをダウンロードするためインターネット接続が必要です。</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>この最適化は音の再生と処理の方法に関わるものです。</value>
+    <value>Windows のサウンド処理と出力ルーティングを調整します。</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>この最適化は Windows の見た目、効果、アニメーションに関わるものです。</value>
+    <value>Windows の UI 表示要素、推奨プロモーション、視覚効果を調整します。</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>この最適化は Windows 10 専用で、Windows 11 では何も行いません。</value>
+    <value>Windows 10 専用です。Windows 11 では自動的に非表示になります。</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>この最適化は Windows 11 専用で、Windows 10 ではブロックされます。</value>
+    <value>Windows 11 専用です。Windows 10 では自動的に非表示になります。</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>適用日時 {0}</value>
@@ -2431,10 +2347,10 @@
     <value>値</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>記録ファイルを表示</value>
+    <value>履歴ログを開く</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>この最適化が何をしたかを optimizerDuck が書き留めたファイルを開きます。元に戻した後も残るので、後から確認できます。</value>
+    <value>optimizerDuck が記録した変更の JSON ログを開きます（元に戻した後も残ります）。</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>レジストリ</value>
@@ -2510,5 +2426,620 @@
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>詳細はログ ファイルに記録されています。</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>Windows Copilot を無効化</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Windows Copilot を無効化し、サインアウト後にタスクバーから Copilot ボタンを削除します。</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>ノートPCが必要です</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>この最適化はバッテリーを搭載したモバイルPCにのみ適用されます。</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>12 GB以下のRAMが必要です</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>12 GB超のRAM環境では過大なメモリ消費なしにService Host分離の恩恵を受けられます。</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>メモリ整合性を利用できません</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>このデバイスではMemory Integrity (HVCI)が検出されないかサポートされていません。</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>物理ネットワークアダプターがありません</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>このシステムでは物理 Ethernet または Wi-Fi アダプターが検出されませんでした。</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>Windows AIサービスが見つかりません</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>この Windows ビルドにはバックグラウンドの Windows AI サービスが含まれていません。</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>透明効果</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>タスクバー、スタートメニュー、アプリ表面でAcrylicとMicaの半透明効果を有効にします。</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>タスクバーのアニメーション</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>ウィンドウを開く・切り替えるときのタスクバーアイコンのアニメーションを切り替えます。</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>対応GPU Driverがデスクトップとゲームのレイヤーをハードウェア合成します。ちらつきや暗転が出る場合のみ無効化してください。</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>最新のGPUはMPOでボーダーレス表示の遅延を削減します。画面のちらつきや不具合がある場合のみ無効にしてください。</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>サービスの起動設定がすでに対象値より厳格なためスキップされました</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>Explorer再起動が必要</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>サインアウトが必要</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>再起動が必要</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>適用前にオプション設定可能</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>Windows Group Policy を使用します。有効中は Windows 設定に「一部の設定は組織によって管理されています」と表示されることがあります。</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>外部で変更済み</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>バックアップは存在しますが、Windows の現在の設定が一致しません（Windows Update や手動変更など）。</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>オプションを再設定</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>詳細と履歴</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>この設定はシステムやセキュリティに深い変更を加えます。続行する前に下記の注意点を確認してください。</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>このまま適用</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>選択した項目を適用</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>設定済み</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>続行するには少なくとも1つのオプションを選択してください。</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>有効</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>無効</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>バックアップが残っている旧最適化項目</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>これらの項目はアップデートで削除または置き換えられましたが、元の設定バックアップはディスク上に残っているためいつでも元に戻せます。</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>元に戻す</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>{0} 件の変更を元に戻せます</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>"{0}" を元に戻し、バックアップを削除しました。</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>旧バックアップを元に戻せませんでした: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>注意点・トレードオフ</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>影響項目</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>参考資料</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>適用されたオプション</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>外部で設定が変更されました</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>ディスク上にバックアップが残っていますが、現在の Windows 設定はこの最適化と一致していません。再度適用するにはスイッチを ON にするか、残りを元に戻すか、古い記録を削除してください。</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>残りを元に戻す</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>古い記録を削除</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>再設定</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>標準の Windows Group Policy 設定を使用します。有効中は Windows 設定に「一部の設定は組織によって管理されています」と表示されることがあります。</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>AI Fabric Serviceを手動に変更</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>Windows AI Fabric バックグラウンド サービスを手動起動に切り替え、AI 機能が要求した時だけ動作するようにします。</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>このサービスに依存する Windows AI 機能は、初回起動時に数秒長くかかる場合があります。</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>Microsoft Edge の AI を無効化</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>Microsoft Edge 内の Copilot サイドバー、文章作成サポート、AI 履歴検索、ローカル AI モデルを無効化します。</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>Windows Recall のタイムライン検索が無効になり、保存されたスナップショットは完全に削除されます。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>不要なレガシーサービスを無効化</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>Fax、Remote Registry、Retail Demo、App-V、Routing and Remote Access など個人 PC で不要な旧式・企業向けサービスを無効化し、Offline Files を手動にします。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>旧式の Fax、Remote Registry、Routing and Remote Access、App-V は元に戻すまで停止し、Offline Files は手動時のみ起動します。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>オプション機能サービスを無効化</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>印刷、Bluetooth、Xbox、LAN 共有、生体認証、リモート デスクトップなど、使わない Windows 機能サービス群を選択して無効にします。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>選択したハードウェアまたはネットワーク機能は、再構成または復元するまで利用できません。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>サービスグループが選択されていません</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>印刷・スプーラー</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>印刷スプーラーとプリンター通知のバックグラウンドサービスを停止します。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>ローカル/ネットワークプリンターおよびMicrosoft Print to PDFが使えなくなります。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>Windows の Bluetooth 検出、ペアリング、ハンズフリー通話サービスを停止します。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>Bluetoothキーボード、マウス、コントローラー、イヤホンが接続できなくなります。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>Xbox Liveサービス</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>Xbox Live サインイン、クラウドセーブ同期、アクセサリ、Xbox 通信サービスを停止します。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>Xbox アプリへのサインイン、Game Pass クラウド セーブ、Xbox Live マルチプレイヤーが動作しなくなります。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>LAN ファイル共有・ネットワーク探索</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>ローカルフォルダー共有と UPnP ネットワーク機器検出サービスを停止します。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>LAN経由のフォルダー共有やメディアキャスト検出が動作しなくなります。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>Windows生体認証 (Windows Hello)</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>Windows 生体認証バックグラウンドサービスを停止します。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>指紋認証およびWindows Hello顔認証が使えなくなります。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>リモートデスクトップサービス</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>外部からのリモートデスクトップ着信およびリダイレクトサービスを停止します。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>他のPCからこのPCへRemote Desktop (RDP)で接続できなくなります。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>Windows Searchインデックスを無効化</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>Windows Search インデクサー サービスを停止し、ファイル索引によるバックグラウンドのディスク書き込みと CPU 負荷をなくします。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>オンデマンドでフォルダーを走査する必要があるため、エクスプローラーのファイル内検索や Outlook の即時検索が遅くなります。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>Edgeバックグラウンドと起動ブーストを無効化</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>すべてのウィンドウを閉じた時に Microsoft Edge を完全終了し、サインイン時のスタートアップ ブースト読み込みも止めます。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>コールド スタート時の最初の Edge ウィンドウ起動が少し遅くなり、全ウィンドウ終了中は Web 通知も止まります。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>アイドル状態の GPU やマルチ GPU 搭載ノート PC の待機時消費電力が増えます。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>アイドル時の GPU 消費電力、発熱、ファン回転数が増え、ノート PC のバッテリー持続時間が短くなります。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>GPU の PCIe リンクが省電力スリープに入らなくなり、アイドル時の消費電力とバッテリー消費が増えます。</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>アイドル時の GPU 消費電力、温度、ファン騒音が増加します。</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>NVIDIA GPU のアイドル時消費電力が増加します。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>フレームレートが画面リフレッシュレートを下回ると、一時的なカクつきやティアリングが起きる場合があります。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>Microsoft Store アプリを手動で開くまで、メール・アラーム・ライブ通知がバックグラウンド更新されません。</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>12 GB 以下の PC で RAM を節約できますが、1 つのサービスの障害が同じホスト内の他のサービスに影響する場合があります。</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>リピート遅延が短いため、タイピング中にキーを少し長めに押すと意図せず連続入力される場合があります。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>Shift 5 回押しや NumLock 長押しによる通知は出なくなりますが、Windows 設定から手動で有効にできます。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>Explorerフォルダー自動判別を無効化</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>フォルダーを開くたびに File Explorer が中身を走査して写真や音楽テンプレートを自動判定するのを止めます。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>大容量の画像や音楽フォルダーも手動変更するまで標準の「詳細」表示になります。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>検索WebView2ホストを無効化</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>Windows 11 の検索が組み込み Microsoft Edge WebView2 プロセスを起動しないようにし、検索の RAM と CPU 消費を抑えます。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>検索内のリッチ Web カードを無効化する内部機能オーバーライドを使うため、大型 Windows Update 後に戻ることがあります。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>メモリ整合性 (HVCI)を無効化</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>仮想化セキュリティのメモリ整合性 (HVCI) チェックを無効化し、ゲーム時の CPU 性能とフレーム安定性を取り戻します。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>不正なドライバーやコード注入に対する Windows カーネル保護が低下します。Microsoft はゲーム時以外は有効化を推奨しています。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>NIC省電力を無効化</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>物理 Ethernet および Wi-Fi アダプターの省電力電源オフを防ぎ、待機中の回線切断や復帰遅延を抑えます。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>有線 LAN や Wi-Fi のアイドル時消費電力が増え、ノート PC のバッテリー持ちがわずかに短くなります。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>設定可能な物理ネットワークアダプターが見つかりませんでした</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>休止状態を外すとバッテリー切れ直前の RAM 退避がなくなります。高速スタートアップ無効時はコールド起動が少し長くなります。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>シャットダウン・休止状態モード</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>高速スタートアップのみ無効化 (ノートPC推奨)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>通常の休止状態を維持したまま、シャットダウン時のカーネル休止イメージ保存だけを止めます。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>休止状態と高速スタートアップを両方無効化</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>休止状態を完全に無効化し、休止状態ファイルを削除して数 GB の空き容量を確保します。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>モダンスタンバイ中の通信を遮断</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>ノート PC がモダンスタンバイでスリープ中、Wi-Fi 接続とバックグラウンドネットワーク復帰を停止します。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>スリープ中はメール同期、Windows Update、プッシュ通知が画面を起こすまで待機します。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>USB ハブや接続機器がセレクティブ サスペンドに入らず常時通電となるため、ノート PC のバッテリー持続時間がわずかに短くなります。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>CPU コアを常時アクティブに保つため発熱・ファン音・消費電力が増えます。タスクマネージャーが実負荷より高い使用率を表示する場合があります。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>バッテリー駆動中でもバックグラウンド タスクが CPU フル速度で動作するため、発熱と電力消費が増えます。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>Microsoft の利用状況診断、Windows Insider 配布、個別最適化されたトラブルシューティングが無効になります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>アプリのクラッシュ時に Microsoft への診断レポート生成と送信が行われなくなります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>Microsoft サポート用の低レベル診断トレースを無効化します。一部のセキュリティ ソフトは起動トレース設定の変更を警告する場合があります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>紛失・盗難時に Microsoft アカウントからこの PC を遠隔特定またはロックできなくなります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>Windows Updateポリシーを設定</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>選択した Windows Update グループ ポリシーを適用し、強制再起動、先行配信、更新延期、Driver 更新を制御します。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>更新延期やDriver除外を有効にすると、GPUやチップセットDriverを手動更新する必要があります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>Windows Updateのオプションが選択されていません</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>サインイン中の自動再起動を防止</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>サインイン中の自動再起動を停止します。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>「利用可能になったらすぐに最新の更新プログラムを入手する」をオフ</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>更新確認時の先行プレビュー機能および設定の自動展開を拒否します。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>Windows Updateからドライバー更新を除外</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>Windows Update からハードウェアドライバーパッケージを除外します。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>ハードウェアDriverをメーカー公式サイトから手動で更新する必要があります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>品質更新(4日)と機能更新(365日)を延期</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>Group Policyによる猶予期間を設け、安定したパッチのみ適用します。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>月例品質パッチが4日、大型機能アップデートが1年遅れます。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>BitLocker自動暗号化を防止</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>新しいドライブや再インストール時に Windows が BitLocker デバイス暗号化を自動で有効にしないようにします。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>暗号化済みドライブは解除されず、新規ドライブは手動で有効化しない限り非暗号化のままになります。</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>パフォーマンス向上</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>パフォーマンスに影響</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>低遅延化</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>遅延が増える可能性</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>RAM 消費を削減</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>RAM 消費が増加</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>ディスク容量を節約</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>ディスク使用量が増加</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>省電力化</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>消費電力が増加</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>プライバシー強化</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>プライバシー低下</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>セキュリティ強化</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>セキュリティ低下</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>通信を改善</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>通信を制限</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>安定性向上</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>安定性に影響</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>画面をすっきり整理</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>UI 要素が増加</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>機能拡張</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>一部機能を無効化</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>{0} のスタートアップを {1} に設定中...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>Microsoft Edge の Copilot サイドバー、AI 文章作成支援、AI 履歴検索が利用できなくなります。</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>旧バックアップ</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>{0} 件の旧バックアップ</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>バックアップを削除</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>Windows の設定を変更せずにこのバックアップ記録を削除します</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>Windows を変更せずにこのバックアップを削除しますか？削除すると、optimizerDuck からこれらの旧変更を元に戻せなくなります。</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>Explorer でバックアップファイルを開く</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>適用日時: {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>旧バックアップはありません</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>旧バージョンの最適化バックアップはすべて元に戻されたか削除されました。</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>最適化を元に戻す</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>すべてのオプションがオフになっています。確定すると、この最適化は以前の状態に元に戻ります。</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>お使いのシステムはすでにこの設定と一致しているため、変更は不要です。</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>ここにあるすべてのオプションはすでにお使いのシステムで設定済みのため、変更は不要です。</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>Windows ペイントの AI を無効化</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>Windows ペイント内の Cocreator、ジェネレーティブ フィル、Image Creator、生成消去、AI 背景削除ポリシーを無効にします。</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>Windows ペイントのツールバーから AI 画像生成・編集ツールが削除されます。</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>Windows メモ帳の AI を無効化</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>ポリシーによって Windows メモ帳内の AI テキスト書き換えおよび要約機能を無効にします。</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>Windows メモ帳で AI 書き換えや要約アクションが使えなくなります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>プログラム互換性アシスタントを無効化</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>アプリの起動や古いインストーラーをバックグラウンドで監視する Windows プログラム互換性アシスタント サービスを無効にします。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>古いプログラムやインストーラーに対する自動互換性警告や互換シムが無効になります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>手書きと入力のパーソナライズを無効化</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>入力パーソナライズのための手書きデータ、入力パターン、ローカル連絡先、言語設定の収集を停止します。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>カスタム手書き認識、連絡先に基づく自動修正、ローカル入力辞書の学習更新が止まります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>位置情報の追跡を無効化</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>Windows 位置情報サービス、アプリの位置情報許可、オフライン マップ自動更新、Wi-Fi ホットスポット報告を無効にします。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>有効中、天気やマップなどシステムの位置情報を使うアプリで現在地を取得できません。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>ハードウェア モーション・光センサーを無効化</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>グループ ポリシーにより、アプリや Windows がモーション、向き、環境光センサーを読み取らないようにします。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>ノート PC の自動明るさ調整や 2-in-1 端末の画面自動回転が動作しなくなります。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>スタートアップ アプリの遅延を解除</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>サインイン後の Explorer の起動遅延と CPU アイドル待機を取り除き、スタートアップ アプリを即座に起動します。</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>メニュー ホバー遅延を解除</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>Windows のサブメニュー表示遅延を 0 にして、カーソルを合わせた直後に開くようにします。</value>
   </data>
 </root>

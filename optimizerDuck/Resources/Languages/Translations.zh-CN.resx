@@ -67,10 +67,7 @@
     <value>控制台</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>禁用捕获并索引屏幕快照的 Windows Recall AI 功能。同时移除 Recall 组件并删除之前保存的快照；需要重启才能生效。</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>关闭新闻和兴趣信息流并隐藏其任务栏按钮（Windows 10），同时禁用小组件面板（Windows 11）。</value>
+    <value>通过组策略禁用 Windows Recall 屏幕快照、清除已保存快照，并在重启后阻止启用 Recall。</value>
   </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>控制台</value>
@@ -208,7 +205,7 @@
     <value>详细描述</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>将服务主机拆分阈值提高到系统总内存，使服务整合在更少的进程中，从而减少内存占用和进程数量。</value>
+    <value>在 12 GB 及以下内存的电脑上将 Service Host 拆分阈值设为物理 RAM 容量，将服务合并到共享进程以节省内存。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>检测当前活动电源计划失败。</value>
@@ -223,13 +220,13 @@
     <value>系统</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
-    <value>内存</value>
+    <value>RAM</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
     <value>磁盘</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>需要网络连接</value>
+    <value>需要联网</value>
   </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>网络</value>
@@ -251,7 +248,7 @@
   </data>
 
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
-    <value>电源</value>
+    <value>电源/功耗</value>
   </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>未找到 {0} 的还原数据。</value>
@@ -260,7 +257,7 @@
     <value>正在还原...</value>
   </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>{0} 还原成功！</value>
+    <value>已还原 {0}。</value>
   </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>{0} 还原完成，存在 {1} 个失败步骤。</value>
@@ -317,7 +314,7 @@
     <value>执行超时</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>还原文件</value>
+    <value>打开还原备份</value>
   </data>
   <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} 个失败步骤</value>
@@ -398,10 +395,10 @@
     <value>刚刚应用</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-      <value>优化未能完全应用</value>
+      <value>未能应用全部更改</value>
     </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
-    <value>优化还原失败</value>
+    <value>未能还原此优化</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
     <value>优化应用成功</value>
@@ -473,7 +470,7 @@
     <value>禁用后台应用</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>阻止未激活的应用在后台运行，释放内存并降低 CPU 占用。</value>
+    <value>阻止 Microsoft Store 应用执行后台任务，减少空闲 RAM 占用和后台 CPU 唤醒。</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>整合服务主机</value>
@@ -481,140 +478,98 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>内存参数无效：{0}</value>
   </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>优先分配前台应用资源</value>
-  </data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>为当前使用的应用分配更多 CPU 资源，提升运行速度与响应速度。</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-    <value>优化多媒体调度</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-    <value>配置多媒体类调度服务 (MMCSS) 以优化游戏和低延迟，通过优先处理多媒体工作负载和禁用网络节流。</value>
-  </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
-    <value>解除 WebDAV 50MB 限制</value>
+    <value>解除 WebDAV 50 MB 限制</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>把 WebClient 对 WebDAV 挂载的文件大小限制从 50MB 抬到 4GB，网络位置上的大文件不再传输失败。</value>
+    <value>将 Windows WebClient 传输上限从 50 MB 提高到 4 GB，避免在 WebDAV 网络驱动器传输大文件失败。</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>优化键盘响应速度</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>设置最快的键盘重复延迟与重复频率，提升打字和按键响应速度。</value>
+    <value>将键盘重复延迟设为最短、重复速率设为最高，加快长按按键时的输入响应。</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
     <value>禁用辅助功能键盘快捷键</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-    <value>禁用粘滞键、筛选键、切换键快捷键，避免游戏和打字时误触发弹窗。</value>
+    <value>禁用连按或长按 Shift 及锁定键时弹出粘滞键、筛选键和切换键的快捷键。</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
     <value>禁用休眠和快速启动</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-    <value>关闭休眠和快速启动，释放磁盘空间并确保完全关机，以便开机时硬件初始化更干净。</value>
+    <value>仅关闭快速启动以保证彻底冷启动，或完全禁用休眠以释放数 GB 磁盘空间。</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>禁用 USB 节能</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>阻止系统关闭 USB 端口供电，消除鼠标、键盘等外设的唤醒延迟。</value>
+    <value>阻止 Windows 暂停空闲 USB 根集线器及外设供电，消除鼠标、键盘和音频设备的唤醒卡顿。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>应用高性能电源计划</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>安装定制的高性能电源计划，让系统始终以最高速度运行。警告：在某些系统上可能导致任务管理器错误显示 100% CPU 使用率，实际 CPU 负载不受影响。</value>
+    <value>安装并启用自定义高性能电源计划，减少 CPU 核心休眠（Core Parking）和调频延迟。</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-    <value>正在导入并激活电源计划...</value>
+    <value>正在安装并激活电源计划...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>禁用系统性能限流</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>阻止 Windows 限制 CPU 性能，保障前台任务始终处于峰值运行状态。</value>
+    <value>关闭 Windows 电源节流，使前台和后台应用不受 CPU 频率限制。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>禁用数据收集(遥测)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>关闭 Windows 遥测与使用追踪服务，保护隐私并减少后台活动。</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-    <value>正在应用策略与注册表修改...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-    <value>正在禁用遥测服务...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>正在禁用遥测计划任务...</value>
+    <value>将 Windows 诊断数据收集、应用兼容性清单和反馈提示降至最低。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>禁用错误报告</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>关闭 Windows 错误报告与程序兼容性助手服务。</value>
+    <value>关闭 Windows 错误报告，并停止按计划收集或上传崩溃和磁盘诊断报告的任务。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
     <value>禁用广告与系统推荐</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>关闭个性化广告、Windows 用户功能与系统推荐内容。</value>
+    <value>关闭 Windows 广告 ID、基于诊断数据的个性化体验、消费者推广内容及设置建议提示。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
     <value>禁用活动历史记录</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>阻止 Windows 收集并同步你的操作历史记录。</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>禁用定位与传感器</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>关闭定位追踪、系统传感器和离线地图更新。</value>
+    <value>阻止 Windows 记录并将你的应用和文件活动历史上传至 Microsoft。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>禁用后台日志记录</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>阻止非必要的 WMI/ETW AutoLogger 会话（Diagtrack-Listener、SQMLogger 等）在启动时运行，以减少后台磁盘和 CPU 活动。注意：安全软件可能会标记 AutoLogger 更改，因为它们会改变诊断跟踪。</value>
+    <value>禁用开机启动的非必要 Windows ETW 诊断跟踪会话，减少后台磁盘写入和 CPU 开销。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>禁用小娜与网页搜索</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>关闭 Cortana 语音助手，并禁用 Windows 搜索中的云搜索和网页结果（仅适用于 Windows 10）。</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>禁用 Windows 智能助手</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>从任务栏和系统界面移除 AI 智能助手，释放内存与屏幕空间。</value>
+    <value>关闭 Cortana 语音助手，并阻止 Windows 10 搜索将本地查询发送至云端搜索。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>禁用云内容推送</value>
+    <value>禁用后台云端推荐内容</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>关闭 Windows 云推送内容，包括系统提示、聚焦推荐和自动用户功能推送。</value>
+    <value>阻止 Windows 在后台下载锁屏聚焦（Spotlight）推荐、系统技巧与推广内容。</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>阻止预装冗余软件</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>防止 Windows 自动重新安装不需要的第三方应用和推广软件。</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>优化系统服务</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>调整非必要后台服务，释放系统资源，同时保留 Windows 核心功能。</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>正在将 {0} 的启动类型设置为 {1}...</value>
+    <value>阻止 Windows 静默下载推广应用并将其固定到开始菜单。</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>显示</value>
@@ -635,77 +590,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>用户体验</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>加速文件资源管理器与菜单</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>将 StartupDelayInMSec 和 MenuShowDelay 均设为 0，以消除资源管理器启动延迟，并将菜单悬停延迟降至最低。</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>更新暂停上限拉满</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>把 Windows 更新的可暂停天数抬到支持的最大值。仅在仍支持该设置的旧版 Windows 上生效，生效期间安全更新同样暂停。</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>禁用开始菜单网络搜索</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>关闭 Windows 开始菜单的网页搜索功能，以便更快地加载本地搜索结果。</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>禁用视觉特效</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>关闭任务栏动画、列表阴影、窗口透明和 Aero 预览，释放显卡与 CPU 资源提升性能。</value>
-  </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>禁用 AMD 超低功耗状态</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>修改 AMD 显卡注册表关闭超低功耗模式，避免唤醒延迟与多显示器问题，降低闲置节能效果。</value>
+    <value>关闭 AMD GPU 的超低功耗状态 (ULPS)，避免副 GPU 唤醒卡顿和多屏闪烁。</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>禁用 AMD 电源门控</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>关闭 AMD 显卡功耗切换功能，保持频率稳定，代价是闲置功耗会升高。</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>禁用 AMD 视频时钟门控</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>优化 AMD 显卡视频引擎功耗设置，提升编码解码稳定性，代价是视频播放功耗增加。</value>
+    <value>关闭 AMD GPU 电源门控与动态功耗调节，使图形引擎在突发负载间隙保持供电。</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>禁用 AMD 主动电源管理</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>设置关闭 AMD 显卡 PCIe 总线主动电源管理，降低延迟，代价是插槽功耗增加。</value>
+    <value>关闭 AMD 显卡的 PCIe 活动状态电源管理（L0s 与 L1），减少 PCIe 链路唤醒延迟。</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>禁用 NVIDIA 动态性能状态</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>锁定 NVIDIA 显卡为固定性能状态，防止频率波动，代价是闲置功耗增加。</value>
+    <value>阻止 NVIDIA GPU 进入动态低功耗 P-state，避免轻负载或突发负载期间的降频切换。</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>禁用 NVIDIA 异步性能状态切换</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>关闭 NVIDIA 异步功耗切换，为 VR/实时应用提供稳定性能。</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>禁用英特尔异步画面翻转</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>强制英特尔核显同步缓冲翻转，降低输入延迟与画面撕裂。</value>
+    <value>阻止 NVIDIA 驱动在突发负载期间异步切换性能状态，以获得更平稳的帧生成节奏。</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
-    <value>禁用英特尔自适应垂直同步</value>
+    <value>禁用 Intel 自适应垂直同步</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>关闭自适应垂直同步，改用固定垂直同步，保证时序稳定。</value>
+    <value>关闭 Intel 驱动级自适应垂直同步，让画面时序遵循应用程序默认设置或固定垂直同步。</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1252,22 +1171,22 @@
     <value>其他</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>打开包含此优化还原数据的原始 JSON 文件。</value>
+    <value>显示用于在还原时恢复先前设置的 JSON 备份。</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>在浏览器中打开此优化项的源代码。</value>
+    <value>在 GitHub 上查看此优化项的 C# 实现代码。</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
-    <value>在 GitHub 上查看源码</value>
+    <value>查看源代码</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
-    <value>技术详情</value>
+    <value>技术细节</value>
   </data>
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
-    <value>优化项 ID</value>
+    <value>优化 ID</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>类名</value>
+    <value>标识键</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>启动应用</value>
@@ -1795,14 +1714,11 @@
   <data name="Customize.CustomOption.NotSet" xml:space="preserve">
     <value>未设置</value>
   </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>禁用资讯和兴趣</value>
-  </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>隐藏 Meet Now 按钮</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>从任务栏通知区域隐藏 Meet Now（Skype）按钮。仅限 Windows 10。</value>
+    <value>从 Windows 10 任务栏通知区域隐藏“Meet Now”按钮。</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
     <value>快速访问</value>
@@ -1817,34 +1733,34 @@
     <value>禁用 Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>关闭由 AI 驱动、可分析屏幕上的文本和图像的 Click To Do 覆盖层。</value>
+    <value>禁用用于分析屏幕文本和图像以提供 AI 操作的 Click To Do 屏幕覆盖层。</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>禁用 Windows Recall</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>禁用传递优化 (P2P)</value>
+    <value>禁用 Delivery Optimization (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>阻止 Windows 通过点对点方式与其他电脑共享或下载更新文件，使更新仅来自 Microsoft 服务器。</value>
+    <value>停止电脑之间的 P2P 更新共享，仅从 Microsoft 服务器下载更新。</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>禁用查找我的设备</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>禁用定期向 Microsoft 报告设备位置的“查找我的设备”功能。</value>
+    <value>禁用 Windows 查找我的设备，使电脑停止向 Microsoft 账户定期上报位置。</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>禁用设置中的 Microsoft 365 广告</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>从设置主页移除 Microsoft 365 和 Copilot 的推广内容。</value>
+    <value>从 Windows 设置主页移除 Microsoft 365 和微软账户推广横幅。</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>隐藏开始菜单中的推荐部分</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>隐藏开始菜单中的“推荐”部分，让菜单更简洁，也不再显示最近使用的文件和应用。</value>
+    <value>隐藏 Windows 11 开始菜单中的推荐区域，移除最近打开的文件和应用建议。</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>兼容性检查失败</value>
@@ -2204,10 +2120,10 @@
     <value> (每 {0} 重复, 持续 {1})</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
-    <value>已是最佳状态</value>
+    <value>已处于最佳状态</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>此电脑已符合此项优化，无需更改。</value>
+    <value>你的电脑已使用该设置，无需任何修改。</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>无需更改：{0} 已与此电脑匹配。</value>
@@ -2228,13 +2144,13 @@
     <value>Windows 未能移除此包：{0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>点击查看上次应用的每一步。{0}</value>
+    <value>点击查看每条已记录的更改。{0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>点击查看上次应用的每一步。</value>
+    <value>点击查看每条已记录的更改。</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} 个步骤已更改，{1} 个步骤已符合，{2} 个步骤不适用，{3} 个步骤被 Windows 拒绝</value>
+    <value>{0} 项已更改，{1} 项已符合，{2} 项已跳过，{3} 项被 Windows 拒绝</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>最近一次运行记录</value>
@@ -2261,58 +2177,58 @@
     <value>失败</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>此项优化涉及 Windows 中的安全设置。</value>
+    <value>修改 Windows 安全、隔离或加密设置。</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>此项优化涉及 Windows 收集和发送的数据。</value>
+    <value>限制遥测、诊断及发送给 Microsoft 或应用的数据。</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>此项优化涉及 Windows 的核心部分，可能是组件或策略，建议先看清它做什么。</value>
+    <value>更改 Windows 核心组件或系统策略，应用前请查看详情。</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>此项优化涉及性能以及后台运行的任务。</value>
+    <value>提升系统响应速度、CPU 调度或减少后台负载。</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>此项优化涉及输入、游戏或声音的延迟。</value>
+    <value>降低输入、音频或帧时间的响应延迟。</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>此项优化涉及 Windows 如何使用磁盘。</value>
+    <value>更改 Windows 读取、写入或索引磁盘驱动器的方式。</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>此项优化涉及 Windows 如何使用内存。</value>
+    <value>减少后台 RAM 占用与内存开销。</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>此项优化涉及屏幕或显卡的输出。</value>
+    <value>调整屏幕输出、刷新行为或 GPU 显示特性。</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>此项优化只涉及装有 NVIDIA 显卡的电脑，其他电脑不受影响。</value>
+    <value>仅适用于配备 NVIDIA 显卡的电脑，其他硬件将被忽略。</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>此项优化只涉及装有 AMD 显卡的电脑，其他电脑不受影响。</value>
+    <value>仅适用于配备 AMD 显卡的电脑，其他硬件将被忽略。</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>此项优化只涉及装有 Intel 显卡的电脑，其他电脑不受影响。</value>
+    <value>仅适用于配备 Intel 显卡的电脑，其他硬件将被忽略。</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>此项优化涉及电源，也就是续航、发热或风扇噪音。</value>
+    <value>影响功耗、电池续航、发热与风扇转速。</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>此项优化涉及网络、连接以及上面的流量。</value>
+    <value>更改网络适配器、传输或后台流量行为。</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>此项优化需要联网，因为它要下载内容。</value>
+    <value>需要有效的网络连接以下载所需文件。</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>此项优化涉及声音的播放和处理方式。</value>
+    <value>调整 Windows 处理和路由音频的方式。</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>此项优化涉及 Windows 的外观、效果和动画。</value>
+    <value>调整 Windows 界面元素、推广提示或视觉效果。</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>此项优化仅适用于 Windows 10，在 Windows 11 上不会生效。</value>
+    <value>专为 Windows 10 打造，在 Windows 11 上自动隐藏。</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>此项优化仅适用于 Windows 11，在 Windows 10 上会被阻止。</value>
+    <value>专为 Windows 11 打造，在 Windows 10 上自动隐藏。</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>应用时间 {0}</value>
@@ -2447,10 +2363,10 @@
     <value>值</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>显示记录文件</value>
+    <value>打开历史记录</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>打开 optimizerDuck 记录此项优化做了什么的文件。还原后它依然保留，方便日后查看。</value>
+    <value>显示 optimizerDuck 记录更改的 JSON 日志（即使还原后仍会保留）。</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>注册表</value>
@@ -2526,5 +2442,620 @@
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>详细信息已写入日志文件。</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>禁用 Windows 智能助手</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>禁用 Windows Copilot，并在注销后从任务栏移除 Copilot 按钮。</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>仅限笔记本电脑</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>此优化仅适用于配备电池的便携式设备。</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>需要 12 GB 或更少 RAM</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>拥有超过 12 GB RAM 的设备已可受益于 Windows 服务宿主隔离，无需合并来节省内存。</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>内存完整性不可用</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>当前设备未检测到或不支持 Memory Integrity (HVCI)。</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>未找到物理网卡</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>在此系统上未检测到物理以太网或 Wi-Fi 适配器。</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>未找到 Windows AI 服务</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>当前 Windows 版本不包含后台 Windows AI 服务。</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>透明效果</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>为任务栏、开始菜单和应用界面启用 Acrylic 与 Mica 半透明视觉效果。</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>任务栏动画</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>控制打开或切换窗口时任务栏图标的动画效果。</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>允许兼容的 GPU Driver 在硬件层直接合成桌面与游戏图层。仅在遇到闪烁或黑屏异常时关闭。</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>现代 GPU 可通过 MPO 有效降低无边框窗口延迟；仅在出现画面闪烁或多屏异常时禁用。</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>已跳过，因为该服务的启动类型已经比目标更严格</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>需重启 Explorer</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>需注销重登</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>需重启电脑</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>应用前可自选配置</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>使用 Windows Group Policy 设置。启用期间 Windows 设置可能会显示“某些设置由你的组织管理”。</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>已被外部修改</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>磁盘上有已保存的备份，但当前 Windows 设置已不再匹配（例如 Windows 更新或手动更改后）。</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>重新配置选项</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>详情与历史记录</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>此操作会对系统或安全设置做出较深调整。继续前请先查看下方权衡说明。</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>仍然应用</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>应用所选项</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>已设置</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>请至少选择一项以继续。</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>保留有还原备份的旧优化项</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>这些项目已在后续更新中移除或替换，但原始备份仍安全保留在磁盘上，可随时还原。</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>可还原 {0} 个步骤</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>已还原“{0}”并移除其备份。</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>无法还原旧版备份：{0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>权衡说明</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>影响维度</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>参考来源</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>已选选项</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>设置已被外部修改</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>磁盘上仍保留着备份，但当前 Windows 设置已不再符合此优化目标。重新打开开关可再次应用，也可以还原剩余项或丢弃旧备份。</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>还原剩余项</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>丢弃旧备份</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>重新配置</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>应用标准 Windows Group Policy 设置。启用时部分 Windows 设置页面可能显示“某些设置由你的组织管理”。</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>将 AI Fabric Service 设为手动</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>将 Windows AI Fabric 后台服务切换为手动启动，使其仅在 AI 功能请求时运行。</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>依赖此服务的 Windows AI 功能在首次启动时可能需要多等几秒。</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>禁用 Microsoft Edge 中的 AI</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>禁用 Microsoft Edge 中的 Copilot 侧边栏、内联写作提示、AI 历史搜索和本地 AI 模型。</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>禁用 Windows Recall 时间线搜索，并永久删除所有已保存快照。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>禁用闲置旧版服务</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>禁用个人电脑极少使用的旧版和企业服务，包括传真、远程注册表、零售演示、App-V、路由与远程访问，并将脱机文件改为手动。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>旧版传真、远程注册表、路由与远程访问和 App-V 在还原前保持关闭；脱机文件仅手动启动。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>禁用可选功能服务</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>按需禁用不使用的 Windows 功能服务组，如打印、蓝牙、Xbox、LAN 共享、生物识别或远程桌面。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>已选中的硬件或网络功能将保持不可用，直到你重新配置或还原此优化。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>未选择任何可选服务组</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>打印与后台处理程序</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>停止后台打印后台处理程序和打印机通知服务。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>本地打印机、网络打印机及 Microsoft Print to PDF 将不可用。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>蓝牙</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>停止 Windows 蓝牙发现、配对和免提音频服务。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>蓝牙键鼠、手柄和耳机将无法连接。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>Xbox Live 服务</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>停止 Xbox Live 登录、云存档同步、配件和 Xbox 网络服务。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>Xbox 应用登录、Game Pass 云存档和 Xbox Live 多人联机将停止工作。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>LAN 文件共享与网络发现</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>停止本地文件夹共享和 UPnP 网络设备发现服务。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>局域网文件夹共享及媒体投屏发现将失效。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>Windows 生物识别 (Windows Hello)</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>停止 Windows 生物识别后台服务。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>指纹识别和 Windows Hello 人脸解锁将不可用。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>远程桌面服务</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>停止远程桌面传入连接和重定向服务。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>其他电脑无法通过 Remote Desktop (RDP) 连入此电脑。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>禁用 Windows 搜索索引</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>停止 Windows Search 索引服务，消除文件索引造成的后台磁盘写入和 CPU 峰值。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>在文件资源管理器中按文件内容搜索以及 Outlook 即时搜索会变慢，因为 Windows 需要按需扫描文件夹。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>禁用 Edge 后台与启动增强</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>关闭所有窗口后彻底退出 Microsoft Edge，并阻止启动增强在登录时预加载。</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>冷启动首个 Edge 窗口会稍慢片刻，全部窗口关闭后网页通知也会暂停。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>空闲显卡与多 GPU 笔记本在无负载时会消耗更多电能。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>会增加 GPU 空闲功耗、发热量和风扇转速，缩短笔记本续航。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>阻止 GPU 的 PCIe 链路进入低功耗休眠状态，增加空闲功耗和电池消耗。</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>会增加 GPU 空闲功耗、温度和风扇噪音。</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>会提高 NVIDIA GPU 的空闲功耗。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>帧率低于显示器刷新率的游戏或应用可能会出现偶发卡顿或画面撕裂。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>在手动打开之前，Microsoft Store 应用无法在后台同步邮件、闹钟或实时通知。</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>在 12 GB 及以下电脑上可节省 RAM，但单个服务崩溃可能会影响同进程内的其他服务。</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>极短的重复延迟可能在打字稍微停顿按键时触发意外重字。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>连按五次 Shift 或长按 NumLock 不再弹出辅助功能提示；这些工具仍可在 Windows 设置中手动开启。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>禁用资源管理器文件夹自动识别</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>阻止文件资源管理器在每次打开文件夹时扫描内容以猜测图片或音乐等模板布局。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>大型图片或音乐文件夹默认使用标准“详细信息”视图，直到你手动更改视图。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>禁用搜索 WebView2 宿主</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>阻止 Windows 11 搜索启动嵌入式 Microsoft Edge WebView2 进程，减少搜索占用的 RAM 和 CPU。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>使用内部 Windows 功能覆盖开关，会禁用搜索中的富网页卡片并可能在重大更新后被重置。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>禁用内存完整性 (HVCI)</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>关闭虚拟化安全检查内存完整性（HVCI），以找回游戏中的 CPU 性能与帧时间稳定性。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>降低 Windows 内核针对恶意驱动和代码注入的防护。微软建议在游戏之外保持开启。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>禁用网卡节能</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>阻止 Windows 为省电关闭物理以太网和 Wi-Fi 适配器，防止空闲断线与唤醒延迟。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>会增加有线以太网和 Wi-Fi 在空闲时的功耗，缩短笔记本续航。</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>未检测到可配置的物理网卡</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>禁用休眠会移除电量耗尽前的自动 RAM 转储；关闭快速启动会让冷开机稍微变慢。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>关机与休眠模式</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>仅关闭快速启动（笔记本推荐）</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>阻止关机时保存内核休眠快照，同时保持常规休眠功能完好。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>彻底禁用休眠与快速启动</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>彻底关闭休眠并删除休眠文件，可回收数 GB 存储空间。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>关闭现代待机网络连接</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>在笔记本处于新式待机（Modern Standby）睡眠期间断开 Wi-Fi 并停止后台网络唤醒。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>睡眠期间，邮件、系统更新和推送通知会等待屏幕唤醒后再同步。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>USB 集线器和外接设备将保持供电而不进入选择性暂停，略微降低笔记本续航。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>保持 CPU 核心活跃会增加发热、风扇噪音和功耗；部分设备上任务管理器显示的 CPU 占用率可能高于实际负载。</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>后台任务即使在使用电池时也会以全速 CPU 运行，增加发热和电量消耗。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>Microsoft 使用诊断、Windows Insider 体验计划和定制故障排除反馈将被禁用。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>应用崩溃时将不再生成或向 Microsoft 上传诊断报告。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>关闭用于 Microsoft 故障排除的底层诊断跟踪；部分安全软件可能对启动跟踪更改发出提醒。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>若设备丢失或被盗，你将无法通过 Microsoft 账户仪表板远程定位或锁定这台电脑。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>配置 Windows Update 策略</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>应用你选择的 Windows 更新组策略，控制强制重启、抢先预览推送、更新延迟和 Driver 更新。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>推迟更新或屏蔽驱动更新后，需要自行前往官网更新显卡或主板 Driver。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>未选择任何 Windows Update 选项</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>登录时禁止自动重启</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>阻止 Windows Update 在你处于登录状态时自动重启计算机。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>关闭“在最新更新可用后立即获取”</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>检查更新时退出抢先接收预览功能与配置推送。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>排除 Windows Update 中的驱动更新</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>从 Windows Update 中排除硬件驱动程序包。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>硬件驱动需由您自行从显卡或 OEM 官网下载升级。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>延迟质量更新 (4 天) 与功能更新 (365 天)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>通过 Group Policy 延后安装补丁，等待更新趋于稳定。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>每月质量补丁延后 4 天，年度大版本升级延后 1 年。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>阻止 BitLocker 自动加密</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>阻止 Windows 在新驱动器或重装系统时自动启用 BitLocker 设备加密。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>不会解密已加密磁盘；新分区在不手动开启 BitLocker 时将保持未加密状态。</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>性能更快</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>可能影响性能</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>延迟更低</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>可能增加延迟</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>节省内存</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>占用更多内存</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>节省磁盘空间</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>占用更多空间</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>更低功耗</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>功耗更高</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>隐私更强</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>降低隐私性</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>安全性更高</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>降低安全性</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>网络更佳</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>限制网络功能</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>更稳定</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>可能影响稳定性</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>界面更清爽</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>增加界面元素</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>更多功能</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>禁用部分功能</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>正在将 {0} 启动类型设为 {1}...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>Microsoft Edge 中的 Copilot 侧边栏、AI 写作辅助和 AI 历史搜索将不可用。</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>旧版备份</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>找到 {0} 个旧版备份</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>移除备份</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>删除此保存的备份而不更改 Windows 设置</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>确定在不修改 Windows 的情况下删除此备份？删除后将无法再通过 optimizerDuck 还原这些旧更改。</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>在资源管理器中显示备份文件</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>应用于 {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>没有剩余的旧版备份</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>所有已退役优化项的备份均已还原或清理完毕。</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>还原优化</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>所有选项均已关闭。确认后会将此优化还原到之前的状态。</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>你的系统已符合此选项，因此无需进行任何更改。</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>此处的每个选项均已在你的系统上配置完成，无需更改任何内容。</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>禁用 Windows 画图中的 AI</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>通过策略禁用 Windows 画图中的 Cocreator、生成式填充、图像创建器、生成式擦除和 AI 背景移除功能。</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>AI 图像生成和编辑工具将从 Windows 画图工具栏中移除。</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>禁用 Windows 记事本中的 AI</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>通过策略禁用 Windows 记事本内的 AI 文本重写和摘要功能。</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>AI 重写和摘要操作在 Windows 记事本中将不可用。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>禁用程序兼容性助手</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>禁用在后台监控应用启动和旧版安装程序的 Windows 程序兼容性助手服务。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>旧程序和安装包的自动兼容性警告与兼容垫片将被禁用。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>禁用墨迹与键入个性化</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>阻止 Windows 收集手写样本、键入习惯、本地联系人和用户语言偏好以用于输入个性化。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>自定义手写识别、基于联系人的自动更正及本地输入词典将停止学习更新。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>禁用位置跟踪</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>禁用 Windows 定位服务、应用位置权限、离线地图自动更新以及 Wi-Fi 热点报告。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>开启期间，天气、地图及依赖系统位置的应用将无法获取你的位置。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>禁用硬件运动与光线传感器</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>通过组策略阻止应用和 Windows 读取运动、方向及环境光传感器。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>笔记本自动亮度和二合一设备的自动屏幕旋转将停止工作。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>移除启动应用延迟</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>移除资源管理器在登录后内置的启动延迟和 CPU 空闲等待，让开机启动项立即运行。</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>移除菜单悬停延迟</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>将 Windows 级联菜单悬停延迟设为 0，使子菜单在鼠标悬停时立即展开。</value>
   </data>
 </root>

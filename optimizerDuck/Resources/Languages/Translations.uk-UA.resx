@@ -257,7 +257,7 @@
     <value>Детальний опис</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>Підвищує поріг розділення хостів служб відповідно до обсягу RAM, зменшуючи кількість процесів svchost.exe та заощаджуючи пам'ять.</value>
+    <value>Підвищує поріг розділення Service Host до обсягу встановленої RAM на ПК з 12 ГБ або менше, об'єднуючи служби у спільні процеси для економії пам'яті.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Не вдалося визначити поточну схему живлення.</value>
@@ -272,13 +272,13 @@
     <value>Система</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
-    <value>Оперативна пам'ять</value>
+    <value>RAM</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
     <value>Диск</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>Потрібна мережа</value>
+    <value>Потрібен інтернет</value>
   </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>Мережа</value>
@@ -309,7 +309,7 @@
     <value>Відкат змін...</value>
   </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>Успішно відкочено: {0}!</value>
+    <value>{0} відкочено.</value>
   </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>Відкочено {0} із помилками на {1} крок(ах).</value>
@@ -391,7 +391,7 @@
     <value>Час очікування минув</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>Файл відкату</value>
+    <value>Відкрити резервну копію</value>
   </data>
   <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>Кроків із помилками: {0}</value>
@@ -478,7 +478,7 @@
     <value>Усі кроки завершилися помилкою.</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-      <value>Не вдалося повністю застосувати оптимізацію</value>
+      <value>Не вдалося застосувати всі зміни</value>
     </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
     <value>Не вдалося відкотити оптимізацію</value>
@@ -550,7 +550,7 @@
     <value>Вимкнути фонові додатки</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Забороняє неактивним UWP-додаткам працювати у фоні для звільнення оперативної пам'яті та розвантаження процесора.</value>
+    <value>Блокує фонові завдання програм Microsoft Store, зменшуючи використання RAM у простої та зайві пробудження CPU.</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>Об'єднання вузлів служб (Service Host)</value>
@@ -558,152 +558,104 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>Некоректний обсяг RAM: {0}</value>
   </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>Пріоритет активних програм</value>
-  </data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>Виділяє більше квантів часу процесора активному вікну для швидшого відгуку та плавної роботи додатків.</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-    <value>Оптимізація планувальника мультимедіа (MMCSS)</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-    <value>Налаштовує планувальник MMCSS для ігор: вимикає мережеве дроселювання та надає пріоритет обробці звуку й графіки.</value>
-  </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
     <value>Зняти ліміт 50 МБ для WebDAV</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>Збільшує ліміт розміру файлу WebClient для підключень WebDAV із 50 МБ до 4 ГБ, усуваючи помилки копіювання великих файлів.</value>
+    <value>Збільшує ліміт передачі Windows WebClient з 50 MB до 4 GB, щоб великі файли не обривалися на мережевих дисках WebDAV.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Оптимізація повтору клавіатури</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>Встановлює мінімальну затримку повтору та максимальну швидкість повтору клавіш для швидшого відгуку при наборі тексту та в іграх.</value>
+    <value>Задає мінімальну затримку та максимальну швидкість повтору клавіш для швидшого введення під час утримання.</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
     <value>Вимкнути залипання клавіш</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-    <value>Вимикає гарячі клавіші залипання, фільтрації та озвучення клавіш (5-кратний Shift тощо), щоб запобігти випадковим спливаючим вікнам під час гри.</value>
+    <value>Вимикає поєднання клавіш, які викликають діалоги Залипання клавіш, Фільтрування вводу та Озвучування перемикання після багаторазового натискання Shift.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
     <value>Вимкнути гібернацію та швидкий запуск</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-    <value>Вимикає файл hiberfil.sys і швидкий запуск для звільнення гігабайтів на диску та забезпечення чистого перезавантаження обладнання.</value>
+    <value>Вимикає лише Швидкий запуск для чистого холодного старту або повністю вимикає Гібернацію, звільняючи кілька гігабайтів на диску.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>Вимкнути енергозбереження USB</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Забороняє Windows знеструмлювати порти USB, усуваючи мікрозатримки при пробудженні миші, клавіатури та звукових карт.</value>
+    <value>Забороняє Windows призупиняти кореневі USB-концентратори та периферію, усуваючи затримки пробудження миші, клавіатури й аудіо.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>Встановити оптимізовану схему живлення</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Встановлює фірмову схему живлення максимальної продуктивності. Примітка: на деяких системах Диспетчер завдань може хибно показувати 100% завантаження ЦП; реальне навантаження не змінюється.</value>
+    <value>Встановлює та активує схему живлення високої продуктивності, що зменшує паркування ядер CPU та затримки зміни частот.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-    <value>Імпорт та активація схеми живлення...</value>
+    <value>Встановлення та активація схеми живлення...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>Вимкнути тротлінг живлення (Power Throttling)</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>Забороняє Windows штучно обмежувати частоту процесора для фонових задач, підтримуючи максимальну продуктивність.</value>
+    <value>Вимикає Windows Power Throttling, щоб активні та фонові програми працювали без обмеження частоти CPU.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>Вимкнути збір даних (телеметрію)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>Вимикає служби збору діагностичних даних Windows для підвищення конфіденційності та зменшення фонового навантаження.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-    <value>Застосування змін до реєстру та групових політик...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-    <value>Вимкнення служб телеметрії...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>Вимкнення запланованих завдань телеметрії...</value>
+    <value>Мінімізує збір діагностичних даних Windows, інвентаризацію сумісності та запити відгуків.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>Вимкнути звіти про помилки (WER)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>Вимикає службу реєстрації помилок Windows та помічника з сумісності програм.</value>
+    <value>Вимикає звітування про помилки Windows і зупиняє заплановані завдання збору та надсилання звітів про збої й діагностику дисків.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
     <value>Вимкнути рекламу та системні пропозиції</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>Вимикає персоналізований рекламний ідентифікатор (Advertising ID), промо-вміст Windows та підказки в меню "Пуск".</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>Вимкнути "Новини та інтереси" (Віджети)</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Вимикає стрічку новин та віджет погоди на панелі завдань Windows 10 та Windows 11.</value>
+    <value>Вимикає рекламний ідентифікатор Windows, персоналізовані поради на основі діагностики, споживчі промо-матеріали та підказки налаштування.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>Приховати кнопку "Створити збори зараз"</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>Приховує значок зустрічей Skype/Teams в області сповіщень на панелі завдань.</value>
+    <value>Приховує кнопку Meet Now із зони сповіщень на панелі завдань Windows 10.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
     <value>Вимкнути журнал дій</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>Забороняє Windows збирати та синхронізувати історію відкритих програм, документів та переглянутих веб-сторінок.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>Вимкнути службу визначення місцезнаходження</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>Вимикає системні служби геолокації та датчиків, забороняючи відстеження позиції пристрою.</value>
+    <value>Забороняє Windows публікувати та завантажувати вашу історію активності програм і файлів до Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>Вимкнути журнал автозавантаження (AutoLogger)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Вимикає діагностичні сеанси трасування подій під час завантаження системи, прискорюючи завантаження ПК.</value>
+    <value>Вимикає необов'язкові сеанси діагностичного трасування ETW під час запуску, зменшуючи фоновий запис на диск і навантаження CPU.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
-    <value>Вимкнути голосовий помічник Cortana</value>
+    <value>Вимкнути Cortana та вебпошук</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Вимикає фонові процеси голосового асистента Cortana та видаляє його інтеграцію з системою.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>Вимкнути Windows Copilot</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>Вимикає вбудований штучний інтелект Copilot у Windows 11 та приховує його кнопку на панелі завдань.</value>
+    <value>Вимикає асистента Cortana та блокує надсилання локальних запитів пошуку Windows 10 у хмарний пошук.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>Вимкнути автоматичне завантаження додатків</value>
+    <value>Вимкнути фоновий хмарний контент</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Блокує службу Content Delivery Manager, яка самостійно завантажує спонсорські ігри та програми в меню "Пуск".</value>
+    <value>Зупиняє фонове завантаження підказок Spotlight на екрані блокування, порад системи та рекламного вмісту.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>Заблокувати встановлення спонсорських додатків</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Забороняє Windows автоматично встановлювати партнерські програми та рекламовані додатки після оновлень.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>Оптимізація системних служб</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>Налаштовує понад 200 служб Windows: переводить рідко використовувані та застарілі служби в ручний режим або вимикає їх.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>Встановлення типу запуску для {0} на {1}...</value>
+    <value>Забороняє Windows тихо завантажувати та закріплювати рекламні споживчі програми в меню Пуск.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>Дисплей</value>
@@ -724,77 +676,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Зручність використання</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>Прискорити меню та Провідник</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>Встановлює StartupDelayInMSec=0 та MenuShowDelay=0 для миттєвого відкриття контекстних меню без затримок анімації.</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>Максимальний термін призупинення оновлень</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>Збільшує максимальний ліміт призупинення оновлень Windows Update до гранично підтримуваного значення.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>Вимкнути інтернет-пошук у "Пуск"</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>Вимикає онлайн-пошук у меню "Пуск", завдяки чому локальні файли та програми знаходяться миттєво.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>Вимкнути зайві візуальні ефекти</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>Вимикає анімацію вікон, прозорість, тіні списків та Aero Peek для розвантаження відеокарти й процесора.</value>
-  </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>Вимкнути AMD ULPS</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>Вимикає стан ультранизького енергоспоживання (ULPS) для відеокарт AMD, усуваючи збої пробудження та проблеми другого монітора.</value>
+    <value>Вимикає стан наднизького енергоспоживання (ULPS) на GPU AMD, запобігаючи посмикуванням під час пробудження додаткового GPU та мерехтінню кількох моніторів.</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>Вимкнути стробування живлення AMD</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>Забороняє переходи станів живлення чіпа AMD, стабілізуючи тактові частоти GPU ціною трохи вищого енергоспоживання у простої.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>Вимкнути стробування тактової частоти відео AMD</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Вимикає стробування блоків декодування VCE/UVD на відеокартах AMD для підвищення стабільності відтворення та кодування відео.</value>
+    <value>Вимикає керування живленням блоків GPU AMD і динамічне масштабування станів, підтримуючи графічні рушії під живленням.</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>Вимкнути AMD ASPM</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>Вимикає Active State Power Management для відеокарт AMD, зменшуючи затримку шини PCI Express.</value>
+    <value>Вимикає енергозбереження шини PCIe ASPM (L0s та L1) на відеокартах AMD для зниження затримки пробудження каналу PCIe.</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>Вимкнути динамічний P-State NVIDIA</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>Фіксує робочий стан продуктивності відеокарти NVIDIA, запобігаючи стрибкам тактової частоти ядра.</value>
+    <value>Забороняє GPU NVIDIA переходити в динамічні енергозберігаючі стани P-state, уникаючи перепадів частоти при коротких навантаженнях.</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>Вимкнути асинхронні P-States NVIDIA</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>Запобігає асинхронному перемиканню рівнів продуктивності NVIDIA, покращуючи стабільність рендерингу для VR та змагальних ігор.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Вимкнути асинхронний фліп Intel</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Примусово вмикає синхронне оновлення буфера дисплея на вбудованій графіці Intel для зниження затримки виводу та усунення розривів кадрів.</value>
+    <value>Забороняє драйверам NVIDIA асинхронно змінювати стани продуктивності під час коротких навантажень для рівнішого часу кадру.</value>
   </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>Вимкнути адаптивний V-Sync Intel</value>
   </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>Вимикає нестабільну адаптивну вертикальну синхронізацію драйвера Intel на користь фіксованої синхронізації кадрів.</value>
+    <value>Вимикає адаптивну вертикальну синхронізацію драйвера Intel, залишаючи поведінку програми або фіксований V-Sync.</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1443,22 +1359,22 @@
     <value>Інше</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>Відкрити вихідний JSON-файл, що містить дані для відкату цієї оптимізації.</value>
+    <value>Показує JSON-копію для відновлення початкових параметрів під час відкоту.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>Відкрити вихідний код цієї оптимізації у браузері на GitHub.</value>
+    <value>Ознайомитися з реалізацією цієї оптимізації на C# на GitHub.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
-    <value>Переглянути код на GitHub</value>
+    <value>Переглянути код</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
-    <value>Технічні подробиці</value>
+    <value>Технічні деталі</value>
   </data>
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
     <value>ID оптимізації</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>Назва класу</value>
+    <value>Ключ ідентифікатора</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>Програми в автозавантаженні</value>
@@ -1975,37 +1891,37 @@
     <value>Вимкнути функцію "Click To Do"</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Вимикає функцію штучного інтелекту Click To Do, яка безперервно аналізує текст та зображення на вашому екрані.</value>
+    <value>Вимикає накладання Click To Do, яке аналізує текст і зображення на екрані для дій ШІ.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Вимкнути Windows Recall</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>Вимикає ШІ-функцію Windows Recall, яка робить знімки екрана. Також видаляє компонент Recall та накопичені знімки у Windows 11 24H2+ (потрібне перезавантаження).</value>
+    <value>Вимикає знімки екрана Windows Recall через групову політику, очищає збережені знімки й блокує увімкнення Recall після перезавантаження.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>Вимкнути оптимізацію доставки (P2P оновлення)</value>
+    <value>Вимкнути Delivery Optimization (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Забороняє комп'ютеру роздавати або завантажувати файли оновлень через мережу P2P між іншими користувачами в інтернеті.</value>
+    <value>Зупиняє обмін оновленнями P2P між ПК, завантажуючи оновлення лише безпосередньо із серверів Microsoft.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Вимкнути функцію "Пошук мого пристрою"</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>Вимикає функцію періодичної відправки координат вашого комп'ютера на сервери Microsoft.</value>
+    <value>Вимикає «Пошук пристрою», щоб ПК перестав періодично надсилати своє розташування до облікового запису Microsoft.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>Приховати рекламу Microsoft 365 у Параметрах</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>Видаляє рекламні банери підписки Microsoft 365 та Copilot із головної сторінки програми "Параметри".</value>
+    <value>Видаляє рекламні банери Microsoft 365 і облікового запису з головної сторінки Налаштувань Windows.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>Приховати розділ "Рекомендоване" у "Пуск"</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Приховує блок нещодавніх файлів та рекомендацій із меню "Пуск" Windows 11.</value>
+    <value>Приховує розділ «Рекомендовано» у меню «Пуск» Windows 11, прибираючи останні файли та поради програм.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Перевірка сумісності не вдалася</value>
@@ -2254,10 +2170,10 @@
     <value> (повторювати кожні {0} протягом {1})</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
-    <value>Вже оптимізовано</value>
+    <value>Вже налаштовано</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>Параметри системи вже відповідають цій оптимізації, зміни не потрібні.</value>
+    <value>На цьому ПК вже застосовано це значення, змінювати нічого не потрібно.</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>Немає потреби змінювати: налаштування {0} вже відповідають цій системі.</value>
@@ -2278,13 +2194,13 @@
     <value>Windows не змогла видалити такі пакети: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>Натисніть для перегляду деталей останнього застосування. {0}</value>
+    <value>Натисніть, щоб переглянути кожну зафіксовану зміну. {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>Натисніть для перегляду деталей останнього застосування.</value>
+    <value>Натисніть, щоб переглянути кожну зафіксовану зміну.</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} змінено, {1} вже було налаштовано, {2} не застосовано, {3} відхилено Windows</value>
+    <value>Змінено: {0}, вже в нормі: {1}, пропущено: {2}, відхилено Windows: {3}</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>Останній зафіксований запуск</value>
@@ -2311,58 +2227,58 @@
     <value>Помилка</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація стосується параметрів захисту Windows.</value>
+    <value>Змінює параметри захисту, ізоляції або шифрування Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація обмежує збір та відправку телеметрії у Windows.</value>
+    <value>Обмежує телеметрію, діагностику та дані, що передаються Microsoft чи програмам.</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація стосується системних компонентів або групових політик Windows.</value>
+    <value>Змінює основні компоненти Windows або системні політики; перегляньте деталі перед застосуванням.</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація спрямована на підвищення швидкодії та зменшення фонового навантаження.</value>
+    <value>Поліпшує чутливість системи, планування CPU або зменшує фонове навантаження.</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація знижує затримки введення, звуку та відображення в іграх.</value>
+    <value>Зменшує затримки відгуку вводу, звуку або часу кадру.</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація оптимізує операції читання/запису на накопичувачі.</value>
+    <value>Змінює спосіб читання, запису або індексації дисків у Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація впливає на використання оперативної пам'яті (RAM).</value>
+    <value>Зменшує фонове споживання RAM і навантаження на пам'ять.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація налаштовує вивід зображення на екран.</value>
+    <value>Налаштовує виведення екрана, частоту оновлення або дисплейні функції GPU.</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>Оптимізація призначена виключно для систем із відеокартами NVIDIA.</value>
+    <value>Стосується лише ПК із графікою NVIDIA; ігнорується на іншому обладнанні.</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>Оптимізація призначена виключно для систем із відеокартами або процесорами AMD.</value>
+    <value>Стосується лише ПК із графікою AMD; ігнорується на іншому обладнанні.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>Оптимізація призначена виключно для систем із відеокартами або процесорами Intel.</value>
+    <value>Стосується лише ПК із графікою Intel; ігнорується на іншому обладнанні.</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація стосується енергоспоживання, часу роботи від батареї та нагріву.</value>
+    <value>Впливає на споживання енергії, автономність, нагрівання та оберти вентиляторів.</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація впливає на мережеві підключення та мережевий трафік.</value>
+    <value>Змінює поведінку мережевого адаптера, передачі або фонового трафіку.</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>Для виконання цієї оптимізації потрібне підключення до інтернету.</value>
+    <value>Потребує активного підключення до інтернету для завантаження потрібних файлів.</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація стосується обробки та відтворення звуку.</value>
+    <value>Налаштовує спосіб обробки та маршрутизації звуку у Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація налаштовує анімації та зовнішній вигляд інтерфейсу Windows.</value>
+    <value>Налаштовує елементи інтерфейсу, поради або візуальні ефекти Windows.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація діє лише у Windows 10 та не застосовується у Windows 11.</value>
+    <value>Створено для Windows 10; автоматично приховується у Windows 11.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>Ця оптимізація діє лише у Windows 11 та недоступна у Windows 10.</value>
+    <value>Створено для Windows 11; автоматично приховується у Windows 10.</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>Застосовано: {0}</value>
@@ -2497,10 +2413,10 @@
     <value>Значення</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>Показати файл звіту</value>
+    <value>Відкрити запис історії</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>Відкрити файл, у якому зафіксовано всі виконані оптимізацією дії. Він зберігається навіть після відкату.</value>
+    <value>Показує JSON-журнал змін, зафіксованих optimizerDuck (зберігається навіть після відкоту).</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>Реєстр</value>
@@ -2576,5 +2492,620 @@
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>Подробиці дивіться у файлі журналу.</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>Вимкнути Windows Copilot</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Вимикає Windows Copilot і прибирає кнопку Copilot із панелі завдань після виходу із системи.</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>Потрібен ноутбук</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>Ця оптимізація застосовується лише до портативних пристроїв з акумулятором.</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>Потрібно 12 ГБ ОЗП або менше</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>Системи з більш ніж 12 ГБ RAM уже ефективно розділяють процеси Service Host без зайвого навантаження.</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>Цілісність пам'яті недоступна</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>Memory Integrity (HVCI) не виявлено або не підтримується на цьому пристрої.</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>Фізичний мережевий адаптер не знайдено</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>У цій системі не виявлено фізичного адаптера Ethernet або Wi-Fi.</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>Службу Windows AI не знайдено</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>Ця збірка Windows не містить фонової служби Windows AI.</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>Ефекти прозорості</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>Вмикає напівпрозорі ефекти Acrylic і Mica на панелі завдань, у меню «Пуск» і вікнах.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>Анімації панелі завдань</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>Керує анімацією значків панелі завдань під час відкриття та перемикання вікон.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>Дозволяє сумісним GPU Driver апаратно об'єднувати шари робочого столу й ігор. Вимикайте лише за мерехтіння.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>Сучасні GPU ефективно використовують MPO для нижчої затримки; вимикайте лише за багів зображення.</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>Пропущено, оскільки тип запуску служби вже суворіший за цільовий</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>Потрібен перезапуск Explorer</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>Потрібен вихід із облікового запису</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>Потрібне перезавантаження</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>Можна налаштувати перед застосуванням</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>Використовує політики Windows Group Policy. У Параметрах Windows може показуватися напис про керування організацією.</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>Змінено ззовні</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>Збережена копія існує, але поточні параметри Windows більше не збігаються (наприклад після Windows Update або ручної правки).</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>Переналаштувати опції</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>Деталі та історія</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>Це налаштування вносить глибші зміни до системи чи безпеки. Перегляньте компроміс нижче перед продовженням.</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>Все одно застосувати</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>Застосувати вибране</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>Вже налаштовано</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>Виберіть принаймні один варіант, щоб продовжити.</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>Увімкнено</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>Вимкнено</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>Застарілі оптимізації зі збереженою копією</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>Ці налаштування були прибрані або замінені в новішому оновленні, але ваша початкова резервна копія лишилася на диску, тож їх можна будь-коли повернути.</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>Відкотити</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>Кроків для відкату: {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>"{0}" відкочено, а збережену копію видалено.</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>Не вдалося відкотити стару копію: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>Компроміс</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>Вплив</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>Джерела</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>Застосовані опції</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>Налаштування змінено ззовні</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>Поточні налаштування Windows більше не збігаються з цією оптимізацією, доки копія лишається на диску. Увімкніть знову для повтору, відкотіть решту або видаліть застарілу копію.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>Відкотити решту</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>Видалити стару копію</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>Переналаштувати</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>Застосовує стандартні налаштування Windows Group Policy. Деякі сторінки Параметрів Windows можуть показувати повідомлення про керування організацією.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>Перевести AI Fabric Service у Ручний режим</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>Переводить фонову службу Windows AI Fabric у ручний запуск, щоб вона не працювала без запиту від ШІ-функцій.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>Функції Windows AI, залежні від цієї служби, можуть запускатися на кілька секунд довше під час першого відкриття.</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>Вимкнути AI у Microsoft Edge</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>Вимикає бічну панель Copilot, вбудовані підказки написання, ШІ-пошук в історії та локальні моделі в Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>Вимикає пошук на часовій шкалі Windows Recall і назавжди видаляє збережені знімки.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>Вимкнути непотрібні застарілі служби</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>Вимикає рідко потрібні на домашньому ПК застарілі та корпоративні служби (Факс, Віддалений реєстр, Retail Demo, App-V, Маршрутизація та віддалений доступ) і переводить Автономні файли в ручний режим.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>Застарілий факс, Віддалений реєстр, Маршрутизація та віддалений доступ і App-V залишатимуться вимкненими до відкату; Автономні файли запускаються вручну.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>Вимкнути необов'язкові служби функцій</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>Вимикає вибрані невикористовувані групи служб Windows: Друк, Bluetooth, Xbox, Спільний доступ LAN, Біометрія або Віддалений робочий стіл.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>Лише вибрані апаратні або мережеві функції залишаться вимкненими до зміни конфігурації або відкату.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>Жодну групу служб не обрано</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>Друк і Диспетчер друку</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>Зупиняє фонові служби черги друку та сповіщень принтера.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>Локальні та мережеві принтери й Microsoft Print to PDF не працюватимуть.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>Зупиняє служби виявлення Bluetooth, сполучення та гучного аудіозв'язку Windows.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>Клавіатури, миші, геймпади й гарнітури Bluetooth не підключатимуться.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>Служби Xbox Live</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>Зупиняє служби входу Xbox Live, хмарних збережень, аксесуарів і мережі Xbox.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>Вхід у додаток Xbox, хмарні збереження Game Pass і мережева гра Xbox Live припинять працювати.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>Спільний доступ і виявлення в LAN</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>Зупиняє служби локального спільного доступу до папок і виявлення UPnP.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>Спільні теки в LAN та пошук пристроїв трансляції перестануть працювати.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>Біометрія Windows Hello</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>Зупиняє фонову біометричну службу Windows.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>Сканери відбитків та розпізнавання обличчя Windows Hello не працюватимуть.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>Служби віддаленого робочого столу</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>Зупиняє служби вхідних підключень і перенаправлення Віддаленого робочого столу.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>Інші ПК не зможуть підключатися до цього комп'ютера через Remote Desktop (RDP).</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>Вимкнути індексування Windows Search</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>Зупиняє службу індексування Windows Search, усуваючи фоновий запис на диск і стрибки навантаження CPU.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>Пошук за вмістом файлів у Провіднику та миттєвий пошук в Outlook працюватимуть повільніше, оскільки Windows доведеться сканувати папки за запитом.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>Вимкнути фонову роботу та старт Edge</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>Повністю завершує роботу Microsoft Edge після закриття вікон і блокує попереднє завантаження Startup Boost під час входу.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>Холодний запуск першого вікна Edge триватиме трохи довше, а вебсповіщення зупиняться після закриття всіх вікон.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>Незавантажені відеокарти й ноутбуки з кількома GPU споживають більше енергії в простої.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>Підвищує енергоспоживання GPU в простої, нагрів і швидкість вентиляторів, скорочуючи час роботи ноутбука від батареї.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>Не дозволяє шині PCIe відеокарти переходити в режими сну, підвищуючи споживання енергії в простої та розряд батареї.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>Підвищує енергоспоживання у простої, температуру GPU та шум вентиляторів.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>Підвищує споживання енергії GPU NVIDIA у простої.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>В іграх зі зниженням кадрів нижче частоти монітора можливі короткі посмикування або розриви кадру.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>Програми Microsoft Store не синхронізують пошту, будильники чи сповіщення у фоні до ручного відкриття.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>Економить RAM на ПК із до 12 ГБ пам'яті, але збій однієї служби може вплинути на інші в тому самому процесі хоста.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>Мінімальна затримка може спричиняти випадкові подвійні літери, якщо трохи довше затримувати палець на клавіші під час друку.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>П'ятиразове натискання Shift або утримання NumLock більше не покаже діалогів доступності; вони доступні в Налаштуваннях Windows.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>Вимкнути автовизначення типу тек</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>Забороняє Провіднику сканувати вміст папок для вгадування шаблонів Фото чи Музика щоразу при відкритті.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>Великі папки зображень і музики відкриваються у звичайному вигляді Таблиця, доки ви не налаштуєте вигляд самі.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>Вимкнути хост WebView2 у Пошуку</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>Забороняє Пошуку Windows 11 запускати вбудовані процеси Microsoft Edge WebView2, зменшуючи споживання RAM і CPU.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>Використовує внутрішнє перевизначення Windows, вимикає веб-картки у пошуку та може скидатися після великих оновлень.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>Вимкнути цілісність пам'яті (HVCI)</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>Вимикає перевірку віртуалізації Цілісність пам'яті (HVCI) для відновлення продуктивності CPU та плавності кадрів в іграх.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>Знижує захист ядра Windows від шкідливих драйверів та ін'єкції коду. Microsoft радить вмикати її знову поза іграми.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>Вимкнути енергозбереження мережевих карт</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Забороняє Windows вимикати фізичні адаптери Ethernet та Wi-Fi для економії живлення, запобігаючи обривам і лагам пробудження.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>Підвищує споживання енергії адаптерами Ethernet і Wi-Fi у простої, скорочуючи автономність ноутбука.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>Настроюваних фізичних мережевих адаптерів не знайдено</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>Вимкнення гібернації прибирає автоматичний запис RAM за критичного заряду; вимкнення Швидкого запуску трохи уповільнює холодний старт.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>Режим вимкнення та гібернації</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>Вимкнути лише Швидкий запуск (Рекомендовано для ноутбуків)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>Забороняє зберігати знімок ядра під час вимкнення, зберігаючи звичайну гібернацію працездатною.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>Повністю вимкнути гібернацію та Fast Startup</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>Повністю вимикає гібернацію та видаляє файл глибокого сну, повертаючи кілька гігабайтів на диску.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>Вимкнути мережу в Modern Standby</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>Від'єднує Wi-Fi і зупиняє фонові мережеві пробудження під час сну ноутбука в режимі Modern Standby.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>Під час сну пошта, оновлення та сповіщення зачекають до пробудження екрана.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>USB-концентратори та під'єднані пристрої залишаються під живленням замість вибіркового призупинення, трохи зменшуючи час від батареї.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>Активні ядра CPU збільшують нагрів, шум вентиляторів і енергоспоживання; Диспетчер завдань може завищувати завантаження CPU.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>Фонові завдання можуть працювати на повній швидкості CPU навіть від батареї, збільшуючи нагрів і витрату заряду.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>Вимикає діагностику використання Microsoft, збірки Windows Insider і персоналізовані поради щодо несправностей.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>У разі збою програм діагностичні звіти більше не створюватимуться та не надсилатимуться до Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>Вимикає низькорівневі журнали трасування для підтримки Microsoft; деякі антивіруси можуть попереджати про зміну стартових сеансів.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>У разі втрати або крадіжки ви не зможете віддалено знайти чи заблокувати цей ПК через обліковий запис Microsoft.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>Налаштувати політику Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>Застосовує вибрані групові політики Windows Update для контролю перезавантажень, ранніх оновлень, відкладення та оновлення Driver.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>Відкладення або виключення Driver потребує ручного оновлення драйверів GPU та чипсета.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>Параметри Windows Update не вибрано</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>Запобігти автоперезавантаженню під час сеансу</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>Забороняє Windows Update автоматично перезавантажувати ПК, поки ви в системі.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>Вимкнути «Отримувати останні оновлення, щойно вони стають доступними»</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>Відмовляється від раннього розгортання попередніх функцій і конфігурацій під час пошуку оновлень.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>Виключити оновлення драйверів із Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>Виключає пакети драйверів обладнання з Windows Update.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>Драйвери обладнання потрібно завантажувати вручну з сайту виробника.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>Відкласти оновлення якості (4 дні) та функцій (365 днів)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>Застосовує затримку Group Policy для встановлення перевірених виправлень.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>Відкладає щомісячні патчі на 4 дні, а великі річні оновлення на 1 рік.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>Заборонити автошифрування BitLocker</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>Запобігає автоматичному ввімкненню шифрування BitLocker на нових дисках або під час перевстановлення Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>Уже зашифровані диски не розшифровуються; нові розділи лишаться незашифрованими без ручного ввімкнення.</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>Вища швидкодія</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>Може впливати на швидкодію</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>Нижча затримка</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>Може додати затримку</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>Менше витрати RAM</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>Більше витрати RAM</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>Економить місце</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>Займає більше місця</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>Менше споживання енергії</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>Вище споживання</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>Більше приватності</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>Зменшує приватність</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>Сильніший захист</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>Послаблює захист</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>Краща мережа</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>Обмежує мережу</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>Вища стабільність</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>Може впливати на стабільність</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>Менше зайвого в UI</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>Додає елементи UI</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>Більше функцій</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>Вимикає функції</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>Налаштування типу запуску {0} на {1}...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>Бічна панель Copilot, ШІ-допомога з текстом і ШІ-пошук в історії стануть недоступні в Microsoft Edge.</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>Старі резерви</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>Знайдено старих копій: {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>Видалити копію</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>Видалити цю збережену копію без зміни параметрів Windows</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>Видалити цю збережену копію без зміни Windows? Після цього ви не зможете відкотити ці старі зміни через optimizerDuck.</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>Показати файл копії у Провіднику</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>Застосовано: {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>Старих резервних копій не лишилося</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>Усі резервні копії застарілих оптимізацій вже відкочено або очищено.</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>Скасувати оптимізацію</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>Усі параметри вимкнено. Підтвердження поверне цю оптимізацію до попереднього стану.</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>Ваша система вже відповідає цьому параметру, тому зміни не потрібні.</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>Усі параметри тут уже налаштовано у вашій системі. Змінювати нічого не потрібно.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>Вимкнути ШІ в Windows Paint</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>Вимикає через політику Cocreator, Генеративну заливку, Image Creator, Генеративне стирання та ШІ-видалення фону в Windows Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>Інструменти ШІ-генерації та редагування зображень буде прибрано з панелей Windows Paint.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>Вимкнути ШІ в Блокноті Windows</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>Вимикає через політику функції переписування й підсумовування тексту за допомогою ШІ в Блокноті Windows.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>Дії переписування та підсумовування за допомогою ШІ стануть недоступні в Блокноті Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>Вимкнути Помічника з сумісності програм</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>Вимикає фонову службу Помічника з сумісності програм, яка відстежує запуск програм і старих інсталяторів.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>Автоматичні попередження про сумісність і налаштування сумісності для старих програм будуть вимкнені.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>Вимкнути персоналізацію рукопису та вводу</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>Зупиняє збір рукописного вводу, звичок набору тексту, локальних контактів і мовних налаштувань для персоналізації вводу.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>Персональне розпізнавання рукопису, автовиправлення на основі контактів і навчання локального словника припинять оновлюватися.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>Вимкнути відстеження розташування</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>Вимикає службу розташування Windows, дозволи програм, автооновлення офлайн-карт і звітування про точки доступу Wi-Fi.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>Погода, Карти та програми, що покладаються на геолокацію системи, не зможуть визначити ваше положення.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>Вимкнути апаратні датчики руху й світла</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>Блокує через групову політику читання датчиків руху, орієнтації та зовнішнього освітлення програмами й Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>Автоматична яскравість на ноутбуках і автоповорот екрана на пристроях 2-в-1 припинять працювати.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>Прибрати затримку запуску програм автозапуску</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>Усуває вбудовану затримку Провідника після входу та очікування простою CPU, щоб програми автозапуску стартували одразу.</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>Прибрати затримку відкриття підменю</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>Встановлює нульову затримку наведення на каскадні меню Windows для миттєвого відкриття підменю.</value>
   </data>
 </root>

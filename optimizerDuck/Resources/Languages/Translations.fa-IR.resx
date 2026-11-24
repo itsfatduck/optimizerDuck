@@ -257,7 +257,7 @@
     <value>توضیحات کامل</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>حد آستانه تفکیک Service Host را برابر با کل حافظه رم قرار می‌دهد تا سرویس‌ها در تعداد پروسه‌های کمتری ادغام شوند و میزان مصرف حافظه کاهش یابد.</value>
+    <value>در سیستم‌های با 12 GB RAM یا کمتر، آستانه جداسازی Service Host را برابر RAM نصب‌شده قرار می‌دهد تا سرویس‌ها برای صرفه‌جویی حافظه یکجا اجرا شوند.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>شناسایی طرح انرژی فعال سیستم ناموفق بود.</value>
@@ -272,13 +272,13 @@
     <value>سیستم</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram" xml:space="preserve">
-    <value>رم (RAM)</value>
+    <value>RAM</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk" xml:space="preserve">
     <value>دیسک</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>نیازمند اتصال شبکه</value>
+    <value>نیازمند اینترنت</value>
   </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>شبکه</value>
@@ -300,7 +300,7 @@
   </data>
 
   <data name="Optimizer.UI.Tags.Power" xml:space="preserve">
-    <value>مدیریت انرژی</value>
+    <value>انرژی</value>
   </data>
   <data name="Revert.Error.NoDataFound" xml:space="preserve">
     <value>اطلاعات بازگردانی برای {0} یافت نشد.</value>
@@ -309,7 +309,7 @@
     <value>در حال بازگردانی...</value>
   </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>تغییرات {0} با موفقیت بازگردانی شد!</value>
+    <value>{0} بازگردانی شد.</value>
   </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>بازگردانی {0} با {1} خطا در مراحل همراه بود.</value>
@@ -391,7 +391,7 @@
     <value>اتمام مهلت زمانی (Timeout)</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>فایل بازگردانی</value>
+    <value>باز کردن پشتیبان بازگردانی</value>
   </data>
   <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} مرحله ناموفق</value>
@@ -478,10 +478,10 @@
     <value>تمامی مراحل با خطا مواجه شدند.</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-      <value>بهینه‌سازی به طور کامل اعمال نشد</value>
+      <value>امکان اعمال همه تغییرات وجود نداشت</value>
     </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
-    <value>بازگردانی بهینه‌سازی انجام نشد</value>
+    <value>بازگردانی بهینه‌سازی ناموفق بود</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
     <value>بهینه‌سازی با موفقیت اعمال شد</value>
@@ -550,7 +550,7 @@
     <value>غیرفعال‌سازی اجرای برنامه‌ها در پس‌زمینه</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>از اجرای برنامه‌های غیرفعال در پس‌زمینه جلوگیری می‌کند تا رم آزادسازی شده و بار پردازنده کاهش یابد.</value>
+    <value>اجرای وظایف پس‌زمینه برنامه‌های Microsoft Store را متوقف کرده و مصرف RAM بیکار و بیدارشدن‌های CPU را کم می‌کند.</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>ادغام پردازش‌های Service Host</value>
@@ -558,152 +558,104 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>میزان رم نامعتبر است: {0}</value>
   </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>اولویت‌دهی به برنامه‌های فعال</value>
-  </data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>منابع پردازنده بیشتری را به برنامه‌ای که در حال استفاده از آن هستید اختصاص می‌دهد تا سرعت پاسخ‌گویی افزایش یابد.</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-    <value>بهینه‌سازی زمان‌بندی برنامه‌های چندرسانه‌ای</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-    <value>سرویس MMCSS را برای بازی و کاهش تأخیر تنظیم می‌کند؛ پردازش‌های چندرسانه‌ای را در اولویت قرار داده و محدودیت سرعت شبکه را برمی‌دارد.</value>
-  </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
-    <value>حذف محدودیت 50 مگابایتی WebDAV</value>
+    <value>حذف محدودیت 50 MB در WebDAV</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>سقف حجم فایل‌های سرویس WebDAV را از 50 مگابایت به 4 گیگابایت افزایش می‌دهد تا انتقال فایل‌های بزرگ در شبکه دچار خطا نشود.</value>
+    <value>سقف انتقال Windows WebClient را از 50 MB به 4 GB افزایش می‌دهد تا انتقال فایل‌های حجیم روی درایوهای شبکه WebDAV خطا ندهد.</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>بهینه‌سازی نرخ تکرار کلیدهای کیبورد</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>تاخیر ورودی کیبورد را به حداقل رسانده و سرعت تکرار کلیدها را برای تایپ و فشردن سریع کلیدها افزایش می‌دهد.</value>
+    <value>تاخیر تکرار کلید را به کوتاه‌ترین مقدار و سرعت تکرار را به حداکثر تنظیم می‌کند.</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
     <value>غیرفعال‌سازی کلیدهای میان‌بر Accessibility</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-    <value>کلیدهای میان‌بر Sticky Keys، Filter Keys و Toggle Keys را غیرفعال می‌کند تا از باز شدن ناگهانی پنجره‌ها هنگام بازی جلوگیری شود.</value>
+    <value>میانبرهای صفحه‌کلید را که با فشردن مکرر یا نگه‌داشتن Shift و کلیدهای قفل، پنجره‌های Sticky Keys، Filter Keys و Toggle Keys را باز می‌کنند می‌بندد.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
     <value>غیرفعال‌سازی Hibernation و Fast Startup</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-    <value>قابلیت Hibernation و راه‌اندازی سریع را خاموش می‌کند تا حافظه دیسک آزاد شده و سیستم به طور کامل خاموش و راه‌اندازی شود.</value>
+    <value>تنها Fast Startup را برای بوت سرد تمیز می‌بندد یا Hibernate را کاملاً غیرفعال می‌کند تا چند گیگابایت فضای دیسک آزاد شود.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>غیرفعال‌سازی حالت صرفه‌جویی برق در پورت‌های USB</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>از قطع برق پورت‌های USB توسط ویندوز جلوگیری می‌کند تا تاخیر در پاسخ‌گویی ماوس، کیبورد و قطعات جانبی از بین برود.</value>
+    <value>مانع تعلیق هاب‌های USB و تجهیزات متصل توسط Windows می‌شود تا تاخیر بیدار شدن ماوس، کیبورد و کارت صدا از بین برود.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>اعمال طرح انرژی بهینه‌شده</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>یک طرح مصرف انرژی اختصاصی با تمرکز بر حداکثر کارایی نصب می‌کند. هشدار: ممکن است در برخی سیستم‌ها درصد مصرف پردازنده در Task Manager به نادرستی 100٪ نشان داده شود، اما بار واقعی پردازنده تغییری نمی‌کند.</value>
+    <value>یک طرح توان پرقدرت اختصاصی را نصب و فعال می‌کند که هسته‌های CPU را بیدار نگه داشته و تاخیر تغییر فرکانس را کم می‌کند.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-    <value>در حال نصب و فعال‌سازی طرح انرژی...</value>
+    <value>در حال نصب و فعال‌سازی طرح مصرف انرژی...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>غیرفعال‌سازی محدودکننده توان سیستم (Power Throttling)</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>از محدود شدن کارایی پردازنده توسط ویندوز برای صرفه‌جویی در انرژی جلوگیری می‌کند تا حداکثر توان پردازشی برای کارهای فعال حفظ شود.</value>
+    <value>Windows Power Throttling را خاموش می‌کند تا برنامه‌های فعال و پس‌زمینه بدون محدودیت فرکانس CPU اجرا شوند.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>غیرفعال‌سازی جمع‌آوری اطلاعات و تلمتری</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>سرویس‌های جمع‌آوری داده و تلمتری ویندوز را غیرفعال می‌کند تا حریم خصوصی شما حفظ شده و پردازش‌های پس‌زمینه کاهش یابد.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-    <value>در حال اعمال تغییرات در رجیستری و پالیسی‌ها...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-    <value>در حال غیرفعال‌سازی سرویس‌های تلمتری...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>در حال غیرفعال‌سازی وظایف زمان‌بندی‌شده تلمتری...</value>
+    <value>گردآوری داده‌های تشخیصی Windows، فهرست سازگاری برنامه‌ها و اعلان‌های بازخورد را به حداقل می‌رساند.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>غیرفعال‌سازی ارسال گزارش خطا</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>سرویس‌های ارسال گزارش خطای ویندوز (Windows Error Reporting) و دستیار سازگاری برنامه‌ها را غیرفعال می‌کند.</value>
+    <value>گزارش خطای ویندوز را خاموش و وظایف زمان‌بندی‌شده جمع‌آوری و ارسال گزارش خرابی و تشخیص دیسک را متوقف می‌کند.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
     <value>غیرفعال‌سازی تبلیغات و پیشنهادها</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>نمایش تبلیغات شخصی‌سازی‌شده، پیشنهادات سیستمی و برنامه‌های تبلیغاتی ویندوز را غیرفعال می‌کند.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>غیرفعال‌سازی بخش اخبار و علاقه‌مندی‌ها</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>خوراک خبری News and Interests را در ویندوز 10 خاموش کرده و پنل ویجت‌ها را در ویندوز 11 غیرفعال می‌کند.</value>
+    <value>شناسه تبلیغاتی ویندوز، تجربیات سفارشی مبتنی بر داده تشخیصی، تبلیغات مصرف‌کننده و پیشنهادهای راه‌اندازی را خاموش می‌کند.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>پنهان کردن دکمه Meet Now</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>دکمه Meet Now (مربوط به اسکایپ) را از نوار وظیفه پنهان می‌کند. (مخصوص ویندوز 10)</value>
+    <value>دکمه Meet Now را از بخش اعلان‌های نوار وظیفه Windows 10 پنهان می‌کند.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
     <value>غیرفعال‌سازی تاریخچه فعالیت‌ها</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>از ذخیره‌سازی و همگام‌سازی تاریخچه فعالیت‌های شما توسط ویندوز جلوگیری می‌کند.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>غیرفعال‌سازی موقعیت‌مکانی و سنسورها</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>سرویس‌های ردگیری موقعیت مکانی، سنسورهای سیستم و آپدیت خودکار نقشه‌های آفلاین را غیرفعال می‌کند.</value>
+    <value>مانع ثبت و ارسال تاریخچه فعالیت برنامه‌ها و فایل‌های شما به مایکروسافت می‌شود.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>غیرفعال‌سازی ثبت رویدادها در پس‌زمینه (AutoLogger)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>نشست‌های غیرضروری ثبت لوگ مانند Diagtrack-Listener را هنگام بوت متوقف می‌کند تا بار دیسک و پردازنده کاهش یابد. توجه: آنتی‌ویروس‌ها ممکن است این تغییر را گزارش کنند.</value>
+    <value>نشست‌های غیرضروری ردیابی تشخیصی ETW را هنگام بوت متوقف می‌کند تا نوشتن روی دیسک و بار CPU کاهش یابد.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>غیرفعال‌سازی کورتانا و جست‌وجوی وب</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>دستیار صوتی کورتانا را خاموش کرده و نمایش نتایج وب را در منوی جست‌وجوی ویندوز 10 غیرفعال می‌سازد.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>غیرفعال‌سازی ویندوز کوپایلوت (Copilot)</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>دستیار هوش مصنوعی Copilot را از نوار وظیفه و پوسته سیستم حذف می‌کند تا حافظه و رم آزاد شود.</value>
+    <value>دستیار Cortana را خاموش می‌کند و مانع ارسال جستجوهای دسکتاپ Windows 10 به جستجوی ابری می‌شود.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>غیرفعال‌سازی دریافت خودکار محتوای ابری</value>
+    <value>غیرفعال‌سازی محتوای ابری پس‌زمینه</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>دریافت خودکار محتوا از سرورهای مایکروسافت، از جمله پیشنهادهای Spotlight، نکات سیستم و برنامه‌های پیشنهادی را متوقف می‌کند.</value>
+    <value>مانع دانلود خودکار پیشنهادهای Spotlight صفحه قفل، نکات و محتوای تبلیغاتی Windows در پس‌زمینه می‌شود.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>مسدودسازی نصب خودکار برنامه‌های پیش‌فرض</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>از نصب خودکار مجدد برنامه‌های تبلیغاتی و جانبی ناخواسته توسط ویندوز جلوگیری می‌کند.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>بهینه‌سازی سرویس‌های سیستم</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>تنظیمات سرویس‌های غیرضروری در پس‌زمینه را بهینه‌سازی می‌کند تا بدون مختل شدن وظایف اصلی ویندوز، منابع سیستم آزاد شوند.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>در حال تغییر حالت راه‌اندازی سرویس {0} به {1}...</value>
+    <value>جلوگیری می‌کند تا Windows برنامه‌های تبلیغاتی را بی‌صدا دانلود و در منوی Start پین نکند.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>تصویر و نمایشگر</value>
@@ -724,77 +676,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>تجربه کاربری</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>افزایش سرعت اکسپلورر و منوها</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>تاخیرهای سیستمی هنگام باز شدن منوها و فایل اکسپلورر را صفر می‌کند تا منوها بلافاصله باز شوند.</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>افزایش حداکثر زمان توقف آپدیت‌ها</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>امکان توقف موقت آپدیت‌های ویندوز را به حداکثر زمان ممکن افزایش می‌دهد.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>غیرفعال‌سازی جست‌وجوی وب در منوی استارت</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>جست‌وجوی اینترنتی در منوی استارت را غیرفعال می‌کند تا نتایج جست‌وجوی فایل‌های داخلی سریع‌تر نمایش داده شوند.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>غیرفعال‌سازی جلوه‌های بصری و انیمیشن‌ها</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>انیمیشن‌های نوار وظیفه، سایه‌ها، شفافیت پنجره‌ها و Aero Peek را غیرفعال می‌سازد تا بار پردازشی گرافیک و پردازنده کاهش یابد.</value>
-  </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>غیرفعال‌سازی AMD ULPS</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>حالت کم‌مصرف شدید (Ultra Low Power State) را در کارت‌های گرافیک AMD غیرفعال می‌کند تا تاخیر خروج از خواب و مشکلات چند مانیتوره رفع شود.</value>
+    <value>وضعیت فوق‌کم‌مصرف ULPS را در کارت‌های گرافیک AMD خاموش می‌کند تا لرزش هنگام بیدارشدن GPU دوم و سوسو زدن چند نمایشگر برطرف شود.</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>غیرفعال‌سازی AMD Power Gating</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>از تغییر فرکانس و افت ولتاژ ناگهانی کارت‌های AMD جلوگیری می‌کند؛ فرکانس‌ها را ثابت نگه می‌دارد اما مصرف برق در حالت بیکاری افزایش می‌یابد.</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>غیرفعال‌سازی AMD Video Clock Gating</value>
-  </data>
-  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>بهینه‌سازی و پایداری بخش انکود/دکود ویدئویی کارت‌های AMD (موتورهای VCE/UVD) برای جلوگیری از افت فریم در پخش و ضبط ویدئو.</value>
+    <value>مدیریت گیتینگ برق و تغییر پویای سطح توان AMD GPU را غیرفعال می‌کند تا واحدهای گرافیکی بین پردازش‌ها روشن بمانند.</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>غیرفعال‌سازی AMD ASPM</value>
   </data>
   <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>مدیریت مصرف انرژی گذرگاه PCIe را در کارت‌های AMD غیرفعال کرده و تاخیر ارتباطی گذرگاه PCIe را کاهش می‌دهد.</value>
+    <value>مدیریت توان لینک PCIe ASPM (L0s و L1) را روی کارت‌های AMD خاموش می‌کند تا تاخیر بیدار شدن لینک PCIe از بین برود.</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>غیرفعال‌سازی NVIDIA Dynamic P-State</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>کارت گرافیک انویدیا را در حالت عملکرد فرکانسی بالا قفل می‌کند تا از نوسان فرکانس هنگام بازی جلوگیری شود. مصرف انرژی در حالت بیکاری افزایش می‌یابد.</value>
+    <value>مانع رفتن GPUهای NVIDIA به حالت‌های پویای کم‌مصرف P-state می‌شود تا در بارهای کوتاه افت فرکانس رخ ندهد.</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>غیرفعال‌سازی NVIDIA Async P-States</value>
   </data>
   <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>تغییر حالات ناهمگام انرژی را در گرافیک انویدیا غیرفعال می‌کند تا عملکردی پایدارتر برای برنامه‌های واقعیت مجازی (VR) و پردازش‌های پردازشی آنی فراهم شود.</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>غیرفعال‌سازی Intel Async Flips</value>
-  </data>
-  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>جابه‌جایی بافر تصویر را در گرافیک‌های مجتمع اینتل همگام می‌سازد تا تاخیر ورودی و بریدگی تصویر (Screen Tearing) کاهش یابد.</value>
+    <value>از تغییر غیرهمزمان سطح توان در درایورهای NVIDIA حین بارهای لحظه‌ای جلوگیری می‌کند تا تایمینگ فریم یکنواخت‌تر شود.</value>
   </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>غیرفعال‌سازی Intel Adaptive V-Sync</value>
   </data>
   <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>قابلیت V-Sync انطباقی را در پردازنده‌های گرافیکی اینتل غیرفعال کرده و آن را با V-Sync ثابت برای زمان‌بندی پایدارتر فریم‌ها جایگزین می‌کند.</value>
+    <value>V-Sync تطبیقی درایور Intel را خاموش می‌کند تا زمان‌بندی تصویر تابع برنامه یا همگام‌سازی ثابت بماند.</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1442,13 +1358,13 @@
     <value>سایر موارد</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>فایل JSON حاوی داده‌های خام بازگردانی این بهینه‌سازی را باز می‌کند.</value>
+    <value>فایل JSON پشتیبان برای بازگردانی تنظیمات قبلی را نشان می‌دهد.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>سورس‌کد مربوط به این بهینه‌سازی را در مرورگر شما باز می‌کند.</value>
+    <value>پیاده‌سازی C# این بهینه‌سازی را در GitHub بررسی کنید.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
-    <value>مشاهده سورس‌کد در گیت‌هاب</value>
+    <value>مشاهده کد منبع</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
     <value>جزئیات فنی</value>
@@ -1457,7 +1373,7 @@
     <value>شناسه بهینه‌سازی</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>نام کلاس</value>
+    <value>کلید شناسه</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>برنامه‌های استارت‌آپ</value>
@@ -1974,37 +1890,37 @@
     <value>غیرفعال‌سازی Click To Do</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>قابلیت هوش مصنوعی Click To Do را که متن‌ها و تصاویر روی صفحه نمایش را تحلیل می‌کند خاموش می‌کند.</value>
+    <value>لایه Click To Do را که متن و تصاویر صفحه را برای اقدامات هوش مصنوعی تحلیل می‌کند غیرفعال می‌سازد.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>غیرفعال‌سازی Windows Recall</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>قابلیت هوش مصنوعی Windows Recall را که از صفحه اسکرین‌شات می‌گیرد غیرفعال کرده و اسکرین‌شات‌های قبلی را در ویندوز 11 پاک می‌کند. (نیازمند ری‌استارت)</value>
+    <value>از طریق Group Policy تصویربرداری Windows Recall را غیرفعال و داده‌های ذخیره‌شده را پاک می‌کند و مانع فعال‌سازی مجدد پس از ری‌استارت می‌شود.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
     <value>غیرفعال‌سازی Delivery Optimization (P2P)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>اشتراک‌گذاری یا دریافت همتا به همتای (P2P) فایل‌های آپدیت با دیگر رایانه‌ها را متوقف کرده تا دانلودها مستقیماً از سرورهای مایکروسافت انجام شوند.</value>
+    <value>اشتراک‌گذاری P2P به‌روزرسانی‌ها بین رایانه‌ها را متوقف کرده و دانلود را تنها به سرورهای مایکروسافت محدود می‌کند.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>غیرفعال‌سازی Find My Device</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>قابلیت پیدا کردن دستگاه (Find My Device) را که موقعیت مکانی رایانه شما را به مایکروسافت ارسال می‌کند غیرفعال می‌سازد.</value>
+    <value>یافتن دستگاه من را خاموش می‌کند تا رایانه دیگر موقعیت خود را دوره‌ای به حساب مایکروسافت نفرستد.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>غیرفعال‌سازی تبلیغات Microsoft 365 در تنظیمات</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>بنرها و تبلیغات مربوط به Microsoft 365 و Copilot را از صفحه اصلی تنظیمات ویندوز حذف می‌کند.</value>
+    <value>بنرهای تبلیغاتی Microsoft 365 و حساب کاربری را از صفحه اصلی Settings ویندوز پاک می‌کند.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>پنهان کردن بخش پیشنهادی (Recommended) در استارت</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>بخش Recommended را از منوی استارت پنهان می‌کند تا فایل‌ها و برنامه‌های اخیراً بازشده نشان داده نشوند.</value>
+    <value>بخش «توصیه‌شده» را از منوی Start ویندوز 11 پنهان می‌کند تا فایل‌های اخیر و پیشنهاد برنامه‌ها نمایش داده نشوند.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>بررسی سازگاری با شکست مواجه شد</value>
@@ -2253,10 +2169,10 @@
     <value>(تکرار هر {0} به مدت {1})</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
-    <value>قبلاً بهینه‌سازی شده است</value>
+    <value>هم‌اکنون بهینه است</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>تنظیمات این بهینه‌سازی هم‌اکنون روی سیستم شما اعمال شده و نیازی به تغییر ندارد.</value>
+    <value>سیستم شما هم‌اکنون از این تنظیم استفاده می‌کند و نیازی به تغییر نیست.</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>نیازی به تغییر نیست: تنظیمات {0} از قبل روی سیستم شما اعمال شده است.</value>
@@ -2277,13 +2193,13 @@
     <value>ویندوز موفق به حذف این بسته‌ها نشد: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>برای مشاهده جزئیات مراحل آخرین اجرا کلیک کنید. {0}</value>
+    <value>برای مشاهده تک‌تک تغییرات ثبت‌شده کلیک کنید. {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>برای مشاهده جزئیات مراحل آخرین اجرا کلیک کنید.</value>
+    <value>برای مشاهده تک‌تک تغییرات ثبت‌شده کلیک کنید.</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} گام تغییر یافت، {1} گام از قبل درست بود، {2} گام اعمال نشد، {3} گام توسط ویندوز رد شد.</value>
+    <value>{0} تغییر یافت، {1} از قبل بهینه، {2} رد شد، {3} توسط Windows مسدود شد</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>آخرین اجرای ثبت‌شده</value>
@@ -2310,58 +2226,58 @@
     <value>با خطا مواجه شد</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به تنظیمات امنیتی ویندوز است.</value>
+    <value>تنظیمات امنیت، ایزوله‌سازی یا رمزگذاری Windows را تغییر می‌دهد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به داده‌های جمع‌آوری‌شده و ارسالی توسط ویندوز است.</value>
+    <value>تله‌متری، داده‌های تشخیصی و اطلاعات ارسالی به Microsoft یا برنامه‌ها را محدود می‌کند.</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی بخش اصلی، کامپوننت یا پالیسی ویندوز را تغییر می‌دهد؛ لطفاً توضیحات آن را قبل از اعمال مطالعه کنید.</value>
+    <value>اجزای هسته‌ای Windows یا سیاست‌های سیستم را تغییر می‌دهد؛ پیش از اعمال جزئیات را بخوانید.</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به عملکرد، سرعت و پردازش‌های پس‌زمینه است.</value>
+    <value>واکنش‌پذیری سیستم، زمان‌بندی CPU یا بار پس‌زمینه را هدف قرار می‌دهد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به کاهش تاخیر ورودی‌ها، بازی‌ها یا صدا است.</value>
+    <value>تاخیر پاسخ در ورودی، صدا یا زمان فریم را کاهش می‌دهد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی نحوه استفاده ویندوز از درایوهای دیسک شما را تغییر می‌دهد.</value>
+    <value>نحوه خواندن، نوشتن یا فهرست‌بندی درایوها توسط Windows را تغییر می‌دهد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به نحوه مدیریت حافظه رم توسط ویندوز است.</value>
+    <value>مصرف RAM در پس‌زمینه و سربار حافظه را کاهش می‌دهد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به خروجی تصویر، مانیتور یا کارت گرافیک است.</value>
+    <value>خروجی تصویر، نرخ نوسازی یا قابلیت‌های نمایشگر GPU را تنظیم می‌کند.</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مخصوص سیستم‌های دارای کارت گرافیک انویدیا (NVIDIA) بوده و روی بقیه سیستم‌ها بی‌اثر است.</value>
+    <value>فقط برای سیستم‌های دارای گرافیک NVIDIA اعمال می‌شود و روی سایر سخت‌افزارها اثری ندارد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مخصوص سیستم‌های دارای کارت گرافیک ای‌ام‌دی (AMD) بوده و روی بقیه سیستم‌ها بی‌اثر است.</value>
+    <value>فقط برای سیستم‌های دارای گرافیک AMD اعمال می‌شود و روی سایر سخت‌افزارها اثری ندارد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مخصوص سیستم‌های دارای کارت گرافیک اینتل (Intel) بوده و روی بقیه سیستم‌ها بی‌اثر است.</value>
+    <value>فقط برای سیستم‌های دارای گرافیک Intel اعمال می‌شود و روی سایر سخت‌افزارها اثری ندارد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به مدیریت مصرف انرژی، شارژدهی باتری، حرارت و صدای فن است.</value>
+    <value>بر مصرف انرژی، شارژدهی باتری، دما و دور فن اثر می‌گذارد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به تنظیمات شبکه، اتصالات و ترافیک دیتای آن است.</value>
+    <value>رفتار کارت شبکه، انتقال داده یا ترافیک پس‌زمینه Windows را تغییر می‌دهد.</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی به دلیل نیاز به دانلود فایل‌ها، نیازمند اتصال فعال اینترنت است.</value>
+    <value>برای دریافت فایل‌های موردنیاز به اتصال فعال اینترنت نیاز دارد.</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به نحوه پخش و پردازش کارت صدا است.</value>
+    <value>نحوه پردازش و هدایت صدا در Windows را تنظیم می‌کند.</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی مربوط به افکت‌ها، ظاهر و انیمیشن‌های محیط ویندوز است.</value>
+    <value>عناصر رابط کاربری، پیشنهادها یا جلوه‌های بصری Windows را تنظیم می‌کند.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی فقط مخصوص ویندوز 10 بوده و روی ویندوز 11 اثری ندارد.</value>
+    <value>مخصوص Windows 10 ساخته شده؛ در Windows 11 به طور خودکار پنهان می‌شود.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>این بهینه‌سازی فقط مخصوص ویندوز 11 است و روی ویندوز 10 مسدود می‌شود.</value>
+    <value>مخصوص Windows 11 ساخته شده؛ در Windows 10 به طور خودکار پنهان می‌شود.</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>زمان اعمال بهینه‌سازی: {0}</value>
@@ -2496,10 +2412,10 @@
     <value>مقدار</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>نمایش فایل تاریخچه تغییرات</value>
+    <value>باز کردن پرونده تاریخچه</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>فایلی را که مراحل انجام‌شده توسط optimizerDuck در آن ثبت شده باز می‌کند. این گزارش حتی پس از بازگردانی تغییرات حفظ می‌شود.</value>
+    <value>فایل JSON ثبت تغییرات انجام‌شده توسط optimizerDuck را نشان می‌دهد (حتی پس از بازگردانی باقی می‌ماند).</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>رجیستری (Registry)</value>
@@ -2575,5 +2491,620 @@
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>جزئیات در فایل لاگ ثبت شده است.</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی ویندوز کوپایلوت (Copilot)</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Windows Copilot را غیرفعال می‌کند و دکمه Copilot را پس از خروج از حساب از تسکبار برمی‌دارد.</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>نیازمند لپ‌تاپ</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>این بهینه‌سازی فقط برای دستگاه‌های قابل‌حمل دارای باتری اعمال می‌شود.</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>حداکثر ۱۲ گیگابایت RAM مورد نیاز است</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>سیستم‌های با بیش از ۱۲ گیگابایت RAM بدون مصرف زیاد حافظه از جداسازی Service Host بهره می‌برند.</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>یکپارچگی حافظه در دسترس نیست</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>قابلیت Memory Integrity (HVCI) در این دستگاه شناسایی نشد یا پشتیبانی نمی‌شود.</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>آداپتور شبکه فیزیکی یافت نشد</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>هیچ کارت شبکه فیزیکی Ethernet یا Wi-Fi روی این سیستم شناسایی نشد.</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>سرویس Windows AI یافت نشد</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>این بیلد ویندوز فاقد سرویس پس‌زمینه Windows AI است.</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>جلوه‌های شفافیت</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>جلوه‌های نیمه‌شفاف Acrylic و Mica را در نوار وظیفه، منوی استارت و پنجره‌ها فعال می‌کند.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>انیمیشن‌های نوار وظیفه</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>انیمیشن آیکون‌های نوار وظیفه را هنگام باز کردن یا جابه‌جایی پنجره‌ها کنترل می‌کند.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>به Driver کارت گرافیک اجازه می‌دهد لایه‌های تصویر را مستقیم در سخت‌افزار ترکیب کند. فقط در صورت پرش تصویر غیرفعال کنید.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>کارت‌های GPU جدید با MPO تاخیر کمتری دارند؛ فقط هنگام چشمک‌زدن یا سیاه‌شدن صفحه خاموش کنید.</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>رد شد زیرا نوع راه‌اندازی سرویس از مقدار هدف سخت‌گیرانه‌تر است</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>نیاز به راه‌اندازی مجدد Explorer</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>نیاز به خروج از حساب</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>نیاز به راه‌اندازی مجدد</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>قابل تنظیم پیش از اعمال</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>از تنظیمات Windows Group Policy استفاده می‌کند. ممکن است در بخش تنظیمات Windows پیام مدیریت توسط سازمان نمایش داده شود.</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>تغییر یافته از بیرون</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>فایل پشتیبان موجود است اما تنظیمات فعلی Windows دیگر با این بهینه‌سازی مطابقت ندارد (مثلاً پس از به‌روزرسانی یا ویرایش دستی).</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>پیکربندی مجدد گزینه‌ها</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>جزئیات و تاریخچه</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>این بهینه‌سازی تغییرات عمیق‌تری در سیستم یا امنیت اعمال می‌کند. پیش از ادامه بخش معاوضه را بررسی کنید.</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>در هر صورت اعمال شود</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>اعمال موارد انتخاب‌شده</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>از قبل تنظیم شده</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>برای ادامه حداقل یک گزینه را انتخاب کنید.</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>فعال</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>غیرفعال</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>بهینه‌سازی‌های قدیمی دارای فایل پشتیبان</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>این موارد در نسخه جدیدتر حذف یا جایگزین شده‌اند، اما پشتیبان اصلی شما همچنان روی دیسک نگهداری می‌شود تا هر زمان خواستید بازگردانید.</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>بازگردانی</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>{0} مرحله برای بازگردانی</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>"{0}" بازگردانی شد و پشتیبان آن حذف گردید.</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>بازگردانی پشتیبان قدیمی ناموفق بود: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>نکته و مصالحه</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>تاثیرات</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>منابع</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>گزینه‌های اعمال‌شده</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>تنظیمات از بیرون تغییر کرده‌اند</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>تنظیمات فعلی Windows با این بهینه‌سازی مطابقت ندارد اما فایل پشتیبان روی دیسک باقی مانده است. برای اعمال مجدد روشن کنید، باقی‌مانده را بازگردانید یا پشتیبان قدیمی را پاک کنید.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>بازگردانی باقی‌مانده</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>حذف پشتیبان قدیمی</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>تنظیم مجدد</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>تنظیمات استاندارد Windows Group Policy را اعمال می‌کند. ممکن است در صفحات تنظیمات Windows پیام مدیریت توسط سازمان نمایش داده شود.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>تنظیم AI Fabric Service روی دستی</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>سرویس پس‌زمینه Windows AI Fabric را روی شروع دستی می‌گذارد تا فقط هنگام نیاز یک قابلیت هوش مصنوعی اجرا شود.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>ابزارهای هوش مصنوعی ویندوز که به این سرویس وابسته‌اند ممکن است در اولین اجرا چند ثانیه دیرتر باز شوند.</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی AI در Microsoft Edge</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>نوار کناری Copilot، پیشنهاد نوشتن در خط، جستجوی هوشمند تاریخچه و مدل‌های محلی AI در Microsoft Edge را غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>جست‌وجوی خط زمانی Windows Recall را غیرفعال کرده و اسنپ‌شات‌های ذخیره‌شده را برای همیشه پاک می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی سرویس‌های قدیمی بلااستفاده</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>سرویس‌های قدیمی و سازمانی کم‌کاربرد در رایانه‌های خانگی مانند Fax، Remote Registry، Retail Demo، App-V و Routing and Remote Access را می‌بندد و Offline Files را دستی می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>فکس قدیمی، Remote Registry، Routing and Remote Access و App-V تا بازگردانی خاموش می‌مانند و Offline Files فقط به‌صورت دستی اجرا می‌شود.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی سرویس‌های قابلیت اختیاری</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>گروه‌های سرویس اختیاری بدون استفاده در ویندوز مانند چاپ، Bluetooth، Xbox، اشتراک‌گذاری LAN، بیومتریک یا Remote Desktop را غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>تنها قابلیت‌های سخت‌افزاری یا شبکه‌ای که انتخاب کرده‌اید تا پیکربندی مجدد یا بازگردانی غیرفعال می‌مانند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>هیچ گروه سرویسی انتخاب نشد</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>چاپ و Spooler</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>سرویس‌های صف چاپ و اعلان‌های چاپگر پس‌زمینه را متوقف می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>چاپگرهای محلی، شبکه و Microsoft Print to PDF کار نخواهند کرد.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>سرویس‌های شناسایی، جفت‌سازی و صدای هندزفری Bluetooth را متوقف می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>کیبورد، ماوس، دسته بازی و هدفون‌های Bluetooth متصل نمی‌شوند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>سرویس‌های Xbox Live</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>سرویس‌های ورود Xbox Live، ذخیره ابری، لوازم جانبی و شبکه Xbox را متوقف می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>ورود به برنامه Xbox، ذخیره ابری Game Pass و چندنفره Xbox Live از کار می‌افتند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>اشتراک‌گذاری فایل LAN و شناسایی شبکه</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>سرویس‌های اشتراک پوشه محلی و شناسایی دستگاه‌های UPnP شبکه را متوقف می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>اشتراک‌گذاری پوشه در شبکه محلی و یافتن دستگاه‌های پخش رسانه متوقف می‌شود.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>بیومتریک Windows Hello</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>سرویس بیومتریک پس‌زمینه Windows را متوقف می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>حسگر اثر انگشت و تشخیص چهره Windows Hello غیرفعال می‌شوند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>سرویس‌های Remote Desktop</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>سرویس‌های پذیرش اتصال Remote Desktop ورودی را متوقف می‌کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>رایانه‌های دیگر نمی‌توانند از طریق Remote Desktop (RDP) به این دستگاه وصل شوند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی نمایه‌سازی جستجوی ویندوز</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>سرویس نمایه‌سازی Windows Search را متوقف می‌کند تا نوشتن‌های پس‌زمینه دیسک و جهش‌های CPU از بین بروند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>جست‌وجو در محتوای فایل‌ها در File Explorer و جست‌وجوی فوری Outlook کندتر می‌شود، زیرا ویندوز باید پوشه‌ها را هنگام درخواست اسکن کند.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>خاموش کردن پس‌زمینه و شتاب شروع Edge</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>پس از بستن پنجره‌ها Microsoft Edge را کاملاً می‌بندد و مانع پیش‌بارگذاری Startup Boost هنگام ورود می‌شود.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>باز کردن اولین پنجره Edge در شروع سرد کمی بیشتر طول می‌کشد و با بسته شدن همه پنجره‌ها اعلان‌های وب متوقف می‌شوند.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>کارت‌های گرافیک بیکار و لپ‌تاپ‌های چند GPU در زمان بی‌باری برق بیشتری مصرف می‌کنند.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>مصرف برق بیکار GPU، گرما و سرعت فن را افزایش داده و عمر باتری لپ‌تاپ را کاهش می‌دهد.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>مانع ورود پیوند PCIe کارت گرافیک به خواب کم‌مصرف می‌شود و مصرف برق بیکار و باتری را افزایش می‌دهد.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>مصرف برق در حالت بیکار، دمای GPU و صدای فن را افزایش می‌دهد.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>مصرف برق بیکار را در GPUهای NVIDIA افزایش می‌دهد.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>در بازی‌هایی که نرخ فریم زیر نرخ تازه‌سازی مانیتور می‌افتد ممکن است کمی پارگی یا پرش فریم دیده شود.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>اپلیکیشن‌های Microsoft Store تا زمانی که دستی باز نشوند ایمیل، زنگ‌ها یا اعلان‌ها را همگام نمی‌کنند.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>در سیستم‌های تا 12 GB حافظه RAM ذخیره می‌کند، اما خطای یک سرویس می‌تواند سرویس‌های هم‌فرایند را تحت تاثیر قرار دهد.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>تاخیر بسیار کوتاه ممکن است هنگام نگه‌داشتن جزئی کلید حین تایپ باعث تکرار ناخواسته حروف شود.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>فشردن پنج بار Shift یا نگه داشتن NumLock پنجره دسترسی را باز نمی‌کند؛ این ابزارها همچنان در تنظیمات Windows فعال‌اند.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی تشخیص خودکار نوع پوشه</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>مانع اسکن محتوای پوشه‌ها توسط File Explorer برای حدس زدن چیدمان تصاویر یا موسیقی هنگام باز کردن هر پوشه می‌شود.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>پوشه‌های بزرگ عکس یا موسیقی تا زمانی که دستی تغییر ندهید با نمای استاندارد Details نمایش داده می‌شوند.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی میزبان WebView2 در جستجو</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>جلوگیری از اجرای فرایندهای توکار Microsoft Edge WebView2 در جست‌وجوی ویندوز 11 برای کاهش مصرف RAM و CPU.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>از یک override داخلی Windows استفاده می‌کند که کارت‌های وب جستجو را غیرفعال کرده و ممکن است با آپدیت‌های بزرگ بازنشانی شود.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی یکپارچگی حافظه (HVCI)</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>بررسی امنیتی مجازی‌سازی Memory Integrity (HVCI) را برای بازگرداندن توان CPU و ثبات زمان فریم در بازی‌ها خاموش می‌کند.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>حفاظت هسته Windows در برابر درایورهای مخرب و تزریق کد را کاهش می‌دهد. مایکروسافت توصیه می‌کند پس از بازی آن را روشن کنید.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>خاموش کردن صرفه‌جویی برق کارت شبکه</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>مانع خاموش شدن خودکار کارت‌های شبکه فیزیکی Ethernet و Wi-Fi توسط Windows برای صرفه‌جویی برق می‌شود تا قطعی و تاخیر رفع گردد.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>مصرف برق بیکار کارت‌های Ethernet و Wi-Fi را افزایش می‌دهد و شارژدهی باتری لپ‌تاپ را کم می‌کند.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>هیچ آداپتور شبکه فیزیکی قابل تنظیمی یافت نشد</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>خاموش کردن Hibernate ذخیره خودکار RAM هنگام اتمام باتری را حذف می‌کند؛ بستن Fast Startup روشن شدن سرد را کمی کندتر می‌کند.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>حالت خاموش‌شدن و هایبرنیت</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>فقط خاموش کردن Fast Startup (پیشنهادی برای لپ‌تاپ)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>از ذخیره تصویر هایبرنیت کرنل هنگام خاموش کردن جلوگیری می‌کند ولی حالت Hibernate عادی را حفظ می‌نماید.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>غیرفعال‌سازی هایبرنیت و Fast Startup</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>هایبرنیت را کامل خاموش کرده و فایل آن را حذف می‌کند تا چند گیگابایت فضا آزاد شود.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>قطع شبکه در Modern Standby</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>اتصال Wi-Fi و بیدار شدن شبکه در پس‌زمینه را هنگام خواب لپ‌تاپ در حالت Modern Standby قطع می‌کند.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>در زمان خواب دستگاه، دریافت ایمیل، آپدیت و اعلان‌ها تا بیدار کردن صفحه متوقف می‌شود.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>هاب‌های USB و دستگاه‌های متصل به جای تعلیق انتخابی روشن می‌مانند که عمر باتری لپ‌تاپ را کمی کاهش می‌دهد.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>فعال ماندن هسته‌های CPU گرما، دور فن و مصرف برق را بالا می‌برد؛ Task Manager ممکن است بار CPU را بیش از مقدار واقعی نشان دهد.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>کارهای پس‌زمینه حتی روی باتری با تمام سرعت CPU اجرا می‌شوند و گرما و مصرف باتری را بالا می‌برند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>تشخیص مصرف مایکروسافت، برنامه‌های Windows Insider و پیشنهادهای عیب‌یابی اختصاصی غیرفعال می‌شوند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>هنگام کرش برنامه‌ها دیگر گزارش تشخیصی برای مایکروسافت ساخته و ارسال نمی‌شود.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>ثبت ردیابی سطح پایین برای عیب‌یابی مایکروسافت را غیرفعال می‌کند؛ برخی نرم‌افزارهای امنیتی ممکن است تغییر نشست بوت را هشدار دهند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>در صورت گم شدن یا سرقت کامپیوتر، امکان ردیابی یا قفل کردن از راه دور از حساب مایکروسافت را نخواهید داشت.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>پیکربندی سیاست Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>سیاست‌های انتخابی Group Policy در Windows Update را برای کنترل ری‌استارت خودکار، پیش‌نمایش‌ها، تعویق آپدیت و آپدیت Driver اعمال می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>تعویق یا حذف آپدیت درایور مستلزم به‌روزرسانی دستی Driver کارت گرافیک و چیپست است.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>هیچ گزینه‌ای برای Windows Update انتخاب نشد</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>جلوگیری از ری‌استارت خودکار هنگام ورود کاربر</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>مانع راه‌اندازی مجدد خودکار Windows Update هنگام لاگین بودن شما می‌شود.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>لغو «دریافت جدیدترین به‌روزرسانی‌ها به محض آماده شدن»</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>دریافت زودهنگام قابلیت‌ها و پیکربندی‌های آزمایشی هنگام بررسی آپدیت را لغو می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>حذف به‌روزرسانی درایورها از Windows Update</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>بسته‌های درایور سخت‌افزار را از Windows Update حذف می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>باید Driverهای سخت‌افزار را مستقیم از سایت سازنده دریافت و نصب کنید.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>تعویق به‌روزرسانی کیفیت (۴ روز) و ویژگی (۳۶۵ روز)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>تاخیر Group Policy را اعمال می‌کند تا بسته‌ها پیش از نصب پایدار شوند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>بسته‌های ماهانه ۴ روز و ارتقای سالانه ویندوز ۱ سال به تعویق می‌افتد.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>جلوگیری از رمزنگاری خودکار BitLocker</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>مانع فعال‌سازی خودکار رمزنگاری BitLocker توسط ویندوز روی درایوهای جدید یا هنگام نصب مجدد می‌شود.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>درایوهای رمزنگاری‌شده قبلی را باز نمی‌کند؛ درایوهای جدید بدون فعال‌سازی دستی رمزنگاری نمی‌شوند.</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>عملکرد سریع‌تر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>ممکن است عملکرد را کاهش دهد</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>تاخیر کمتر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>ممکن است تاخیر بیفزاید</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>مصرف کمتر RAM</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>مصرف بیشتر RAM</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>صرفه‌جویی در فضا</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>فضای بیشتری می‌گیرد</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>مصرف برق کمتر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>مصرف برق بیشتر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>حریم خصوصی بیشتر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>کاهش حریم خصوصی</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>امنیت قوی‌تر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>کاهش امنیت</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>شبکه پایدارتر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>محدودسازی شبکه</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>پایداری بیشتر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>ممکن است پایداری را کم کند</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>محیط خلوت‌تر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>افزودن عناصر رابط</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>امکانات بیشتر</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>غیرفعال شدن قابلیت‌ها</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>در حال تنظیم نوع شروع سرویس {0} روی {1}...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>نوار کناری Copilot، دستیار نوشتن هوش مصنوعی و جست‌وجوی تاریخچه هوشمند در Microsoft Edge در دسترس نخواهند بود.</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>پشتیبان‌های قدیمی</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>{0} پشتیبان قدیمی یافت شد</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>حذف پشتیبان</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>حذف این فایل پشتیبان بدون تغییر در تنظیمات Windows</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>این فایل پشتیبان بدون تغییر دادن Windows حذف شود؟ پس از آن دیگر نمی‌توانید این تغییرات قدیمی را از طریق optimizerDuck بازگردانی کنید.</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>نمایش فایل پشتیبان در Explorer</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>اعمال‌شده در {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>پشتیبان قدیمی باقی نمانده است</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>تمام پشتیبان‌های مربوط به بهینه‌سازی‌های قدیمی بازگردانی یا پاک‌سازی شده‌اند.</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>بازگرداندن بهینه‌سازی</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>همه گزینه‌ها خاموش هستند. تأیید کردن، این بهینه‌سازی را به حالت قبلی بازمی‌گرداند.</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>سیستم شما از قبل با این گزینه مطابقت دارد، بنابراین نیازی به تغییر نیست.</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>همه گزینه‌های اینجا از قبل روی سیستم شما پیکربندی شده‌اند و نیازی به تغییر نیست.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی هوش مصنوعی در Windows Paint</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>سیاست‌های Cocreator، Generative Fill، Image Creator، Generative Erase و حذف پس‌زمینه هوش مصنوعی را در Windows Paint غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>ابزارهای تولید و ویرایش تصویر هوش مصنوعی از نوار ابزار Windows Paint حذف می‌شوند.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی هوش مصنوعی در Windows Notepad</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>امکانات بازنویسی و خلاصه‌سازی متن با هوش مصنوعی را در Windows Notepad از طریق سیاست سیستمی غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>عملیات بازنویسی و خلاصه‌سازی هوش مصنوعی دیگر در Windows Notepad در دسترس نخواهد بود.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی دستیار سازگاری برنامه‌ها</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>سرویس پس‌زمینه Program Compatibility Assistant را که اجرای برنامه‌ها و نصاب‌های قدیمی را پایش می‌کند غیرفعال می‌سازد.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>هشدارهای خودکار سازگاری و تنظیمات جبرانی برای برنامه‌ها و نصاب‌های قدیمی غیرفعال می‌شوند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی شخصی‌سازی دست‌خط و تایپ</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>مانع جمع‌آوری دست‌خط، الگوهای تایپ، مخاطبین محلی و ترجیحات زبان توسط ویندوز برای شخصی‌سازی ورودی می‌شود.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>به‌روزرسانی تشخیص دست‌خط سفارشی، اصلاح خودکار مبتنی بر مخاطبین و فرهنگ لغت محلی متوقف می‌شود.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی ردیابی مکان</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>سرویس مکان‌یابی ویندوز، مجوز مکان برنامه‌ها، به‌روزرسانی خودکار نقشه‌های آفلاین و گزارش هات‌اسپات Wi-Fi را غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>در زمان فعال بودن، آب‌وهوا، نقشه‌ها و برنامه‌های وابسته به مکان سیستم قادر به تشخیص موقعیت شما نیستند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی حسگرهای حرکت و نور</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>از طریق Group Policy دسترسی برنامه‌ها و ویندوز به حسگرهای حرکت، جهت و نور محیط را مسدود می‌کند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>روشنایی خودکار در لپ‌تاپ‌ها و چرخش خودکار صفحه در دستگاه‌های دوکاره از کار می‌افتد.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>حذف تاخیر اجرای برنامه‌های استارتاپ</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>تاخیر پیش‌فرض Explorer پس از ورود و انتظار بیکاری CPU را حذف می‌کند تا برنامه‌های شروع سیستم بلافاصله اجرا شوند.</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>حذف تاخیر بازشدن زیرمنوها</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>تاخیر نمایش زیرمنوها را هنگام رفتن نشانگر روی منوهای ویندوز صفر می‌کند تا بلافاصله باز شوند.</value>
   </data>
 </root>

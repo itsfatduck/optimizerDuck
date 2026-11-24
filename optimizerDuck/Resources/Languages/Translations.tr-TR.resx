@@ -66,10 +66,7 @@
     <value>Gösterge Paneli</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.ShortDescription" xml:space="preserve">
-    <value>Ekranınızın anlık görüntülerini yakalayıp dizine ekleyen Windows Recall AI özelliğini devre dışı bırakır. Ayrıca Recall bileşenini kaldırır ve daha önce kaydedilmiş anlık görüntüleri siler; değişikliğin etkili olması için yeniden başlatma gerekir.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
-    <value>Haberler ve ilgi alanları akışını kapatır ve görev çubuğu düğmesini gizler (Windows 10) ve Widget'lar panosunu devre dışı bırakır (Windows 11).</value>
+    <value>Grup İlkesi ile Windows Recall anlık görüntülerini devre dışı bırakır, kayıtlı verileri temizler ve yeniden başlatma sonrasında etkinleştirilmesini engeller.</value>
   </data>
   <data name="Sidebar.Dashboard" xml:space="preserve">
     <value>Gösterge Paneli</value>
@@ -207,7 +204,7 @@
     <value>Ayrıntılı açıklama</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.ShortDescription" xml:space="preserve">
-    <value>Hizmet ana bilgisayarı bölme eşiğini toplam sistem RAM'ine yükseltir, hizmetleri daha az işlemde birleşik tutarak bellek kullanımını ve işlem sayısını azaltır.</value>
+    <value>12 GB ve daha az RAM'e sahip PC'lerde Service Host bölme eşiklerini kurulu RAM boyutuna yükselterek hizmetleri ortak işlemlerde birleştirir ve bellek tasarrufu sağlar.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Error.DetectActivePlanFailed" xml:space="preserve">
     <value>Mevcut aktif güç planı algılanamadı.</value>
@@ -228,7 +225,7 @@
     <value>Disk</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired" xml:space="preserve">
-    <value>İnternet bağlantısı gerekli</value>
+    <value>İnternet gerekli</value>
   </data>
   <data name="Optimizer.UI.Tags.Network" xml:space="preserve">
     <value>Ağ</value>
@@ -259,7 +256,7 @@
     <value>Geri alınıyor...</value>
   </data>
   <data name="Optimization.Revert.Success" xml:space="preserve">
-    <value>{0} başarıyla geri alındı!</value>
+    <value>{0} geri alındı.</value>
   </data>
   <data name="Optimization.Revert.Error.FailedWithSteps" xml:space="preserve">
     <value>{0} geri alındı, {1} adım başarısız oldu.</value>
@@ -316,7 +313,7 @@
     <value>Zaman aşımına uğradı</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Title" xml:space="preserve">
-    <value>Geri alma dosyası</value>
+    <value>Geri alma yedeğini aç</value>
   </data>
   <data name="OptimizationResultDialog.Header" xml:space="preserve">
     <value>{0} Başarısız Adım</value>
@@ -397,10 +394,10 @@
     <value>Az önce uygulandı</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Error.Title" xml:space="preserve">
-    <value>Optimizasyon tam olarak uygulanamadı</value>
+    <value>Tüm değişiklikler uygulanamadı</value>
   </data>
   <data name="Optimization.Revert.Snackbar.Error.Title" xml:space="preserve">
-    <value>Optimizasyon geri alınamadı</value>
+    <value>İyileştirme geri alınamadı</value>
   </data>
   <data name="Optimization.Apply.Snackbar.Success.Title" xml:space="preserve">
     <value>Optimizasyon başarıyla uygulandı</value>
@@ -472,7 +469,7 @@
     <value>Arka Plan Uygulamalarını Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.Performance.DisableBackgroundApps.ShortDescription" xml:space="preserve">
-    <value>Etkin olmayan uygulamaların arka planda çalışmasını önler, böylece RAM serbest kalır ve CPU yükü azalır.</value>
+    <value>Microsoft Store uygulamalarının arka plan görevlerini engelleyerek boşta RAM kullanımını ve CPU uyanmalarını azaltır.</value>
   </data>
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Name" xml:space="preserve">
     <value>Hizmet ana bilgisayarlarını birleştirme</value>
@@ -480,134 +477,92 @@
   <data name="Optimizer.Performance.ConsolidateServiceHosts.Error.InvalidRAM" xml:space="preserve">
     <value>Geçersiz RAM: {0}</value>
   </data>
-  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
-    <value>Aktif Uygulamalara Öncelik Ver</value>
-  </data>
-  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
-    <value>Daha hızlı ve daha duyarlı bir deneyim için o anda kullandığınız uygulamaya daha fazla CPU kaynağı ayırır.</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
-    <value>Multimedya Zamanlayıcısını Optimize Et</value>
-  </data>
-  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
-    <value>Multimedya iş yüklerine öncelik vererek ve ağ kısıtlamasını devre dışı bırakarak Multimedya Sınıf Zamanlayıcı Servisi'ni (MMCSS) oyun ve düşük gecikme için yapılandırır.</value>
-  </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.Name" xml:space="preserve">
     <value>Klavye Tekrarını Optimize Et</value>
   </data>
   <data name="Optimizer.Performance.KeyboardLatencyOptimization.ShortDescription" xml:space="preserve">
-    <value>Daha duyarlı yazma ve tekrarlanan tuş basışları için en hızlı klavye tekrar gecikmesini ve tekrar hızını ayarlar.</value>
+    <value>Tuş basılı tutulduğunda daha hızlı giriş için klavye yineleme gecikmesini en kısa aralığa, yineleme hızını en yükseğe ayarlar.</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.Name" xml:space="preserve">
     <value>Erişilebilirlik Klavye Kısayollarını Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription" xml:space="preserve">
-    <value>Oyun ve yazma sırasında yanlışlıkla açılır pencere çıkmasını önlemek için Yapışkan Tuşlar, Filtre Tuşları ve Değiştirme Tuşları klavye kısayollarını devre dışı bırakır.</value>
+    <value>Shift veya kilit tuşlarına art arda basıldığında ya da basılı tutulduğunda Yapışkan Tuşlar, Süzme Tuşları ve Geçiş Tuşları pencerelerini açan kısayolları kapatır.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Name" xml:space="preserve">
     <value>Hazırda Bekletme ve Hızlı Başlatmayı Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription" xml:space="preserve">
-    <value>Disk alanını geri kazanmak ve önyükleme sırasında daha temiz donanım başlatma için tam kapatmayı sağlamak amacıyla hazırda bekletmeyi ve Hızlı Başlatmayı kapatır.</value>
+    <value>Temiz soğuk açılış için yalnızca Hızlı Başlatma'yı kapatır veya birkaç gigabayt disk alanı açmak için Hazırda Bekletme'yi tamamen devre dışı bırakır.</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.Name" xml:space="preserve">
     <value>USB Güç Tasarrufunu Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription" xml:space="preserve">
-    <value>Windows'un USB portlarını kapatmasını önler; böylece fare, klavye ve diğer çevre birimlerinde uyanma gecikmeleri ortadan kalkar.</value>
+    <value>Fare, klavye ve ses aygıtlarında uyanma gecikmesini önlemek için Windows'un USB kök hub'larını uyutmasını engeller.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Name" xml:space="preserve">
     <value>Optimize Edilmiş Güç Planını Uygula</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription" xml:space="preserve">
-    <value>Sisteminizin her zaman maksimum hızda çalışmasını sağlamak için özel performans odaklı bir güç planı yükler. Uyarı: Bazı sistemlerde Görev Yöneticisinde yanlışlıkla %100 CPU kullanımı gösterilebilir, ancak gerçek CPU yükü etkilenmez.</value>
+    <value>CPU çekirdeklerini duyarlı tutan ve frekans geçiş gecikmelerini azaltan özel yüksek performans güç planı kurup etkinleştirir.</value>
   </data>
   <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.Progress.Importing" xml:space="preserve">
-    <value>Güç planı içe aktarılıyor ve etkinleştiriliyor...</value>
+    <value>Güç planı yükleniyor ve etkinleştiriliyor...</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.Name" xml:space="preserve">
     <value>Sistem Güç Kısıtlamasını Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.PowerManagement.DisablePowerSaving.ShortDescription" xml:space="preserve">
-    <value>Windows'un aktif görevler için en yüksek gücü korumak adına CPU performansını (Güç Kısıtlama) sınırlamasını önler.</value>
+    <value>Etkin ve arka plan uygulamalarının CPU frekans kısıtlaması olmadan çalışması için Windows Power Throttling'i kapatır.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Name" xml:space="preserve">
     <value>Veri Toplamayı Devre Dışı Bırak (Telemetri)</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription" xml:space="preserve">
-    <value>Kişisel gizliliğinizi artırmak ve arka plan etkinliğini azaltmak için Windows telemetri ve kullanım izleme servislerini devre dışı bırakır.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry" xml:space="preserve">
-    <value>İlke ve kayıt defteri değişiklikleri uygulanıyor...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices" xml:space="preserve">
-    <value>Telemetri servisleri devre dışı bırakılıyor...</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks" xml:space="preserve">
-    <value>Zamanlanmış telemetri görevleri devre dışı bırakılıyor...</value>
+    <value>Windows tanılama veri toplamasını, uygulama uyumluluk envanterini ve geri bildirim istemlerini en aza indirir.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.Name" xml:space="preserve">
     <value>Hata Raporlamayı Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription" xml:space="preserve">
-    <value>Windows Hata Raporlama ve Program Uyumluluğu Yardımcısı servislerini devre dışı bırakır.</value>
+    <value>Windows Hata Bildirimi'ni kapatır ve çökme ile disk tanılama raporlarını toplayan veya gönderen zamanlanmış görevleri durdurur.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.Name" xml:space="preserve">
     <value>Reklam ve Önerileri Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAdvertisingAndSuggestions.ShortDescription" xml:space="preserve">
-    <value>Kişiselleştirilmiş reklamları, Windows tüketici özelliklerini ve sistem önerilerini devre dışı bırakır.</value>
+    <value>Windows Reklam Kimliğini, tanılama verilerine dayalı kişiselleştirilmiş deneyimleri, tüketici tanıtımlarını ve kurulum öneri istemlerini kapatır.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.Name" xml:space="preserve">
     <value>Etkinlik Geçmişini Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableActivityHistory.ShortDescription" xml:space="preserve">
-    <value>Windows'un etkinlik geçmişinizi toplamasını ve eşitlemesini önler.</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name" xml:space="preserve">
-    <value>Konum ve Sensörleri Devre Dışı Bırak</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription" xml:space="preserve">
-    <value>Konum takibini, sistem sensörlerini ve çevrimdışı harita güncellemelerini devre dışı bırakır.</value>
+    <value>Windows'un uygulama ve dosya etkinlik geçmişinizi yayımlamasını ve Microsoft'a yüklemesini durdurur.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.Name" xml:space="preserve">
     <value>Arka Plan Günlüğünü Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.ShortDescription" xml:space="preserve">
-    <value>Temel olmayan WMI/ETW AutoLogger oturumlarının (Diagtrack-Listener, SQMLogger vb.) açılışta başlamasını engelleyerek arka plandaki disk ve CPU etkinliğini azaltır. Not: Güvenlik yazılımları, tanılama izlemeyi değiştirdikleri için AutoLogger değişikliklerini işaretleyebilir.</value>
+    <value>Arka plan disk yazımlarını ve CPU yükünü azaltmak için önyüklemede gereksiz Windows ETW tanılama izleme oturumlarını kapatır.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.Name" xml:space="preserve">
     <value>Cortana ve Web Aramayı Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableCortana.ShortDescription" xml:space="preserve">
-    <value>Cortana sesli asistanını kapatır ve Windows Arama'da bulut aramasını ve web sonuçlarını devre dışı bırakır (yalnızca Windows 10).</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.Name" xml:space="preserve">
-    <value>Windows Copilot'ı Devre Dışı Bırak</value>
-  </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription" xml:space="preserve">
-    <value>Belleği ve ekran alanını boşaltmak için AI Copilot asistanını görev çubuğundan ve sistem kabuğundan kaldırır.</value>
+    <value>Windows 10'da Cortana'yı kapatır ve Windows Search'ün yerel sorguları bulut aramasına göndermesini engeller.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.Name" xml:space="preserve">
-    <value>Bulut İçerik Dağıtımını Devre Dışı Bırak</value>
+    <value>Arka plan bulut içeriklerini devre dışı bırak</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription" xml:space="preserve">
-    <value>Sistem ipuçları, spotlight önerileri ve tüketici özelliklerinin otomatik dağıtımı dahil olmak üzere Windows bulut tabanlı içeriği kapatır.</value>
+    <value>Windows'un arka planda kilit ekranı Spotlight önerilerini, sistem ipuçlarını ve tanıtım içeriklerini indirmesini durdurur.</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.Name" xml:space="preserve">
     <value>Önceden Yüklenmiş Yazılımları Engelle</value>
   </data>
   <data name="Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription" xml:space="preserve">
-    <value>Windows'un istenmeyen üçüncü taraf uygulamaları ve tanıtılan yazılımları otomatik olarak yeniden yüklemesini önler.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Name" xml:space="preserve">
-    <value>Sistem Servislerini Optimize Et</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription" xml:space="preserve">
-    <value>Tüm gerekli Windows işlevselliğini korurken kaynakları boşaltmak için temel olmayan arka plan servislerini ayarlar.</value>
-  </data>
-  <data name="Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType" xml:space="preserve">
-    <value>{0} için başlangıç türü {1} olarak ayarlanıyor...</value>
+    <value>Windows'un tanıtılan tüketici uygulamalarını sessizce indirip Başlat menüsüne sabitlemesini engeller.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display" xml:space="preserve">
     <value>Ekran</value>
@@ -622,65 +577,41 @@
   <data name="Optimizer.UserExperience" xml:space="preserve">
     <value>Kullanıcı Deneyimi</value>
   </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name" xml:space="preserve">
-    <value>Explorer ve Menüleri Hızlandır</value>
-  </data>
-  <data name="Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription" xml:space="preserve">
-    <value>Explorer başlangıç gecikmesini ortadan kaldırmak ve menü fareyle üzerine gelme gecikmesini minimuma indirmek için StartupDelayInMSec=0, MenuShowDelay=0 değerlerini ayarlar.</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
-    <value>Görsel Efektleri Devre Dışı Bırak</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
-    <value>Daha iyi performans için GPU/CPU kaynaklarını serbest bırakmak amacıyla görev çubuğu animasyonlarını, liste görünümü gölgelerini, pencere şeffaflığını ve Aero Peek'i devre dışı bırakır.</value>
-  </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.Name" xml:space="preserve">
     <value>AMD ULPS'yi Devre Dışı Bırak</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableUlps.ShortDescription" xml:space="preserve">
-    <value>Ultra Düşük Güç Durumu uyanma gecikmelerini ve çoklu monitör sorunlarını önlemek için AMD GPU kayıt defterinde EnableULPS=0 değerini ayarlar. Boştayken güç tasarrufunu azaltır.</value>
+    <value>İkincil GPU uyanma takılmalarını ve çoklu monitör titremelerini önlemek için AMD GPU'larda Ultra Düşük Güç Durumunu (ULPS) kapatır.</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.Name" xml:space="preserve">
     <value>AMD Güç Kapılamasını Devre Dışı Bırak</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisablePowerGating.ShortDescription" xml:space="preserve">
-    <value>AMD GPU güç durumu geçişlerini önlemek için DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 değerlerini ayarlar. Daha yüksek boşta güç tüketimi karşılığında tutarlı saat hızları sağlar.</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
-    <value>AMD Video Saat Kapılamasını Devre Dışı Bırak</value>
-  </data>
-<data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
-    <value>Kodlama/kod çözme kararlılığını artırmak için AMD video motorları (VCE/UVD) için DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 değerlerini ayarlar. Video oynatma güç tüketimini artırır.</value>
+    <value>Grafik motorlarının ani iş yükleri arasında enerjili kalması için AMD GPU power gating ve dinamik güç ölçeklemesini kapatır.</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.Name" xml:space="preserve">
     <value>AMD ASPM'yi Devre Dışı Bırak</value>
   </data>
 <data name="Optimizer.Gpu.AmdDisableAspm.ShortDescription" xml:space="preserve">
-    <value>AMD GPU'larda PCIe veri yolu gecikmesini azaltmak için Aktif Durum Güç Yönetimi'ni devre dışı bırakmak amacıyla EnableAspmL0s=0, EnableAspmL1=0 değerlerini ayarlar. Yuva güç tüketimini artırır.</value>
+    <value>PCIe bağlantı uyanma gecikmesini azaltmak için AMD kartlarda PCIe Active State Power Management (L0s ve L1) özelliğini kapatır.</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.Name" xml:space="preserve">
     <value>NVIDIA Dinamik P-State'i Devre Dışı Bırak</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription" xml:space="preserve">
-    <value>Saat hızı dalgalanmalarını önlemek için NVIDIA GPU'yu sabit performans durumunda kilitlemek amacıyla DisableDynamicPstate=1 değerini ayarlar. Boştaki güç tüketimini artırır.</value>
+    <value>NVIDIA GPU'ların dinamik düşük güç P-state durumlarına düşmesini önleyerek kısa veya hafif yüklerde saat hızı geçişlerini engeller.</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.Name" xml:space="preserve">
     <value>NVIDIA Asenkron P-State'leri Devre Dışı Bırak</value>
   </data>
 <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription" xml:space="preserve">
-    <value>VR/gerçek zamanlı uygulamalar için belirleyici performans sağlamak amacıyla NVIDIA asenkron güç durumu geçişini önlemek için DisableASyncPstates=1 değerini ayarlar.</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
-    <value>Intel Asenkron Çevirmelerini Devre Dışı Bırak</value>
-  </data>
-<data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
-    <value>Intel iGPU'da girişten ekrana gecikmeyi ve ekran yırtılmasını azaltmak için senkron tampon geçişlerini zorlamak amacıyla Display1_DisableAsyncFlips=1 değerini ayarlar.</value>
+    <value>Daha tutarlı kare zamanlaması için ani yüklerde NVIDIA sürücülerinin eşzamansız performans durumu geçişini durdurur.</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.Name" xml:space="preserve">
     <value>Intel Uyarlamalı V-Sync'i Devre Dışı Bırak</value>
   </data>
 <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.ShortDescription" xml:space="preserve">
-    <value>Kararlı zamanlama için sabit V-Sync kullanmak amacıyla kare hızına göre dinamik olarak ayarlanan Intel uyarlamalı V-Sync'i devre dışı bırakmak için AdaptiveVsyncEnable=0 değerini ayarlar.</value>
+    <value>Grafik zamanlamasının uygulama veya sabit senkronizasyon davranışını izlemesi için Intel sürücü uyarlanabilir V-Sync'ini kapatır.</value>
   </data>
 
   <data name="Customize.Preferences.Section.Taskbar" xml:space="preserve">
@@ -1200,22 +1131,22 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value>Diğer</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRevertFile.Description" xml:space="preserve">
-    <value>Bu optimizasyon için geri alma verilerini içeren ham JSON dosyasını aç.</value>
+    <value>Geri alırken önceki ayarları yüklemek için kullanılan JSON yedeğini gösterir.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Description" xml:space="preserve">
-    <value>Bu optimizasyonun kaynak kodunu tarayıcınızda açın.</value>
+    <value>Bu iyileştirmenin C# uygulamasını GitHub üzerinde inceleyin.</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.ViewSource.Title" xml:space="preserve">
-    <value>GitHub'da Kaynak Kodu Görüntüle</value>
+    <value>Kaynak kodu görüntüle</value>
   </data>
   <data name="OptimizationDetailsDialog.TechnicalDetails" xml:space="preserve">
-    <value>Teknik Ayrıntılar</value>
+    <value>Teknik ayrıntılar</value>
   </data>
   <data name="OptimizationDetailsDialog.Id" xml:space="preserve">
-    <value>Optimizasyon Kimliği</value>
+    <value>İyileştirme ID</value>
   </data>
   <data name="OptimizationDetailsDialog.Class" xml:space="preserve">
-    <value>Sınıf Adı</value>
+    <value>Tanımlayıcı anahtar</value>
   </data>
   <data name="StartupManager.Apps.Title" xml:space="preserve">
     <value>Başlangıç Uygulamaları</value>
@@ -1679,12 +1610,6 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Customize.SystemFeatures.ShowBatteryPercentage.Description" xml:space="preserve">
     <value>Bildirim alanında pil simgesinin yanında geçerli pil yüzdesini gösterir.</value>
   </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
-    <value>Başlat Menüsü Web Aramasını Devre Dışı Bırak</value>
-  </data>
-  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
-    <value>Windows Başlat Menüsü için web aramasını kapatır; yerel arama sonuçlarını daha hızlı yükler.</value>
-  </data>
   <data name="DiskCleanup.Dialog.Confirmation.Warning" xml:space="preserve">
     <value>Dosyalar kalıcı olarak silinecektir. Bu işlem geri alınamaz.</value>
   </data>
@@ -1721,14 +1646,11 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Customize.CustomOption.NotSet" xml:space="preserve">
     <value>Ayarlanmadı</value>
   </data>
-  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
-    <value>Haberler ve İlgi Alanlarını Devre Dışı Bırak</value>
-  </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.Name" xml:space="preserve">
     <value>Meet Now Düğmesini Gizle</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription" xml:space="preserve">
-    <value>Meet Now (Skype) düğmesini görev çubuğu bildirim alanından gizler. Yalnızca Windows 10.</value>
+    <value>Windows 10 görev çubuğu bildirim alanından Meet Now düğmesini gizler.</value>
   </data>
   <data name="Customize.Preferences.LaunchToThisPc.Options.QuickAccess" xml:space="preserve">
     <value>Hızlı Erişim</value>
@@ -1743,34 +1665,34 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value>Click To Do'yu Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.AI.DisableClickToDo.ShortDescription" xml:space="preserve">
-    <value>Ekranınızdaki metin ve görselleri analiz eden, yapay zekâ destekli Click To Do katmanını kapatır.</value>
+    <value>Ekrandaki metin ve görselleri yapay zeka eylemleri için tarayan Click To Do katmanını devre dışı bırakır.</value>
   </data>
   <data name="Optimizer.AI.DisableRecall.Name" xml:space="preserve">
     <value>Windows Recall'ı Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.Name" xml:space="preserve">
-    <value>Teslimat İyileştirmesini Devre Dışı Bırak (P2P)</value>
+    <value>Delivery Optimization (P2P) kapat</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableDeliveryOptimization.ShortDescription" xml:space="preserve">
-    <value>Windows'un güncelleme dosyalarını diğer bilgisayarlarla eşler arası (P2P) paylaşmasını veya indirmesini durdurur; böylece güncellemeler yalnızca Microsoft sunucularından gelir.</value>
+    <value>Güncellemelerin yalnızca Microsoft sunucularından indirilmesi için PC'ler arası P2P güncelleme paylaşımını durdurur.</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.Name" xml:space="preserve">
     <value>Cihazımı Bul'u Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.ShortDescription" xml:space="preserve">
-    <value>Cihazınızın konumunu düzenli olarak Microsoft'a bildiren Cihazımı Bul özelliğini devre dışı bırakır.</value>
+    <value>PC'nin konumunu Microsoft hesabınıza düzenli olarak bildirmesini durdurmak için Cihazımı Bul'u kapatır.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.Name" xml:space="preserve">
     <value>Ayarlar'daki Microsoft 365 Reklamlarını Devre Dışı Bırak</value>
   </data>
   <data name="Optimizer.UserExperience.DisableSettings365Ads.ShortDescription" xml:space="preserve">
-    <value>Ayarlar ana sayfasındaki Microsoft 365 ve Copilot tanıtım içeriklerini kaldırır.</value>
+    <value>Windows Ayarları Giriş sayfasından Microsoft 365 ve hesap tanıtım afişlerini kaldırır.</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.Name" xml:space="preserve">
     <value>Başlat Menüsünde Önerilenler Bölümünü Gizle</value>
   </data>
   <data name="Optimizer.UserExperience.DisableStartRecommended.ShortDescription" xml:space="preserve">
-    <value>Başlat menüsündeki Önerilenler bölümünü gizleyerek menüyü sadeleştirir ve son dosyalar ile uygulamaların görünmesini engeller.</value>
+    <value>Son dosyaları ve uygulama önerilerini kaldırmak için Windows 11 Başlat menüsündeki Önerilen bölümünü gizler.</value>
   </data>
   <data name="Condition.Error.Title" xml:space="preserve">
     <value>Uyumluluk denetimi başarısız oldu</value>
@@ -1863,16 +1785,10 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value>Bazı ayarlar mevcut sisteminizde kullanılamıyor.</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.Name" xml:space="preserve">
-    <value>WebDAV 50 MB sınırını kaldır</value>
+    <value>WebDAV 50 MB Sınırını Kaldır</value>
   </data>
   <data name="Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription" xml:space="preserve">
-    <value>Ağ konumlarındaki büyük dosyaların aktarımında hata oluşmaması için WebClient dosya boyutu sınırını 50 MB'tan 4 GB'a yükseltir.</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
-    <value>Güncelleme duraklatma sınırını en üst düzeye çıkar</value>
-  </data>
-  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
-    <value>Windows Update duraklatma tavanını desteklenen en büyük değere ayarlar. Yalnızca bu ayarı destekleyen Windows sürümlerinde geçerlidir; etkinken güvenlik güncellemeleri de duraklatılır.</value>
+    <value>WebDAV ağ sürücülerinde büyük dosyaların başarısız olmasını önlemek için Windows WebClient aktarım sınırını 50 MB'den 4 GB'a çıkarır.</value>
   </data>
   <data name="Customize.Gaming.DlssIndicator.Name" xml:space="preserve">
     <value>DLSS yer paylaşımı göstergesi</value>
@@ -2187,10 +2103,10 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value> (her {0}, {1} boyunca tekrarla)</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal" xml:space="preserve">
-    <value>Zaten en iyi durumda</value>
+    <value>Zaten en uygun</value>
   </data>
   <data name="Optimizer.UI.State.AlreadyOptimal.Tooltip" xml:space="preserve">
-    <value>Bu bilgisayar bu iyileştirmeyle zaten uyumlu, değiştirilecek bir şey yok.</value>
+    <value>Bilgisayarınız zaten bu ayarı kullanıyor, değiştirilecek bir şey yok.</value>
   </data>
   <data name="Optimization.Apply.NothingToDo" xml:space="preserve">
     <value>Değiştirilecek bir şey yok: {0} bu bilgisayarla zaten uyumlu.</value>
@@ -2211,13 +2127,13 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value>Windows şu paketleri kaldırmadı: {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip" xml:space="preserve">
-    <value>Son uygulamanın her adımını görmek için tıklayın. {0}</value>
+    <value>Kaydedilen tüm adımları görmek için tıklayın. {0}</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Tooltip.NoSummary" xml:space="preserve">
-    <value>Son uygulamanın her adımını görmek için tıklayın.</value>
+    <value>Kaydedilen tüm adımları görmek için tıklayın.</value>
   </data>
   <data name="Optimizer.UI.State.Applied.Summary" xml:space="preserve">
-    <value>{0} adım değişti, {1} adım zaten uygundu, {2} adım uygulanamadı, {3} adım Windows tarafından reddedildi</value>
+    <value>{0} değişti, {1} zaten uygundu, {2} atlandı, {3} Windows engelledi</value>
   </data>
   <data name="Optimizer.Details.Record.Title" xml:space="preserve">
     <value>Son kaydedilen çalıştırma</value>
@@ -2244,58 +2160,58 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value>Başarısız</value>
   </data>
   <data name="Optimizer.UI.Tags.Security.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme Windows'taki güvenlik ayarlarıyla ilgilidir.</value>
+    <value>Windows güvenlik, yalıtım veya şifreleme ayarlarını değiştirir.</value>
   </data>
   <data name="Optimizer.UI.Tags.Privacy.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme Windows'un topladığı ve gönderdiği verilerle ilgilidir.</value>
+    <value>Telemetriyi, tanılamayı ve Microsoft ya da uygulamalarla paylaşılan verileri sınırlar.</value>
   </data>
   <data name="Optimizer.UI.Tags.System.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme Windows'un çekirdek bir bölümüyle, bir bileşen ya da ilkeyle ilgilidir; bu yüzden önce ne yaptığını okumakta fayda var.</value>
+    <value>Temel Windows bileşenlerini veya sistem ilkelerini değiştirir; uygulamadan önce ayrıntıları inceleyin.</value>
   </data>
   <data name="Optimizer.UI.Tags.Performance.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme performans ve arka planda çalışan işlerle ilgilidir.</value>
+    <value>Sistem tepki hızını, CPU zamanlamasını ve arka plan yükünü hedefler.</value>
   </data>
   <data name="Optimizer.UI.Tags.Latency.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme giriş, oyun veya seste yaşanan gecikmeyle ilgilidir.</value>
+    <value>Giriş, ses veya kare süresi tepki gecikmelerini azaltır.</value>
   </data>
   <data name="Optimizer.UI.Tags.Disk.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme Windows'un diskleri nasıl kullandığıyla ilgilidir.</value>
+    <value>Windows'un sürücüleri okuma, yazma veya dizine ekleme biçimini değiştirir.</value>
   </data>
   <data name="Optimizer.UI.Tags.Ram.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme Windows'un belleği nasıl kullandığıyla ilgilidir.</value>
+    <value>Arka plandaki RAM kullanımını ve bellek yükünü azaltır.</value>
   </data>
   <data name="Optimizer.UI.Tags.Display.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme ekranın veya ekran kartının çıktısıyla ilgilidir.</value>
+    <value>Ekran çıkışı, yenileme hızı davranışını veya GPU görüntü özelliklerini ayarlar.</value>
   </data>
   <data name="Optimizer.UI.Tags.Nvidia.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme yalnızca NVIDIA ekran kartlı bilgisayarlarla ilgilidir, diğerlerinde bir şey yapmaz.</value>
+    <value>Yalnızca NVIDIA grafik kartlı bilgisayarlarda geçerlidir; diğer donanımlarda yok sayılır.</value>
   </data>
   <data name="Optimizer.UI.Tags.Amd.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme yalnızca AMD ekran kartlı bilgisayarlarla ilgilidir, diğerlerinde bir şey yapmaz.</value>
+    <value>Yalnızca AMD grafik kartlı bilgisayarlarda geçerlidir; diğer donanımlarda yok sayılır.</value>
   </data>
   <data name="Optimizer.UI.Tags.Intel.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme yalnızca Intel ekran kartlı bilgisayarlarla ilgilidir, diğerlerinde bir şey yapmaz.</value>
+    <value>Yalnızca Intel grafik kartlı bilgisayarlarda geçerlidir; diğer donanımlarda yok sayılır.</value>
   </data>
   <data name="Optimizer.UI.Tags.Power.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme güçle, yani pil ömrü, ısı veya fan sesiyle ilgilidir.</value>
+    <value>Enerji tüketimini, pil ömrünü, ısıyı ve fan hızını etkiler.</value>
   </data>
   <data name="Optimizer.UI.Tags.Network.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme ağla, bağlantıyla ve üzerindeki trafikle ilgilidir.</value>
+    <value>Windows ağ bağdaştırıcısı, aktarım veya arka plan trafiği davranışını değiştirir.</value>
   </data>
   <data name="Optimizer.UI.Tags.NetworkRequired.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme bir şey indirdiği için internet bağlantısı gerektirir.</value>
+    <value>Gerekli dosyaları indirmek için etkin bir internet bağlantısı gerekir.</value>
   </data>
   <data name="Optimizer.UI.Tags.Audio.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme sesin nasıl çalındığı ve işlendiğiyle ilgilidir.</value>
+    <value>Windows'un sesi işleme ve yönlendirme biçimini ayarlar.</value>
   </data>
   <data name="Optimizer.UI.Tags.Visual.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme Windows'un görünümü, efektleri ve animasyonlarıyla ilgilidir.</value>
+    <value>Windows arayüz öğelerini, önerileri veya görsel efektleri ayarlar.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows10Only.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme yalnızca Windows 10 içindir ve Windows 11'de bir şey yapmaz.</value>
+    <value>Windows 10 için tasarlanmıştır; Windows 11'de otomatik gizlenir.</value>
   </data>
   <data name="Optimizer.UI.Tags.Windows11Only.Tooltip" xml:space="preserve">
-    <value>Bu iyileştirme yalnızca Windows 11 içindir ve Windows 10'da engellenir.</value>
+    <value>Windows 11 için tasarlanmıştır; Windows 10'da otomatik gizlenir.</value>
   </data>
   <data name="Optimizer.Details.Record.Apply" xml:space="preserve">
     <value>Uygulandı: {0}</value>
@@ -2430,10 +2346,10 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
     <value>Değer</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Title" xml:space="preserve">
-    <value>Kayıt dosyasını göster</value>
+    <value>Geçmiş kaydını aç</value>
   </data>
   <data name="OptimizationDetailsDialog.Other.OpenRecordFile.Description" xml:space="preserve">
-    <value>Bu iyileştirmenin ne yaptığını optimizerDuck'ın yazdığı dosyayı açar. Geri aldıktan sonra da kalır, sonradan bakabilirsiniz.</value>
+    <value>optimizerDuck tarafından kaydedilen değişikliklerin JSON günlüğünü gösterir (geri alınsa bile korunur).</value>
   </data>
   <data name="Optimizer.Details.Provider.Registry" xml:space="preserve">
     <value>Kayıt defteri</value>
@@ -2509,5 +2425,620 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   </data>
   <data name="Error.Unhandled.LogHint" xml:space="preserve">
     <value>Ayrıntılar günlük dosyasında.</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.Name" xml:space="preserve">
+    <value>Windows Copilot'ı Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.AI.DisableCopilot.ShortDescription" xml:space="preserve">
+    <value>Windows Copilot'ı devre dışı bırakır ve oturum kapatıldığında görev çubuğundan Copilot düğmesini kaldırır.</value>
+  </data>
+  <data name="Condition.Laptop.Title" xml:space="preserve">
+    <value>Dizüstü bilgisayar gerekli</value>
+  </data>
+  <data name="Condition.Laptop.Description" xml:space="preserve">
+    <value>Bu optimizasyon yalnızca pilli taşınabilir cihazlar için geçerlidir.</value>
+  </data>
+  <data name="Condition.MaxRam.12.Title" xml:space="preserve">
+    <value>En fazla 12 GB RAM gerekli</value>
+  </data>
+  <data name="Condition.MaxRam.12.Description" xml:space="preserve">
+    <value>12 GB üzeri RAM'e sahip sistemler aşırı bellek yükü olmadan Service Host yalıtımından yararlanır.</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Title" xml:space="preserve">
+    <value>Bellek Bütünlüğü kullanılamıyor</value>
+  </data>
+  <data name="Condition.MemoryIntegrity.Description" xml:space="preserve">
+    <value>Bu cihazda Memory Integrity (HVCI) algılanamadı veya desteklenmiyor.</value>
+  </data>
+  <data name="Condition.PhysicalNic.Title" xml:space="preserve">
+    <value>Fiziksel ağ bağdaştırıcısı bulunamadı</value>
+  </data>
+  <data name="Condition.PhysicalNic.Description" xml:space="preserve">
+    <value>Bu sistemde fiziksel Ethernet veya Wi-Fi bağdaştırıcısı algılanmadı.</value>
+  </data>
+  <data name="Condition.WsAiFabric.Title" xml:space="preserve">
+    <value>Windows AI hizmeti bulunamadı</value>
+  </data>
+  <data name="Condition.WsAiFabric.Description" xml:space="preserve">
+    <value>Bu Windows derlemesi arka plan Windows AI hizmetini içermiyor.</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Name" xml:space="preserve">
+    <value>Saydamlık Efektleri</value>
+  </data>
+  <data name="Customize.Preferences.TransparencyEffects.Description" xml:space="preserve">
+    <value>Görev çubuğu, Başlat menüsü ve uygulamalarda Acrylic ve Mica saydamlık efektlerini açar.</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Name" xml:space="preserve">
+    <value>Görev Çubuğu Animasyonları</value>
+  </data>
+  <data name="Customize.Preferences.TaskbarAnimations.Description" xml:space="preserve">
+    <value>Pencereleri açarken veya değiştirirken görev çubuğu simge animasyonlarını kontrol eder.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Name" xml:space="preserve">
+    <value>Multi-Plane Overlay (MPO)</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Description" xml:space="preserve">
+    <value>Uyumlu GPU Driver'larının masaüstü ve oyun katmanlarını donanımda birleştirmesini sağlar. Yalnızca titreme sorunlarında kapatın.</value>
+  </data>
+  <data name="Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason" xml:space="preserve">
+    <value>Modern GPU'lar MPO ile düşük gecikme sunar; yalnızca ekran titremesi veya siyah ekran hatasında kapatın.</value>
+  </data>
+  <data name="Optimizer.Details.Reason.ServiceAlreadyStricter" xml:space="preserve">
+    <value>Hizmet başlangıç türü zaten hedeften daha kısıtlı olduğu için atlandı</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Explorer" xml:space="preserve">
+    <value>Explorer yeniden başlatma gerekli</value>
+  </data>
+  <data name="Optimizer.UI.Restart.SignOut" xml:space="preserve">
+    <value>Oturum kapatma gerekli</value>
+  </data>
+  <data name="Optimizer.UI.Restart.Reboot" xml:space="preserve">
+    <value>Yeniden başlatma gerekli</value>
+  </data>
+  <data name="Optimizer.UI.Badge.Configurable" xml:space="preserve">
+    <value>Uygulamadan önce yapılandırılabilir</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy" xml:space="preserve">
+    <value>Group Policy</value>
+  </data>
+  <data name="Optimizer.UI.Badge.GroupPolicy.Tooltip" xml:space="preserve">
+    <value>Windows Group Policy ayarlarını kullanır. Etkin durumdayken Windows Ayarları 'Bazı ayarlar kuruluşunuz tarafından yönetilir' uyarısı gösterebilir.</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted" xml:space="preserve">
+    <value>Dışarıdan değiştirildi</value>
+  </data>
+  <data name="Optimizer.UI.State.Drifted.Tooltip" xml:space="preserve">
+    <value>Kayıtlı bir yedek mevcut, ancak güncel Windows ayarları artık eşleşmiyor (ör. Windows Update veya elle değişiklik sonrası).</value>
+  </data>
+  <data name="Optimizer.Menu.Reconfigure" xml:space="preserve">
+    <value>Seçenekleri yeniden yapılandır</value>
+  </data>
+  <data name="Optimizer.Menu.Details" xml:space="preserve">
+    <value>Ayrıntılar ve geçmiş</value>
+  </data>
+  <data name="Optimizer.Confirm.Message" xml:space="preserve">
+    <value>Bu ayar daha derin sistem veya güvenlik değişiklikleri yapar. Devam etmeden önce aşağıdaki ödünleri inceleyin.</value>
+  </data>
+  <data name="Optimizer.Confirm.Apply" xml:space="preserve">
+    <value>Yine de uygula</value>
+  </data>
+  <data name="Optimizer.Options.Apply" xml:space="preserve">
+    <value>Seçilenleri uygula</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet" xml:space="preserve">
+    <value>Zaten ayarlı</value>
+  </data>
+  <data name="Optimizer.Options.SelectAtLeastOne" xml:space="preserve">
+    <value>Devam etmek için en az bir seçenek seçin.</value>
+  </data>
+  <data name="Optimizer.Options.Enabled" xml:space="preserve">
+    <value>Etkin</value>
+  </data>
+  <data name="Optimizer.Options.Disabled" xml:space="preserve">
+    <value>Devre dışı</value>
+  </data>
+  <data name="Optimizer.Legacy.Header" xml:space="preserve">
+    <value>Yedeği kalmış eski iyileştirmeler</value>
+  </data>
+  <data name="Optimizer.Legacy.Description" xml:space="preserve">
+    <value>Bu ayarlar yeni bir güncellemede kaldırıldı veya değiştirildi, ancak özgün yedeğiniz diskte durduğu için dilediğiniz zaman geri alabilirsiniz.</value>
+  </data>
+  <data name="Optimizer.Legacy.Revert" xml:space="preserve">
+    <value>Geri al</value>
+  </data>
+  <data name="Optimizer.Legacy.StepCount" xml:space="preserve">
+    <value>Geri alınacak {0} adım</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertSuccess" xml:space="preserve">
+    <value>"{0}" geri alındı ve kayıtlı yedeği kaldırıldı.</value>
+  </data>
+  <data name="Optimizer.Legacy.RevertFailed" xml:space="preserve">
+    <value>Eski yedek geri alınamadı: {0}</value>
+  </data>
+  <data name="OptimizationDetailsDialog.TradeOff" xml:space="preserve">
+    <value>Ödün / Etki</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Impacts" xml:space="preserve">
+    <value>Etkiler</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Sources" xml:space="preserve">
+    <value>Kaynaklar</value>
+  </data>
+  <data name="OptimizationDetailsDialog.SelectedOptions" xml:space="preserve">
+    <value>Uygulanan seçenekler</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedTitle" xml:space="preserve">
+    <value>Ayarlar dışarıdan değiştirildi</value>
+  </data>
+  <data name="OptimizationDetailsDialog.DriftedMessage" xml:space="preserve">
+    <value>Diskte bir yedek dururken geçerli Windows ayarları artık bu iyileştirmeyle eşleşmiyor. Yeniden uygulamak için anahtarı AÇIK yapın, kalan adımları geri alın veya eski yedeği silin.</value>
+  </data>
+  <data name="OptimizationDetailsDialog.RevertRemaining" xml:space="preserve">
+    <value>Kalanları geri al</value>
+  </data>
+  <data name="OptimizationDetailsDialog.ClearStale" xml:space="preserve">
+    <value>Eski yedeği sil</value>
+  </data>
+  <data name="OptimizationDetailsDialog.Reconfigure" xml:space="preserve">
+    <value>Yeniden yapılandır</value>
+  </data>
+  <data name="OptimizationDetailsDialog.GroupPolicyNotice" xml:space="preserve">
+    <value>Standart Windows Group Policy ayarlarını uygular. Etkin durumdayken bazı Windows Ayarlar sayfalarında kuruluş tarafından yönetildiği yazabilir.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.Name" xml:space="preserve">
+    <value>AI Fabric Hizmetini El İle yap</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.ShortDescription" xml:space="preserve">
+    <value>Windows AI Fabric arka plan hizmetini elle başlatmaya alır; böylece bir yapay zeka özelliği istemedikçe boşta çalışmaz.</value>
+  </data>
+  <data name="Optimizer.AI.DisableAiServiceAutoStart.TradeOff" xml:space="preserve">
+    <value>Bu hizmete bağlı Windows AI araçlarının ilk açılışı birkaç saniye daha uzun sürebilir.</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.Name" xml:space="preserve">
+    <value>Microsoft Edge'de AI'ı devre dışı bırak</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.ShortDescription" xml:space="preserve">
+    <value>Microsoft Edge içindeki Copilot kenar çubuğunu, satır içi yazım istemlerini, yapay zeka geçmiş aramasını ve yerel AI modellerini kapatır.</value>
+  </data>
+  <data name="Optimizer.AI.DisableRecall.TradeOff" xml:space="preserve">
+    <value>Windows Recall zaman çizelgesi aramasını kapatır ve kayıtlı tüm anlık görüntüleri kalıcı olarak siler.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name" xml:space="preserve">
+    <value>Kullanılmayan Eski Hizmetleri Kapat</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription" xml:space="preserve">
+    <value>Ev bilgisayarlarında nadiren gereken Faks, Uzaktan Kayıt Defteri, Retail Demo, App-V ve Yönlendirme ve Uzaktan Erişim gibi eski/kurumsal hizmetleri kapatır, Çevrimdışı Dosyalar'ı elle başlatmaya alır.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff" xml:space="preserve">
+    <value>Eski Faks, Uzaktan Kayıt Defteri, Yönlendirme ve Uzaktan Erişim ve App-V geri alınana kadar kapalı kalır; Çevrimdışı Dosyalar yalnızca elle başlar.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name" xml:space="preserve">
+    <value>İsteğe Bağlı Özellik Hizmetlerini Kapat</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription" xml:space="preserve">
+    <value>Yazdırma, Bluetooth, Xbox, Yerel Ağ Paylaşımı, Biyometri veya Uzak Masaüstü gibi kullanmadığınız isteğe bağlı Windows hizmet gruplarını kapatır.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff" xml:space="preserve">
+    <value>Yalnızca seçtiğiniz donanım veya ağ özellikleri siz yeniden yapılandırana ya da geri alana kadar devre dışı kalır.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection" xml:space="preserve">
+    <value>Hiçbir hizmet grubu seçilmedi</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label" xml:space="preserve">
+    <value>Yazdırma ve Biriktirici</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description" xml:space="preserve">
+    <value>Yazdırma Biriktiricisi ve yazıcı bildirim arka plan hizmetlerini durdurur.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff" xml:space="preserve">
+    <value>Yerel yazıcılar, ağ yazıcıları ve Microsoft Print to PDF çalışmaz.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label" xml:space="preserve">
+    <value>Bluetooth</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description" xml:space="preserve">
+    <value>Windows Bluetooth bulma, eşleştirme ve eller serbest ses hizmetlerini durdurur.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff" xml:space="preserve">
+    <value>Bluetooth klavye, fare, oyun kolu ve kulaklıklar bağlanmaz.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label" xml:space="preserve">
+    <value>Xbox Live Hizmetleri</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description" xml:space="preserve">
+    <value>Xbox Live oturum açma, bulut kayıt eşitleme, aksesuar ve Xbox ağ hizmetlerini durdurur.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff" xml:space="preserve">
+    <value>Xbox uygulaması oturum açma, Game Pass bulut kayıtları ve Xbox Live çok oyunculu modları çalışmaz.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label" xml:space="preserve">
+    <value>LAN Dosya Paylaşımı ve Keşif</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description" xml:space="preserve">
+    <value>Yerel klasör paylaşımı ve UPnP ağ cihazı bulma hizmetlerini durdurur.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff" xml:space="preserve">
+    <value>LAN klasör paylaşımı ve medya yayın cihazı keşfi çalışmayı durdurur.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label" xml:space="preserve">
+    <value>Windows Biyometri (Windows Hello)</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description" xml:space="preserve">
+    <value>Windows Biyometrik arka plan hizmetini durdurur.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff" xml:space="preserve">
+    <value>Parmak izi okuyucu ve Windows Hello yüz tanıma devre dışı kalır.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label" xml:space="preserve">
+    <value>Uzak Masaüstü Hizmetleri</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description" xml:space="preserve">
+    <value>Gelen Uzak Masaüstü bağlantısı ve yönlendirme hizmetlerini durdurur.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff" xml:space="preserve">
+    <value>Diğer bilgisayarlar bu cihaza Remote Desktop (RDP) ile bağlanamaz.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.Name" xml:space="preserve">
+    <value>Windows Arama Dizinini Kapat</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription" xml:space="preserve">
+    <value>Dosya dizinlemesinin oluşturduğu arka plan disk yazımlarını ve CPU sıçramalarını ortadan kaldırmak için Windows Search dizin hizmetini durdurur.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff" xml:space="preserve">
+    <value>Dosya Gezgini'nde dosya içeriği aramaları ve Outlook anlık araması, Windows'un klasörleri istek üzerine taraması gerekeceği için yavaşlar.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.Name" xml:space="preserve">
+    <value>Edge Arka Plan ve Başlatma Güçlendirmeyi Kapat</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription" xml:space="preserve">
+    <value>Tüm pencereler kapatıldığında Microsoft Edge'i tamamen sonlandırır ve oturum açılışında Startup Boost ön yüklemesini durdurur.</value>
+  </data>
+  <data name="Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff" xml:space="preserve">
+    <value>İlk Edge penceresini soğuk başlatmak bir an daha uzun sürer ve tüm pencereler kapalıyken web bildirimleri durur.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableUlps.TradeOff" xml:space="preserve">
+    <value>Boştaki grafik bağdaştırıcıları ve çoklu GPU dizüstü bilgisayarlar yük yokken daha fazla güç çeker.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisablePowerGating.TradeOff" xml:space="preserve">
+    <value>Boşta GPU güç tüketimini, ısınmayı ve fan hızını artırır; dizüstü pil ömrünü kısaltır.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableAspm.TradeOff" xml:space="preserve">
+    <value>GPU PCIe bağlantısının düşük güç uyku durumlarına girmesini engelleyerek boşta güç tüketimini ve pil harcamasını artırır.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff" xml:space="preserve">
+    <value>Boşta GPU güç tüketimini, sıcaklıkları ve fan gürültüsünü artırır.</value>
+  </data>
+  <data name="Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff" xml:space="preserve">
+    <value>NVIDIA GPU'larda boşta güç tüketimini artırır.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff" xml:space="preserve">
+    <value>Ekran yenileme hızının altına düşen oyunlarda ara sıra takılma veya ekran yırtılması görülebilir.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableBackgroundApps.TradeOff" xml:space="preserve">
+    <value>Microsoft Store uygulamaları elle açılana kadar posta, alarm veya canlı bildirimleri eşitleyemez.</value>
+  </data>
+  <data name="Optimizer.Performance.ConsolidateServiceHosts.TradeOff" xml:space="preserve">
+    <value>12 GB ve altı PC'lerde RAM tasarrufu sağlar ancak bir hizmetin çökmesi aynı ana işlemi paylaşan diğerlerini etkileyebilir.</value>
+  </data>
+  <data name="Optimizer.Performance.KeyboardLatencyOptimization.TradeOff" xml:space="preserve">
+    <value>Kısa yineleme gecikmesi yazarken tuşlarda hafifçe uzun kalırsanız istenmeden çift karakter yazılmasına yol açabilir.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff" xml:space="preserve">
+    <value>Shift'e 5 kez basmak veya NumLock tutmak erişilebilirlik pencerelerini açmaz; araçlar Windows Ayarları'nda kullanılabilir.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.Name" xml:space="preserve">
+    <value>Gezgin Klasör Otomatik Algılamayı Kapat</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription" xml:space="preserve">
+    <value>Her klasör açılışında File Explorer'ın Resimler veya Müzik düzeni tahmin etmek için klasör içeriğini taramasını durdurur.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff" xml:space="preserve">
+    <value>Büyük resim veya müzik klasörleri siz elle özelleştirene kadar standart Ayrıntılar görünümünde açılır.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.Name" xml:space="preserve">
+    <value>Arama WebView2 Ana Bilgisayarını Kapat</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.ShortDescription" xml:space="preserve">
+    <value>Windows 11 Arama'nın gömülü Microsoft Edge WebView2 işlemlerini başlatmasını önleyerek Arama RAM ve CPU kullanımını azaltır.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableSearchWebView2.TradeOff" xml:space="preserve">
+    <value>Aramada zengin web kartlarını kapatan dahili Windows geçersiz kılmasını kullanır ve büyük güncellemelerde sıfırlanabilir.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.Name" xml:space="preserve">
+    <value>Bellek Bütünlüğünü (HVCI) Kapat</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription" xml:space="preserve">
+    <value>Oyunlarda CPU performansını ve kare süresi tutarlılığını geri kazanmak için Bellek Bütünlüğü (HVCI) sanallaştırma denetimini kapatır.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff" xml:space="preserve">
+    <value>Zararlı sürücülere ve kod enjeksiyonuna karşı Windows çekirdek korumasını düşürür. Microsoft oyun dışında yeniden açılmasını önerir.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.Name" xml:space="preserve">
+    <value>Ağ Bağdaştırıcısı Güç Tasarrufunu Kapat</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.ShortDescription" xml:space="preserve">
+    <value>Boşta kopmaları ve uyanma gecikmesini önlemek için Windows'un fiziksel Ethernet ve Wi-Fi bağdaştırıcılarını kapatmasını engeller.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.TradeOff" xml:space="preserve">
+    <value>Ethernet ve Wi-Fi bağdaştırıcılarında boşta güç tüketimini artırarak dizüstü pil süresini azaltır.</value>
+  </data>
+  <data name="Optimizer.Performance.DisableNicPowerSaving.NoAdapters" xml:space="preserve">
+    <value>Yapılandırılabilir fiziksel ağ bağdaştırıcısı bulunamadı</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff" xml:space="preserve">
+    <value>Hazırda bekletmeyi kapatmak kritik pil kaybında RAM yedeklemesini kaldırır; Hızlı Başlatma'yı kapatmak soğuk açılışı biraz yavaşlatır.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label" xml:space="preserve">
+    <value>Kapatma ve Hazırda Bekletme Modu</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label" xml:space="preserve">
+    <value>Yalnızca Hızlı Başlatmayı Kapat (Dizüstü için Önerilen)</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description" xml:space="preserve">
+    <value>Normal Hazırda Bekletme'yi korurken kapanışta çekirdek hazırda bekletme görüntüsü kaydedilmesini engeller.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label" xml:space="preserve">
+    <value>Hazırda Bekletme ve Hızlı Başlatmayı Kapat</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description" xml:space="preserve">
+    <value>Hazırda bekletmeyi tamamen kapatır ve dosyasını silerek birkaç gigabayt depolama alanı açar.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.Name" xml:space="preserve">
+    <value>Modern Beklemede Ağı Kapat</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription" xml:space="preserve">
+    <value>Dizüstü bilgisayar Modern Standby uyku modundayken Wi-Fi bağlantısını ve arka plan ağ uyanmalarını keser.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff" xml:space="preserve">
+    <value>Uyku sırasında e-postalar, güncellemeler ve bildirimler ekranı uyandırana kadar bekler.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff" xml:space="preserve">
+    <value>USB hub'ları ve bağlı aygıtlar seçici askıya alınmak yerine güç almaya devam eder, bu da dizüstü pil süresini biraz azaltır.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff" xml:space="preserve">
+    <value>Çekirdekleri park dışı tutmak ısıyı, fan hızını ve güç tüketimini artırır; Görev Yöneticisi gerçek yükten yüksek CPU kullanımı gösterebilir.</value>
+  </data>
+  <data name="Optimizer.PowerManagement.DisablePowerSaving.TradeOff" xml:space="preserve">
+    <value>Arka plan görevleri pildeyken bile tam CPU hızında çalışabilir, ısınma ve pil tüketimi artar.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff" xml:space="preserve">
+    <value>Microsoft kullanım tanılaması, Windows Insider uçuşları ve özel sorun giderme devre dışı bırakılır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff" xml:space="preserve">
+    <value>Uygulama çökmeleri artık Microsoft'a tanılama raporu oluşturmaz ve göndermez.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff" xml:space="preserve">
+    <value>Microsoft destek sorun giderme için kullanılan alt düzey izlemeyi kapatır; bazı güvenlik yazılımları önyükleme izleme değişikliklerini bildirebilir.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff" xml:space="preserve">
+    <value>Kaybolma veya çalınma durumunda Microsoft hesabınızdan bu bilgisayarı uzaktan bulamaz veya kilitleyemezsiniz.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name" xml:space="preserve">
+    <value>Windows Update İlkesini Yapılandır</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription" xml:space="preserve">
+    <value>Zorunlu yeniden başlatmaları, erken sürüm dağıtımlarını, güncelleme ertelemelerini ve Driver güncellemelerini yönetmek için seçili Windows Update Grup İlkelerini uygular.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff" xml:space="preserve">
+    <value>Yamaları ertelemek veya Driver'ları engellemek GPU/yonga seti sürücülerini elle güncellemeyi gerektirir.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection" xml:space="preserve">
+    <value>Hiçbir Windows Update seçeneği seçilmedi</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label" xml:space="preserve">
+    <value>Oturum açıkken otomatik yeniden başlatmayı önle</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description" xml:space="preserve">
+    <value>Oturumunuz açıkken Windows Update'in otomatik yeniden başlatmasını engeller.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label" xml:space="preserve">
+    <value>'En son güncellemeleri hazır olur olmaz al' seçeneğini kapat</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description" xml:space="preserve">
+    <value>Güncellemeleri denetlerken erken önizleme özellik ve yapılandırma dağıtımlarını devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label" xml:space="preserve">
+    <value>Sürücü güncellemelerini Windows Update dışında tut</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description" xml:space="preserve">
+    <value>Donanım sürücü paketlerini Windows Update dışında bırakır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff" xml:space="preserve">
+    <value>Donanım sürücülerini doğrudan üreticiden indirip kurmanız gerekir.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label" xml:space="preserve">
+    <value>Kalite (4 gün) ve özellik güncellemelerini (365 gün) ertele</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description" xml:space="preserve">
+    <value>Yamaların olgunlaşması için Group Policy erteleme süreleri uygular.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff" xml:space="preserve">
+    <value>Aylık kalite yamalarını 4 gün, büyük yıllık yükseltmeleri 1 yıl geciktirir.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name" xml:space="preserve">
+    <value>Otomatik BitLocker Şifrelemesini Önle</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription" xml:space="preserve">
+    <value>Windows'un yeni sürücülerde veya yeniden kurulumda BitLocker Cihaz Şifrelemesini otomatik açmasını önler.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff" xml:space="preserve">
+    <value>Zaten şifrelenmiş diskleri çözmez; yeni diskler elle etkinleştirilmedikçe şifresiz kalır.</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.Improves" xml:space="preserve">
+    <value>Daha yüksek performans</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Performance.TradeOff" xml:space="preserve">
+    <value>Performansı etkileyebilir</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.Improves" xml:space="preserve">
+    <value>Daha düşük gecikme</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Latency.TradeOff" xml:space="preserve">
+    <value>Gecikmeyi artırabilir</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.Improves" xml:space="preserve">
+    <value>Daha az RAM kullanımı</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Memory.TradeOff" xml:space="preserve">
+    <value>Daha fazla RAM kullanır</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.Improves" xml:space="preserve">
+    <value>Disk alanı tasarrufu</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Storage.TradeOff" xml:space="preserve">
+    <value>Daha fazla disk kullanır</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.Improves" xml:space="preserve">
+    <value>Daha az güç tüketimi</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Power.TradeOff" xml:space="preserve">
+    <value>Daha yüksek güç tüketimi</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.Improves" xml:space="preserve">
+    <value>Daha fazla gizlilik</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Privacy.TradeOff" xml:space="preserve">
+    <value>Gizliliği azaltır</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.Improves" xml:space="preserve">
+    <value>Daha güçlü güvenlik</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Security.TradeOff" xml:space="preserve">
+    <value>Güvenliği azaltır</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.Improves" xml:space="preserve">
+    <value>Daha iyi ağ</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Network.TradeOff" xml:space="preserve">
+    <value>Ağı kısıtlar</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.Improves" xml:space="preserve">
+    <value>Daha fazla kararlılık</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Stability.TradeOff" xml:space="preserve">
+    <value>Kararlılığı etkileyebilir</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.Improves" xml:space="preserve">
+    <value>Daha sade arayüz</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Clutter.TradeOff" xml:space="preserve">
+    <value>UI öğeleri ekler</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.Improves" xml:space="preserve">
+    <value>Daha fazla özellik</value>
+  </data>
+  <data name="Optimizer.UI.Impact.Features.TradeOff" xml:space="preserve">
+    <value>Özellikleri devre dışı bırakır</value>
+  </data>
+  <data name="Optimizer.Progress.ChangeServiceStartupType" xml:space="preserve">
+    <value>{0} başlangıç türü {1} olarak ayarlanıyor...</value>
+  </data>
+  <data name="Optimizer.AI.DisableEdgeAI.TradeOff" xml:space="preserve">
+    <value>Microsoft Edge'de Copilot kenar çubuğu, yapay zeka yazma yardımı ve yapay zekalı geçmiş araması kullanılamaz.</value>
+  </data>
+  <data name="Optimizer.Legacy.Tab" xml:space="preserve">
+    <value>Eski yedekler</value>
+  </data>
+  <data name="Optimizer.Legacy.CountSummary" xml:space="preserve">
+    <value>{0} eski yedek bulundu</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord" xml:space="preserve">
+    <value>Yedeği sil</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Tooltip" xml:space="preserve">
+    <value>Windows ayarlarını değiştirmeden bu kayıtlı yedeği sil</value>
+  </data>
+  <data name="Optimizer.Legacy.ClearRecord.Confirm" xml:space="preserve">
+    <value>Windows ayarlarını değiştirmeden bu yedek silinsin mi? Silindikten sonra bu eski değişiklikleri optimizerDuck üzerinden geri alamazsınız.</value>
+  </data>
+  <data name="Optimizer.Legacy.OpenFile.Tooltip" xml:space="preserve">
+    <value>Yedek dosyasını Gezgin'de göster</value>
+  </data>
+  <data name="Optimizer.Legacy.AppliedAt" xml:space="preserve">
+    <value>Uygulanma: {0}</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyTitle" xml:space="preserve">
+    <value>Eski yedek kalmadı</value>
+  </data>
+  <data name="Optimizer.Legacy.EmptyDescription" xml:space="preserve">
+    <value>Kaldırılan tüm iyileştirme yedekleri geri alındı veya temizlendi.</value>
+  </data>
+  <data name="Optimizer.Options.Revert" xml:space="preserve">
+    <value>Optimizasyonu geri al</value>
+  </data>
+  <data name="Optimizer.Options.AllOffWillRevert" xml:space="preserve">
+    <value>Tüm seçenekler kapalı. Onaylamak bu optimizasyonu önceki durumuna geri döndürür.</value>
+  </data>
+  <data name="Optimizer.Options.AlreadySet.Tooltip" xml:space="preserve">
+    <value>Sisteminiz bu seçenekle zaten eşleşiyor, bu nedenle değişiklik gerekmiyor.</value>
+  </data>
+  <data name="Optimizer.Options.AllAlreadySet" xml:space="preserve">
+    <value>Buradaki tüm seçenekler sisteminizde zaten yapılandırılmış. Değiştirilmesi gereken bir şey yok.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.Name" xml:space="preserve">
+    <value>Windows Paint İçindeki Yapay Zekayı Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.ShortDescription" xml:space="preserve">
+    <value>Windows Paint içinde Cocreator, Üretken Dolgu, Image Creator, Üretken Silgi ve AI arka plan kaldırma ilkelerini devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.AI.DisablePaintAI.TradeOff" xml:space="preserve">
+    <value>AI görüntü oluşturma ve düzenleme araçları Windows Paint araç çubuklarından kaldırılır.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.Name" xml:space="preserve">
+    <value>Windows Not Defteri İçindeki Yapay Zekayı Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.ShortDescription" xml:space="preserve">
+    <value>Windows Not Defteri içindeki yapay zeka ile yeniden yazma ve özetleme özelliklerini ilke ile devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.AI.DisableNotepadAI.TradeOff" xml:space="preserve">
+    <value>Windows Not Defteri içinde AI yeniden yazma ve özetleme eylemleri kullanılamaz hale gelir.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name" xml:space="preserve">
+    <value>Program Uyumluluk Yardımcısını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription" xml:space="preserve">
+    <value>Uygulama başlatmalarını ve eski yükleyicileri arka planda izleyen Program Uyumluluk Yardımcısı hizmetini devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff" xml:space="preserve">
+    <value>Eski programlar ve yükleyiciler için otomatik uyumluluk uyarıları ile uyumluluk düzeltmeleri devre dışı kalır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name" xml:space="preserve">
+    <value>Mürekkep ve Yazma Kişiselleştirmesini Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription" xml:space="preserve">
+    <value>Windows'un giriş kişiselleştirmesi için el yazısı, yazma alışkanlıkları, yerel kişiler ve dil tercihlerini toplamasını durdurur.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff" xml:space="preserve">
+    <value>Özel el yazısı tanıma, kişilere dayalı otomatik düzeltme ve yerel yazım sözlüğü güncellemesi durur.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name" xml:space="preserve">
+    <value>Konum İzlemeyi Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription" xml:space="preserve">
+    <value>Windows Konum hizmetini, uygulama konum izinlerini, çevrimdışı Haritalar otomatik güncellemelerini ve Wi-Fi erişim noktası raporlamasını devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff" xml:space="preserve">
+    <value>Etkin durumdayken Hava Durumu, Haritalar ve sistem konumunu kullanan uygulamalar konumunuzu belirleyemez.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name" xml:space="preserve">
+    <value>Hareket ve Işık Sensörlerini Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription" xml:space="preserve">
+    <value>Grup İlkesi aracılığıyla uygulamaların ve Windows'un hareket, yönelim ve ortam ışığı sensörlerini okumasını engeller.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff" xml:space="preserve">
+    <value>Dizüstü bilgisayarlarda otomatik parlaklık ve 2'si 1 arada cihazlarda otomatik ekran döndürme çalışmaz.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.Name" xml:space="preserve">
+    <value>Başlangıç Uygulaması Gecikmesini Kaldır</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription" xml:space="preserve">
+    <value>Oturum açtıktan sonra Explorer'ın yerleşik başlatma gecikmesini ve CPU boşa çıkma beklemesini kaldırarak başlangıç uygulamalarını hemen açar.</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.Name" xml:space="preserve">
+    <value>Menü Açılış Gecikmesini Kaldır</value>
+  </data>
+  <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
+    <value>Windows alt menülerinin üzerine gelindiğindeki bekleme süresini sıfırlayarak anında açılmasını sağlar.</value>
   </data>
 </root>

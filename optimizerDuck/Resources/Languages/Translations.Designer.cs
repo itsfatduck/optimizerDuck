@@ -223,7 +223,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following package(s) have unusual identifiers or unverified name formats. Removing packages with unusual names might cause errors or remove unintended files. Please review carefully before proceeding..
+        ///   Looks up a localized string similar to The following package(s) have unusual identifiers or unverified name formats. Removing packages with unusual names might cause errors or remove unintended files. Please review c....
         /// </summary>
         internal static string BloatwareDialog_UnusualWarning_Description {
             get {
@@ -709,6 +709,78 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This optimization only applies to portable devices with a battery chassis..
+        /// </summary>
+        internal static string Condition_Laptop_Description {
+            get {
+                return ResourceManager.GetString("Condition.Laptop.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laptop required.
+        /// </summary>
+        internal static string Condition_Laptop_Title {
+            get {
+                return ResourceManager.GetString("Condition.Laptop.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Systems with more than 12 GB of RAM already benefit from Windows service host isolation without excessive memory overhead..
+        /// </summary>
+        internal static string Condition_MaxRam_12_Description {
+            get {
+                return ResourceManager.GetString("Condition.MaxRam.12.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 12 GB RAM or less required.
+        /// </summary>
+        internal static string Condition_MaxRam_12_Title {
+            get {
+                return ResourceManager.GetString("Condition.MaxRam.12.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory Integrity (HVCI) could not be detected or is not supported on this device..
+        /// </summary>
+        internal static string Condition_MemoryIntegrity_Description {
+            get {
+                return ResourceManager.GetString("Condition.MemoryIntegrity.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Memory Integrity not available.
+        /// </summary>
+        internal static string Condition_MemoryIntegrity_Title {
+            get {
+                return ResourceManager.GetString("Condition.MemoryIntegrity.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No physical Ethernet or Wi-Fi adapter was detected on this system..
+        /// </summary>
+        internal static string Condition_PhysicalNic_Description {
+            get {
+                return ResourceManager.GetString("Condition.PhysicalNic.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No physical network adapter found.
+        /// </summary>
+        internal static string Condition_PhysicalNic_Title {
+            get {
+                return ResourceManager.GetString("Condition.PhysicalNic.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This item requires at least 16 GB of installed RAM..
         /// </summary>
         internal static string Condition_Ram_16_Description {
@@ -795,6 +867,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Condition_Windows11_Title {
             get {
                 return ResourceManager.GetString("Condition.Windows11.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Windows build does not include the background Windows AI service..
+        /// </summary>
+        internal static string Condition_WsAiFabric_Description {
+            get {
+                return ResourceManager.GetString("Condition.WsAiFabric.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows AI service not found.
+        /// </summary>
+        internal static string Condition_WsAiFabric_Title {
+            get {
+                return ResourceManager.GetString("Condition.WsAiFabric.Title", resourceCulture);
             }
         }
         
@@ -1209,6 +1299,33 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Customize_Gaming_MouseAcceleration_Recommendation_Reason {
             get {
                 return ResourceManager.GetString("Customize.Gaming.MouseAcceleration.Recommendation.Reason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets compatible GPU drivers compose desktop and game planes directly in hardware. Disabling it can work around flickering or multi-monitor driver bugs..
+        /// </summary>
+        internal static string Customize_Gaming_MultiPlaneOverlay_Description {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.MultiPlaneOverlay.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multi-Plane Overlay (MPO).
+        /// </summary>
+        internal static string Customize_Gaming_MultiPlaneOverlay_Name {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.MultiPlaneOverlay.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Modern GPUs handle MPO efficiently for lower latency in borderless games; disable only if you experience screen flickering, black screens, or desktop composition glitches..
+        /// </summary>
+        internal static string Customize_Gaming_MultiPlaneOverlay_Recommendation_Reason {
+            get {
+                return ResourceManager.GetString("Customize.Gaming.MultiPlaneOverlay.Recommendation.Reason", resourceCulture);
             }
         }
         
@@ -1753,6 +1870,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Animates taskbar icons when opening, switching, or grouping windows..
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarAnimations_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarAnimations.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Taskbar Animations.
+        /// </summary>
+        internal static string Customize_Preferences_TaskbarAnimations_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TaskbarAnimations.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Adds an End task command to the taskbar context menu, so you can close an unresponsive app without opening Task Manager..
         /// </summary>
         internal static string Customize_Preferences_TaskbarEndTask_Description {
@@ -1857,6 +1992,24 @@ namespace optimizerDuck.Resources.Languages {
         internal static string Customize_Preferences_ToastNotifications_Name {
             get {
                 return ResourceManager.GetString("Customize.Preferences.ToastNotifications.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enables acrylic and Mica translucency effects across the taskbar, Start menu, and app surfaces..
+        /// </summary>
+        internal static string Customize_Preferences_TransparencyEffects_Description {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TransparencyEffects.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transparency Effects.
+        /// </summary>
+        internal static string Customize_Preferences_TransparencyEffects_Name {
+            get {
+                return ResourceManager.GetString("Customize.Preferences.TransparencyEffects.Name", resourceCulture);
             }
         }
         
@@ -2086,7 +2239,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interpret the hardware clock as UTC. Required on Windows/Linux dual-boot so both systems agree on the clock; on single-boot machines the time jumps by your timezone offset until this is turned back off..
+        ///   Looks up a localized string similar to Interpret the hardware clock as UTC. Required on Windows/Linux dual-boot so both systems agree on the clock; on single-boot machines the time jumps by your timezone offset until....
         /// </summary>
         internal static string Customize_SystemFeatures_UtcHardwareClock_Description {
             get {
@@ -3382,7 +3535,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t fully apply optimization.
+        ///   Looks up a localized string similar to Could not apply all changes.
         /// </summary>
         internal static string Optimization_Apply_Snackbar_Error_Title {
             get {
@@ -3472,7 +3625,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t revert optimization.
+        ///   Looks up a localized string similar to Could not revert optimization.
         /// </summary>
         internal static string Optimization_Revert_Snackbar_Error_Title {
             get {
@@ -3490,7 +3643,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Successfully reverted {0}!.
+        ///   Looks up a localized string similar to Reverted {0}..
         /// </summary>
         internal static string Optimization_Revert_Success {
             get {
@@ -3517,11 +3670,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Class Name.
+        ///   Looks up a localized string similar to Identifier key.
         /// </summary>
         internal static string OptimizationDetailsDialog_Class {
             get {
                 return ResourceManager.GetString("OptimizationDetailsDialog.Class", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discard stale backup.
+        /// </summary>
+        internal static string OptimizationDetailsDialog_ClearStale {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.ClearStale", resourceCulture);
             }
         }
         
@@ -3535,11 +3697,47 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Windows settings no longer match this optimization while a backup stays on disk. Toggle it ON to reapply, revert what remains, or discard the stale backup..
+        /// </summary>
+        internal static string OptimizationDetailsDialog_DriftedMessage {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.DriftedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings changed externally.
+        /// </summary>
+        internal static string OptimizationDetailsDialog_DriftedTitle {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.DriftedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applies standard Windows Group Policy settings. Some Windows Settings pages may display &apos;Some settings are managed by your organization&apos; while active..
+        /// </summary>
+        internal static string OptimizationDetailsDialog_GroupPolicyNotice {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.GroupPolicyNotice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Optimization ID.
         /// </summary>
         internal static string OptimizationDetailsDialog_Id {
             get {
                 return ResourceManager.GetString("OptimizationDetailsDialog.Id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Impacts.
+        /// </summary>
+        internal static string OptimizationDetailsDialog_Impacts {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.Impacts", resourceCulture);
             }
         }
         
@@ -3553,7 +3751,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reveals the file where optimizerDuck wrote what this optimization did. It stays after a revert, so the history is still there..
+        ///   Looks up a localized string similar to Shows the JSON log of changes recorded by optimizerDuck (kept even after reverting)..
         /// </summary>
         internal static string OptimizationDetailsDialog_Other_OpenRecordFile_Description {
             get {
@@ -3562,7 +3760,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show the record file.
+        ///   Looks up a localized string similar to Open history record.
         /// </summary>
         internal static string OptimizationDetailsDialog_Other_OpenRecordFile_Title {
             get {
@@ -3571,7 +3769,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open the raw json file containing revert data for this optimization..
+        ///   Looks up a localized string similar to Shows the JSON backup used to restore previous settings when reverting..
         /// </summary>
         internal static string OptimizationDetailsDialog_Other_OpenRevertFile_Description {
             get {
@@ -3580,7 +3778,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Revert file.
+        ///   Looks up a localized string similar to Open revert backup.
         /// </summary>
         internal static string OptimizationDetailsDialog_Other_OpenRevertFile_Title {
             get {
@@ -3589,7 +3787,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Open the source code for this optimization in your browser..
+        ///   Looks up a localized string similar to Inspect the C# implementation of this optimization on GitHub..
         /// </summary>
         internal static string OptimizationDetailsDialog_Other_ViewSource_Description {
             get {
@@ -3598,7 +3796,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View Source on GitHub.
+        ///   Looks up a localized string similar to View source code.
         /// </summary>
         internal static string OptimizationDetailsDialog_Other_ViewSource_Title {
             get {
@@ -3607,11 +3805,56 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Technical Details.
+        ///   Looks up a localized string similar to Reconfigure.
+        /// </summary>
+        internal static string OptimizationDetailsDialog_Reconfigure {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.Reconfigure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert remaining.
+        /// </summary>
+        internal static string OptimizationDetailsDialog_RevertRemaining {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.RevertRemaining", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applied options.
+        /// </summary>
+        internal static string OptimizationDetailsDialog_SelectedOptions {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.SelectedOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to References.
+        /// </summary>
+        internal static string OptimizationDetailsDialog_Sources {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.Sources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technical details.
         /// </summary>
         internal static string OptimizationDetailsDialog_TechnicalDetails {
             get {
                 return ResourceManager.GetString("OptimizationDetailsDialog.TechnicalDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trade-off.
+        /// </summary>
+        internal static string OptimizationDetailsDialog_TradeOff {
+            get {
+                return ResourceManager.GetString("OptimizationDetailsDialog.TradeOff", resourceCulture);
             }
         }
         
@@ -3670,6 +3913,33 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Set AI Fabric Service to Manual.
+        /// </summary>
+        internal static string Optimizer_AI_DisableAiServiceAutoStart_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableAiServiceAutoStart.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Switches the Windows AI Fabric background service to manual startup so it stays idle until an AI feature requests it..
+        /// </summary>
+        internal static string Optimizer_AI_DisableAiServiceAutoStart_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableAiServiceAutoStart.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows AI features that depend on this service may take a few seconds longer on first launch..
+        /// </summary>
+        internal static string Optimizer_AI_DisableAiServiceAutoStart_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableAiServiceAutoStart.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable Click To Do.
         /// </summary>
         internal static string Optimizer_AI_DisableClickToDo_Name {
@@ -3679,11 +3949,110 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turns off the AI-powered Click To Do overlay that analyzes text and images on your screen..
+        ///   Looks up a localized string similar to Disables the Click To Do screen overlay that analyzes on-screen text and images for AI actions..
         /// </summary>
         internal static string Optimizer_AI_DisableClickToDo_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.AI.DisableClickToDo.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Windows Copilot.
+        /// </summary>
+        internal static string Optimizer_AI_DisableCopilot_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableCopilot.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables Windows Copilot and removes the Copilot button from the taskbar after you sign out..
+        /// </summary>
+        internal static string Optimizer_AI_DisableCopilot_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableCopilot.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable AI in Microsoft Edge.
+        /// </summary>
+        internal static string Optimizer_AI_DisableEdgeAI_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableEdgeAI.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables the Copilot sidebar, inline compose prompts, AI history search, and local AI models in Microsoft Edge..
+        /// </summary>
+        internal static string Optimizer_AI_DisableEdgeAI_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableEdgeAI.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copilot sidebar, AI writing assistance, and AI history search become unavailable in Microsoft Edge..
+        /// </summary>
+        internal static string Optimizer_AI_DisableEdgeAI_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableEdgeAI.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable AI in Windows Notepad.
+        /// </summary>
+        internal static string Optimizer_AI_DisableNotepadAI_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableNotepadAI.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables AI text rewriting and summarization features inside Windows Notepad via policy..
+        /// </summary>
+        internal static string Optimizer_AI_DisableNotepadAI_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableNotepadAI.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AI Rewrite and summarization actions become unavailable inside Windows Notepad..
+        /// </summary>
+        internal static string Optimizer_AI_DisableNotepadAI_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableNotepadAI.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable AI in Windows Paint.
+        /// </summary>
+        internal static string Optimizer_AI_DisablePaintAI_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisablePaintAI.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables Cocreator, Generative Fill, Image Creator, Generative Erase, and AI background removal policies in Windows Paint..
+        /// </summary>
+        internal static string Optimizer_AI_DisablePaintAI_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisablePaintAI.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to AI image generation and editing tools are removed from Windows Paint toolbars..
+        /// </summary>
+        internal static string Optimizer_AI_DisablePaintAI_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisablePaintAI.TradeOff", resourceCulture);
             }
         }
         
@@ -3697,11 +4066,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables the Windows Recall AI feature that captures and indexes snapshots of your screen. Also removes the Recall component and deletes previously saved snapshots on Windows 11 24H2+ (Build 26100.3915+); a restart is required to take effect..
+        ///   Looks up a localized string similar to Disables Windows Recall snapshots via Group Policy, clears saved snapshot data, and blocks Recall enablement after restart..
         /// </summary>
         internal static string Optimizer_AI_DisableRecall_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.AI.DisableRecall.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables Windows Recall timeline search and permanently removes saved snapshots..
+        /// </summary>
+        internal static string Optimizer_AI_DisableRecall_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.AI.DisableRecall.TradeOff", resourceCulture);
             }
         }
         
@@ -3715,29 +4093,227 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optimize System Services.
+        ///   Looks up a localized string similar to Disable Edge Background &amp; Startup Boost.
         /// </summary>
-        internal static string Optimizer_BloatwareAndServices_ConfigureServices_Name {
+        internal static string Optimizer_BloatwareAndServices_DisableEdgeBackground_Name {
             get {
-                return ResourceManager.GetString("Optimizer.BloatwareAndServices.ConfigureServices.Name", resourceCulture);
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableEdgeBackground.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Setting startup type for {0} to {1}....
+        ///   Looks up a localized string similar to Closes Microsoft Edge completely when its windows close and stops Startup Boost from preloading it at sign-in..
         /// </summary>
-        internal static string Optimizer_BloatwareAndServices_ConfigureServices_Progress_ChangeServiceStartupType {
+        internal static string Optimizer_BloatwareAndServices_DisableEdgeBackground_ShortDescription {
             get {
-                return ResourceManager.GetString("Optimizer.BloatwareAndServices.ConfigureServices.Progress.ChangeServiceStartupType", resourceCulture);
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableEdgeBackground.ShortDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Adjusts non-essential background services to free up resources while maintaining all necessary Windows functionality..
+        ///   Looks up a localized string similar to Cold-starting the first Edge window takes a moment longer, and site notifications pause once all Edge windows close..
         /// </summary>
-        internal static string Optimizer_BloatwareAndServices_ConfigureServices_ShortDescription {
+        internal static string Optimizer_BloatwareAndServices_DisableEdgeBackground_TradeOff {
             get {
-                return ResourceManager.GetString("Optimizer.BloatwareAndServices.ConfigureServices.ShortDescription", resourceCulture);
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableEdgeBackground.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Optional Feature Services.
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No optional service groups were selected.
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_NoSelection {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.NoSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops the Windows Biometric background service..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableBiometrics_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Windows Biometrics (Windows Hello).
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableBiometrics_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fingerprint readers and Windows Hello face recognition will be disabled..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableBiometrics_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBiometrics.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops Windows Bluetooth discovery, pairing, and hands-free audio services..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableBluetooth_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bluetooth.
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableBluetooth_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bluetooth keyboards, mice, controllers, and audio devices will stop connecting..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableBluetooth_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableBluetooth.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops local folder sharing and UPnP network device discovery services..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableLanSharing_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LAN File Sharing &amp; Discovery.
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableLanSharing_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharing local folders over LAN, SMB shares, and media casting discovery will stop working..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableLanSharing_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableLanSharing.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops the Print Spooler and printer notification background services..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisablePrinting_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Printing &amp; Spooler.
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisablePrinting_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Local printers, network printers, and Microsoft Print to PDF will not work..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisablePrinting_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisablePrinting.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops the incoming Remote Desktop connection and redirection services..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableRemoteDesktop_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remote Desktop Services.
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableRemoteDesktop_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Other PCs cannot connect to this computer via Remote Desktop (RDP)..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableRemoteDesktop_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableRemoteDesktop.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops Xbox Live sign-in, cloud save sync, accessory, and Xbox networking services..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableXbox_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xbox Live Services.
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableXbox_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xbox app sign-in, Game Pass cloud saves, and Xbox Live multiplayer stop working..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_Option_DisableXbox_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.Option.DisableXbox.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables selected Windows feature service groups you do not use, such as Printing, Bluetooth, Xbox, LAN Sharing, Biometrics, or Remote Desktop..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected hardware or network features stay unavailable until you reconfigure or revert this optimization..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableOptionalFeatureServices_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableOptionalFeatureServices.TradeOff", resourceCulture);
             }
         }
         
@@ -3751,11 +4327,65 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prevents Windows from automatically re-installing unwanted third-party apps and promoted software..
+        ///   Looks up a localized string similar to Stops Windows from silently downloading and pinning promoted consumer apps in the Start menu..
         /// </summary>
         internal static string Optimizer_BloatwareAndServices_DisablePreinstalledApps_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisablePreinstalledApps.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Windows Search Indexing.
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableSearchIndexing_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableSearchIndexing.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops the Windows Search indexer service to eliminate background disk writes and CPU spikes from file indexing..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableSearchIndexing_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableSearchIndexing.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File-content searches in File Explorer and instant search in Outlook run slower because Windows must scan folders on demand..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableSearchIndexing_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableSearchIndexing.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Unused Legacy Services.
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableUnusedLegacyServices_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables legacy and enterprise services rarely needed on home PCs, including Fax, Remote Registry, Retail Demo, App-V, Routing and Remote Access, and switches Offline Files to m....
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableUnusedLegacyServices_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legacy faxing, Remote Registry, Routing and Remote Access, and App-V remain off until reverted; Offline Files only starts manually..
+        /// </summary>
+        internal static string Optimizer_BloatwareAndServices_DisableUnusedLegacyServices_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.BloatwareAndServices.DisableUnusedLegacyServices.TradeOff", resourceCulture);
             }
         }
         
@@ -3805,11 +4435,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Compatibility conditions check whether an item is supported on your system, e.g. which Windows version or which GPU is installed. When a condition fails, the item is hidden by default because it may not work. If you know what you are doing, you can hide this warning and apply the item anyway..
+        ///   Looks up a localized string similar to Compatibility conditions check whether an item is supported on your system, e.g. which Windows version or which GPU is installed. When a condition fails, the item is hidden by d....
         /// </summary>
         internal static string Optimizer_Condition_WhatIsThis_Tooltip {
             get {
                 return ResourceManager.GetString("Optimizer.Condition.WhatIsThis.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply anyway.
+        /// </summary>
+        internal static string Optimizer_Confirm_Apply {
+            get {
+                return ResourceManager.GetString("Optimizer.Confirm.Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This tweak makes deeper system or security changes. Check the trade-off below before continuing..
+        /// </summary>
+        internal static string Optimizer_Confirm_Message {
+            get {
+                return ResourceManager.GetString("Optimizer.Confirm.Message", resourceCulture);
             }
         }
         
@@ -4282,6 +4930,15 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skipped because the service startup type is already stricter than the target.
+        /// </summary>
+        internal static string Optimizer_Details_Reason_ServiceAlreadyStricter {
+            get {
+                return ResourceManager.GetString("Optimizer.Details.Reason.ServiceAlreadyStricter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This service is not on this machine.
         /// </summary>
         internal static string Optimizer_Details_Reason_ServiceNotFound {
@@ -4498,11 +5155,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets EnableAspmL0s=0, EnableAspmL1=0 to disable Active State Power Management on AMD GPUs, reducing PCIe bus latency. Increases slot power consumption..
+        ///   Looks up a localized string similar to Turns off PCIe Active State Power Management (L0s and L1) on AMD graphics adapters to reduce PCIe link wake-up latency..
         /// </summary>
         internal static string Optimizer_Gpu_AmdDisableAspm_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.Gpu.AmdDisableAspm.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keeps the GPU PCIe link out of low-power sleep states, raising idle power draw and battery drain..
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisableAspm_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableAspm.TradeOff", resourceCulture);
             }
         }
         
@@ -4516,11 +5182,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets DisablePowerGating=1, PP_GPUPowerDownEnabled=0, DisableDynamicPstate=1 to prevent AMD GPU power state transitions. Maintains consistent clocks at cost of higher idle power..
+        ///   Looks up a localized string similar to Turns off AMD GPU power gating and dynamic power-state scaling so graphics engines stay powered between burst workloads..
         /// </summary>
         internal static string Optimizer_Gpu_AmdDisablePowerGating_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.Gpu.AmdDisablePowerGating.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increases idle GPU power draw, heat, and fan speed, reducing laptop battery life..
+        /// </summary>
+        internal static string Optimizer_Gpu_AmdDisablePowerGating_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisablePowerGating.TradeOff", resourceCulture);
             }
         }
         
@@ -4534,7 +5209,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets EnableULPS=0 in AMD GPU registry to prevent Ultra Low Power State wake-up delays and multi-monitor issues. Reduces power saving on idle..
+        ///   Looks up a localized string similar to Turns off Ultra Low Power State (ULPS) on AMD GPUs to avoid wake-up stutters and multi-monitor flicker..
         /// </summary>
         internal static string Optimizer_Gpu_AmdDisableUlps_ShortDescription {
             get {
@@ -4543,20 +5218,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable AMD Video Clock Gating.
+        ///   Looks up a localized string similar to Idle graphics adapters and multi-GPU laptops consume more power when not under load..
         /// </summary>
-        internal static string Optimizer_Gpu_AmdDisableVideoClockGating_Name {
+        internal static string Optimizer_Gpu_AmdDisableUlps_TradeOff {
             get {
-                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableVideoClockGating.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sets DisableVCEPowerGating=1, DisableVceClockGating=1, EnableUvdClockGating=0 for AMD video engines (VCE/UVD) to improve encode/decode stability. Increases video playback power..
-        /// </summary>
-        internal static string Optimizer_Gpu_AmdDisableVideoClockGating_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription", resourceCulture);
+                return ResourceManager.GetString("Optimizer.Gpu.AmdDisableUlps.TradeOff", resourceCulture);
             }
         }
         
@@ -4570,7 +5236,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets AdaptiveVsyncEnable=0 to disable Intel&apos;s adaptive V-Sync that dynamically adjusts to frame rate, using fixed V-Sync instead for stable timing..
+        ///   Looks up a localized string similar to Turns off Intel driver-level adaptive V-Sync so graphics timing uses standard application or fixed sync behavior..
         /// </summary>
         internal static string Optimizer_Gpu_IntelDisableAdaptiveVsync_ShortDescription {
             get {
@@ -4579,20 +5245,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Intel Async Flips.
+        ///   Looks up a localized string similar to Games or apps that drop below the monitor refresh rate may show occasional frame-time judder or screen tearing..
         /// </summary>
-        internal static string Optimizer_Gpu_IntelDisableAsyncFlips_Name {
+        internal static string Optimizer_Gpu_IntelDisableAdaptiveVsync_TradeOff {
             get {
-                return ResourceManager.GetString("Optimizer.Gpu.IntelDisableAsyncFlips.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sets Display1_DisableAsyncFlips=1 to force synchronous buffer flips on Intel iGPU, reducing input-to-display latency and screen tearing..
-        /// </summary>
-        internal static string Optimizer_Gpu_IntelDisableAsyncFlips_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription", resourceCulture);
+                return ResourceManager.GetString("Optimizer.Gpu.IntelDisableAdaptiveVsync.TradeOff", resourceCulture);
             }
         }
         
@@ -4606,11 +5263,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets DisableASyncPstates=1 to prevent NVIDIA asynchronous power state switching, providing deterministic performance for VR/real-time apps..
+        ///   Looks up a localized string similar to Stops NVIDIA drivers from switching performance states asynchronously during burst workloads for steadier frame pacing..
         /// </summary>
         internal static string Optimizer_Gpu_NvidiaDisableAsyncPstates_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.Gpu.NvidiaDisableAsyncPstates.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Raises idle power draw on NVIDIA GPUs..
+        /// </summary>
+        internal static string Optimizer_Gpu_NvidiaDisableAsyncPstates_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.NvidiaDisableAsyncPstates.TradeOff", resourceCulture);
             }
         }
         
@@ -4624,11 +5290,164 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets DisableDynamicPstate=1 to lock NVIDIA GPU into fixed performance state, preventing clock speed fluctuations. Increases idle power draw..
+        ///   Looks up a localized string similar to Keeps NVIDIA GPUs from stepping into dynamic low-power P-states, avoiding downclocking transitions during light or burst workloads..
         /// </summary>
         internal static string Optimizer_Gpu_NvidiaDisableDynamicPstate_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.Gpu.NvidiaDisableDynamicPstate.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increases idle GPU power draw, temperatures, and fan noise..
+        /// </summary>
+        internal static string Optimizer_Gpu_NvidiaDisableDynamicPstate_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Gpu.NvidiaDisableDynamicPstate.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applied {0}.
+        /// </summary>
+        internal static string Optimizer_Legacy_AppliedAt {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.AppliedAt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove backup.
+        /// </summary>
+        internal static string Optimizer_Legacy_ClearRecord {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.ClearRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete this saved backup without changing Windows? You will no longer be able to revert these older changes through optimizerDuck..
+        /// </summary>
+        internal static string Optimizer_Legacy_ClearRecord_Confirm {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.ClearRecord.Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete this saved backup without changing Windows settings.
+        /// </summary>
+        internal static string Optimizer_Legacy_ClearRecord_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.ClearRecord.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} legacy backup(s) found.
+        /// </summary>
+        internal static string Optimizer_Legacy_CountSummary {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.CountSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These tweaks were removed or replaced in a newer update, but your original backup stays safe on disk so you can restore them anytime..
+        /// </summary>
+        internal static string Optimizer_Legacy_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Every retired optimization backup has been reverted or cleared..
+        /// </summary>
+        internal static string Optimizer_Legacy_EmptyDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.EmptyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No legacy backups left.
+        /// </summary>
+        internal static string Optimizer_Legacy_EmptyTitle {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.EmptyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Retired optimizations with saved backups.
+        /// </summary>
+        internal static string Optimizer_Legacy_Header {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show backup file in Explorer.
+        /// </summary>
+        internal static string Optimizer_Legacy_OpenFile_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.OpenFile.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert.
+        /// </summary>
+        internal static string Optimizer_Legacy_Revert {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.Revert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not revert legacy backup: {0}.
+        /// </summary>
+        internal static string Optimizer_Legacy_RevertFailed {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.RevertFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reverted &quot;{0}&quot; and removed its saved backup..
+        /// </summary>
+        internal static string Optimizer_Legacy_RevertSuccess {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.RevertSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} step(s) to revert.
+        /// </summary>
+        internal static string Optimizer_Legacy_StepCount {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.StepCount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legacy Backups.
+        /// </summary>
+        internal static string Optimizer_Legacy_Tab {
+            get {
+                return ResourceManager.GetString("Optimizer.Legacy.Tab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Details and history.
+        /// </summary>
+        internal static string Optimizer_Menu_Details {
+            get {
+                return ResourceManager.GetString("Optimizer.Menu.Details", resourceCulture);
             }
         }
         
@@ -4642,11 +5461,101 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reconfigure options.
+        /// </summary>
+        internal static string Optimizer_Menu_Reconfigure {
+            get {
+                return ResourceManager.GetString("Optimizer.Menu.Reconfigure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View Source.
         /// </summary>
         internal static string Optimizer_Menu_ViewSource {
             get {
                 return ResourceManager.GetString("Optimizer.Menu.ViewSource", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Every option here is already configured on your system. Nothing needs to be changed..
+        /// </summary>
+        internal static string Optimizer_Options_AllAlreadySet {
+            get {
+                return ResourceManager.GetString("Optimizer.Options.AllAlreadySet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All options are off. Confirming will revert this optimization to its previous state..
+        /// </summary>
+        internal static string Optimizer_Options_AllOffWillRevert {
+            get {
+                return ResourceManager.GetString("Optimizer.Options.AllOffWillRevert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Already set.
+        /// </summary>
+        internal static string Optimizer_Options_AlreadySet {
+            get {
+                return ResourceManager.GetString("Optimizer.Options.AlreadySet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your system already matches this option, so no changes are needed..
+        /// </summary>
+        internal static string Optimizer_Options_AlreadySet_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.Options.AlreadySet.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply selected.
+        /// </summary>
+        internal static string Optimizer_Options_Apply {
+            get {
+                return ResourceManager.GetString("Optimizer.Options.Apply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        internal static string Optimizer_Options_Disabled {
+            get {
+                return ResourceManager.GetString("Optimizer.Options.Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        internal static string Optimizer_Options_Enabled {
+            get {
+                return ResourceManager.GetString("Optimizer.Options.Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revert optimization.
+        /// </summary>
+        internal static string Optimizer_Options_Revert {
+            get {
+                return ResourceManager.GetString("Optimizer.Options.Revert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select at least one option to continue..
+        /// </summary>
+        internal static string Optimizer_Options_SelectAtLeastOne {
+            get {
+                return ResourceManager.GetString("Optimizer.Options.SelectAtLeastOne", resourceCulture);
             }
         }
         
@@ -4678,11 +5587,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Raises the Service Host split threshold to total system RAM, keeping services consolidated in fewer processes to reduce memory overhead and process count..
+        ///   Looks up a localized string similar to Raises the Service Host split threshold to your installed RAM on PCs with 12 GB or less, grouping Windows services into shared processes to save memory..
         /// </summary>
         internal static string Optimizer_Performance_ConsolidateServiceHosts_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.Performance.ConsolidateServiceHosts.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saves RAM on PCs with 12 GB or less, though a crash in one service can affect others sharing the same host process..
+        /// </summary>
+        internal static string Optimizer_Performance_ConsolidateServiceHosts_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.ConsolidateServiceHosts.TradeOff", resourceCulture);
             }
         }
         
@@ -4696,11 +5614,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Sticky Keys, Filter Keys, and Toggle Keys keyboard shortcuts to prevent accidental pop-ups during gaming and typing..
+        ///   Looks up a localized string similar to Disables the keyboard shortcuts that pop up Sticky Keys, Filter Keys, and Toggle Keys when tapping or holding Shift or lock keys..
         /// </summary>
         internal static string Optimizer_Performance_DisableAccessibilityKeyboardHotkeys_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pressing Shift five times or holding NumLock will no longer trigger accessibility prompts; those tools remain available in Windows Settings..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableAccessibilityKeyboardHotkeys_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableAccessibilityKeyboardHotkeys.TradeOff", resourceCulture);
             }
         }
         
@@ -4714,11 +5641,137 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prevents inactive applications from running in the background to free up RAM and reduce CPU overhead..
+        ///   Looks up a localized string similar to Blocks Microsoft Store apps from running background tasks, reducing idle RAM use and background CPU wake-ups..
         /// </summary>
         internal static string Optimizer_Performance_DisableBackgroundApps_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.Performance.DisableBackgroundApps.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microsoft Store apps cannot sync mail, alarms, or live notifications in the background until opened manually..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableBackgroundApps_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableBackgroundApps.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Explorer Folder Auto-Discovery.
+        /// </summary>
+        internal static string Optimizer_Performance_DisableExplorerFolderDiscovery_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableExplorerFolderDiscovery.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops File Explorer from scanning folder contents to guess specialized layouts such as Pictures or Music every time you open a folder..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableExplorerFolderDiscovery_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableExplorerFolderDiscovery.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Large image or music folders default to the standard Details view until you customize a folder view yourself..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableExplorerFolderDiscovery_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableExplorerFolderDiscovery.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Memory Integrity (HVCI).
+        /// </summary>
+        internal static string Optimizer_Performance_DisableMemoryIntegrityHvci_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableMemoryIntegrityHvci.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turns off Windows Memory Integrity (HVCI) virtualization security checks to recover CPU performance and frame-time consistency in games..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableMemoryIntegrityHvci_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableMemoryIntegrityHvci.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lowers Windows kernel protection against malicious drivers and code injection. Microsoft recommends turning it back on outside gaming..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableMemoryIntegrityHvci_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableMemoryIntegrityHvci.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable NIC Power Saving.
+        /// </summary>
+        internal static string Optimizer_Performance_DisableNicPowerSaving_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableNicPowerSaving.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No configurable physical network adapters were found.
+        /// </summary>
+        internal static string Optimizer_Performance_DisableNicPowerSaving_NoAdapters {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableNicPowerSaving.NoAdapters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops Windows from powering down physical Ethernet and Wi-Fi adapters to save energy, preventing idle connection drops and wake-up lag..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableNicPowerSaving_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableNicPowerSaving.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Increases idle power draw on Ethernet and Wi-Fi, reducing laptop battery life..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableNicPowerSaving_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableNicPowerSaving.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Search WebView2 Host.
+        /// </summary>
+        internal static string Optimizer_Performance_DisableSearchWebView2_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableSearchWebView2.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops Windows 11 Search from spawning embedded Microsoft Edge WebView2 processes, cutting Search RAM and CPU use..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableSearchWebView2_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableSearchWebView2.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses an internal Windows feature override that disables rich web cards in Search and may reset after major Windows updates..
+        /// </summary>
+        internal static string Optimizer_Performance_DisableSearchWebView2_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.DisableSearchWebView2.TradeOff", resourceCulture);
             }
         }
         
@@ -4732,7 +5785,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sets the fastest keyboard repeat delay and repeat rate for more responsive typing and repeated key presses..
+        ///   Looks up a localized string similar to Sets keyboard repeat delay to the shortest interval and repeat rate to maximum for faster held-key input..
         /// </summary>
         internal static string Optimizer_Performance_KeyboardLatencyOptimization_ShortDescription {
             get {
@@ -4741,7 +5794,16 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lift WebDAV 50 MB limit.
+        ///   Looks up a localized string similar to Short repeat delay can trigger unintended duplicate letters if you hold keys slightly while typing..
+        /// </summary>
+        internal static string Optimizer_Performance_KeyboardLatencyOptimization_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.Performance.KeyboardLatencyOptimization.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lift WebDAV 50 MB Limit.
         /// </summary>
         internal static string Optimizer_Performance_LiftWebDavFileSizeLimit_Name {
             get {
@@ -4750,47 +5812,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Raises the WebClient file size limit for WebDAV mounts from 50 MB to 4 GB so large files stop failing on network locations..
+        ///   Looks up a localized string similar to Raises the Windows WebClient transfer cap from 50 MB to 4 GB so large files stop failing on WebDAV network drives..
         /// </summary>
         internal static string Optimizer_Performance_LiftWebDavFileSizeLimit_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.Performance.LiftWebDavFileSizeLimit.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Optimize Multimedia Scheduler.
-        /// </summary>
-        internal static string Optimizer_Performance_OptimizeMultimediaScheduler_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.Performance.OptimizeMultimediaScheduler.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Configures the Multimedia Class Scheduler Service (MMCSS) for gaming and low latency by prioritizing multimedia workloads and disabling network throttling..
-        /// </summary>
-        internal static string Optimizer_Performance_OptimizeMultimediaScheduler_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prioritize Active Applications.
-        /// </summary>
-        internal static string Optimizer_Performance_ProcessPriority_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.Performance.ProcessPriority.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Allocates more CPU resources to the application you are currently using for a faster, more responsive experience..
-        /// </summary>
-        internal static string Optimizer_Performance_ProcessPriority_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.Performance.ProcessPriority.ShortDescription", resourceCulture);
             }
         }
         
@@ -4813,11 +5839,92 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turns off hibernation and Fast Startup to reclaim disk space and ensure a full shutdown for cleaner hardware initialization on boot..
+        ///   Looks up a localized string similar to Turns off hibernation completely and deletes the hibernation file to reclaim several gigabytes of storage..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableHibernateAndFastStartup_Option_Mode_DisableAll_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Hibernation &amp; Fast Startup.
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableHibernateAndFastStartup_Option_Mode_DisableAll_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.DisableAll.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops Windows from saving a kernel hibernation snapshot at shutdown while keeping normal Hibernate intact..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableHibernateAndFastStartup_Option_Mode_FastStartupOnly_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Fast Startup Only (Recommended for Laptops).
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableHibernateAndFastStartup_Option_Mode_FastStartupOnly_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.FastStartupOnly.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shutdown &amp; Hibernation Mode.
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableHibernateAndFastStartup_Option_Mode_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernateAndFastStartup.Option.Mode.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Turns off Fast Startup alone for clean cold boots, or disables Hibernation completely to reclaim gigabytes of disk space..
         /// </summary>
         internal static string Optimizer_PowerManagement_DisableHibernateAndFastStartup_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernateAndFastStartup.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabling hibernation removes automatic RAM-to-disk backup on critical battery loss; disabling Fast Startup makes cold starts slightly slower..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableHibernateAndFastStartup_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableHibernateAndFastStartup.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Modern Standby Network.
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableModernStandbyNetworking_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableModernStandbyNetworking.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disconnects Wi-Fi and stops background network wakes while your laptop sleeps in Modern Standby..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableModernStandbyNetworking_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableModernStandbyNetworking.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to While sleeping, apps wait until you wake the device before syncing email, updates, or push notifications..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableModernStandbyNetworking_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableModernStandbyNetworking.TradeOff", resourceCulture);
             }
         }
         
@@ -4831,11 +5938,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prevents Windows from limiting CPU performance (Power Throttling) to maintain peak power for active tasks..
+        ///   Looks up a localized string similar to Turns off Windows Power Throttling so active and background apps run without CPU frequency throttling..
         /// </summary>
         internal static string Optimizer_PowerManagement_DisablePowerSaving_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.PowerManagement.DisablePowerSaving.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Background tasks can run at full CPU speed even on battery, increasing heat and battery drain..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisablePowerSaving_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisablePowerSaving.TradeOff", resourceCulture);
             }
         }
         
@@ -4849,11 +5965,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prevents Windows from powering down USB ports, eliminating wake-up delays for mice, keyboards, and other peripherals..
+        ///   Looks up a localized string similar to Prevents Windows from powering down USB root hubs and connected peripherals, avoiding wake-up delays for mice, keyboards, and audio devices..
         /// </summary>
         internal static string Optimizer_PowerManagement_DisableUSBPowerSaving_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.PowerManagement.DisableUSBPowerSaving.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to USB hubs and plugged-in devices stay powered instead of entering Selective Suspend, slightly lowering laptop battery life..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_DisableUSBPowerSaving_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.DisableUSBPowerSaving.TradeOff", resourceCulture);
             }
         }
         
@@ -4894,7 +6019,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Importing and activating power plan....
+        ///   Looks up a localized string similar to Installing and activating power plan....
         /// </summary>
         internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_Progress_Importing {
             get {
@@ -4903,11 +6028,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Installs a custom performance-focused power plan to ensure your system always runs at maximum speed. Warning: May cause Task Manager to incorrectly show 100% CPU usage on some systems, actual CPU load is unaffected..
+        ///   Looks up a localized string similar to Installs and activates a custom high-performance power plan that keeps CPU cores responsive and reduces frequency scaling delays..
         /// </summary>
         internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keeping CPU cores unparked increases heat, fan speed, and power draw; Task Manager may read higher CPU utilization than actual load on some systems..
+        /// </summary>
+        internal static string Optimizer_PowerManagement_InstallOptimizerDuckPowerPlan_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.PowerManagement.InstallOptimizerDuckPowerPlan.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Setting startup type for {0} to {1}....
+        /// </summary>
+        internal static string Optimizer_Progress_ChangeServiceStartupType {
+            get {
+                return ResourceManager.GetString("Optimizer.Progress.ChangeServiceStartupType", resourceCulture);
             }
         }
         
@@ -4921,6 +6064,132 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Configure Windows Update Policy.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Windows Update options were selected.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_NoSelection {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.NoSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applies Group Policy deferral windows to give patches time to mature before installation..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_DeferUpdates_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Defer quality (4 days) and feature updates (365 days).
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_DeferUpdates_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delays monthly quality patches by 4 days and major annual Windows feature upgrades by 1 year..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_DeferUpdates_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DeferUpdates.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Excludes hardware driver packages from Windows Update..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_DisableDriverUpdates_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude driver updates from Windows Update.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_DisableDriverUpdates_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must install and update hardware drivers directly from GPU/OEM installers..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_DisableDriverUpdates_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableDriverUpdates.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opts out of early preview feature and configuration rollouts when checking for updates..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_DisableUpdateAsap_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opt out of &apos;Get the latest updates as soon as they&apos;re available&apos;.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_DisableUpdateAsap_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.DisableUpdateAsap.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops Windows Update from restarting automatically while you are signed in..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_PreventAutoReboot_Description {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prevent automatic reboot while signed in.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_Option_PreventAutoReboot_Label {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.Option.PreventAutoReboot.Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Applies selected Windows Update Group Policies to control forced restarts, preview rollouts, update deferrals, and driver updates..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deferring updates or excluding Driver updates delays non-critical patches and requires updating GPU or chipset drivers manually..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_ConfigureWindowsUpdate_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.ConfigureWindowsUpdate.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable Activity History.
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableActivityHistory_Name {
@@ -4930,7 +6199,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prevents Windows from collecting and syncing your activity history..
+        ///   Looks up a localized string similar to Stops Windows from publishing and uploading your app and file activity history to Microsoft..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableActivityHistory_ShortDescription {
             get {
@@ -4948,7 +6217,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables personalized ads, Windows consumer features, and system suggestions..
+        ///   Looks up a localized string similar to Turns off your Windows Advertising ID, diagnostic-based tailored experiences, consumer promotions, and setup suggestion prompts..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableAdvertisingAndSuggestions_ShortDescription {
             get {
@@ -4966,7 +6235,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stops non-essential WMI/ETW AutoLogger sessions (Diagtrack-Listener, SQMLogger, etc.) from starting at boot to reduce background disk and CPU activity. Note: security software may flag AutoLogger changes as they alter diagnostic tracing..
+        ///   Looks up a localized string similar to Disables non-essential Windows ETW diagnostic trace sessions at boot to cut background disk writes and CPU overhead..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableAutoLogger_ShortDescription {
             get {
@@ -4975,7 +6244,70 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Cloud Content Delivery.
+        ///   Looks up a localized string similar to Turns off low-level diagnostic traces used for Microsoft troubleshooting; some security suites may alert on boot trace changes..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableAutoLogger_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableAutoLogger.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prevent Auto BitLocker Encryption.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableBitLockerAutoEncryption_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prevents Windows from automatically turning on BitLocker Device Encryption on new or reinstalled drives..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableBitLockerAutoEncryption_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Does not decrypt already-encrypted drives, and leaves future drives unencrypted at rest unless you enable BitLocker manually..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableBitLockerAutoEncryption_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableBitLockerAutoEncryption.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Program Compatibility Assistant.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableCompatibilityAssistant_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables the Windows Program Compatibility Assistant service that monitors app launches and legacy installers in the background..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableCompatibilityAssistant_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Automatic compatibility warnings and fallback shims for older programs and installers are disabled..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableCompatibilityAssistant_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableCompatibilityAssistant.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Background Cloud Content.
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableContentDeliveryManager_Name {
             get {
@@ -4984,29 +6316,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turns off Windows cloud-delivered content, including system tips, spotlight suggestions, and automatic delivery of consumer features..
+        ///   Looks up a localized string similar to Stops Windows from downloading lock screen Spotlight suggestions, system tips, and promoted consumer content in the background..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableContentDeliveryManager_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableContentDeliveryManager.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable Windows Copilot.
-        /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableCopilot_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableCopilot.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Removes the AI Copilot assistant from the taskbar and system shell to free up memory and screen space..
-        /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableCopilot_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableCopilot.ShortDescription", resourceCulture);
             }
         }
         
@@ -5020,7 +6334,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turns off the Cortana voice assistant and disables cloud search and web results in Windows Search (Windows 10 only)..
+        ///   Looks up a localized string similar to Turns off the Cortana assistant and blocks Windows Search from sending local desktop queries to cloud search on Windows 10..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableCortana_ShortDescription {
             get {
@@ -5038,7 +6352,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stops Windows from sharing or downloading update files from other PCs over peer-to-peer, so updates only come from Microsoft servers..
+        ///   Looks up a localized string similar to Stops peer-to-peer update sharing between PCs so Windows downloads updates only from Microsoft servers..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableDeliveryOptimization_ShortDescription {
             get {
@@ -5056,11 +6370,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables Windows Error Reporting and Program Compatibility Assistant services..
+        ///   Looks up a localized string similar to Turns off Windows Error Reporting and stops scheduled crash and disk diagnostic tasks from collecting or uploading failure reports..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableErrorReporting_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableErrorReporting.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Application crashes no longer generate or upload diagnostic reports to Microsoft..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableErrorReporting_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableErrorReporting.TradeOff", resourceCulture);
             }
         }
         
@@ -5074,7 +6397,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables the Find My Device feature that periodically reports your device&apos;s location to Microsoft..
+        ///   Looks up a localized string similar to Disables Windows Find My Device so your PC stops reporting its location to your Microsoft account..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableFindMyDevice_ShortDescription {
             get {
@@ -5083,38 +6406,65 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Location and Sensors.
+        ///   Looks up a localized string similar to You cannot locate or lock this PC remotely from your Microsoft account dashboard if it is lost or stolen..
         /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableLocationAndSensors_Name {
+        internal static string Optimizer_SecurityAndPrivacy_DisableFindMyDevice_TradeOff {
             get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.Name", resourceCulture);
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableFindMyDevice.TradeOff", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables location tracking, system sensors, and offline maps updates..
+        ///   Looks up a localized string similar to Disable Hardware Motion &amp; Light Sensors.
         /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableLocationAndSensors_ShortDescription {
+        internal static string Optimizer_SecurityAndPrivacy_DisableHardwareSensors_Name {
             get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableLocationAndSensors.ShortDescription", resourceCulture);
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableHardwareSensors.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable News &amp; Interests.
+        ///   Looks up a localized string similar to Blocks apps and Windows features from reading motion, orientation, and ambient light sensors via Group Policy..
         /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableNewsAndInterests_Name {
+        internal static string Optimizer_SecurityAndPrivacy_DisableHardwareSensors_ShortDescription {
             get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name", resourceCulture);
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableHardwareSensors.ShortDescription", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Turns off the News and Interests feed and hides its taskbar button (Windows 10), and disables the Widgets board (Windows 11)..
+        ///   Looks up a localized string similar to Laptop auto-brightness and automatic screen rotation on 2-in-1 devices stop working while active..
         /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableNewsAndInterests_ShortDescription {
+        internal static string Optimizer_SecurityAndPrivacy_DisableHardwareSensors_TradeOff {
             get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription", resourceCulture);
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableHardwareSensors.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Location Tracking.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableLocationTracking_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableLocationTracking.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables the Windows Location service, app location consent, offline Maps auto-updates, and Wi-Fi hotspot reporting..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableLocationTracking_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableLocationTracking.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weather, Maps, and apps that rely on system location cannot determine your position while active..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableLocationTracking_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableLocationTracking.TradeOff", resourceCulture);
             }
         }
         
@@ -5128,38 +6478,47 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disabling telemetry services....
-        /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableTelemetry_Progress_DisableServices {
-            get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableServices", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disabling scheduled telemetry tasks....
-        /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableTelemetry_Progress_DisableTasks {
-            get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.DisableTasks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Applying policy and registry changes....
-        /// </summary>
-        internal static string Optimizer_SecurityAndPrivacy_DisableTelemetry_Progress_EditRegistry {
-            get {
-                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableTelemetry.Progress.EditRegistry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disables Windows telemetry and usage tracking services to enhance your personal privacy and reduce background activity..
+        ///   Looks up a localized string similar to Minimizes Windows diagnostic data collection, app compatibility inventories, and feedback prompts..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_DisableTelemetry_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableTelemetry.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Microsoft diagnostics, Windows Insider flighting, and tailored troubleshooting feedback are disabled..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableTelemetry_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableTelemetry.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable Inking &amp; Typing Personalization.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableTypingAndInkingPersonalization_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stops Windows from collecting handwriting, typing patterns, local contacts, and user profile language preferences for input personalization..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableTypingAndInkingPersonalization_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Custom handwriting recognition, contact-based autocorrect, and local typing dictionary learning stop updating..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableTypingAndInkingPersonalization_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableTypingAndInkingPersonalization.TradeOff", resourceCulture);
             }
         }
         
@@ -5173,11 +6532,263 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hides the Meet Now (Skype) button from the taskbar notification area. Windows 10 only..
+        ///   Looks up a localized string similar to Hides the Meet Now button from the Windows 10 taskbar notification area..
         /// </summary>
         internal static string Optimizer_SecurityAndPrivacy_HideMeetNowButton_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.HideMeetNowButton.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configurable options before applying.
+        /// </summary>
+        internal static string Optimizer_UI_Badge_Configurable {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Badge.Configurable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Group Policy.
+        /// </summary>
+        internal static string Optimizer_UI_Badge_GroupPolicy {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Badge.GroupPolicy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses Windows Group Policy settings. Windows Settings may note that &apos;Some settings are managed by your organization&apos; while enabled..
+        /// </summary>
+        internal static string Optimizer_UI_Badge_GroupPolicy_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Badge.GroupPolicy.Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Less clutter.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Clutter_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Clutter.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adds UI elements.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Clutter_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Clutter.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More features.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Features_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Features.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables features.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Features_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Features.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lower latency.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Latency_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Latency.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to May add latency.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Latency_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Latency.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Less RAM used.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Memory_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Memory.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses more RAM.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Memory_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Memory.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Better network.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Network_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Network.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restricts network.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Network_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Network.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faster performance.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Performance_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Performance.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to May affect performance.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Performance_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Performance.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lower power draw.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Power_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Power.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Higher power draw.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Power_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Power.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More privacy.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Privacy_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Privacy.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reduces privacy.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Privacy_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Privacy.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stronger security.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Security_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Security.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lowers security.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Security_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Security.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More stable.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Stability_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Stability.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to May affect stability.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Stability_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Stability.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saves disk space.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Storage_Improves {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Storage.Improves", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uses more disk space.
+        /// </summary>
+        internal static string Optimizer_UI_Impact_Storage_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Impact.Storage.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart Explorer required.
+        /// </summary>
+        internal static string Optimizer_UI_Restart_Explorer {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Restart.Explorer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart required.
+        /// </summary>
+        internal static string Optimizer_UI_Restart_Reboot {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Restart.Reboot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign out required.
+        /// </summary>
+        internal static string Optimizer_UI_Restart_SignOut {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.Restart.SignOut", resourceCulture);
             }
         }
         
@@ -5218,7 +6829,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This machine already matches this optimization, so there is nothing to change..
+        ///   Looks up a localized string similar to Your PC already uses this setting, so nothing needs to change..
         /// </summary>
         internal static string Optimizer_UI_State_AlreadyOptimal_Tooltip {
             get {
@@ -5227,7 +6838,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} steps changed, {1} were already correct, {2} did not apply, {3} were refused by Windows.
+        ///   Looks up a localized string similar to {0} changed, {1} already optimal, {2} skipped, {3} blocked by Windows.
         /// </summary>
         internal static string Optimizer_UI_State_Applied_Summary {
             get {
@@ -5236,7 +6847,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click to see each step of the last apply. {0}.
+        ///   Looks up a localized string similar to Click to view every recorded change. {0}.
         /// </summary>
         internal static string Optimizer_UI_State_Applied_Tooltip {
             get {
@@ -5245,11 +6856,29 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Click to see each step of the last apply..
+        ///   Looks up a localized string similar to Click to view every recorded change..
         /// </summary>
         internal static string Optimizer_UI_State_Applied_Tooltip_NoSummary {
             get {
                 return ResourceManager.GetString("Optimizer.UI.State.Applied.Tooltip.NoSummary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changed externally.
+        /// </summary>
+        internal static string Optimizer_UI_State_Drifted {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.State.Drifted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A saved backup exists, but current Windows settings no longer match this optimization (for example after a Windows update or manual edit)..
+        /// </summary>
+        internal static string Optimizer_UI_State_Drifted_Tooltip {
+            get {
+                return ResourceManager.GetString("Optimizer.UI.State.Drifted.Tooltip", resourceCulture);
             }
         }
         
@@ -5263,7 +6892,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about a PC with an AMD graphics card, and does nothing on other machines..
+        ///   Looks up a localized string similar to Applies only to PCs with AMD graphics; ignored on other hardware..
         /// </summary>
         internal static string Optimizer_UI_Tags_Amd_Tooltip {
             get {
@@ -5281,7 +6910,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about how sound is played and processed..
+        ///   Looks up a localized string similar to Adjusts how Windows processes and routes sound..
         /// </summary>
         internal static string Optimizer_UI_Tags_Audio_Tooltip {
             get {
@@ -5299,7 +6928,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about how Windows uses your disks..
+        ///   Looks up a localized string similar to Changes how Windows reads, writes, or indexes storage drives..
         /// </summary>
         internal static string Optimizer_UI_Tags_Disk_Tooltip {
             get {
@@ -5317,7 +6946,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about what your screen or graphics card outputs..
+        ///   Looks up a localized string similar to Adjusts screen output, refresh behavior, or GPU display features..
         /// </summary>
         internal static string Optimizer_UI_Tags_Display_Tooltip {
             get {
@@ -5335,7 +6964,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about a PC with an Intel graphics card, and does nothing on other machines..
+        ///   Looks up a localized string similar to Applies only to PCs with Intel graphics; ignored on other hardware..
         /// </summary>
         internal static string Optimizer_UI_Tags_Intel_Tooltip {
             get {
@@ -5353,7 +6982,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about delay in input, games or sound..
+        ///   Looks up a localized string similar to Reduces input, audio, or frame-time response delays..
         /// </summary>
         internal static string Optimizer_UI_Tags_Latency_Tooltip {
             get {
@@ -5371,7 +7000,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about networking, the connection and the traffic on it..
+        ///   Looks up a localized string similar to Changes Windows network adapter, transfer, or background traffic behavior..
         /// </summary>
         internal static string Optimizer_UI_Tags_Network_Tooltip {
             get {
@@ -5380,7 +7009,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Network connection required.
+        ///   Looks up a localized string similar to Internet required.
         /// </summary>
         internal static string Optimizer_UI_Tags_NetworkRequired {
             get {
@@ -5389,7 +7018,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization needs an internet connection, because it downloads something..
+        ///   Looks up a localized string similar to Requires an active internet connection to download needed files..
         /// </summary>
         internal static string Optimizer_UI_Tags_NetworkRequired_Tooltip {
             get {
@@ -5407,7 +7036,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about a PC with an NVIDIA graphics card, and does nothing on other machines..
+        ///   Looks up a localized string similar to Applies only to PCs with NVIDIA graphics; ignored on other hardware..
         /// </summary>
         internal static string Optimizer_UI_Tags_Nvidia_Tooltip {
             get {
@@ -5425,7 +7054,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about performance and background work..
+        ///   Looks up a localized string similar to Targets system responsiveness, CPU scheduling, or background overhead..
         /// </summary>
         internal static string Optimizer_UI_Tags_Performance_Tooltip {
             get {
@@ -5443,7 +7072,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about power, so battery life, heat or fan noise..
+        ///   Looks up a localized string similar to Affects energy draw, battery life, heat, and fan speed..
         /// </summary>
         internal static string Optimizer_UI_Tags_Power_Tooltip {
             get {
@@ -5461,7 +7090,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about the data Windows collects and sends..
+        ///   Looks up a localized string similar to Limits telemetry, diagnostics, and data shared with Microsoft or apps..
         /// </summary>
         internal static string Optimizer_UI_Tags_Privacy_Tooltip {
             get {
@@ -5470,7 +7099,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ram.
+        ///   Looks up a localized string similar to RAM.
         /// </summary>
         internal static string Optimizer_UI_Tags_Ram {
             get {
@@ -5479,7 +7108,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about how Windows uses memory..
+        ///   Looks up a localized string similar to Reduces background RAM footprint and memory overhead..
         /// </summary>
         internal static string Optimizer_UI_Tags_Ram_Tooltip {
             get {
@@ -5497,7 +7126,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about security settings in Windows..
+        ///   Looks up a localized string similar to Modifies Windows security, isolation, or encryption settings..
         /// </summary>
         internal static string Optimizer_UI_Tags_Security_Tooltip {
             get {
@@ -5515,7 +7144,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about a core part of Windows, a component or a policy, so it is worth reading what it does first..
+        ///   Looks up a localized string similar to Changes core Windows components or system policies; review details before applying..
         /// </summary>
         internal static string Optimizer_UI_Tags_System_Tooltip {
             get {
@@ -5533,7 +7162,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is about how Windows looks, its effects and its animations..
+        ///   Looks up a localized string similar to Adjusts Windows UI elements, promotions, or visual effects..
         /// </summary>
         internal static string Optimizer_UI_Tags_Visual_Tooltip {
             get {
@@ -5551,7 +7180,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is only for Windows 10 and does nothing on Windows 11..
+        ///   Looks up a localized string similar to Built for Windows 10; hidden by compatibility checks on Windows 11..
         /// </summary>
         internal static string Optimizer_UI_Tags_Windows10Only_Tooltip {
             get {
@@ -5569,7 +7198,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This optimization is only for Windows 11 and is blocked on Windows 10..
+        ///   Looks up a localized string similar to Built for Windows 11; hidden by compatibility checks on Windows 10..
         /// </summary>
         internal static string Optimizer_UI_Tags_Windows11Only_Tooltip {
             get {
@@ -5587,6 +7216,24 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove Startup App Launch Delay.
+        /// </summary>
+        internal static string Optimizer_UserExperience_DisableExplorerStartupDelay_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.UserExperience.DisableExplorerStartupDelay.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Removes Explorer&apos;s built-in sign-in delay and CPU-idle wait so startup programs launch immediately after login..
+        /// </summary>
+        internal static string Optimizer_UserExperience_DisableExplorerStartupDelay_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.UserExperience.DisableExplorerStartupDelay.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disable Microsoft 365 Ads in Settings.
         /// </summary>
         internal static string Optimizer_UserExperience_DisableSettings365Ads_Name {
@@ -5596,29 +7243,11 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Removes the Microsoft 365 and Copilot promotional content from the Settings Home page..
+        ///   Looks up a localized string similar to Removes Microsoft 365 and account promotional banners from the Windows Settings Home page..
         /// </summary>
         internal static string Optimizer_UserExperience_DisableSettings365Ads_ShortDescription {
             get {
                 return ResourceManager.GetString("Optimizer.UserExperience.DisableSettings365Ads.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Disable Start Menu Web Search.
-        /// </summary>
-        internal static string Optimizer_UserExperience_DisableStartMenuWebSearch_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.UserExperience.DisableStartMenuWebSearch.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Turn off web search for Windows Start Menu to load the local search results faster..
-        /// </summary>
-        internal static string Optimizer_UserExperience_DisableStartMenuWebSearch_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription", resourceCulture);
             }
         }
         
@@ -5632,7 +7261,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hides the Recommended section from the Start menu to reduce clutter and stop recent files and apps from being shown..
+        ///   Looks up a localized string similar to Hides the Recommended section in the Windows 11 Start menu to remove recent files and app suggestions..
         /// </summary>
         internal static string Optimizer_UserExperience_DisableStartRecommended_ShortDescription {
             get {
@@ -5641,56 +7270,20 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disable Visual Effects.
+        ///   Looks up a localized string similar to Remove Menu Hover Delay.
         /// </summary>
-        internal static string Optimizer_UserExperience_DisableVisualEffects_Name {
+        internal static string Optimizer_UserExperience_ReduceMenuShowDelay_Name {
             get {
-                return ResourceManager.GetString("Optimizer.UserExperience.DisableVisualEffects.Name", resourceCulture);
+                return ResourceManager.GetString("Optimizer.UserExperience.ReduceMenuShowDelay.Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Disables taskbar animations, listview shadows, window transparency, and Aero Peek to free up GPU/CPU resources for better performance..
+        ///   Looks up a localized string similar to Sets Windows&apos; cascading menu hover delay to zero so submenus open immediately under your pointer..
         /// </summary>
-        internal static string Optimizer_UserExperience_DisableVisualEffects_ShortDescription {
+        internal static string Optimizer_UserExperience_ReduceMenuShowDelay_ShortDescription {
             get {
-                return ResourceManager.GetString("Optimizer.UserExperience.DisableVisualEffects.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Maximize update pause limit.
-        /// </summary>
-        internal static string Optimizer_UserExperience_MaximizeUpdatePauseLimit_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sets the Windows Update pause ceiling to the largest supported value. Only honored by Windows versions that still support this setting; security updates stay paused while it is active..
-        /// </summary>
-        internal static string Optimizer_UserExperience_MaximizeUpdatePauseLimit_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Speed Up Explorer &amp; Menus.
-        /// </summary>
-        internal static string Optimizer_UserExperience_SpeedUpExplorerAndMenus_Name {
-            get {
-                return ResourceManager.GetString("Optimizer.UserExperience.SpeedUpExplorerAndMenus.Name", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sets StartupDelayInMSec=0, MenuShowDelay=0 to eliminate Explorer startup delay and reduce menu hover delay to minimum..
-        /// </summary>
-        internal static string Optimizer_UserExperience_SpeedUpExplorerAndMenus_ShortDescription {
-            get {
-                return ResourceManager.GetString("Optimizer.UserExperience.SpeedUpExplorerAndMenus.ShortDescription", resourceCulture);
+                return ResourceManager.GetString("Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription", resourceCulture);
             }
         }
         
@@ -6640,7 +8233,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  (repeat every {0}).
+        ///   Looks up a localized string similar to (repeat every {0}).
         /// </summary>
         internal static string ScheduledTasks_TriggerDetail_Repeat {
             get {
@@ -6649,7 +8242,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  (repeat every {0} for {1}).
+        ///   Looks up a localized string similar to (repeat every {0} for {1}).
         /// </summary>
         internal static string ScheduledTasks_TriggerDetail_RepeatFor {
             get {
@@ -6964,7 +8557,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are about to delete all files downloaded during the optimization process. Please note that this action is permanent and cannot be undone, so make sure you are certain before proceeding..
+        ///   Looks up a localized string similar to You are about to delete all files downloaded during the optimization process. Please note that this action is permanent and cannot be undone, so make sure you are certain before....
         /// </summary>
         internal static string Settings_ClearDownloads_Description {
             get {
@@ -6973,7 +8566,7 @@ namespace optimizerDuck.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You are about to delete all rollback data generated after the optimization process. This means you will no longer be able to restore the pre-optimization state, so please think carefully before confirming..
+        ///   Looks up a localized string similar to You are about to delete all rollback data generated after the optimization process. This means you will no longer be able to restore the pre-optimization state, so please think ....
         /// </summary>
         internal static string Settings_ClearRevertData_Description {
             get {
