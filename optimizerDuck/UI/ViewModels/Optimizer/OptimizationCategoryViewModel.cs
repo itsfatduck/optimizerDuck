@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -11,11 +10,11 @@ using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Domain.Optimizations.Models;
-using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Conditions;
 using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.History;
 using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
 using optimizerDuck.Services.System;
@@ -23,8 +22,6 @@ using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
-using Wpf.Ui.Extensions;
-using TextBlock = Wpf.Ui.Controls.TextBlock;
 
 namespace optimizerDuck.UI.ViewModels.Optimizer;
 
@@ -83,6 +80,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     [ObservableProperty]
     [NotifyCanExecuteChangedFor(nameof(ToggleOptimizationCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ReconfigureOptimizationCommand))]
     private bool _isProcessing;
 
     [ObservableProperty]
@@ -140,44 +138,84 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
     #region CanExecutes
 
-    private bool CanToggleOptimization(IOptimization optimization)
-    {
-        return !IsProcessing;
-    }
+    private bool CanToggleOptimization(IOptimization? optimization) =>
+        !IsProcessing && optimization is not null;
 
     #endregion CanExecutes
 
     #region Commands
 
     /// <summary>
-    ///     Applies the optimization when it is not applied and reverts it when it is.
+    ///     Applies the optimization when it is not applied (or drifted) and reverts it when it
+    ///     matches and carries revert data.
     /// </summary>
     /// <param name="optimization">The optimization to apply or revert.</param>
     [RelayCommand(CanExecute = nameof(CanToggleOptimization))]
     private async Task ToggleOptimizationAsync(IOptimization optimization)
     {
+        if (optimization.State.Presence == OptimizationPresence.AlreadyOptimal)
+            return;
+
         IsProcessing = true;
         try
         {
-            var wasApplied = await RevertManager.IsAppliedAsync(optimization.Id);
+            var isReverting = optimization.State.Presence == OptimizationPresence.Applied;
+            IReadOnlyDictionary<string, string>? selectedOptions = null;
 
-            var (canProceed, restorePointCreated) = await EnsureRestorePointAsync(
-                optimization,
-                wasApplied
-            );
+            if (!isReverting)
+            {
+                if (optimization is IConfigurableOptimization configurable)
+                {
+                    var previousSelections = ChangeRecordStore
+                        .TryRead(optimization.Id, _logger)
+                        ?.SelectedOptions;
+                    var optionsResult = await ShowOptionsDialogAsync(
+                        optimization,
+                        configurable,
+                        previousSelections,
+                        isReconfiguring: false
+                    );
+                    if (optionsResult.Action != OptimizationOptionsAction.Apply)
+                    {
+                        optimization.State.NotifyToggleVisualReset();
+                        return;
+                    }
+
+                    selectedOptions = optionsResult.SelectedOptions;
+                }
+                else if (optimization is BaseOptimization { RequiresConfirmation: true })
+                {
+                    var confirmed = await ShowRiskyConfirmationAsync(optimization);
+                    if (!confirmed)
+                    {
+                        optimization.State.NotifyToggleVisualReset();
+                        return;
+                    }
+                }
+            }
+
+            var (canProceed, restorePointCreated) = await EnsureRestorePointAsync();
             if (!canProceed)
+            {
+                optimization.State.NotifyToggleVisualReset();
                 return;
+            }
 
             try
             {
-                if (!wasApplied)
-                    await ApplyOptimizationAsync(optimization, restorePointCreated);
+                if (!isReverting)
+                    await ApplyOptimizationAsync(
+                        optimization,
+                        restorePointCreated,
+                        selectedOptions
+                    );
                 else
                     await RevertOptimizationAsync(optimization, restorePointCreated);
             }
             catch (Exception ex)
             {
-                optimization.State.IsApplied = wasApplied;
+                await FinalizeOperationAsync(optimization);
+                optimization.State.NotifyToggleVisualReset();
                 _logger.LogError(
                     ex,
                     "Failed to toggle optimization {Name}",
@@ -199,22 +237,117 @@ public partial class OptimizationCategoryViewModel : ViewModel
     }
 
     /// <summary>
+    ///     Reconfigures an applied configurable optimization via Revert-then-Apply.
+    /// </summary>
+    [RelayCommand(CanExecute = nameof(CanToggleOptimization))]
+    private async Task ReconfigureOptimizationAsync(IOptimization optimization)
+    {
+        if (
+            optimization is not IConfigurableOptimization configurable
+            || !optimization.State.IsApplied
+        )
+            return;
+
+        IsProcessing = true;
+        try
+        {
+            var previousSelections = ChangeRecordStore
+                .TryRead(optimization.Id, _logger)
+                ?.SelectedOptions;
+            var optionsResult = await ShowOptionsDialogAsync(
+                optimization,
+                configurable,
+                previousSelections,
+                isReconfiguring: true
+            );
+            if (optionsResult.Action == OptimizationOptionsAction.Cancelled)
+                return;
+
+            if (optionsResult.Action == OptimizationOptionsAction.Revert)
+            {
+                await RevertOptimizationAsync(optimization, restorePointCreated: false);
+                return;
+            }
+
+            var revertResult = await RunWithProcessingDialogAsync(
+                optimization,
+                p => _optimizationService.RevertAsync(optimization, p)
+            );
+
+            if (Application.Current is App app)
+                app.HasPendingChanges = true;
+
+            var retryOutcome = await HandleRetryableFailuresAsync(
+                optimization,
+                revertResult.FailedSteps,
+                OptimizationOperation.Revert
+            );
+            var revertNotification = ResolveRevertNotificationState(revertResult, retryOutcome);
+
+            if (revertNotification != OperationNotificationState.Success)
+            {
+                await FinalizeOperationAsync(optimization);
+                ShowOperationOutcomeSnackbar(
+                    revertNotification,
+                    OptimizationOperation.Revert,
+                    revertResult.Message
+                );
+                LogOperationOutcome(revertNotification, "revert", optimization);
+                return;
+            }
+
+            await ApplyOptimizationAsync(
+                optimization,
+                restorePointCreated: false,
+                optionsResult.SelectedOptions
+            );
+        }
+        catch (Exception ex)
+        {
+            await FinalizeOperationAsync(optimization);
+            _logger.LogError(
+                ex,
+                "Failed to reconfigure optimization {Name}",
+                optimization.OptimizationKey
+            );
+            _snackbarService.Show(
+                Loc.Instance["Optimization.Toggle.Snackbar.Error.Title"],
+                Loc.Instance["Optimization.Toggle.Snackbar.Error.Message", ex.Message],
+                ControlAppearance.Danger,
+                new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                TimeSpan.FromSeconds(5)
+            );
+        }
+        finally
+        {
+            IsProcessing = false;
+        }
+    }
+
+    private async Task RevertRemainingAfterDriftAsync(IOptimization optimization)
+    {
+        IsProcessing = true;
+        try
+        {
+            await RevertOptimizationAsync(optimization, restorePointCreated: false);
+        }
+        finally
+        {
+            IsProcessing = false;
+        }
+    }
+
+    /// <summary>
     ///     Ensures a restore point is created before modifying system settings.
     /// </summary>
-    private async Task<(bool Proceed, bool RestorePointCreated)> EnsureRestorePointAsync(
-        IOptimization optimization,
-        bool wasApplied
-    )
+    private async Task<(bool Proceed, bool RestorePointCreated)> EnsureRestorePointAsync()
     {
         if (_optimizationService.WasRequestedRestorePoint)
             return (true, false);
 
         var (proceed, created) = await HandleRestorePointAsync();
         if (!proceed)
-        {
-            optimization.State.IsApplied = wasApplied;
             return (false, false);
-        }
 
         _optimizationService.WasRequestedRestorePoint = true;
         return (true, created);
@@ -223,9 +356,11 @@ public partial class OptimizationCategoryViewModel : ViewModel
     /// <summary>
     ///     Applies an optimization with progress reporting and retry handling.
     /// </summary>
-    /// <param name="optimization">The optimization to apply.</param>
-    /// <param name="restorePointCreated">Whether a restore point was created beforehand.</param>
-    private async Task ApplyOptimizationAsync(IOptimization optimization, bool restorePointCreated)
+    private async Task ApplyOptimizationAsync(
+        IOptimization optimization,
+        bool restorePointCreated,
+        IReadOnlyDictionary<string, string>? selectedOptions = null
+    )
     {
         _logger.LogInformation(
             "===== START applying {Name} ({Id}) =====",
@@ -235,7 +370,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
 
         var applyResult = await RunWithProcessingDialogAsync(
             optimization,
-            p => _optimizationService.ApplyAsync(optimization, p)
+            p => _optimizationService.ApplyAsync(optimization, p, selectedOptions)
         );
 
         // A complete failure leaves nothing to retry.
@@ -252,15 +387,25 @@ public partial class OptimizationCategoryViewModel : ViewModel
             return;
         }
 
-        // Nothing to do changes nothing: the card is marked for this session and the pending
-        // changes prompt stays untouched.
-        optimization.State.IsAlreadyOptimal =
-            applyResult.Status == OptimizationSuccessResult.NothingToDo;
-
+        // Nothing to do changes nothing: preserve session AlreadyOptimal only when no revert
+        // exists and the optimization does not depend on per-run user options.
         if (applyResult.Status == OptimizationSuccessResult.NothingToDo)
         {
             await FinalizeOperationAsync(optimization);
-            OnPropertyChanged(nameof(HasAppliedOptimizations));
+            if (
+                !optimization.State.HasRevertData
+                && optimization is not IConfigurableOptimization
+                && optimization.State.Presence == OptimizationPresence.NotApplied
+            )
+            {
+                optimization.State.MarkSessionAlreadyOptimal();
+                OnPropertyChanged(nameof(HasAppliedOptimizations));
+            }
+            else
+            {
+                optimization.State.NotifyToggleVisualReset();
+            }
+
             ShowOperationOutcomeSnackbar(
                 OperationNotificationState.NothingToDo,
                 OptimizationOperation.Apply,
@@ -320,9 +465,6 @@ public partial class OptimizationCategoryViewModel : ViewModel
             p => _optimizationService.RevertAsync(optimization, p)
         );
 
-        // The revert invalidates the applied mark, whatever the last apply reported.
-        optimization.State.IsAlreadyOptimal = false;
-
         if (Application.Current is App app)
             app.HasPendingChanges = true;
 
@@ -349,9 +491,13 @@ public partial class OptimizationCategoryViewModel : ViewModel
         );
     }
 
-    private static async Task FinalizeOperationAsync(IOptimization optimization)
+    private async Task FinalizeOperationAsync(IOptimization optimization)
     {
-        await OptimizationService.UpdateOptimizationStateAsync(optimization);
+        await OptimizationService.UpdateOptimizationStateAsync(
+            _systemInfoService.Snapshot,
+            optimization
+        );
+        OnPropertyChanged(nameof(HasAppliedOptimizations));
     }
 
     private void LogOperationOutcome(
@@ -399,6 +545,7 @@ public partial class OptimizationCategoryViewModel : ViewModel
     {
         var dialogViewModel = new OptimizationDetailsViewModel(
             optimization,
+            _systemInfoService.Snapshot,
             _snackbarService,
             _logger
         );
@@ -409,22 +556,34 @@ public partial class OptimizationCategoryViewModel : ViewModel
             Content = dialogContent,
             CloseButtonText = Loc.Instance["Button.Ok"],
         };
-        var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
-    }
 
-    [RelayCommand]
-    private async Task ViewSourceOnGitHubAsync(IOptimization optimization)
-    {
-        if (optimization is not BaseOptimization baseOpt || baseOpt.OwnerType == null)
-            return;
+        void OnCloseRequested() => dialog.Hide();
+        dialogViewModel.CloseRequested += OnCloseRequested;
+        try
+        {
+            await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
+        }
+        finally
+        {
+            dialogViewModel.CloseRequested -= OnCloseRequested;
+        }
 
-        await GitHubSourceHelper.OpenSourceOnGitHubAsync(
-            baseOpt.OwnerType,
-            optimization.OptimizationKey,
-            nameof(BaseOptimization),
-            _logger,
-            _snackbarService
-        );
+        switch (dialogViewModel.PendingAction)
+        {
+            case DetailsDialogAction.Reconfigure:
+                await ReconfigureOptimizationAsync(optimization);
+                break;
+            case DetailsDialogAction.RevertRemaining:
+                await RevertRemainingAfterDriftAsync(optimization);
+                break;
+            case DetailsDialogAction.ClearStaleRevert:
+                await _optimizationService.ClearStaleRevertDataAsync(
+                    optimization,
+                    _systemInfoService.Snapshot
+                );
+                ApplyFilter();
+                break;
+        }
     }
 
     #endregion Commands
@@ -450,6 +609,8 @@ public partial class OptimizationCategoryViewModel : ViewModel
                 _logger.LogWarning(
                     "System snapshot is unavailable; conditions fail open for this session"
                 );
+
+            await OptimizationService.UpdateOptimizationStateAsync(snapshot, _allOptimizations);
 
             await UiThread.InvokeAsync(() =>
             {
@@ -493,11 +654,26 @@ public partial class OptimizationCategoryViewModel : ViewModel
     }
 
     /// <inheritdoc />
-    public override Task OnNavigatedToAsync()
+    public override async Task OnNavigatedToAsync()
     {
+        var wasAlreadyInitialized = IsInitialized;
         _systemInfoService.SnapshotRefreshed += OnSnapshotRefreshed;
         Loc.Instance.PropertyChanged += OnCultureChanged;
-        return base.OnNavigatedToAsync();
+        await base.OnNavigatedToAsync();
+
+        if (wasAlreadyInitialized && _allOptimizations.Count > 0)
+        {
+            var snapshot = _systemInfoService.Snapshot;
+            if (!snapshot.IsUnknown)
+            {
+                await OptimizationService.UpdateOptimizationStateAsync(snapshot, _allOptimizations);
+                await UiThread.InvokeAsync(() =>
+                {
+                    EvaluateConditions(snapshot);
+                    ApplyFilter();
+                });
+            }
+        }
     }
 
     /// <inheritdoc />
@@ -535,6 +711,17 @@ public partial class OptimizationCategoryViewModel : ViewModel
             query = query.Where(o =>
                 o.Name.Contains(search, StringComparison.OrdinalIgnoreCase)
                 || o.ShortDescription.Contains(search, StringComparison.OrdinalIgnoreCase)
+                || (
+                    o is BaseOptimization bo
+                    && (
+                        bo.TagDisplays.Any(t =>
+                            t.Display.Contains(search, StringComparison.OrdinalIgnoreCase)
+                        )
+                        || bo.ImpactDisplays.Any(i =>
+                            i.Label.Contains(search, StringComparison.OrdinalIgnoreCase)
+                        )
+                    )
+                )
             );
         }
 

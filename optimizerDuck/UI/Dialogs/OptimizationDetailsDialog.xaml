@@ -7,13 +7,14 @@
     xmlns:dialogVm="clr-namespace:optimizerDuck.UI.ViewModels.Dialogs"
     xmlns:ext="clr-namespace:optimizerDuck.Common.Extensions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:optimizerDuck.Domain.Optimizations.Models"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     d:DataContext="{d:DesignInstance Type=dialogVm:OptimizationDetailsViewModel}"
-    d:DesignHeight="760"
+    d:DesignHeight="820"
     d:DesignWidth="760"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <!-- One fact of a record: a chip with its own icon, label and value. -->
+        <!--  One fact of a record: a chip with its own icon, label and value.  -->
         <DataTemplate x:Key="RecordFieldChip">
             <Border
                 Margin="0,0,6,6"
@@ -42,6 +43,7 @@
         </DataTemplate>
     </UserControl.Resources>
     <StackPanel>
+        <!--  Header summary card  -->
         <Border
             Margin="0,0,0,12"
             Padding="16"
@@ -49,36 +51,25 @@
             BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="{StaticResource CornerRadiusMedium}">
-            <Grid RowDefinitions="Auto,Auto,Auto,Auto">
+            <Grid RowDefinitions="Auto,Auto,Auto">
                 <ui:TextBlock
-                    Appearance="Disabled"
-                    FontTypography="Caption"
-                    Text="{Binding Optimization.Id}" />
-
-                <ui:TextBlock
-                    Grid.Row="1"
-                    Margin="0,2,0,0"
                     FontTypography="Subtitle"
                     Text="{Binding Optimization.Name}"
                     TextWrapping="Wrap" />
 
-                <ui:VirtualizingItemsControl
-                    Grid.Row="2"
+                <ItemsControl
+                    Grid.Row="1"
                     Margin="0,8,0,0"
-                    ItemsSource="{Binding Optimization.TagDisplays}">
-                    <ui:VirtualizingItemsControl.ItemsPanel>
+                    ItemsSource="{Binding TagDisplays}">
+                    <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" />
                         </ItemsPanelTemplate>
-                    </ui:VirtualizingItemsControl.ItemsPanel>
-                    <ui:VirtualizingItemsControl.ItemContainerStyle>
-                        <Style TargetType="ContentPresenter">
-                            <Setter Property="Margin" Value="0,0,6,6" />
-                        </Style>
-                    </ui:VirtualizingItemsControl.ItemContainerStyle>
-                    <ui:VirtualizingItemsControl.ItemTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border
+                                Margin="0,0,6,6"
                                 Style="{StaticResource SubtlePillStyle}"
                                 ToolTip="{Binding Description}"
                                 ToolTipService.InitialShowDelay="150"
@@ -96,28 +87,28 @@
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
-                    </ui:VirtualizingItemsControl.ItemTemplate>
-                </ui:VirtualizingItemsControl>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
 
-                <Grid
-                    Grid.Row="3"
-                    Margin="0,4,0,0"
-                    ColumnDefinitions="Auto,Auto,*">
-                    <controls:RiskBadge Risk="{Binding Optimization.Risk}" RiskVisual="{Binding Optimization.RiskVisual}" />
+                <WrapPanel Grid.Row="2" Margin="0,4,0,0" Orientation="Horizontal">
+                    <controls:RiskBadge
+                        Margin="0,0,6,6"
+                        Risk="{Binding Optimization.Risk}"
+                        RiskVisual="{Binding Optimization.RiskVisual}" />
 
+                    <!--  Applied timestamp chip  -->
                     <Border
-                        Grid.Column="1"
-                        Margin="8,0,0,0"
-                        Padding="6,4"
-                        HorizontalAlignment="Left"
+                        Margin="0,0,6,6"
+                        Padding="6,2"
                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                         CornerRadius="{StaticResource CornerRadiusSmall}"
                         ToolTip="{Binding Optimization.State.AppliedAt}"
-                        ToolTipService.InitialShowDelay="150"
-                        ToolTipService.Placement="Top"
-                        Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
+                        Visibility="{Binding IsAppliedState, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Margin="0,0,6,0" Symbol="CheckmarkCircle24" />
+                            <ui:SymbolIcon
+                                Margin="0,0,6,0"
+                                Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                Symbol="CheckmarkCircle24" />
                             <ui:TextBlock
                                 VerticalAlignment="Center"
                                 FontTypography="Caption"
@@ -125,27 +116,141 @@
                         </StackPanel>
                     </Border>
 
+                    <!--  Already optimal chip  -->
                     <Border
-                        Grid.Column="1"
-                        Margin="8,0,0,0"
-                        Padding="6,4"
-                        HorizontalAlignment="Left"
+                        Margin="0,0,6,6"
+                        Padding="6,2"
                         Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
                         CornerRadius="{StaticResource CornerRadiusSmall}"
-                        Visibility="{Binding RecordIsRevert, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        Visibility="{Binding IsAlreadyOptimal, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <StackPanel Orientation="Horizontal">
-                            <ui:SymbolIcon Margin="0,0,6,0" Symbol="ArrowClockwise24" />
+                            <ui:SymbolIcon
+                                Margin="0,0,6,0"
+                                Foreground="{DynamicResource SystemFillColorSuccessBrush}"
+                                Symbol="CheckmarkCircle24" />
                             <ui:TextBlock
                                 VerticalAlignment="Center"
                                 FontTypography="Caption"
-                                Text="{Binding RecordHeadline}"
-                                TextWrapping="Wrap" />
+                                Text="{ext:Loc Optimizer.UI.State.AlreadyOptimal}" />
                         </StackPanel>
                     </Border>
-                </Grid>
+
+                    <!--  Drifted chip  -->
+                    <Border
+                        Margin="0,0,6,6"
+                        Padding="6,2"
+                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                        CornerRadius="{StaticResource CornerRadiusSmall}"
+                        Visibility="{Binding IsDrifted, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon
+                                Margin="0,0,6,0"
+                                Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                Symbol="Warning24" />
+                            <ui:TextBlock
+                                VerticalAlignment="Center"
+                                FontTypography="Caption"
+                                Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                                Text="{ext:Loc Optimizer.UI.State.Drifted}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Restart requirement chip  -->
+                    <Border
+                        Margin="0,0,6,6"
+                        Padding="6,2"
+                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                        CornerRadius="{StaticResource CornerRadiusSmall}"
+                        Visibility="{Binding HasRestartRequirement, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon
+                                Margin="0,0,6,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Symbol="ArrowSync24" />
+                            <ui:TextBlock
+                                VerticalAlignment="Center"
+                                FontTypography="Caption"
+                                Text="{Binding RestartDisplay}" />
+                        </StackPanel>
+                    </Border>
+
+                    <!--  Group Policy chip  -->
+                    <Border
+                        Margin="0,0,6,6"
+                        Padding="6,2"
+                        Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                        CornerRadius="{StaticResource CornerRadiusSmall}"
+                        Visibility="{Binding SetsGroupPolicy, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <StackPanel Orientation="Horizontal">
+                            <ui:SymbolIcon
+                                Margin="0,0,6,0"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                Symbol="ShieldLock24" />
+                            <ui:TextBlock
+                                VerticalAlignment="Center"
+                                FontTypography="Caption"
+                                Text="{ext:Loc Optimizer.UI.Badge.GroupPolicy}" />
+                        </StackPanel>
+                    </Border>
+                </WrapPanel>
             </Grid>
         </Border>
 
+        <!--  Drifted state resolution card  -->
+        <Border
+            Margin="0,0,0,12"
+            Padding="14"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource SystemFillColorCautionBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource CornerRadiusMedium}"
+            Visibility="{Binding IsDrifted, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <ui:SymbolIcon
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource SystemFillColorCautionBrush}"
+                        Symbol="Warning24" />
+                    <ui:TextBlock
+                        VerticalAlignment="Center"
+                        FontTypography="BodyStrong"
+                        Text="{ext:Loc OptimizationDetailsDialog.DriftedTitle}"
+                        TextWrapping="Wrap" />
+                </StackPanel>
+                <ui:TextBlock
+                    Margin="0,6,0,10"
+                    FontTypography="Body"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{ext:Loc OptimizationDetailsDialog.DriftedMessage}"
+                    TextWrapping="Wrap" />
+                <WrapPanel Orientation="Horizontal">
+                    <ui:Button
+                        Margin="0,0,8,0"
+                        Command="{Binding RequestRevertRemainingCommand}"
+                        Content="{ext:Loc OptimizationDetailsDialog.RevertRemaining}"
+                        Cursor="Hand"
+                        Icon="{ui:SymbolIcon ArrowClockwise24}" />
+                    <ui:Button
+                        Command="{Binding RequestClearStaleRevertCommand}"
+                        Content="{ext:Loc OptimizationDetailsDialog.ClearStale}"
+                        Cursor="Hand"
+                        Icon="{ui:SymbolIcon Delete24}" />
+                </WrapPanel>
+            </StackPanel>
+        </Border>
+
+        <!--  Explicit trade-off warning  -->
+        <ui:InfoBar
+            Title="{ext:Loc OptimizationDetailsDialog.TradeOff}"
+            Margin="0,0,0,12"
+            IsClosable="False"
+            IsOpen="True"
+            Message="{Binding TradeOff}"
+            Severity="Warning"
+            Visibility="{Binding HasTradeOff, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <!--  Overview & Impacts  -->
         <Border
             Margin="0,0,0,12"
             Padding="16"
@@ -161,63 +266,275 @@
                 <ui:TextBlock
                     FontTypography="Body"
                     Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                    Text="{Binding Optimization.ShortDescription}"
+                    Text="{Binding DetailedDescription}"
                     TextWrapping="Wrap" />
+
+                <StackPanel Margin="0,12,0,0" Visibility="{Binding HasImpacts, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <ui:TextBlock
+                        Margin="0,0,0,6"
+                        FontTypography="Caption"
+                        FontWeight="SemiBold"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{ext:Loc OptimizationDetailsDialog.Impacts}" />
+                    <ItemsControl ItemsSource="{Binding ImpactDisplays}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Left" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type models:OptimizationImpactDisplay}">
+                                <Border
+                                    Margin="0,0,6,6"
+                                    Padding="6,2"
+                                    Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                    CornerRadius="{StaticResource CornerRadiusSmall}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <ui:SymbolIcon
+                                            Margin="0,0,4,0"
+                                            FontSize="13"
+                                            Symbol="{Binding Icon}">
+                                            <ui:SymbolIcon.Style>
+                                                <Style TargetType="ui:SymbolIcon">
+                                                    <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsTradeOff}" Value="True">
+                                                            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ui:SymbolIcon.Style>
+                                        </ui:SymbolIcon>
+                                        <ui:TextBlock
+                                            VerticalAlignment="Center"
+                                            FontTypography="Caption"
+                                            Text="{Binding Label}">
+                                            <ui:TextBlock.Style>
+                                                <Style TargetType="ui:TextBlock">
+                                                    <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsTradeOff}" Value="True">
+                                                            <Setter Property="Foreground" Value="{DynamicResource SystemFillColorCautionBrush}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </ui:TextBlock.Style>
+                                        </ui:TextBlock>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+
+                <ui:TextBlock
+                    Margin="0,8,0,0"
+                    FontTypography="Caption"
+                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                    Text="{ext:Loc OptimizationDetailsDialog.GroupPolicyNotice}"
+                    TextWrapping="Wrap"
+                    Visibility="{Binding SetsGroupPolicy, Converter={StaticResource BooleanToVisibilityConverter}}" />
             </StackPanel>
         </Border>
 
-        <ui:TextBlock
-            Margin="0,0,0,8"
-            FontTypography="BodyStrong"
-            Text="{ext:Loc OptimizationDetailsDialog.TechnicalDetails}" />
-
+        <!--  Selected Options (when configurable optimization has active applied choices)  -->
         <Border
             Margin="0,0,0,12"
-            Padding="0"
+            Padding="16"
             Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
             BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
-            CornerRadius="{StaticResource CornerRadiusMedium}">
+            CornerRadius="{StaticResource CornerRadiusMedium}"
+            Visibility="{Binding HasSelectedOptions, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel>
-                <Grid Margin="16">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:TextBlock
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Text="{ext:Loc OptimizationDetailsDialog.Id}" />
-                    <ui:TextBlock
+                <Grid Margin="0,0,0,12" ColumnDefinitions="*,Auto">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="0,0,10,0"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource SystemFillColorAttentionBackgroundBrush}"
+                            CornerRadius="6">
+                            <ui:SymbolIcon
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                Foreground="{DynamicResource SystemFillColorAttentionBrush}"
+                                Symbol="Options24" />
+                        </Border>
+                        <ui:TextBlock
+                            VerticalAlignment="Center"
+                            FontTypography="BodyStrong"
+                            Text="{ext:Loc OptimizationDetailsDialog.SelectedOptions}" />
+                    </StackPanel>
+                    <ui:Button
                         Grid.Column="1"
-                        VerticalAlignment="Center"
-                        FontFamily="Consolas"
-                        Text="{Binding Optimization.Id}"
-                        TextWrapping="Wrap" />
+                        Appearance="Secondary"
+                        Command="{Binding RequestReconfigureCommand}"
+                        Content="{ext:Loc OptimizationDetailsDialog.Reconfigure}"
+                        Cursor="Hand"
+                        Icon="{ui:SymbolIcon Options24}"
+                        Visibility="{Binding CanReconfigure, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 </Grid>
-                <Separator Margin="16,0" />
-                <Grid Margin="16">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <ui:TextBlock
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                        Text="{ext:Loc OptimizationDetailsDialog.Class}" />
-                    <ui:TextBlock
-                        Grid.Column="1"
-                        VerticalAlignment="Center"
-                        FontFamily="Consolas"
-                        Text="{Binding Optimization.OptimizationKey}"
-                        TextWrapping="Wrap" />
-                </Grid>
+
+                <ItemsControl ItemsSource="{Binding SelectedOptions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate DataType="{x:Type dialogVm:SelectedOptionDisplay}">
+                            <Border
+                                Margin="0,0,0,6"
+                                Padding="12,10"
+                                Background="{DynamicResource CardBackgroundFillColorSecondaryBrush}"
+                                BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                BorderThickness="1"
+                                CornerRadius="{StaticResource CornerRadiusSmall}">
+                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                    <ui:SymbolIcon
+                                        Grid.Column="0"
+                                        Margin="0,0,10,0"
+                                        VerticalAlignment="Center"
+                                        FontSize="16"
+                                        Symbol="{Binding Icon}">
+                                        <ui:SymbolIcon.Style>
+                                            <Style TargetType="ui:SymbolIcon">
+                                                <Setter Property="Filled" Value="True" />
+                                                <Setter Property="Foreground" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding State}" Value="{x:Static dialogVm:SelectedOptionState.Choice}">
+                                                        <Setter Property="Filled" Value="True" />
+                                                        <Setter Property="Foreground" Value="{DynamicResource SystemFillColorAttentionBrush}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding State}" Value="{x:Static dialogVm:SelectedOptionState.Disabled}">
+                                                        <Setter Property="Filled" Value="False" />
+                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorTertiaryBrush}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ui:SymbolIcon.Style>
+                                    </ui:SymbolIcon>
+
+                                    <ui:TextBlock
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        FontTypography="Body"
+                                        Text="{Binding Label}"
+                                        TextWrapping="Wrap">
+                                        <ui:TextBlock.Style>
+                                            <Style TargetType="ui:TextBlock">
+                                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding State}" Value="{x:Static dialogVm:SelectedOptionState.Disabled}">
+                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </ui:TextBlock.Style>
+                                    </ui:TextBlock>
+
+                                    <Border
+                                        Grid.Column="2"
+                                        Margin="12,0,0,0"
+                                        Padding="8,3"
+                                        VerticalAlignment="Center"
+                                        Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+                                        BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="{StaticResource CornerRadiusSmall}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Ellipse
+                                                Width="6"
+                                                Height="6"
+                                                Margin="0,0,6,0"
+                                                VerticalAlignment="Center">
+                                                <Ellipse.Style>
+                                                    <Style TargetType="Ellipse">
+                                                        <Setter Property="Fill" Value="{DynamicResource SystemFillColorSuccessBrush}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding State}" Value="{x:Static dialogVm:SelectedOptionState.Choice}">
+                                                                <Setter Property="Fill" Value="{DynamicResource SystemFillColorAttentionBrush}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding State}" Value="{x:Static dialogVm:SelectedOptionState.Disabled}">
+                                                                <Setter Property="Fill" Value="{DynamicResource TextFillColorTertiaryBrush}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Ellipse.Style>
+                                            </Ellipse>
+                                            <ui:TextBlock
+                                                VerticalAlignment="Center"
+                                                FontTypography="Caption"
+                                                Text="{Binding Value}">
+                                                <ui:TextBlock.Style>
+                                                    <Style TargetType="ui:TextBlock">
+                                                        <Setter Property="FontWeight" Value="SemiBold" />
+                                                        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding State}" Value="{x:Static dialogVm:SelectedOptionState.Choice}">
+                                                                <Setter Property="FontWeight" Value="SemiBold" />
+                                                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding State}" Value="{x:Static dialogVm:SelectedOptionState.Disabled}">
+                                                                <Setter Property="FontWeight" Value="Normal" />
+                                                                <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ui:TextBlock.Style>
+                                            </ui:TextBlock>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </StackPanel>
         </Border>
 
+        <!--  Verifiable Sources  -->
+        <StackPanel Margin="0,0,0,12" Visibility="{Binding HasSources, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <ui:TextBlock
+                Margin="0,0,0,8"
+                FontTypography="BodyStrong"
+                Text="{ext:Loc OptimizationDetailsDialog.Sources}" />
+            <ItemsControl ItemsSource="{Binding Sources}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type models:OptimizationSource}">
+                        <ui:CardAction
+                            Margin="0,0,0,4"
+                            Command="{Binding DataContext.OpenSourceUrlCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                            CommandParameter="{Binding Url}"
+                            Cursor="Hand"
+                            IsChevronVisible="False">
+                            <ui:CardAction.Icon>
+                                <ui:SymbolIcon FontSize="24" Symbol="{Binding Icon}" />
+                            </ui:CardAction.Icon>
+                            <Grid ColumnDefinitions="*,Auto">
+                                <StackPanel>
+                                    <ui:TextBlock
+                                        FontTypography="BodyStrong"
+                                        Text="{Binding Title}"
+                                        TextWrapping="Wrap" />
+                                    <ui:TextBlock
+                                        FontTypography="Caption"
+                                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                        Text="{Binding Host}" />
+                                </StackPanel>
+                                <ui:SymbolIcon
+                                    Grid.Column="1"
+                                    Margin="12,0,0,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                    Symbol="Open24" />
+                            </Grid>
+                        </ui:CardAction>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
 
+        <!--  Last Run Change Record  -->
         <ui:TextBlock
             Margin="0,0,0,8"
             FontTypography="BodyStrong"
@@ -350,6 +667,59 @@
             </StackPanel>
         </Border>
 
+        <!--  Technical Details  -->
+        <ui:TextBlock
+            Margin="0,0,0,8"
+            FontTypography="BodyStrong"
+            Text="{ext:Loc OptimizationDetailsDialog.TechnicalDetails}" />
+
+        <Border
+            Margin="0,0,0,12"
+            Padding="0"
+            Background="{DynamicResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource CornerRadiusMedium}">
+            <StackPanel>
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{ext:Loc OptimizationDetailsDialog.Id}" />
+                    <ui:TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontFamily="Consolas"
+                        Text="{Binding Optimization.Id}"
+                        TextWrapping="Wrap" />
+                </Grid>
+                <Separator Margin="16,0" />
+                <Grid Margin="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBlock
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                        Text="{ext:Loc OptimizationDetailsDialog.Class}" />
+                    <ui:TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        FontFamily="Consolas"
+                        Text="{Binding Optimization.OptimizationKey}"
+                        TextWrapping="Wrap" />
+                </Grid>
+            </StackPanel>
+        </Border>
+
+        <!--  Other Actions  -->
         <ui:TextBlock
             Margin="0,0,0,8"
             FontTypography="BodyStrong"
@@ -394,10 +764,10 @@
 
         <ui:CardAction
             Margin="0,0,0,4"
-            Cursor="Hand"
             Command="{Binding OpenRevertFileCommand}"
+            Cursor="Hand"
             Icon="{ui:SymbolIcon FolderOpen24}"
-            Visibility="{Binding Optimization.State.AppliedAt, Converter={StaticResource NullToVisibilityConverter}}">
+            Visibility="{Binding ShowRevertFileAction, Converter={StaticResource BooleanToVisibilityConverter}}">
             <StackPanel>
                 <ui:TextBlock
                     FontTypography="BodyStrong"

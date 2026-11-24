@@ -28,6 +28,7 @@ public partial class SettingsViewModel(
     ConfigManager configManager,
     IOptionsMonitor<AppSettings> appOptionsMonitor,
     OptimizationRegistry optimizationRegistry,
+    SystemInfoService systemInfoService,
     IContentDialogService contentDialogService,
     ISnackbarService snackbarService,
     ILogger<SettingsViewModel> logger
@@ -167,7 +168,9 @@ public partial class SettingsViewModel(
         if (result == ContentDialogResult.Primary)
         {
             RevertManager.ClearAllRevertData(logger);
+            await optimizationRegistry.RefreshLegacyRevertsAsync();
             await OptimizationService.UpdateOptimizationStateAsync(
+                systemInfoService.Snapshot,
                 optimizationRegistry.OptimizationCategories.SelectMany(c => c.Optimizations)
             );
         }

@@ -424,7 +424,7 @@
                         <ContentPresenter
                             x:Name="PART_InfoBadge"
                             Grid.Column="2"
-                            Margin="2"
+                            Margin="6,0,0,0"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             Content="{TemplateBinding InfoBadge}" />
@@ -682,6 +682,10 @@
             </Trigger>
             <Trigger Property="Icon" Value="{x:Null}">
                 <Setter TargetName="IconContentPresenter" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="InfoBadge" Value="{x:Null}">
+                <Setter TargetName="PART_InfoBadge" Property="Margin" Value="0" />
+                <Setter TargetName="PART_InfoBadge" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="Content" Value="{x:Null}">
                 <Setter TargetName="IconContentPresenter" Property="Margin" Value="0" />

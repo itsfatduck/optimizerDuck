@@ -16,20 +16,32 @@ public partial class OptimizePage : INavigableView<OptimizeViewModel>
 
         RootNavigation.SetPageProviderService(pageProvider);
         ViewModel.OptimizationsLoaded += OnOptimizationsLoaded;
+        ViewModel.LegacyTabRemoved += OnLegacyTabRemoved;
     }
 
     public OptimizeViewModel ViewModel { get; }
 
-    private void OnOptimizationsLoaded()
+    private void OnOptimizationsLoaded() =>
+        Dispatcher.BeginInvoke(NavigateToFirstCategory, DispatcherPriority.ContextIdle);
+
+    private void OnLegacyTabRemoved()
     {
-        Dispatcher.BeginInvoke(
-            () =>
+        Dispatcher.BeginInvoke(() =>
+        {
+            if (
+                RootNavigation.SelectedItem is null
+                || RootNavigation.SelectedItem.TargetPageType == typeof(LegacyRevertsPage)
+            )
             {
-                var first = ViewModel.OptimizationCategories.FirstOrDefault();
-                if (first?.TargetPageType != null)
-                    RootNavigation.Navigate(first.TargetPageType);
-            },
-            DispatcherPriority.ContextIdle
-        );
+                NavigateToFirstCategory();
+            }
+        });
+    }
+
+    private void NavigateToFirstCategory()
+    {
+        var first = ViewModel.OptimizationCategories.FirstOrDefault();
+        if (first?.TargetPageType != null)
+            RootNavigation.Navigate(first.TargetPageType);
     }
 }

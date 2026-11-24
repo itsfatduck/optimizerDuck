@@ -3,65 +3,23 @@ using optimizerDuck.UI.ViewModels.Optimizer;
 
 namespace optimizerDuck.UI.Pages.Optimize.Categories;
 
-public sealed class PowerManagementOptimizerPage : OptimizationPage
-{
-    public PowerManagementOptimizerPage(OptimizationCategoryViewModel viewModel)
-        : base(viewModel)
-    {
-        InitializeComponent();
-    }
-}
+public sealed class PowerManagementOptimizerPage(OptimizationCategoryViewModel viewModel)
+    : OptimizationPage(viewModel);
 
-public sealed class UserExperienceOptimizerPage : OptimizationPage
-{
-    public UserExperienceOptimizerPage(OptimizationCategoryViewModel viewModel)
-        : base(viewModel)
-    {
-        InitializeComponent();
-    }
-}
+public sealed class UserExperienceOptimizerPage(OptimizationCategoryViewModel viewModel)
+    : OptimizationPage(viewModel);
 
-public sealed class BloatwareAndServicesOptimizerPage : OptimizationPage
-{
-    public BloatwareAndServicesOptimizerPage(OptimizationCategoryViewModel viewModel)
-        : base(viewModel)
-    {
-        InitializeComponent();
-    }
-}
+public sealed class BloatwareAndServicesOptimizerPage(OptimizationCategoryViewModel viewModel)
+    : OptimizationPage(viewModel);
 
-public sealed class GpuOptimizerPage : OptimizationPage
-{
-    public GpuOptimizerPage(OptimizationCategoryViewModel viewModel)
-        : base(viewModel)
-    {
-        InitializeComponent();
-    }
-}
+public sealed class GpuOptimizerPage(OptimizationCategoryViewModel viewModel)
+    : OptimizationPage(viewModel);
 
-public sealed class PerformanceOptimizerPage : OptimizationPage
-{
-    public PerformanceOptimizerPage(OptimizationCategoryViewModel viewModel)
-        : base(viewModel)
-    {
-        InitializeComponent();
-    }
-}
+public sealed class PerformanceOptimizerPage(OptimizationCategoryViewModel viewModel)
+    : OptimizationPage(viewModel);
 
-public sealed class SecurityAndPrivacyOptimizerPage : OptimizationPage
-{
-    public SecurityAndPrivacyOptimizerPage(OptimizationCategoryViewModel viewModel)
-        : base(viewModel)
-    {
-        InitializeComponent();
-    }
-}
+public sealed class SecurityAndPrivacyOptimizerPage(OptimizationCategoryViewModel viewModel)
+    : OptimizationPage(viewModel);
 
-public sealed class AIOptimizerPage : OptimizationPage
-{
-    public AIOptimizerPage(OptimizationCategoryViewModel viewModel)
-        : base(viewModel)
-    {
-        InitializeComponent();
-    }
-}
+public sealed class AIOptimizerPage(OptimizationCategoryViewModel viewModel)
+    : OptimizationPage(viewModel);

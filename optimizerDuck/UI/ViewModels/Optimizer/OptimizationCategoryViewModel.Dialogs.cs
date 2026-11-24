@@ -1,34 +1,25 @@
-﻿namespace optimizerDuck.UI.ViewModels.Optimizer;
-
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
-using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
-using optimizerDuck.Services.Conditions;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
-using optimizerDuck.Services.System;
 using optimizerDuck.UI.Dialogs;
 using optimizerDuck.UI.ViewModels.Dialogs;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 using Wpf.Ui.Extensions;
 using TextBlock = Wpf.Ui.Controls.TextBlock;
+
+namespace optimizerDuck.UI.ViewModels.Optimizer;
 
 public partial class OptimizationCategoryViewModel
 {
@@ -58,6 +49,95 @@ public partial class OptimizationCategoryViewModel
         {
             dialog.Hide();
         }
+    }
+
+    private async Task<OptimizationOptionsResult> ShowOptionsDialogAsync(
+        IOptimization optimization,
+        IConfigurableOptimization configurable,
+        IReadOnlyDictionary<string, string>? previousSelections,
+        bool isReconfiguring
+    )
+    {
+        var options = await Task.Run(() =>
+            configurable.GetOptions(_systemInfoService.Snapshot, previousSelections)
+        );
+        var viewModel = new OptimizationOptionsViewModel(
+            optimization,
+            options,
+            configurable.RequiresAtLeastOneSelection,
+            isReconfiguring,
+            previousSelections
+        );
+        var dialog = new ContentDialog
+        {
+            Title = BuildDialogTitle(optimization),
+            Content = new OptimizationOptionsDialog { DataContext = viewModel },
+        };
+        void BindOption(DependencyProperty property, string path) =>
+            dialog.SetBinding(
+                property,
+                new Binding(path) { Source = viewModel, Mode = BindingMode.OneWay }
+            );
+
+        BindLocalized(dialog, ContentDialog.CloseButtonTextProperty, "Button.Cancel");
+        BindOption(
+            ContentDialog.PrimaryButtonTextProperty,
+            nameof(OptimizationOptionsViewModel.PrimaryButtonText)
+        );
+        BindOption(
+            ContentDialog.PrimaryButtonAppearanceProperty,
+            nameof(OptimizationOptionsViewModel.PrimaryButtonAppearance)
+        );
+        BindOption(
+            ContentDialog.IsPrimaryButtonEnabledProperty,
+            nameof(OptimizationOptionsViewModel.CanApply)
+        );
+
+        var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
+        return result == ContentDialogResult.Primary
+            ? viewModel.BuildConfirmResult()
+            : new(OptimizationOptionsAction.Cancelled);
+    }
+
+    private async Task<bool> ShowRiskyConfirmationAsync(IOptimization optimization)
+    {
+        var stack = new StackPanel { MinWidth = 420, MaxWidth = 540 };
+        stack.Children.Add(
+            new TextBlock
+            {
+                FontTypography = FontTypography.Body,
+                Text = Loc.Instance["Optimizer.Confirm.Message"],
+                TextWrapping = TextWrapping.Wrap,
+            }
+        );
+
+        if (optimization is BaseOptimization { HasTradeOff: true } bo)
+        {
+            stack.Children.Add(
+                new InfoBar
+                {
+                    Margin = new Thickness(0, 12, 0, 0),
+                    Severity = InfoBarSeverity.Warning,
+                    IsOpen = true,
+                    IsClosable = false,
+                    Title = Loc.Instance["OptimizationDetailsDialog.TradeOff"],
+                    Message = bo.TradeOff,
+                }
+            );
+        }
+
+        var dialog = new ContentDialog
+        {
+            Title = BuildDialogTitle(optimization),
+            Content = stack,
+            PrimaryButtonAppearance = ControlAppearance.Danger,
+            DefaultButton = ContentDialogButton.Close,
+        };
+        BindLocalized(dialog, ContentDialog.PrimaryButtonTextProperty, "Optimizer.Confirm.Apply");
+        BindLocalized(dialog, ContentDialog.CloseButtonTextProperty, "Button.Cancel");
+
+        var result = await _contentDialogService.ShowAsync(dialog, CancellationToken.None);
+        return result == ContentDialogResult.Primary;
     }
 
     /// <summary>
@@ -136,7 +216,10 @@ public partial class OptimizationCategoryViewModel
                 if (remainingFailedSteps.Count == 0)
                 {
                     _revertManager.RemoveRevertData(optimization.Id, optimization.OptimizationKey);
-                    await OptimizationService.UpdateOptimizationStateAsync(optimization);
+                    await OptimizationService.UpdateOptimizationStateAsync(
+                        _systemInfoService.Snapshot,
+                        optimization
+                    );
                     return FailureResolutionOutcome.Recovered;
                 }
             }
@@ -394,26 +477,13 @@ public partial class OptimizationCategoryViewModel
     /// <summary>
     ///     Builds the dialog title for an optimization.
     /// </summary>
-    private static StackPanel BuildDialogTitle(IOptimization optimization)
-    {
-        return new StackPanel
+    private static TextBlock BuildDialogTitle(IOptimization optimization) =>
+        new()
         {
-            Children =
-            {
-                new TextBlock
-                {
-                    FontTypography = FontTypography.Caption,
-                    Appearance = TextColor.Disabled,
-                    Text = optimization.Id.ToString(),
-                },
-                new TextBlock
-                {
-                    FontTypography = FontTypography.Subtitle,
-                    Text = optimization.Name,
-                },
-            },
+            FontTypography = FontTypography.Subtitle,
+            Text = optimization.Name,
+            TextWrapping = TextWrapping.Wrap,
         };
-    }
 
     private enum FailureResolutionOutcome
     {

@@ -7,12 +7,6 @@ namespace optimizerDuck.UI.Pages;
 /// <summary>
 ///     Provides the page that shows the debug category.
 /// </summary>
-public sealed class DebugOptimizerPage : OptimizationPage
-{
-    public DebugOptimizerPage(OptimizationCategoryViewModel viewModel)
-        : base(viewModel)
-    {
-        InitializeComponent();
-    }
-}
+public sealed class DebugOptimizerPage(OptimizationCategoryViewModel viewModel)
+    : OptimizationPage(viewModel);
 #endif

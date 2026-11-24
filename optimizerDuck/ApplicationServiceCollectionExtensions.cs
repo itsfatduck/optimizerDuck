@@ -62,6 +62,8 @@ public static class ApplicationServiceCollectionExtensions
         services.AddSingleton<DashboardPage>();
         services.AddSingleton<OptimizeViewModel>();
         services.AddSingleton<OptimizePage>();
+        services.AddSingleton<LegacyRevertsViewModel>();
+        services.AddSingleton<LegacyRevertsPage>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<SettingsPage>();
         services.AddSingleton<BloatwareViewModel>();
