@@ -13,6 +13,9 @@ namespace optimizerDuck.Domain.Optimizations.Models;
 /// </summary>
 public class OptimizationContext : OpCall
 {
+    public static readonly IReadOnlyDictionary<string, string> EmptyOptions =
+        new Dictionary<string, string>();
+
     /// <summary>Gets the system snapshot containing hardware, OS, and driver details.</summary>
     public required SystemInfo Snapshot { get; init; }
 
@@ -30,4 +33,7 @@ public class OptimizationContext : OpCall
     ///     Gets the native power-scheme service (get/set/import/delete, live names).
     /// </summary>
     public required PowerPlanService PowerPlans { get; init; }
+
+    /// <summary>Gets the pre-apply options selected by the user, if any.</summary>
+    public IReadOnlyDictionary<string, string> Options { get; init; } = EmptyOptions;
 }

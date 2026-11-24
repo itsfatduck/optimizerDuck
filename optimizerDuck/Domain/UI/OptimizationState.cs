@@ -44,14 +44,44 @@ public partial class OptimizationState : ObservableObject
     private DateTime? appliedAt;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsDrifted))]
+    [NotifyPropertyChangedFor(nameof(ShowToggle))]
+    private OptimizationPresence presence = OptimizationPresence.NotApplied;
+
+    [ObservableProperty]
     private bool isApplied;
 
     /// <summary>
-    ///     Indicates that the last apply reported nothing to do because the machine already
-    ///     matched the optimization.
+    ///     Indicates that the machine already matches the optimization without optimizerDuck revert data.
     /// </summary>
     [ObservableProperty]
     private bool isAlreadyOptimal;
+
+    /// <summary>
+    ///     Gets or sets whether a revert file currently exists on disk (true for both Applied and Drifted).
+    /// </summary>
+    [ObservableProperty]
+    private bool hasRevertData;
+
+    /// <summary>Gets whether revert data exists on disk while Windows has drifted from the target.</summary>
+    public bool IsDrifted => Presence == OptimizationPresence.Drifted;
+
+    /// <summary>Gets whether the card should render the apply/revert toggle switch.</summary>
+    public bool ShowToggle => Presence != OptimizationPresence.AlreadyOptimal;
+
+    /// <summary>
+    ///     Marks the optimization as matching the machine for the current session after an apply
+    ///     found nothing left to change on disk-less/unprobeable optimizations.
+    /// </summary>
+    public void MarkSessionAlreadyOptimal()
+    {
+        Presence = OptimizationPresence.AlreadyOptimal;
+        IsApplied = false;
+        IsAlreadyOptimal = true;
+    }
+
+    /// <summary>Re-raises change notification for <see cref="IsApplied"/> after a cancelled toggle.</summary>
+    public void NotifyToggleVisualReset() => OnPropertyChanged(nameof(IsApplied));
 
     /// <summary>The relative time text, for example "5 minutes ago".</summary>
     [ObservableProperty]

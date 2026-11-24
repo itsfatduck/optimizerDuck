@@ -13,10 +13,12 @@ namespace optimizerDuck.Domain.Execution;
 /// <param name="RunLogger">The logger the run writes through.</param>
 /// <param name="Revert">Whether the run persists revert data.</param>
 /// <param name="Work">The work to invoke once with the run's context.</param>
+/// <param name="SelectedOptions">Optional pre-apply option values chosen by the user.</param>
 public sealed record OperationRequest(
     OperationSubject Subject,
     string DisplayName,
     ILogger RunLogger,
     RevertPersistence Revert,
-    Func<IProgress<ProcessingProgress>, OptimizationContext, Task<ApplyResult>> Work
+    Func<IProgress<ProcessingProgress>, OptimizationContext, Task<ApplyResult>> Work,
+    IReadOnlyDictionary<string, string>? SelectedOptions = null
 );

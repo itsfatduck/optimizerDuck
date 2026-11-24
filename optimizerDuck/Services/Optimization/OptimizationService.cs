@@ -185,6 +185,17 @@ public class OptimizationService(
         IOptimization optimization,
         IProgress<ProcessingProgress> progress,
         CancellationToken cancellationToken = default
+    ) => ApplyAsync(optimization, progress, null, cancellationToken);
+
+    /// <summary>
+    ///     Applies the specified optimization with user-selected options, captures revert steps
+    ///     into an execution scope, and persists revert data on any successful steps.
+    /// </summary>
+    public Task<OptimizationResult> ApplyAsync(
+        IOptimization optimization,
+        IProgress<ProcessingProgress> progress,
+        IReadOnlyDictionary<string, string>? selectedOptions,
+        CancellationToken cancellationToken = default
     )
     {
         ArgumentNullException.ThrowIfNull(optimization);
@@ -199,11 +210,24 @@ public class OptimizationService(
                 optimization.Name,
                 loggerFactory.CreateLogger(optimization.GetType()),
                 RevertPersistence.Enabled,
-                optimization.ApplyAsync
+                optimization.ApplyAsync,
+                selectedOptions
             ),
             progress,
             cancellationToken
         );
+    }
+
+    /// <summary>
+    ///     Removes stale revert data when an optimization has drifted externally and the user
+    ///     chooses to clear the stale record instead of reverting remaining steps.
+    /// </summary>
+    public Task ClearStaleRevertDataAsync(IOptimization optimization, SystemInfo snapshot)
+    {
+        ArgumentNullException.ThrowIfNull(optimization);
+
+        revertManager.RemoveRevertData(optimization.Id, optimization.OptimizationKey);
+        return UpdateOptimizationStateAsync(snapshot, optimization);
     }
 
     /// <summary>
@@ -276,18 +300,24 @@ public class OptimizationService(
     }
 
     /// <summary>
-    ///     Updates the applied state of the specified optimizations by scanning revert data
-    ///     files on disk. An optimization is considered applied when its revert JSON file exists.
+    ///     Updates the applied state of the specified optimizations using revert files on disk
+    ///     combined with live system state probes when a snapshot is available.
     /// </summary>
-    /// <param name="optimizations">The optimizations whose state to update.</param>
-    public static async Task UpdateOptimizationStateAsync(params IOptimization[] optimizations)
+    public static Task UpdateOptimizationStateAsync(params IOptimization[] optimizations) =>
+        UpdateOptimizationStateAsync(SystemInfo.Unknown, optimizations);
+
+    /// <summary>
+    ///     Updates the applied state of the specified optimizations using revert files on disk
+    ///     combined with live system state probes.
+    /// </summary>
+    public static async Task UpdateOptimizationStateAsync(
+        SystemInfo snapshot,
+        params IOptimization[] optimizations
+    )
     {
         if (optimizations.Length == 0)
             return;
 
-        // Applied state comes from the presence of revert data, not from a database, and a
-        // file that cannot be read still counts as data, so an item is never offered for a
-        // fresh apply while an old payload is still sitting next to it.
         await Parallel
             .ForEachAsync(
                 optimizations,
@@ -295,20 +325,49 @@ public class OptimizationService(
                 {
                     MaxDegreeOfParallelism = Math.Clamp(Environment.ProcessorCount, 2, 8),
                 },
-                async (opt, _) =>
+                async (opt, ct) =>
                 {
-                    var applied = await RevertManager.IsAppliedAsync(opt.Id).ConfigureAwait(false);
-                    opt.State.IsApplied = applied;
-                    opt.State.AppliedAt = applied
+                    var hasRevert = await RevertManager
+                        .IsAppliedAsync(opt.Id)
+                        .ConfigureAwait(false);
+                    var record = ChangeRecordStore.TryRead(opt.Id);
+
+                    bool? matchesSystem = null;
+                    if (!snapshot.IsUnknown)
+                    {
+                        try
+                        {
+                            matchesSystem = await opt.IsSystemAtTargetAsync(
+                                    snapshot,
+                                    hasRevert ? record?.SelectedOptions : null,
+                                    ct
+                                )
+                                .ConfigureAwait(false);
+                        }
+                        catch
+                        {
+                            matchesSystem = null;
+                        }
+                    }
+
+                    var presence = (hasRevert, matchesSystem) switch
+                    {
+                        (true, false) => OptimizationPresence.Drifted,
+                        (true, _) => OptimizationPresence.Applied,
+                        (false, true) => OptimizationPresence.AlreadyOptimal,
+                        (false, null)
+                            when opt.State.Presence == OptimizationPresence.AlreadyOptimal =>
+                            OptimizationPresence.AlreadyOptimal,
+                        _ => OptimizationPresence.NotApplied,
+                    };
+
+                    var appliedAt = hasRevert
                         ? (
                             await RevertManager.GetRevertDataAsync(opt.Id).ConfigureAwait(false)
                         )?.AppliedAt
                         : null;
 
-                    // The record outlives the revert file, so it is read separately and never gates the
-                    // applied mark.
-                    var record = ChangeRecordStore.TryRead(opt.Id);
-                    opt.State.AppliedSummary = record is null
+                    var summary = record is null
                         ? string.Empty
                         : Loc.Instance[
                             "Optimizer.UI.State.Applied.Summary",
@@ -317,19 +376,36 @@ public class OptimizationService(
                             record.CountOf(ChangeKind.NotApplicable),
                             record.CountOf(ChangeKind.Refused)
                         ];
+
+                    opt.State.HasRevertData = hasRevert;
+                    opt.State.Presence = presence;
+                    opt.State.IsApplied = presence == OptimizationPresence.Applied;
+                    opt.State.IsAlreadyOptimal = presence == OptimizationPresence.AlreadyOptimal;
+                    opt.State.AppliedAt = appliedAt;
+                    opt.State.AppliedSummary = summary;
                 }
             )
             .ConfigureAwait(false);
     }
 
     /// <summary>
-    ///     Updates the applied state of the specified optimizations by scanning revert data
-    ///     files on disk.
+    ///     Updates the applied state of the specified optimizations using revert files on disk.
     /// </summary>
-    /// <param name="optimizations">The optimizations whose state to update.</param>
     public static Task UpdateOptimizationStateAsync(IEnumerable<IOptimization> optimizations)
     {
-        return UpdateOptimizationStateAsync(optimizations.ToArray());
+        return UpdateOptimizationStateAsync(SystemInfo.Unknown, optimizations.ToArray());
+    }
+
+    /// <summary>
+    ///     Updates the applied state of the specified optimizations using revert files on disk
+    ///     combined with live system state probes.
+    /// </summary>
+    public static Task UpdateOptimizationStateAsync(
+        SystemInfo snapshot,
+        IEnumerable<IOptimization> optimizations
+    )
+    {
+        return UpdateOptimizationStateAsync(snapshot, optimizations.ToArray());
     }
 
     /// <summary>

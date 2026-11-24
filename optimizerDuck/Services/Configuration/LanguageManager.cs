@@ -31,6 +31,20 @@ public class Loc : INotifyPropertyChanged
     public string this[string key] =>
         Translations.ResourceManager.GetString(key, Translations.Culture) ?? key;
 
+    /// <summary>Returns whether a non-empty neutral resource string exists for <paramref name="key" />.</summary>
+    public bool HasKey(string key) =>
+        !string.IsNullOrEmpty(
+            Translations.ResourceManager.GetString(key, CultureInfo.InvariantCulture)
+        );
+
+    /// <summary>Attempts to resolve <paramref name="key" /> in the active UI culture.</summary>
+    public bool TryGet(string key, out string value)
+    {
+        var found = Translations.ResourceManager.GetString(key, Translations.Culture);
+        value = found ?? string.Empty;
+        return !string.IsNullOrEmpty(found);
+    }
+
     /// <summary>Always English, even when UI language changes. Use for logs.</summary>
     public static InvariantStrings Invariant { get; } = new();
 

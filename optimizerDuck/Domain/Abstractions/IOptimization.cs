@@ -1,6 +1,7 @@
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.UI;
+using optimizerDuck.Services.System;
 using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
 
 namespace optimizerDuck.Domain.Abstractions;
@@ -25,6 +26,9 @@ public interface IOptimization
     /// <summary>Gets a localized short description of what this optimization does.</summary>
     string ShortDescription { get; }
 
+    /// <summary>Gets structured metadata describing impacts, tradeoffs, restart needs, and sources.</summary>
+    OptimizationMetadata Metadata => OptimizationMetadata.Empty;
+
     /// <summary>Gets or sets the execution and applied state of the optimization.</summary>
     OptimizationState State { get; set; }
 
@@ -33,6 +37,16 @@ public interface IOptimization
 
     /// <summary>Gets or sets the cached result of evaluating <see cref="ConditionType" />.</summary>
     ConditionResult ConditionResult { get; set; }
+
+    /// <summary>
+    ///     Probes whether Windows currently matches this optimization's target state.
+    ///     Returns <see langword="null" /> when the target cannot be probed reliably.
+    /// </summary>
+    Task<bool?> IsSystemAtTargetAsync(
+        SystemInfo snapshot,
+        IReadOnlyDictionary<string, string>? appliedOptions = null,
+        CancellationToken cancellationToken = default
+    ) => Task.FromResult<bool?>(null);
 
     /// <summary>
     ///     Applies the optimization to the system.

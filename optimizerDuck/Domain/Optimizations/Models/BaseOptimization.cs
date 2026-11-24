@@ -9,6 +9,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
 using Wpf.Ui.Controls;
 using OptimizationState = optimizerDuck.Domain.UI.OptimizationState;
@@ -54,10 +55,12 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
 
     #region Identification
 
+    private Guid? _id;
+
     /// <summary>
     ///     Gets the unique identifier declared in <see cref="OptimizationAttribute.Id" />.
     /// </summary>
-    public Guid Id => Guid.Parse(Meta.Id);
+    public Guid Id => _id ??= Guid.Parse(Meta.Id);
 
     /// <summary>Gets the risk level associated with this optimization.</summary>
     public OptimizationRisk Risk => Meta.Risk;
@@ -75,11 +78,6 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
     public RiskVisual RiskVisual =>
         Risk switch
         {
-            OptimizationRisk.Safe => new RiskVisual
-            {
-                Display = Loc.Instance["Optimizer.UI.Risk.Safe"],
-                Icon = SymbolRegular.ShieldCheckmark24,
-            },
             OptimizationRisk.Moderate => new RiskVisual
             {
                 Display = Loc.Instance["Optimizer.UI.Risk.Moderate"],
@@ -97,8 +95,122 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
             },
         };
 
+    /// <summary>Gets structured metadata describing impacts, tradeoffs, restart needs, and sources.</summary>
+    public virtual OptimizationMetadata Metadata => OptimizationMetadata.Empty;
+
+    /// <summary>Declares an improved aspect for <see cref="Metadata"/>.</summary>
+    protected static OptimizationImpact Improves(ImpactArea area) =>
+        new(area, ImpactDirection.Improves);
+
+    /// <summary>Declares a trade-off aspect for <see cref="Metadata"/>.</summary>
+    protected static OptimizationImpact Costs(ImpactArea area) =>
+        new(area, ImpactDirection.TradeOff);
+
+    /// <summary>Declares a reference source with automatic host classification.</summary>
+    protected static OptimizationSource Source(string title, string url, SourceKind? kind = null) =>
+        OptimizationSource.From(title, url, kind);
+
     /// <summary>Gets the tag displays derived from <see cref="OptimizationTags" />.</summary>
     public IEnumerable<OptimizationTagDisplay> TagDisplays => Meta.Tags.ToDisplays();
+
+    /// <summary>Gets localized impact chips for the details view.</summary>
+    public IReadOnlyList<OptimizationImpactDisplay> ImpactDisplays => Metadata.Impacts.ToDisplays();
+
+    /// <summary>Gets up to three impact chips for the summary card.</summary>
+    public IReadOnlyList<OptimizationImpactDisplay> CardImpactDisplays =>
+        Metadata.Impacts.Count <= 3
+            ? ImpactDisplays
+            : Metadata.Impacts.Take(3).ToList().ToDisplays();
+
+    /// <summary>Gets whether this optimization documents an explicit trade-off.</summary>
+    public bool HasTradeOff => !string.IsNullOrEmpty(TradeOff);
+
+    /// <summary>Gets whether this optimization uses Group Policy keys.</summary>
+    public virtual bool SetsGroupPolicy => Metadata.SetsGroupPolicy;
+
+    /// <summary>Gets the restart requirement after applying this optimization.</summary>
+    public RestartRequirement RequiresRestart => Metadata.RequiresRestart;
+
+    /// <summary>Gets whether any restart or Explorer/sign-out action is required.</summary>
+    public bool HasRestartRequirement => Metadata.RequiresRestart != RestartRequirement.None;
+
+    /// <summary>Gets the localized restart action label, or empty when none is needed.</summary>
+    public string RestartDisplay => Metadata.RequiresRestart.ToDisplay();
+
+    /// <summary>Gets whether this optimization prompts for options before apply.</summary>
+    public bool IsConfigurable => this is IConfigurableOptimization;
+
+    /// <summary>Gets whether a currently applied configurable optimization can be reconfigured.</summary>
+    public bool CanReconfigure => IsConfigurable && State.IsApplied;
+
+    /// <summary>Gets whether applying directly should ask for user confirmation first.</summary>
+    public bool RequiresConfirmation =>
+        Risk == OptimizationRisk.Risky || Metadata.ConfirmBeforeApply;
+
+    /// <summary>Gets the localized trade-off description, or empty when none is declared.</summary>
+    public virtual string TradeOff =>
+        Loc.Instance.TryGet($"{Prefix}.TradeOff", out var text) ? text : string.Empty;
+
+    /// <summary>Gets the localized detailed description, falling back to <see cref="ShortDescription"/>.</summary>
+    public virtual string DetailedDescription =>
+        Loc.Instance.TryGet($"{Prefix}.DetailedDescription", out var text)
+            ? text
+            : ShortDescription;
+
+    /// <summary>Builds a convention-keyed toggle option under <c>{Prefix}.Option.{key}</c>.</summary>
+    protected OptimizationOption ToggleOption(
+        string key,
+        bool defaultValue,
+        bool isAlreadyApplied = false
+    )
+    {
+        var optionPrefix = $"{Prefix}.Option.{key}";
+        var descriptionKey = $"{optionPrefix}.Description";
+        var tradeOffKey = $"{optionPrefix}.TradeOff";
+
+        return new OptimizationOption
+        {
+            Key = key,
+            Kind = OptimizationOptionKind.Toggle,
+            LabelKey = $"{optionPrefix}.Label",
+            DescriptionKey = Loc.Instance.HasKey(descriptionKey) ? descriptionKey : null,
+            TradeOffKey = Loc.Instance.HasKey(tradeOffKey) ? tradeOffKey : null,
+            DefaultValue = defaultValue ? "true" : "false",
+            IsAlreadyAppliedHint = isAlreadyApplied,
+        };
+    }
+
+    /// <summary>Builds a convention-keyed single-choice option under <c>{Prefix}.Option.{key}</c>.</summary>
+    protected OptimizationOption SingleChoiceOption(
+        string key,
+        string defaultValue,
+        params string[] choiceValues
+    )
+    {
+        var optionPrefix = $"{Prefix}.Option.{key}";
+        var descriptionKey = $"{optionPrefix}.Description";
+
+        return new OptimizationOption
+        {
+            Key = key,
+            Kind = OptimizationOptionKind.SingleChoice,
+            LabelKey = $"{optionPrefix}.Label",
+            DescriptionKey = Loc.Instance.HasKey(descriptionKey) ? descriptionKey : null,
+            DefaultValue = defaultValue,
+            Choices =
+            [
+                .. choiceValues.Select(value =>
+                {
+                    var choiceDescriptionKey = $"{optionPrefix}.{value}.Description";
+                    return new OptimizationOptionChoice(
+                        value,
+                        $"{optionPrefix}.{value}.Label",
+                        Loc.Instance.HasKey(choiceDescriptionKey) ? choiceDescriptionKey : null
+                    );
+                }),
+            ],
+        };
+    }
 
     private OptimizationState _state = new();
 
@@ -117,32 +229,40 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
             _state.PropertyChanged += OnStateChanged;
             OnPropertyChanged(nameof(State));
             OnPropertyChanged(nameof(IsConditionBlocked));
+            OnPropertyChanged(nameof(CanReconfigure));
         }
     }
 
     private void OnStateChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName != nameof(OptimizationState.IsApplied))
+        if (
+            e.PropertyName
+            is not (
+                nameof(OptimizationState.IsApplied)
+                or nameof(OptimizationState.Presence)
+                or nameof(OptimizationState.HasRevertData)
+            )
+        )
             return;
 
-        // Forward IsApplied mutations as a State change so external subscribers that
-        // listen to the optimization (not the nested State) stay in sync even when the
-        // State instance is swapped out later.
+        // Forward state mutations as a State change so external subscribers that listen to
+        // the optimization stay in sync even when the State instance is swapped out later.
         OnPropertyChanged(nameof(State));
         OnPropertyChanged(nameof(IsConditionBlocked));
+        OnPropertyChanged(nameof(CanReconfigure));
     }
 
     #endregion
 
     #region Localization
-    /// <summary>Gets the full localization prefix for this optimization.</summary>
-    public string Prefix => Loc.Instance[$"Optimizer.{OwnerKey}.{OptimizationKey}"];
+    /// <summary>Gets the full localization key prefix for this optimization.</summary>
+    public string Prefix => $"Optimizer.{OwnerKey}.{OptimizationKey}";
 
-    /// <summary>Gets the localization prefix for progress messages.</summary>
-    public string ProgressPrefix => Loc.Instance[$"{Prefix}.Progress"];
+    /// <summary>Gets the localization key prefix for progress messages.</summary>
+    public string ProgressPrefix => $"{Prefix}.Progress";
 
-    /// <summary>Gets the localization prefix for error messages.</summary>
-    public string ErrorPrefix => Loc.Instance[$"{Prefix}.Error"];
+    /// <summary>Gets the localization key prefix for error messages.</summary>
+    public string ErrorPrefix => $"{Prefix}.Error";
 
     /// <summary>Gets the localized display name of the optimization.</summary>
     public virtual string Name => Loc.Instance[$"{Prefix}.Name"];
@@ -185,9 +305,19 @@ public abstract partial class BaseOptimization : LocalizedObject, IOptimization
     ///     Gets a value that indicates whether this optimization should be presented in the unsupported state.
     /// </summary>
     public bool IsConditionBlocked =>
-        ConditionResult.IsBlocking && !State.IsApplied && !IsConditionHidden;
+        ConditionResult.IsBlocking
+        && !State.IsApplied
+        && !State.HasRevertData
+        && !IsConditionHidden;
 
     #endregion
+
+    /// <inheritdoc />
+    public virtual Task<bool?> IsSystemAtTargetAsync(
+        SystemInfo snapshot,
+        IReadOnlyDictionary<string, string>? appliedOptions = null,
+        CancellationToken cancellationToken = default
+    ) => Task.FromResult<bool?>(null);
 
     /// <inheritdoc />
     public abstract Task<ApplyResult> ApplyAsync(

@@ -44,6 +44,9 @@ public sealed record ChangeRecord
 
     public IReadOnlyList<ChangeRecordStep> Steps { get; init; } = [];
 
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public IReadOnlyDictionary<string, string>? SelectedOptions { get; init; }
+
     /// <summary>Counts the steps that ended with one kind and did not fail.</summary>
     public int CountOf(ChangeKind kind) => Steps.Count(step => step.Ok && step.Kind == kind);
 
@@ -86,8 +89,14 @@ public sealed record ChangeRecord
     /// <param name="changes">The steps the run recorded.</param>
     /// <param name="subject">The owner the record belongs to.</param>
     /// <param name="outcome">The name of the status the run ended with.</param>
+    /// <param name="selectedOptions">Pre-apply options selected by the user, if any.</param>
     /// <returns>The record as the file stores it.</returns>
-    public static ChangeRecord From(ChangeSet changes, OperationSubject subject, string outcome)
+    public static ChangeRecord From(
+        ChangeSet changes,
+        OperationSubject subject,
+        string outcome,
+        IReadOnlyDictionary<string, string>? selectedOptions = null
+    )
     {
         ArgumentNullException.ThrowIfNull(changes);
         ArgumentNullException.ThrowIfNull(subject);
@@ -104,6 +113,9 @@ public sealed record ChangeRecord
             WindowsVersion = Environment.OSVersion.Version.ToString(),
             Outcome = outcome,
             Steps = [.. changes.Changes.OrderBy(change => change.Index).Select(StepOf)],
+            SelectedOptions = selectedOptions is { Count: > 0 }
+                ? new Dictionary<string, string>(selectedOptions)
+                : null,
         };
     }
 
@@ -111,15 +123,22 @@ public sealed record ChangeRecord
     /// <param name="changes">The steps the run recorded.</param>
     /// <param name="item">The optimization the record belongs to.</param>
     /// <param name="outcome">The name of the status the run ended with.</param>
+    /// <param name="selectedOptions">Pre-apply options selected by the user, if any.</param>
     /// <returns>The record as the file stores it.</returns>
-    public static ChangeRecord From(ChangeSet changes, IOptimization item, string outcome)
+    public static ChangeRecord From(
+        ChangeSet changes,
+        IOptimization item,
+        string outcome,
+        IReadOnlyDictionary<string, string>? selectedOptions = null
+    )
     {
         ArgumentNullException.ThrowIfNull(item);
 
         return From(
             changes,
             new OperationSubject(item.Id, item.OptimizationKey, item.LogName()),
-            outcome
+            outcome,
+            selectedOptions
         );
     }
 

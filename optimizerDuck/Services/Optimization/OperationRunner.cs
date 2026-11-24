@@ -47,7 +47,12 @@ public class OperationRunner(
         // Best effort, after the result is decided: the record must never change what a run
         // reports about the machine.
         ChangeRecordStore.TryWrite(
-            ChangeRecord.From(changes, request.Subject, result.Status.ToString()),
+            ChangeRecord.From(
+                changes,
+                request.Subject,
+                result.Status.ToString(),
+                request.SelectedOptions
+            ),
             _logger
         );
 
@@ -81,7 +86,15 @@ public class OperationRunner(
         try
         {
             var applyResult = await request
-                .Work(progress, NewContext(changes, request.RunLogger, cancellationToken))
+                .Work(
+                    progress,
+                    NewContext(
+                        changes,
+                        request.RunLogger,
+                        request.SelectedOptions,
+                        cancellationToken
+                    )
+                )
                 .ConfigureAwait(false);
 
             providerError = string.IsNullOrWhiteSpace(applyResult.ErrorMessage)
@@ -226,6 +239,7 @@ public class OperationRunner(
     private OptimizationContext NewContext(
         ChangeSet changes,
         ILogger runLogger,
+        IReadOnlyDictionary<string, string>? selectedOptions,
         CancellationToken cancellationToken
     )
     {
@@ -238,6 +252,7 @@ public class OperationRunner(
             StreamService = streamService,
             Shell = shellService,
             PowerPlans = powerPlanService,
+            Options = selectedOptions ?? OptimizationContext.EmptyOptions,
         };
     }
 
