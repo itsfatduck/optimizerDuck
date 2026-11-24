@@ -202,6 +202,43 @@ public class Preferences : LocalizedObject, ICustomizeCategory
             ];
     }
 
+    [CustomizeSetting(Section = nameof(Sections.Appearance), Icon = SymbolRegular.Color24)]
+    public class TransparencyEffects : BaseCustomizeSetting
+    {
+        protected override CustomizeRefreshScope RefreshScope => CustomizeRefreshScope.Settings;
+
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+            [
+                new()
+                {
+                    Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                    Name = "EnableTransparency",
+                    OnValues = [1],
+                    OffValues = [0],
+                    DefaultValue = 1,
+                },
+            ];
+    }
+
+    [CustomizeSetting(Section = nameof(Sections.Taskbar), Icon = SymbolRegular.SlideTransition24)]
+    public class TaskbarAnimations : BaseCustomizeSetting
+    {
+        protected override CustomizeRefreshScope RefreshScope =>
+            CustomizeRefreshScope.TaskbarSettings;
+
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+            [
+                new()
+                {
+                    Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                    Name = "TaskbarAnimations",
+                    OnValues = [1],
+                    OffValues = [0],
+                    DefaultValue = 1,
+                },
+            ];
+    }
+
     [CustomizeSetting(
         Section = nameof(Sections.Explorer),
         Icon = SymbolRegular.AlertOff24,

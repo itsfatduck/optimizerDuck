@@ -288,6 +288,26 @@ public class Gaming : LocalizedObject, ICustomizeCategory
 
     [CustomizeSetting(
         Section = nameof(Sections.Display),
+        Icon = SymbolRegular.Layer24,
+        Recommendation = RecommendationState.Depends
+    )]
+    public class MultiPlaneOverlay : BaseCustomizeSetting
+    {
+        protected override IEnumerable<RegistryToggle> RegistryToggles =>
+            [
+                new()
+                {
+                    Path = @"HKLM\SOFTWARE\Microsoft\Windows\Dwm",
+                    Name = "OverlayTestMode",
+                    OnValues = [null, 0],
+                    OffValues = [5],
+                    DefaultValue = 0,
+                },
+            ];
+    }
+
+    [CustomizeSetting(
+        Section = nameof(Sections.Display),
         Icon = SymbolRegular.Eye24,
         Recommendation = RecommendationState.Depends,
         Condition = typeof(NvidiaGpuCondition)
