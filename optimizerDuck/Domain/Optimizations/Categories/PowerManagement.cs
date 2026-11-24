@@ -1,19 +1,15 @@
-﻿using System.Collections.ObjectModel;
-using System.Globalization;
-using System.IO;
+﻿using System.IO;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
+using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
@@ -22,26 +18,96 @@ using optimizerDuck.UI.Pages.Optimize.Categories;
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
 [OptimizationCategory(typeof(PowerManagementOptimizerPage))]
-public class PowerManagement : LocalizedObject, IOptimizationCategory
+public class PowerManagement() : OptimizationCategoryBase(OptimizationCategoryOrder.Power)
 {
-    public string Name => Loc.Instance[$"Optimizer.{nameof(PowerManagement)}"];
-    public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Power;
-    public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
-
     [Optimization(
         Id = "C7A97DDE-6631-48BF-A0A8-590D447A81AB",
         Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.System | OptimizationTags.Power | OptimizationTags.Performance
+        Tags = OptimizationTags.System | OptimizationTags.Power | OptimizationTags.Disk
     )]
-    public class DisableHibernateAndFastStartup : BaseOptimization
+    public class DisableHibernateAndFastStartup : BaseOptimization, IConfigurableOptimization
     {
+        private const string OptionKeyMode = "Mode";
+        internal const string ModeFastStartupOnly = "FastStartupOnly";
+        internal const string ModeDisableAll = "DisableAll";
+
+        private static readonly RegistryItem FastStartupItem = new(
+            @"HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Power",
+            "HiberbootEnabled",
+            0
+        );
+
+        private static string DefaultModeFor(SystemInfo snapshot) =>
+            snapshot.Windows.DeviceKind == DeviceKind.Laptop ? ModeFastStartupOnly : ModeDisableAll;
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Storage),
+                    Improves(ImpactArea.Stability),
+                    Costs(ImpactArea.Power),
+                ],
+                Sources =
+                [
+                    Source(
+                        "Fast Startup update and shutdown behavior - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/troubleshoot/windows-client/deployment/updates-not-install-with-fast-startup"
+                    ),
+                    Source(
+                        "Hiberboot Policy CSP - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-admx-wininit#hiberboot"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+
+        public IReadOnlyList<OptimizationOption> GetOptions(
+            SystemInfo snapshot,
+            IReadOnlyDictionary<string, string>? previousSelections = null
+        ) =>
+            [
+                SingleChoiceOption(
+                    OptionKeyMode,
+                    previousSelections.GetString(OptionKeyMode, DefaultModeFor(snapshot)),
+                    ModeFastStartupOnly,
+                    ModeDisableAll
+                ),
+            ];
+
+        public override Task<bool?> IsSystemAtTargetAsync(
+            SystemInfo snapshot,
+            IReadOnlyDictionary<string, string>? appliedOptions = null,
+            CancellationToken cancellationToken = default
+        )
+        {
+            var hiberPresent = HibernationService.IsHibernationFilePresent();
+            if (appliedOptions?.GetString(OptionKeyMode) == ModeFastStartupOnly)
+            {
+                if (hiberPresent == false)
+                    return Task.FromResult<bool?>(true);
+
+                return Task.FromResult(StateProbe.RegistryMatches(FastStartupItem));
+            }
+
+            return Task.FromResult<bool?>(hiberPresent is { } present ? !present : null);
+        }
+
         public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
         {
-            // An unreadable previous state is recorded as unknown, so a revert leaves the system
-            // alone instead of guessing and committing a hibernation file that never existed.
+            var mode = context.Options.GetString(OptionKeyMode, DefaultModeFor(context.Snapshot));
+
+            if (mode == ModeFastStartupOnly)
+            {
+                RegistryService.Write(context, FastStartupItem);
+                context.Logger.LogInformation("Disabled Fast Startup while keeping hibernation");
+                return Task.FromResult(context.Changes.ToApplyResult());
+            }
+
             var wasPresent = HibernationService.IsHibernationFilePresent();
             if (wasPresent is null)
                 context.Logger.LogWarning(
@@ -63,8 +129,6 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
         {
             if (!NeedsHibernationChange(wasPresent))
             {
-                // Disabling a file that is already gone would call a privileged API for nothing
-                // and could fail, turning a correct machine into a failed apply.
                 call.Changes.AddSkip(
                     ServiceStrings.HibernationName,
                     ServiceStrings.HibernationDescriptionDisable,
@@ -101,8 +165,6 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 return OpResult.Success(revert);
             }
 
-            // A refused transition fails the same way on a retry (it needs privileges), but the
-            // retry keeps the recorded step consistent with the other providers.
             var error = ServiceStrings.Format(
                 ServiceStrings.HibernationErrorChangeFailed,
                 $"0x{result.NativeStatus:X8}"
@@ -124,6 +186,43 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
         }
     }
 
+    [Optimization(
+        Id = "35EE4A79-9D2E-4D45-919E-2EE4922213E4",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Power | OptimizationTags.Network | OptimizationTags.Windows11Only,
+        Condition = typeof(LaptopWindows11Condition)
+    )]
+    public class DisableModernStandbyNetworking : DeclarativeOptimization
+    {
+        private const string PolicyPath =
+            @"HKLM\SOFTWARE\Policies\Microsoft\Power\PowerSettings\f15576e8-98b7-4186-b944-eafa664402d9";
+
+        protected override RegistryItem[] RegistryItems { get; } =
+        [new(PolicyPath, "ACSettingIndex", 0), new(PolicyPath, "DCSettingIndex", 0)];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Power),
+                    Improves(ImpactArea.Privacy),
+                    Costs(ImpactArea.Features),
+                ],
+                Sources =
+                [
+                    Source(
+                        "ACConnectivityInStandby_2 Power Policy CSP - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-admx-power#acconnectivityinstandby_2"
+                    ),
+                    Source(
+                        "Modern Standby Network Connectivity - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/modern-standby-network-connectivity"
+                    ),
+                ],
+            };
+    }
+
     internal const string UsbReasonNoDevices = "usb.noDevices";
 
     [Optimization(
@@ -133,6 +232,32 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
     )]
     public class DisableUSBPowerSaving : BaseOptimization
     {
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Latency), Costs(ImpactArea.Power)],
+                Sources =
+                [
+                    Source(
+                        "USB Selective Suspend - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/drivers/usbcon/usb-selective-suspend"
+                    ),
+                ],
+            };
+
+        public override Task<bool?> IsSystemAtTargetAsync(
+            SystemInfo snapshot,
+            IReadOnlyDictionary<string, string>? appliedOptions = null,
+            CancellationToken cancellationToken = default
+        )
+        {
+            var captured = UsbPowerService.Capture();
+            if (captured.Count == 0)
+                return Task.FromResult<bool?>(null);
+
+            return Task.FromResult<bool?>(captured.All(static s => !s.Enable));
+        }
+
         public override Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
@@ -179,8 +304,6 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 revertStep.States.Count
             );
 
-            // Some devices refusing still leaves the others changed, so the recorded step keeps
-            // their previous state and the failure names the devices that refused.
             if (result is { FailedDevices.Count: > 0 })
             {
                 var detail = string.Join(", ", result.FailedDevices);
@@ -205,8 +328,6 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
 
             if (result is { ChangedCount: 0 })
             {
-                // Every device already matched the target, so nothing was written and there is
-                // nothing to restore.
                 call.Logger.LogInformation("[USB][SKIP] every device already at the target");
                 call.Changes.AddSkip(
                     ServiceStrings.UsbPowerName,
@@ -232,7 +353,6 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
                 return OpResult.Success(revertStep);
             }
 
-            // Null means the WMI query itself failed (class unavailable or the write was refused).
             var error = ServiceStrings.UsbPowerErrorChangeFailed;
             call.Logger.LogWarning("[USB][FAIL] WMI write refused or unavailable");
             call.Changes.Add(
@@ -251,12 +371,44 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
 
     [Optimization(
         Id = "EE71E993-EE41-4449-8856-84B09B2B0C46",
-        Risk = OptimizationRisk.Safe,
+        Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Latency | OptimizationTags.Performance | OptimizationTags.Power
     )]
     public class InstallOptimizerDuckPowerPlan : BaseOptimization
     {
         private static readonly Guid OptimizerDuckPlanId = Guid.Parse(Shared.PowerPlanGUID);
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Latency),
+                    Improves(ImpactArea.Performance),
+                    Costs(ImpactArea.Power),
+                ],
+                Sources =
+                [
+                    Source(
+                        "Processor Power Management Options - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/customize/power-settings/configure-processor-power-management-options"
+                    ),
+                    Source(
+                        "Static Configuration Options for Core Parking - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/customize/power-settings/static-configuration-options-for-core-parking"
+                    ),
+                ],
+            };
+
+        public override Task<bool?> IsSystemAtTargetAsync(
+            SystemInfo snapshot,
+            IReadOnlyDictionary<string, string>? appliedOptions = null,
+            CancellationToken cancellationToken = default
+        )
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            return Task.FromResult(StateProbe.ActivePowerSchemeIs(OptimizerDuckPlanId));
+        }
 
         public override async Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
@@ -326,32 +478,32 @@ public class PowerManagement : LocalizedObject, IOptimizationCategory
 
     [Optimization(
         Id = "D2392F86-2B35-4BA2-939B-6FF38EE18EE6",
-        Risk = OptimizationRisk.Safe,
+        Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Power | OptimizationTags.Performance | OptimizationTags.System
     )]
-    public class DisablePowerSaving : BaseOptimization
+    public class DisablePowerSaving : DeclarativeOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(
-            IProgress<ProcessingProgress> progress,
-            OptimizationContext context
-        )
-        {
-            RegistryService.Write(
-                context,
-                new RegistryItem(
-                    @"HKLM\SYSTEM\CurrentControlSet\Control\USB\AutomaticSurpriseRemoval",
-                    "AttemptRecoveryFromUsbPowerDrain",
-                    0
-                ),
-                new RegistryItem(
-                    @"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling",
-                    "PowerThrottlingOff",
-                    1
-                )
-            );
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(
+                @"HKLM\SYSTEM\CurrentControlSet\Control\Power\PowerThrottling",
+                "PowerThrottlingOff",
+                1
+            ),
+        ];
 
-            context.Logger.LogInformation("Disabled power saving features");
-            return Task.FromResult(context.Changes.ToApplyResult());
-        }
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Performance), Costs(ImpactArea.Power)],
+                Sources =
+                [
+                    Source(
+                        "PowerThrottlingTurnOff Power Policy CSP - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-admx-power#powerthrottlingturnoff"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
     }
 }

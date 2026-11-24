@@ -1,25 +1,52 @@
-using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Extensions;
-using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
-using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.UI.Pages.Optimize.Categories;
 
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
+/// <summary>
+///     Shared base for GPU registry tweaks that resolve each matching adapter's hardware display
+///     class key (<c>0000</c>, <c>0001</c>, ...) at runtime before reading or writing registry values.
+/// </summary>
 public abstract class GpuRegistryOptimization : BaseOptimization
 {
     protected abstract GpuVendor Vendor { get; }
 
     protected abstract IReadOnlyList<RegistryItem> CreateItems(string registryPath);
+
+    public override Task<bool?> IsSystemAtTargetAsync(
+        SystemInfo snapshot,
+        IReadOnlyDictionary<string, string>? appliedOptions = null,
+        CancellationToken cancellationToken = default
+    )
+    {
+        var items = new List<RegistryItem>();
+        foreach (var gpu in snapshot.Gpus.Where(g => g.Vendor == Vendor))
+        {
+            if (
+                !Gpu.TryResolveClassKeyPath(
+                    gpu.PnpDeviceId,
+                    pnpDeviceId => Gpu.ReadDriverValue(pnpDeviceId, null),
+                    out var path
+                )
+            )
+                return Task.FromResult<bool?>(null);
+
+            items.AddRange(CreateItems(path));
+        }
+
+        return items.Count == 0
+            ? Task.FromResult<bool?>(null)
+            : Task.FromResult(StateProbe.RegistryMatches([.. items]));
+    }
 
     public override Task<ApplyResult> ApplyAsync(
         IProgress<ProcessingProgress> progress,
@@ -45,10 +72,10 @@ public abstract class GpuRegistryOptimization : BaseOptimization
                 continue;
             }
 
-            RegistryService.Write(context, CreateItems(path).ToArray());
+            RegistryService.Write(context, [.. CreateItems(path)]);
             context.Logger.LogInformation(
                 "Applied {Optimization} for GPU {GpuName} at {Path}",
-                GetType().Name,
+                OptimizationKey,
                 gpu.Name,
                 path
             );
@@ -59,12 +86,8 @@ public abstract class GpuRegistryOptimization : BaseOptimization
 }
 
 [OptimizationCategory(typeof(GpuOptimizerPage))]
-public class Gpu : LocalizedObject, IOptimizationCategory
+public class Gpu() : OptimizationCategoryBase(OptimizationCategoryOrder.Gpu)
 {
-    public string Name => Loc.Instance[$"Optimizer.{nameof(Gpu)}"];
-    public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.Gpu;
-    public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
-
     /// <summary>The Display adapter device setup class GUID.</summary>
     internal const string DisplayClassGuid = "{4d36e968-e325-11ce-bfc1-08002be10318}";
 
@@ -72,29 +95,6 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     ///     Resolves the Display Class registry key that belongs to one adapter, for example
     ///     <c>HKLM\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-...}\0001</c>.
     /// </summary>
-    /// <remarks>
-    ///     <para>
-    ///         The key comes from the <c>Driver</c> value under
-    ///         <c>HKLM\SYSTEM\CurrentControlSet\Enum\&lt;PnpDeviceId&gt;</c>, which is the link
-    ///         Windows itself keeps between a device instance and its class key.
-    ///     </para>
-    ///     <para>
-    ///         The WMI <c>DeviceID</c> (<c>VideoControllerN</c>) must not be used for this: its
-    ///         numbering follows WMI enumeration order, which need not match the order of the
-    ///         class subkeys. On hybrid-GPU laptops, or with a virtual display adapter installed,
-    ///         it points at another adapter's key.
-    ///     </para>
-    /// </remarks>
-    /// <param name="pnpDeviceId">The adapter's PnP device instance ID.</param>
-    /// <param name="readDriverValue">
-    ///     Reads the <c>Driver</c> value for a PnP device instance ID; returns
-    ///     <see langword="null" /> when absent or unreadable.
-    /// </param>
-    /// <param name="path">On success, the full class key path; otherwise empty.</param>
-    /// <returns>
-    ///     <see langword="true" /> only when the <c>Driver</c> value names a Display Class
-    ///     subkey; anything else is rejected rather than guessed.
-    /// </returns>
     public static bool TryResolveClassKeyPath(
         string? pnpDeviceId,
         Func<string, string?> readDriverValue,
@@ -109,7 +109,6 @@ public class Gpu : LocalizedObject, IOptimizationCategory
         if (string.IsNullOrEmpty(driver))
             return false;
 
-        // Expected form: "{4d36e968-e325-11ce-bfc1-08002be10318}\0001".
         var separator = driver.IndexOf('\\');
         if (separator < 0)
             return false;
@@ -139,7 +138,7 @@ public class Gpu : LocalizedObject, IOptimizationCategory
 
     [Optimization(
         Id = "4433CE93-B632-4D67-AE71-0241C31099C0",
-        Risk = OptimizationRisk.Safe,
+        Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Amd | OptimizationTags.Power,
         Condition = typeof(AmdGpuCondition)
     )]
@@ -147,15 +146,36 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     {
         protected override GpuVendor Vendor => GpuVendor.Amd;
 
-        protected override IReadOnlyList<RegistryItem> CreateItems(string path)
-        {
-            return [new RegistryItem(path, "EnableULPS", 0)];
-        }
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Stability),
+                    Improves(ImpactArea.Latency),
+                    Costs(ImpactArea.Power),
+                ],
+                Sources =
+                [
+                    Source(
+                        "AMD Graphics Power Saving Registry Options - KernelOS",
+                        "https://kernelos.org/docs/en/post-install/graphics/graphics_amd/"
+                    ),
+                    Source(
+                        "WDDM GPU Power Management of Idle States - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpu-power-management-of-idle-and-active-power"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+
+        protected override IReadOnlyList<RegistryItem> CreateItems(string path) =>
+            [new RegistryItem(path, "EnableULPS", 0)];
     }
 
     [Optimization(
         Id = "A3836587-C461-4BEB-9C4C-88493B36C138",
-        Risk = OptimizationRisk.Moderate,
+        Risk = OptimizationRisk.Risky,
         Tags = OptimizationTags.Amd | OptimizationTags.Performance,
         Condition = typeof(AmdGpuCondition)
     )]
@@ -163,42 +183,40 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     {
         protected override GpuVendor Vendor => GpuVendor.Amd;
 
-        protected override IReadOnlyList<RegistryItem> CreateItems(string path)
-        {
-            return
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Latency),
+                    Improves(ImpactArea.Performance),
+                    Costs(ImpactArea.Power),
+                ],
+                Sources =
+                [
+                    Source(
+                        "AMD Graphics Power Saving Registry Options - KernelOS",
+                        "https://kernelos.org/docs/en/post-install/graphics/graphics_amd/"
+                    ),
+                    Source(
+                        "WDDM GPU Power Management of Idle States - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpu-power-management-of-idle-and-active-power"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+
+        protected override IReadOnlyList<RegistryItem> CreateItems(string path) =>
             [
                 new RegistryItem(path, "DisablePowerGating", 1),
                 new RegistryItem(path, "PP_GPUPowerDownEnabled", 0),
                 new RegistryItem(path, "DisableDynamicPstate", 1),
             ];
-        }
-    }
-
-    [Optimization(
-        Id = "DB379BB5-FC8C-4AD3-BE32-11BE09E76FBA",
-        Risk = OptimizationRisk.Moderate,
-        Tags = OptimizationTags.Amd | OptimizationTags.Performance,
-        Condition = typeof(AmdGpuCondition)
-    )]
-    public class AmdDisableVideoClockGating : GpuRegistryOptimization
-    {
-        protected override GpuVendor Vendor => GpuVendor.Amd;
-
-        protected override IReadOnlyList<RegistryItem> CreateItems(string path)
-        {
-            return
-            [
-                new RegistryItem(path, "DisableVCEPowerGating", 1),
-                new RegistryItem(path, "DisableVceClockGating", 1),
-                new RegistryItem(path, "EnableUvdClockGating", 0),
-                new RegistryItem(path, "EnableVceSwClockGating", 0),
-            ];
-        }
     }
 
     [Optimization(
         Id = "8A4B4C4D-000E-42DB-8BD7-293067F8FAE7",
-        Risk = OptimizationRisk.Safe,
+        Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Amd | OptimizationTags.Latency,
         Condition = typeof(AmdGpuCondition)
     )]
@@ -206,19 +224,31 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     {
         protected override GpuVendor Vendor => GpuVendor.Amd;
 
-        protected override IReadOnlyList<RegistryItem> CreateItems(string path)
-        {
-            return
-            [
-                new RegistryItem(path, "EnableAspmL0s", 0),
-                new RegistryItem(path, "EnableAspmL1", 0),
-            ];
-        }
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Latency), Costs(ImpactArea.Power)],
+                Sources =
+                [
+                    Source(
+                        "AMD Graphics Power Saving Registry Options - KernelOS",
+                        "https://kernelos.org/docs/en/post-install/graphics/graphics_amd/"
+                    ),
+                    Source(
+                        "WDDM GPU Power Management of Idle States - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpu-power-management-of-idle-and-active-power"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+
+        protected override IReadOnlyList<RegistryItem> CreateItems(string path) =>
+            [new RegistryItem(path, "EnableAspmL0s", 0), new RegistryItem(path, "EnableAspmL1", 0)];
     }
 
     [Optimization(
         Id = "FA58802F-B98C-4E98-AA67-067C5A394296",
-        Risk = OptimizationRisk.Safe,
+        Risk = OptimizationRisk.Risky,
         Tags = OptimizationTags.Nvidia | OptimizationTags.Power,
         Condition = typeof(NvidiaGpuCondition)
     )]
@@ -226,10 +256,22 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     {
         protected override GpuVendor Vendor => GpuVendor.Nvidia;
 
-        protected override IReadOnlyList<RegistryItem> CreateItems(string path)
-        {
-            return [new RegistryItem(path, "DisableDynamicPstate", 1)];
-        }
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Latency), Costs(ImpactArea.Power)],
+                Sources =
+                [
+                    Source(
+                        "WDDM GPU Power Management of Idle States - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpu-power-management-of-idle-and-active-power"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+
+        protected override IReadOnlyList<RegistryItem> CreateItems(string path) =>
+            [new RegistryItem(path, "DisableDynamicPstate", 1)];
     }
 
     [Optimization(
@@ -242,31 +284,27 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     {
         protected override GpuVendor Vendor => GpuVendor.Nvidia;
 
-        protected override IReadOnlyList<RegistryItem> CreateItems(string path)
-        {
-            return [new RegistryItem(path, "DisableASyncPstates", 1)];
-        }
-    }
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Latency), Costs(ImpactArea.Power)],
+                Sources =
+                [
+                    Source(
+                        "WDDM GPU Power Management of Idle States - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpu-power-management-of-idle-and-active-power"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
 
-    [Optimization(
-        Id = "DF8739FF-E322-4958-B369-DF584BB9B0C1",
-        Risk = OptimizationRisk.Safe,
-        Tags = OptimizationTags.Intel | OptimizationTags.Latency,
-        Condition = typeof(IntelGpuCondition)
-    )]
-    public class IntelDisableAsyncFlips : GpuRegistryOptimization
-    {
-        protected override GpuVendor Vendor => GpuVendor.Intel;
-
-        protected override IReadOnlyList<RegistryItem> CreateItems(string path)
-        {
-            return [new RegistryItem(path, "Display1_DisableAsyncFlips", 1)];
-        }
+        protected override IReadOnlyList<RegistryItem> CreateItems(string path) =>
+            [new RegistryItem(path, "DisableASyncPstates", 1)];
     }
 
     [Optimization(
         Id = "EBFB0DED-5D1A-4CD1-B5C0-4F7018DD6054",
-        Risk = OptimizationRisk.Safe,
+        Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Intel | OptimizationTags.Display,
         Condition = typeof(IntelGpuCondition)
     )]
@@ -274,9 +312,25 @@ public class Gpu : LocalizedObject, IOptimizationCategory
     {
         protected override GpuVendor Vendor => GpuVendor.Intel;
 
-        protected override IReadOnlyList<RegistryItem> CreateItems(string path)
-        {
-            return [new RegistryItem(path, "AdaptiveVsyncEnable", 0)];
-        }
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Latency), Costs(ImpactArea.Features)],
+                Sources =
+                [
+                    Source(
+                        "Enabling and Disabling Vertical Synchronization - Intel Support",
+                        "https://www.intel.com/content/www/us/en/support/articles/000005552/graphics.html"
+                    ),
+                    Source(
+                        "Intel Adaptive Sync with 11th-Gen Graphics & DX12 - Intel Developer",
+                        "https://www.intel.com/content/www/us/en/developer/articles/technical/enabling-intel-adaptive-sync-with-11th-generation-intel-processor-graphics-and-microsoft.html"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+
+        protected override IReadOnlyList<RegistryItem> CreateItems(string path) =>
+            [new RegistryItem(path, "AdaptiveVsyncEnable", 0)];
     }
 }

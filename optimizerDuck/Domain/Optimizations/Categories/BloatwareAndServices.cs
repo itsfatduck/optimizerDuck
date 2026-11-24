@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.Abstractions;
@@ -8,337 +7,290 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
+using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.UI.Pages.Optimize.Categories;
 
 namespace optimizerDuck.Domain.Optimizations.Categories;
 
 [OptimizationCategory(typeof(BloatwareAndServicesOptimizerPage))]
-public class BloatwareAndServices : LocalizedObject, IOptimizationCategory
+public class BloatwareAndServices()
+    : OptimizationCategoryBase(OptimizationCategoryOrder.BloatwareAndServices)
 {
-    public string Name => Loc.Instance[$"Optimizer.{nameof(BloatwareAndServices)}"];
-    public OptimizationCategoryOrder Order { get; init; } =
-        OptimizationCategoryOrder.BloatwareAndServices;
-    public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
-
     [Optimization(
         Id = "E3C970B0-129D-4354-BAE4-2732E5BACCF7",
         Risk = OptimizationRisk.Safe,
         Tags = OptimizationTags.System | OptimizationTags.Disk
     )]
-    public class DisablePreinstalledApps : BaseOptimization
+    public class DisablePreinstalledApps : DeclarativeOptimization
     {
-        public override Task<ApplyResult> ApplyAsync(
-            IProgress<ProcessingProgress> progress,
-            OptimizationContext context
-        )
-        {
-            RegistryService.Write(
-                context,
-                new RegistryItem(
-                    @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
-                    "PreInstalledAppsEnabled",
-                    0
-                ),
-                new RegistryItem(
-                    @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
-                    "PreInstalledAppsEverEnabled",
-                    0
-                ),
-                new RegistryItem(
-                    @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
-                    "OemPreInstalledAppsEnabled",
-                    0
-                ),
-                new RegistryItem(
-                    @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager",
-                    "SilentInstalledAppsEnabled",
-                    0
-                )
-            );
-            context.Logger.LogInformation("Blocked preinstalled apps");
-            return Task.FromResult(context.Changes.ToApplyResult());
-        }
+        private const string ContentDeliveryPath =
+            @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
+
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(ContentDeliveryPath, "PreInstalledAppsEnabled", 0),
+            new(ContentDeliveryPath, "PreInstalledAppsEverEnabled", 0),
+            new(ContentDeliveryPath, "OemPreInstalledAppsEnabled", 0),
+            new(ContentDeliveryPath, "SilentInstalledAppsEnabled", 0),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Clutter),
+                    Improves(ImpactArea.Storage),
+                    Improves(ImpactArea.Privacy),
+                ],
+                Sources =
+                [
+                    Source(
+                        "Turn off Microsoft consumer experiences - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience#allowwindowsconsumerfeatures"
+                    ),
+                ],
+            };
     }
 
     [Optimization(
-        Id = "66126FAC-E79B-4CDA-9F53-F85DD88730A9",
-        Risk = OptimizationRisk.Risky,
-        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Latency
+        Id = "1D6DCDDC-B7E0-4999-8360-A8EAAD6E136C",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Ram
     )]
-    public class ConfigureServices : BaseOptimization
+    public class DisableUnusedLegacyServices : DeclarativeOptimization
     {
+        // Strictly DowngradeOnly and disjoint from Telemetry, Error Reporting, Location,
+        // Search Indexing, and optional hardware features.
+        protected override ServiceItem[] Services { get; } =
+        [
+            ServiceItem.Disable("Fax"),
+            ServiceItem.Disable("RemoteRegistry"),
+            ServiceItem.Disable("RetailDemo"),
+            ServiceItem.Disable("AJRouter"),
+            ServiceItem.Disable("shpamsvc"),
+            ServiceItem.Disable("AppVClient"),
+            ServiceItem.Disable("AssignedAccessManagerSvc"),
+            ServiceItem.Disable("DialogBlockingService"),
+            ServiceItem.Disable("UevAgentService"),
+            ServiceItem.Disable("NetTcpPortSharing"),
+            ServiceItem.Disable("RemoteAccess"),
+            ServiceItem.Manual("CscService"),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Performance),
+                    Improves(ImpactArea.Memory),
+                    Improves(ImpactArea.Security),
+                ],
+                Sources =
+                [
+                    Source(
+                        "Guidance on disabling Windows system services - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/optimize/services"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+    }
+
+    [Optimization(
+        Id = "F85534F4-EDDF-471E-B8A4-7A174584B178",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Ram
+    )]
+    public class DisableOptionalFeatureServices : BaseOptimization, IConfigurableOptimization
+    {
+        private sealed record FeatureServiceGroup(string Key, ServiceItem[] Services);
+
+        private static readonly FeatureServiceGroup[] Groups =
+        [
+            new(
+                "DisablePrinting",
+                [ServiceItem.Disable("Spooler"), ServiceItem.Disable("PrintNotify")]
+            ),
+            new(
+                "DisableBluetooth",
+                [
+                    ServiceItem.Disable("bthserv"),
+                    ServiceItem.Disable("BthAvctpSvc"),
+                    ServiceItem.Disable("BTAGService"),
+                ]
+            ),
+            new(
+                "DisableXbox",
+                [
+                    ServiceItem.Disable("XblAuthManager"),
+                    ServiceItem.Disable("XblGameSave"),
+                    ServiceItem.Disable("XboxGipSvc"),
+                    ServiceItem.Disable("XboxNetApiSvc"),
+                ]
+            ),
+            new(
+                "DisableLanSharing",
+                [
+                    ServiceItem.Disable("LanmanServer"),
+                    ServiceItem.Disable("FDResPub"),
+                    ServiceItem.Disable("fdPHost"),
+                    ServiceItem.Disable("SSDPSRV"),
+                ]
+            ),
+            new("DisableBiometrics", [ServiceItem.Disable("WbioSrvc")]),
+            new(
+                "DisableRemoteDesktop",
+                [
+                    ServiceItem.Disable("TermService"),
+                    ServiceItem.Disable("UmRdpService"),
+                    ServiceItem.Disable("SessionEnv"),
+                ]
+            ),
+        ];
+
+        public bool RequiresAtLeastOneSelection => true;
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Memory),
+                    Improves(ImpactArea.Performance),
+                    Costs(ImpactArea.Features),
+                ],
+                Sources =
+                [
+                    Source(
+                        "Guidance on disabling Windows system services - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/optimize/services"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+
+        public IReadOnlyList<OptimizationOption> GetOptions(
+            SystemInfo snapshot,
+            IReadOnlyDictionary<string, string>? previousSelections = null
+        ) =>
+            [
+                .. Groups.Select(group =>
+                    ToggleOption(
+                        group.Key,
+                        previousSelections.GetBool(group.Key, false),
+                        StateProbe.ServicesAtLeast(group.Services) == true
+                    )
+                ),
+            ];
+
+        public override Task<bool?> IsSystemAtTargetAsync(
+            SystemInfo snapshot,
+            IReadOnlyDictionary<string, string>? appliedOptions = null,
+            CancellationToken cancellationToken = default
+        )
+        {
+            if (appliedOptions is null)
+                return Task.FromResult<bool?>(null);
+
+            var selectedServices = Groups
+                .Where(g => appliedOptions.GetBool(g.Key))
+                .SelectMany(g => g.Services)
+                .ToArray();
+
+            return Task.FromResult(
+                selectedServices.Length == 0 ? null : StateProbe.ServicesAtLeast(selectedServices)
+            );
+        }
+
         public override async Task<ApplyResult> ApplyAsync(
             IProgress<ProcessingProgress> progress,
             OptimizationContext context
         )
         {
-            var servicesToChange = new List<ServiceItem>
-            {
-                new("AJRouter", ServiceStartupType.Disabled),
-                new("ALG", ServiceStartupType.Manual),
-                new("AppIDSvc", ServiceStartupType.Manual),
-                new("AppMgmt", ServiceStartupType.Manual),
-                new("AppReadiness", ServiceStartupType.Manual),
-                new("AppVClient", ServiceStartupType.Disabled),
-                new("AppXSvc", ServiceStartupType.Manual),
-                new("Appinfo", ServiceStartupType.Manual),
-                new("AssignedAccessManagerSvc", ServiceStartupType.Disabled),
-                new("AudioEndpointBuilder", ServiceStartupType.Automatic),
-                new("Audiosrv", ServiceStartupType.Automatic),
-                new("AxInstSV", ServiceStartupType.Manual),
-                new("BDESVC", ServiceStartupType.Manual),
-                new("BFE", ServiceStartupType.Automatic),
-                new("BITS", ServiceStartupType.AutomaticDelayedStart),
-                new("BTAGService", ServiceStartupType.Manual),
-                new("BrokerInfrastructure", ServiceStartupType.Automatic),
-                new("Browser", ServiceStartupType.Manual),
-                new("BthAvctpSvc", ServiceStartupType.Automatic),
-                new("BthHFSrv", ServiceStartupType.Automatic),
-                new("CDPSvc", ServiceStartupType.Manual),
-                new("COMSysApp", ServiceStartupType.Manual),
-                new("CertPropSvc", ServiceStartupType.Manual),
-                new("ClipSVC", ServiceStartupType.Manual),
-                new("CoreMessagingRegistrar", ServiceStartupType.Automatic),
-                new("CryptSvc", ServiceStartupType.Automatic),
-                new("CscService", ServiceStartupType.Manual),
-                new("DPS", ServiceStartupType.Automatic),
-                new("DcomLaunch", ServiceStartupType.Automatic),
-                new("DcpSvc", ServiceStartupType.Manual),
-                new("DevQueryBroker", ServiceStartupType.Manual),
-                new("DeviceAssociationService", ServiceStartupType.Manual),
-                new("DeviceInstall", ServiceStartupType.Manual),
-                new("Dhcp", ServiceStartupType.Automatic),
-                new("DiagTrack", ServiceStartupType.Disabled),
-                new("DialogBlockingService", ServiceStartupType.Disabled),
-                new("DispBrokerDesktopSvc", ServiceStartupType.Automatic),
-                new("DisplayEnhancementService", ServiceStartupType.Manual),
-                new("DmEnrollmentSvc", ServiceStartupType.Manual),
-                new("Dnscache", ServiceStartupType.Automatic),
-                new("EFS", ServiceStartupType.Manual),
-                new("EapHost", ServiceStartupType.Manual),
-                new("EntAppSvc", ServiceStartupType.Manual),
-                new("EventLog", ServiceStartupType.Automatic),
-                new("EventSystem", ServiceStartupType.Automatic),
-                new("FDResPub", ServiceStartupType.Manual),
-                new("Fax", ServiceStartupType.Disabled),
-                new("FontCache", ServiceStartupType.Automatic),
-                new("FrameServer", ServiceStartupType.Manual),
-                new("FrameServerMonitor", ServiceStartupType.Manual),
-                new("GraphicsPerfSvc", ServiceStartupType.Manual),
-                new("HomeGroupListener", ServiceStartupType.Disabled),
-                new("HomeGroupProvider", ServiceStartupType.Disabled),
-                new("HvHost", ServiceStartupType.Manual),
-                new("IEEtwCollectorService", ServiceStartupType.Manual),
-                new("IKEEXT", ServiceStartupType.Manual),
-                new("InstallService", ServiceStartupType.Manual),
-                new("InventorySvc", ServiceStartupType.Manual),
-                new("IpxlatCfgSvc", ServiceStartupType.Manual),
-                new("KeyIso", ServiceStartupType.Automatic),
-                new("KtmRm", ServiceStartupType.Manual),
-                new("LSM", ServiceStartupType.Automatic),
-                new("LanmanServer", ServiceStartupType.Manual),
-                new("LanmanWorkstation", ServiceStartupType.Automatic),
-                new("LicenseManager", ServiceStartupType.Manual),
-                new("LxpSvc", ServiceStartupType.Manual),
-                new("MSDTC", ServiceStartupType.Manual),
-                new("MSiSCSI", ServiceStartupType.Manual),
-                new("MapsBroker", ServiceStartupType.AutomaticDelayedStart),
-                new("McpManagementService", ServiceStartupType.Manual),
-                new("MicrosoftEdgeElevationService", ServiceStartupType.Manual),
-                new("MixedRealityOpenXRSvc", ServiceStartupType.Manual),
-                new("MpsSvc", ServiceStartupType.Automatic),
-                new("MsKeyboardFilter", ServiceStartupType.Manual),
-                new("NaturalAuthentication", ServiceStartupType.Manual),
-                new("NcaSvc", ServiceStartupType.Manual),
-                new("NcbService", ServiceStartupType.Manual),
-                new("NcdAutoSetup", ServiceStartupType.Manual),
-                new("NetSetupSvc", ServiceStartupType.Manual),
-                new("NetTcpPortSharing", ServiceStartupType.Disabled),
-                new("Netman", ServiceStartupType.Automatic),
-                new("NgcCtnrSvc", ServiceStartupType.Manual),
-                new("NgcSvc", ServiceStartupType.Manual),
-                new("NlaSvc", ServiceStartupType.Automatic),
-                new("PNRPAutoReg", ServiceStartupType.Manual),
-                new("PNRPsvc", ServiceStartupType.Manual),
-                new("PcaSvc", ServiceStartupType.Manual),
-                new("PeerDistSvc", ServiceStartupType.Manual),
-                new("PerfHost", ServiceStartupType.Manual),
-                new("PhoneSvc", ServiceStartupType.Manual),
-                new("PlugPlay", ServiceStartupType.Automatic),
-                new("PolicyAgent", ServiceStartupType.Manual),
-                new("Power", ServiceStartupType.Automatic),
-                new("PrintNotify", ServiceStartupType.Manual),
-                new("ProfSvc", ServiceStartupType.Automatic),
-                new("PushToInstall", ServiceStartupType.Manual),
-                new("QWAVE", ServiceStartupType.Manual),
-                new("RasAuto", ServiceStartupType.Manual),
-                new("RasMan", ServiceStartupType.Manual),
-                new("RemoteAccess", ServiceStartupType.Disabled),
-                new("RemoteRegistry", ServiceStartupType.Disabled),
-                new("RetailDemo", ServiceStartupType.Disabled),
-                new("RmSvc", ServiceStartupType.Manual),
-                new("RpcEptMapper", ServiceStartupType.Automatic),
-                new("RpcLocator", ServiceStartupType.Manual),
-                new("RpcSs", ServiceStartupType.Automatic),
-                new("SCPolicySvc", ServiceStartupType.Manual),
-                new("SCardSvr", ServiceStartupType.Manual),
-                new("SDRSVC", ServiceStartupType.Manual),
-                new("SEMgrSvc", ServiceStartupType.Manual),
-                new("SENS", ServiceStartupType.Automatic),
-                new("SNMPTRAP", ServiceStartupType.Manual),
-                new("SSDPSRV", ServiceStartupType.Manual),
-                new("SamSs", ServiceStartupType.Automatic),
-                new("ScDeviceEnum", ServiceStartupType.Manual),
-                new("Schedule", ServiceStartupType.Automatic),
-                new("SensorDataService", ServiceStartupType.Manual),
-                new("SensorService", ServiceStartupType.Manual),
-                new("SensrSvc", ServiceStartupType.Manual),
-                new("SessionEnv", ServiceStartupType.Manual),
-                new("SharedAccess", ServiceStartupType.Manual),
-                new("SharedRealitySvc", ServiceStartupType.Manual),
-                new("ShellHWDetection", ServiceStartupType.Automatic),
-                new("SmsRouter", ServiceStartupType.Manual),
-                new("Spooler", ServiceStartupType.Manual),
-                new("SstpSvc", ServiceStartupType.Manual),
-                new("StiSvc", ServiceStartupType.Manual),
-                new("StorSvc", ServiceStartupType.Manual),
-                new("SystemEventsBroker", ServiceStartupType.Automatic),
-                new("TabletInputService", ServiceStartupType.Manual),
-                new("TapiSrv", ServiceStartupType.Manual),
-                new("TermService", ServiceStartupType.Manual),
-                new("Themes", ServiceStartupType.Automatic),
-                new("TieringEngineService", ServiceStartupType.Manual),
-                new("TimeBroker", ServiceStartupType.Manual),
-                new("TimeBrokerSvc", ServiceStartupType.Manual),
-                new("TokenBroker", ServiceStartupType.Manual),
-                new("TrkWks", ServiceStartupType.Automatic),
-                new("TroubleshootingSvc", ServiceStartupType.Manual),
-                new("UI0Detect", ServiceStartupType.Manual),
-                new("UevAgentService", ServiceStartupType.Disabled),
-                new("UmRdpService", ServiceStartupType.Manual),
-                new("UserManager", ServiceStartupType.Automatic),
-                new("UsoSvc", ServiceStartupType.Manual),
-                new("VGAuthService", ServiceStartupType.Manual),
-                new("VMTools", ServiceStartupType.Manual),
-                new("VSS", ServiceStartupType.Manual),
-                new("VacSvc", ServiceStartupType.Manual),
-                new("VaultSvc", ServiceStartupType.Automatic),
-                new("W32Time", ServiceStartupType.Manual),
-                new("WEPHOSTSVC", ServiceStartupType.Manual),
-                new("WFDSConMgrSvc", ServiceStartupType.Manual),
-                new("WMPNetworkSvc", ServiceStartupType.Manual),
-                new("WManSvc", ServiceStartupType.Manual),
-                new("WPDBusEnum", ServiceStartupType.Manual),
-                new("WSearch", ServiceStartupType.Manual),
-                new("WaaSMedicSvc", ServiceStartupType.Manual),
-                new("WalletService", ServiceStartupType.Manual),
-                new("WarpJITSvc", ServiceStartupType.Manual),
-                new("WbioSrvc", ServiceStartupType.Manual),
-                new("Wcmsvc", ServiceStartupType.Automatic),
-                new("WcsPlugInService", ServiceStartupType.Manual),
-                new("WdiServiceHost", ServiceStartupType.Manual),
-                new("WdiSystemHost", ServiceStartupType.Manual),
-                new("WebClient", ServiceStartupType.Manual),
-                new("Wecsvc", ServiceStartupType.Manual),
-                new("WerSvc", ServiceStartupType.Manual),
-                new("WiaRpc", ServiceStartupType.Manual),
-                new("WinHttpAutoProxySvc", ServiceStartupType.Manual),
-                new("WinRM", ServiceStartupType.Manual),
-                new("Winmgmt", ServiceStartupType.Automatic),
-                new("WlanSvc", ServiceStartupType.Automatic),
-                new("WpcMonSvc", ServiceStartupType.Manual),
-                new("WpnService", ServiceStartupType.Manual),
-                new("XblAuthManager", ServiceStartupType.Manual),
-                new("XblGameSave", ServiceStartupType.Manual),
-                new("XboxGipSvc", ServiceStartupType.Manual),
-                new("XboxNetApiSvc", ServiceStartupType.Manual),
-                new("autotimesvc", ServiceStartupType.Manual),
-                new("bthserv", ServiceStartupType.Manual),
-                new("camsvc", ServiceStartupType.Manual),
-                new("cloudidsvc", ServiceStartupType.Manual),
-                new("dcsvc", ServiceStartupType.Manual),
-                new("defragsvc", ServiceStartupType.Manual),
-                new("diagnosticshub.standardcollector.service", ServiceStartupType.Manual),
-                new("diagsvc", ServiceStartupType.Manual),
-                new("dmwappushservice", ServiceStartupType.Manual),
-                new("dot3svc", ServiceStartupType.Manual),
-                new("edgeupdate", ServiceStartupType.Manual),
-                new("edgeupdatem", ServiceStartupType.Manual),
-                new("embeddedmode", ServiceStartupType.Manual),
-                new("fdPHost", ServiceStartupType.Manual),
-                new("fhsvc", ServiceStartupType.Manual),
-                new("hidserv", ServiceStartupType.Manual),
-                new("icssvc", ServiceStartupType.Manual),
-                new("iphlpsvc", ServiceStartupType.Automatic),
-                new("lfsvc", ServiceStartupType.Manual),
-                new("lltdsvc", ServiceStartupType.Manual),
-                new("lmhosts", ServiceStartupType.Manual),
-                new("msiserver", ServiceStartupType.Manual),
-                new("netprofm", ServiceStartupType.Manual),
-                new("nsi", ServiceStartupType.Automatic),
-                new("p2pimsvc", ServiceStartupType.Manual),
-                new("p2psvc", ServiceStartupType.Manual),
-                new("perceptionsimulation", ServiceStartupType.Manual),
-                new("pla", ServiceStartupType.Manual),
-                new("seclogon", ServiceStartupType.Manual),
-                new("shpamsvc", ServiceStartupType.Disabled),
-                new("smphost", ServiceStartupType.Manual),
-                new("spectrum", ServiceStartupType.Manual),
-                new("sppsvc", ServiceStartupType.AutomaticDelayedStart),
-                new("ssh-agent", ServiceStartupType.Disabled),
-                new("svsvc", ServiceStartupType.Manual),
-                new("swprv", ServiceStartupType.Manual),
-                new("tiledatamodelsvc", ServiceStartupType.Automatic),
-                new("tzautoupdate", ServiceStartupType.Disabled),
-                new("upnphost", ServiceStartupType.Manual),
-                new("vds", ServiceStartupType.Manual),
-                new("vm3dservice", ServiceStartupType.Manual),
-                new("vmicguestinterface", ServiceStartupType.Manual),
-                new("vmicheartbeat", ServiceStartupType.Manual),
-                new("vmickvpexchange", ServiceStartupType.Manual),
-                new("vmicrdv", ServiceStartupType.Manual),
-                new("vmicshutdown", ServiceStartupType.Manual),
-                new("vmictimesync", ServiceStartupType.Manual),
-                new("vmicvmsession", ServiceStartupType.Manual),
-                new("vmicvss", ServiceStartupType.Manual),
-                new("vmvss", ServiceStartupType.Manual),
-                new("wbengine", ServiceStartupType.Manual),
-                new("wcncsvc", ServiceStartupType.Manual),
-                new("webthreatdefsvc", ServiceStartupType.Manual),
-                new("wercplsupport", ServiceStartupType.Manual),
-                new("wisvc", ServiceStartupType.Manual),
-                new("wlidsvc", ServiceStartupType.Manual),
-                new("wlpasvc", ServiceStartupType.Manual),
-                new("wmiApSrv", ServiceStartupType.Manual),
-                new("workfolderssvc", ServiceStartupType.Manual),
-                new("wscsvc", ServiceStartupType.AutomaticDelayedStart),
-                new("wuauserv", ServiceStartupType.Manual),
-            };
+            var selectedServices = Groups
+                .Where(g => context.Options.GetBool(g.Key))
+                .SelectMany(g => g.Services)
+                .ToList();
 
-            for (var i = 0; i < servicesToChange.Count; i++)
+            if (selectedServices.Count == 0)
             {
-                var service = servicesToChange[i];
-                progress?.Report(
-                    new ProcessingProgress
-                    {
-                        Message = Loc.Instance[
-                            $"{ProgressPrefix}.ChangeServiceStartupType",
-                            service.Name,
-                            service.StartupType
-                        ],
-                        Value = i + 1,
-                        Total = servicesToChange.Count,
-                    }
+                context.Changes.AddSkip(
+                    ServiceStrings.ServiceName,
+                    Loc.Instance[$"{Prefix}.NoSelection"]
                 );
-                await ServiceProcessService.ChangeServiceStartupTypeAsync(context, service);
+                return context.Changes.ToApplyResult();
             }
 
+            await ServiceProcessService.ChangeServiceStartupTypeAsync(
+                context,
+                selectedServices,
+                progress
+            );
             context.Logger.LogInformation(
-                "Service startup configuration: {Total} services applied",
-                servicesToChange.Count
+                "Configured {Count} optional feature services",
+                selectedServices.Count
             );
             return context.Changes.ToApplyResult();
         }
+    }
+
+    [Optimization(
+        Id = "A08AC843-C98F-497F-8ADD-47E8C14C20B2",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.Disk | OptimizationTags.Performance | OptimizationTags.Ram
+    )]
+    public class DisableSearchIndexing : DeclarativeOptimization
+    {
+        protected override ServiceItem[] Services { get; } = [ServiceItem.Disable("WSearch")];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Storage),
+                    Improves(ImpactArea.Performance),
+                    Costs(ImpactArea.Features),
+                ],
+                Sources =
+                [
+                    Source(
+                        "System Services: Windows Search (WSearch) - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/optimize/services#system-services"
+                    ),
+                ],
+            };
+    }
+
+    [Optimization(
+        Id = "B6280756-2414-47F3-9B7A-DE3E2EE9A28D",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Ram | OptimizationTags.Power | OptimizationTags.System
+    )]
+    public class DisableEdgeBackground : DeclarativeOptimization
+    {
+        private const string EdgePolicyPath = @"HKLM\SOFTWARE\Policies\Microsoft\Edge";
+
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(EdgePolicyPath, "StartupBoostEnabled", 0),
+            new(EdgePolicyPath, "BackgroundModeEnabled", 0),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Memory), Improves(ImpactArea.Power)],
+                Sources =
+                [
+                    Source(
+                        "Microsoft Edge Startup Boost & Background Mode Policies - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/deployedge/microsoft-edge-policies#startupboostenabled"
+                    ),
+                ],
+            };
     }
 }

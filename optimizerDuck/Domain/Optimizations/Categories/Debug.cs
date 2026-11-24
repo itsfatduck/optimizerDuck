@@ -1,7 +1,4 @@
 #if DEBUG
-using System.Collections.ObjectModel;
-using optimizerDuck.Common.Extensions;
-using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
@@ -48,14 +45,9 @@ public abstract class DebugOptimization : BaseOptimization
 ///     A scenario records steps in the run's own change set and touches nothing on the machine.
 /// </remarks>
 [OptimizationCategory(typeof(DebugOptimizerPage))]
-public class Debug : LocalizedObject, IOptimizationCategory
+public class Debug() : OptimizationCategoryBase(OptimizationCategoryOrder.AI)
 {
-    public string Name => "Debug";
-
-    // Reuses the last production order; a debug category only has to sort somewhere.
-    public OptimizationCategoryOrder Order { get; init; } = OptimizationCategoryOrder.AI;
-
-    public ObservableCollection<IOptimization> Optimizations { get; init; } = [];
+    public override string Name => "Debug";
 
     [Optimization(
         Id = "95828E58-DAB1-4382-A0B1-F40B6A44156D",
