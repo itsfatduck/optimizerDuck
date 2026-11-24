@@ -56,6 +56,8 @@ public static class ServiceStrings
     public const string ServiceInfoNotFound = "Service '{0}' not found (not present)";
     public const string ServiceInfoAlreadyConfigured =
         "Service '{0}' is already set to {1} (skipped)";
+    public const string ServiceInfoAlreadyStricter =
+        "Service '{0}' is already set to {1} (stricter than {2}, skipped)";
     public const string ServiceInfoAccessDenied =
         "Access to service '{0}' is denied by Windows (left unchanged)";
 

@@ -6,6 +6,8 @@ using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
+using optimizerDuck.Domain.UI;
+using optimizerDuck.Services.Configuration;
 
 namespace optimizerDuck.Services.System.Primitives;
 
@@ -23,15 +25,7 @@ public static class ServiceProcessService
     /// <summary>
     ///     Retrieves the startup type of a Windows service from the Service Control Manager.
     /// </summary>
-    /// <param name="serviceName">The internal service name.</param>
-    /// <param name="logger">An optional logger for query warnings.</param>
-    /// <returns>
-    /// A tuple. <c>StartupType</c> is the type Windows reports (null for boot and system starts,
-    /// which have no <see cref="ServiceStartupType"/> value). <c>NotFound</c> is
-    /// <see langword="true"/> when the service does not exist
-    /// (<c>ERROR_SERVICE_DOES_NOT_EXIST</c>, 1060), <see langword="false"/> for other errors.
-    /// </returns>
-    public static Task<(ServiceStartupType? StartupType, bool NotFound)> GetStartupTypeAsync(
+    public static (ServiceStartupType? StartupType, bool NotFound) GetStartupType(
         string serviceName,
         ILogger? logger = null
     )
@@ -45,8 +39,24 @@ public static class ServiceProcessService
                 error
             );
 
-        return Task.FromResult((startupType, error == ErrorServiceDoesNotExist));
+        return (startupType, error == ErrorServiceDoesNotExist);
     }
+
+    /// <summary>
+    ///     Retrieves the startup type of a Windows service from the Service Control Manager.
+    /// </summary>
+    /// <param name="serviceName">The internal service name.</param>
+    /// <param name="logger">An optional logger for query warnings.</param>
+    /// <returns>
+    /// A tuple. <c>StartupType</c> is the type Windows reports (null for boot and system starts,
+    /// which have no <see cref="ServiceStartupType"/> value). <c>NotFound</c> is
+    /// <see langword="true"/> when the service does not exist
+    /// (<c>ERROR_SERVICE_DOES_NOT_EXIST</c>, 1060), <see langword="false"/> for other errors.
+    /// </returns>
+    public static Task<(ServiceStartupType? StartupType, bool NotFound)> GetStartupTypeAsync(
+        string serviceName,
+        ILogger? logger = null
+    ) => Task.FromResult(GetStartupType(serviceName, logger));
 
     /// <summary>
     ///     Changes the startup type of one Windows service through the Service Control Manager.
@@ -133,6 +143,37 @@ public static class ServiceProcessService
                     {
                         ServiceName = item.Name,
                         PreviousStartupType = originalStartupType,
+                    }
+                );
+                return MapToOpResult(ServiceChangeResult.AlreadyConfigured, null, null, null);
+            }
+
+            if (
+                item.Mode == ServiceChangeMode.DowngradeOnly
+                && StrictnessRank(originalStartupType.Value) > StrictnessRank(item.StartupType)
+            )
+            {
+                sw.Stop();
+                var stricterDescription = ServiceStrings.Format(
+                    ServiceStrings.ServiceInfoAlreadyStricter,
+                    item.Name,
+                    originalStartupType.Value,
+                    item.StartupType
+                );
+                call.Logger.LogInformation(
+                    "[SERVICE][{Name}] already {Current} (stricter than {Target}), skipping",
+                    item.Name,
+                    originalStartupType.Value,
+                    item.StartupType
+                );
+                call.Changes.AddSkip(
+                    ServiceStrings.ServiceName,
+                    stricterDescription,
+                    new ServiceStartupDetail
+                    {
+                        ServiceName = item.Name,
+                        PreviousStartupType = originalStartupType,
+                        Reason = ServiceReasonAlreadyStricter,
                     }
                 );
                 return MapToOpResult(ServiceChangeResult.AlreadyConfigured, null, null, null);
@@ -279,16 +320,55 @@ public static class ServiceProcessService
     /// <summary>Changes the startup type for multiple services, serially.</summary>
     /// <param name="call">The explicit call context; cancellation is honored between items.</param>
     /// <param name="items">The service items to update.</param>
-    public static async Task ChangeServiceStartupTypeAsync(OpCall call, ServiceItem[] items)
+    /// <param name="progress">Optional progress reporter updated per service.</param>
+    public static async Task ChangeServiceStartupTypeAsync(
+        OpCall call,
+        IEnumerable<ServiceItem> items,
+        IProgress<ProcessingProgress>? progress = null
+    )
     {
         ArgumentNullException.ThrowIfNull(call);
 
-        foreach (var item in items)
+        if (progress is null)
+        {
+            foreach (var item in items)
+            {
+                call.CancellationToken.ThrowIfCancellationRequested();
+                await ChangeServiceStartupTypeAsync(call, item);
+            }
+            return;
+        }
+
+        var list = items as IReadOnlyList<ServiceItem> ?? [.. items];
+        for (var i = 0; i < list.Count; i++)
         {
             call.CancellationToken.ThrowIfCancellationRequested();
+            var item = list[i];
+            progress.Report(
+                new ProcessingProgress
+                {
+                    Message = Loc.Instance[
+                        "Optimizer.Progress.ChangeServiceStartupType",
+                        item.Name,
+                        item.StartupType
+                    ],
+                    Value = i + 1,
+                    Total = list.Count,
+                }
+            );
             await ChangeServiceStartupTypeAsync(call, item);
         }
     }
+
+    internal static int StrictnessRank(ServiceStartupType startupType) =>
+        startupType switch
+        {
+            ServiceStartupType.Automatic => 0,
+            ServiceStartupType.AutomaticDelayedStart => 1,
+            ServiceStartupType.Manual => 2,
+            ServiceStartupType.Disabled => 3,
+            _ => 0,
+        };
 
     /// <summary>
     ///     Maps a <see cref="ServiceChangeResult"/> outcome to an <see cref="OpResult"/>.
@@ -623,4 +703,5 @@ public static class ServiceProcessService
     private static extern bool CloseServiceHandle(IntPtr serviceHandle);
 
     internal const string ServiceReasonNotFound = "service.notFound";
+    internal const string ServiceReasonAlreadyStricter = "service.alreadyStricter";
 }

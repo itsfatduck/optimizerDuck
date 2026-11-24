@@ -42,11 +42,14 @@ public class PowerPlanService
         _logger = logger;
     }
 
-    /// <summary>Reads the GUID of the currently active power scheme.</summary>
+    /// <summary>
+    ///     Reads the GUID of the currently active power scheme directly from Windows.
+    /// </summary>
+    /// <param name="logger">Optional logger used for interop diagnostics.</param>
     /// <returns>The active scheme id, or <see langword="null" /> when the call fails.</returns>
-    public virtual Guid? GetActiveSchemeId()
+    public static Guid? QueryActiveSchemeId(ILogger? logger = null)
     {
-        IntPtr ptr = IntPtr.Zero;
+        var ptr = IntPtr.Zero;
         try
         {
             if (PowerGetActiveScheme(IntPtr.Zero, out ptr) != ERROR_SUCCESS || ptr == IntPtr.Zero)
@@ -55,7 +58,7 @@ public class PowerPlanService
         }
         catch (Exception ex)
         {
-            _logger.LogDebug(ex, "Failed to read active power scheme");
+            logger?.LogDebug(ex, "Failed to read active power scheme");
             return null;
         }
         finally
@@ -64,6 +67,10 @@ public class PowerPlanService
                 LocalFree(ptr);
         }
     }
+
+    /// <summary>Reads the GUID of the currently active power scheme.</summary>
+    /// <returns>The active scheme id, or <see langword="null" /> when the call fails.</returns>
+    public virtual Guid? GetActiveSchemeId() => QueryActiveSchemeId(_logger);
 
     /// <summary>
     ///     Lists every power scheme on the machine, each marked whether it is active.

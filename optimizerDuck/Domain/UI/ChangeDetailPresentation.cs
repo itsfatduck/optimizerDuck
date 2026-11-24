@@ -406,6 +406,7 @@ public static class ChangeDetailPresentation
         reason switch
         {
             "service.notFound" => "Optimizer.Details.Reason.ServiceNotFound",
+            "service.alreadyStricter" => "Optimizer.Details.Reason.ServiceAlreadyStricter",
             "task.notFound" => "Optimizer.Details.Reason.TaskNotFound",
             "registry.valueAbsent" => "Optimizer.Details.Reason.RegistryValueAbsent",
             "registry.keyExists" => "Optimizer.Details.Reason.RegistryKeyExists",
