@@ -18,7 +18,9 @@ public class ConditionTests
         int? build = 22631,
         GpuVendor gpuVendor = GpuVendor.Unknown,
         CpuVendor cpuVendor = CpuVendor.Unknown,
-        double ramGb = 0
+        double ramGb = 0,
+        DeviceKind deviceKind = DeviceKind.Desktop,
+        VbsState memoryIntegrity = VbsState.Unknown
     ) =>
         new()
         {
@@ -42,12 +44,15 @@ public class ConditionTests
             {
                 BuildNumber = build,
                 Architecture = Architecture.X64,
-                DeviceKind = DeviceKind.Desktop,
+                DeviceKind = deviceKind,
                 InstallDate = new DateTime(2024, 1, 1),
                 LastBootTime = new DateTime(2024, 1, 1),
             },
             Firmware = FirmwareInfo.Unknown,
-            Security = SecurityInfo.Unknown,
+            Security =
+                memoryIntegrity == VbsState.Unknown
+                    ? SecurityInfo.Unknown
+                    : new SecurityInfo { MemoryIntegrity = memoryIntegrity },
             Power = PowerInfo.Unknown,
             Gpus =
                 gpuVendor == GpuVendor.Unknown
@@ -262,6 +267,92 @@ public class ConditionTests
     }
 
     [Fact]
+    public void TwelveGbMaxRamCondition_UnderCeilingAvailable_OverUnsupported_ZeroError()
+    {
+        Assert.Equal(
+            ConditionState.Available,
+            new TwelveGbMaxRamCondition().Evaluate(Snapshot(ramGb: 12)).State
+        );
+        Assert.Equal(
+            ConditionState.Unsupported,
+            new TwelveGbMaxRamCondition().Evaluate(Snapshot(ramGb: 16)).State
+        );
+        Assert.Equal(
+            ConditionState.Error,
+            new TwelveGbMaxRamCondition().Evaluate(Snapshot(ramGb: 0)).State
+        );
+    }
+
+    [Fact]
+    public void LaptopCondition_LaptopAvailable_DesktopUnsupported_UnknownError()
+    {
+        Assert.Equal(
+            ConditionState.Available,
+            new LaptopCondition().Evaluate(Snapshot(deviceKind: DeviceKind.Laptop)).State
+        );
+        Assert.Equal(
+            ConditionState.Unsupported,
+            new LaptopCondition().Evaluate(Snapshot(deviceKind: DeviceKind.Desktop)).State
+        );
+        Assert.Equal(
+            ConditionState.Error,
+            new LaptopCondition().Evaluate(Snapshot(deviceKind: DeviceKind.Unknown)).State
+        );
+    }
+
+    [Fact]
+    public void LaptopWindows11Condition_RequiresBothWindows11AndLaptop()
+    {
+        Assert.Equal(
+            ConditionState.Available,
+            new LaptopWindows11Condition()
+                .Evaluate(Snapshot(build: 22631, deviceKind: DeviceKind.Laptop))
+                .State
+        );
+        Assert.Equal(
+            ConditionState.Unsupported,
+            new LaptopWindows11Condition()
+                .Evaluate(Snapshot(build: 19045, deviceKind: DeviceKind.Laptop))
+                .State
+        );
+        Assert.Equal(
+            ConditionState.Unsupported,
+            new LaptopWindows11Condition()
+                .Evaluate(Snapshot(build: 22631, deviceKind: DeviceKind.Desktop))
+                .State
+        );
+    }
+
+    [Fact]
+    public void MemoryIntegritySupportedCondition_UnavailableBlocks_EnabledOrDisabledAvailable()
+    {
+        Assert.Equal(
+            ConditionState.Available,
+            new MemoryIntegritySupportedCondition()
+                .Evaluate(Snapshot(memoryIntegrity: VbsState.Enabled))
+                .State
+        );
+        Assert.Equal(
+            ConditionState.Available,
+            new MemoryIntegritySupportedCondition()
+                .Evaluate(Snapshot(memoryIntegrity: VbsState.Disabled))
+                .State
+        );
+        Assert.Equal(
+            ConditionState.Unsupported,
+            new MemoryIntegritySupportedCondition()
+                .Evaluate(Snapshot(memoryIntegrity: VbsState.Unavailable))
+                .State
+        );
+        Assert.Equal(
+            ConditionState.Error,
+            new MemoryIntegritySupportedCondition()
+                .Evaluate(Snapshot(memoryIntegrity: VbsState.Unknown))
+                .State
+        );
+    }
+
+    [Fact]
     public void NvidiaGpuCondition_NoGpu_FailsOpenToError()
     {
         // A missing/undetected GPU list means detection failed, which must never hide
@@ -381,6 +472,22 @@ public class ConditionTests
         Assert.Equal(
             ConditionState.Available,
             Evaluate(typeof(IntelCpuCondition), SystemInfo.Unknown).State
+        );
+        Assert.Equal(
+            ConditionState.Available,
+            Evaluate(typeof(LaptopCondition), SystemInfo.Unknown).State
+        );
+        Assert.Equal(
+            ConditionState.Available,
+            Evaluate(typeof(LaptopWindows11Condition), SystemInfo.Unknown).State
+        );
+        Assert.Equal(
+            ConditionState.Available,
+            Evaluate(typeof(TwelveGbMaxRamCondition), SystemInfo.Unknown).State
+        );
+        Assert.Equal(
+            ConditionState.Available,
+            Evaluate(typeof(MemoryIntegritySupportedCondition), SystemInfo.Unknown).State
         );
     }
 

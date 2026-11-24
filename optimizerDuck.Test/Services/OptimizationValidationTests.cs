@@ -8,6 +8,7 @@ using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Optimization;
+using optimizerDuck.Services.System;
 
 namespace optimizerDuck.Test.Services;
 
@@ -199,5 +200,189 @@ public class OptimizationValidationTests
         }
 
         Assert.True(missing.Count == 0, "Missing resx keys: " + string.Join(", ", missing));
+    }
+
+    [Fact]
+    public void Discovery_AllMetadataSourcesAndOptionKeys_AreValid()
+    {
+        var issues = new List<string>();
+        static bool HasKey(string? key) =>
+            !string.IsNullOrEmpty(key)
+            && Translations.ResourceManager.GetString(key, CultureInfo.InvariantCulture)
+                is not null;
+
+        foreach (
+            var category in ReflectionHelper.FindImplementationsInLoadedAssemblies<IOptimizationCategory>()
+        )
+        {
+#if DEBUG
+            if (category.Name == "Debug")
+                continue;
+#endif
+            foreach (
+                var nested in category
+                    .GetNestedTypes(BindingFlags.Public)
+                    .Where(t =>
+                        typeof(IOptimization).IsAssignableFrom(t) && !t.IsAbstract && t.IsClass
+                    )
+            )
+            {
+                var opt = (BaseOptimization)Activator.CreateInstance(nested)!;
+                opt.OwnerType = category;
+
+                var shortDesc = Translations.ResourceManager.GetString(
+                    $"{opt.Prefix}.ShortDescription",
+                    CultureInfo.InvariantCulture
+                );
+                if (string.IsNullOrWhiteSpace(shortDesc))
+                    issues.Add($"Missing {opt.Prefix}.ShortDescription");
+
+                var expectsTradeOff =
+                    opt.Risk is OptimizationRisk.Moderate or OptimizationRisk.Risky
+                    || opt.Metadata.Impacts.Any(static i =>
+                        i.Direction == ImpactDirection.TradeOff
+                    );
+                var tradeOff = Translations.ResourceManager.GetString(
+                    $"{opt.Prefix}.TradeOff",
+                    CultureInfo.InvariantCulture
+                );
+                if (expectsTradeOff && string.IsNullOrWhiteSpace(tradeOff))
+                    issues.Add($"Missing {opt.Prefix}.TradeOff");
+
+                string[] forbiddenTokens =
+                [
+                    "=0",
+                    "=1",
+                    @"HKLM\",
+                    @"HKCU\",
+                    "DowngradeOnly",
+                    "WSAIFabricSvc",
+                    "PnPCapabilities",
+                    "HiberbootEnabled",
+                ];
+                foreach (var token in forbiddenTokens)
+                {
+                    if (
+                        shortDesc?.Contains(token, StringComparison.OrdinalIgnoreCase) == true
+                        || tradeOff?.Contains(token, StringComparison.OrdinalIgnoreCase) == true
+                    )
+                        issues.Add(
+                            $"Leaked internal token '{token}' in {opt.OptimizationKey} copy"
+                        );
+                }
+
+                if (opt.Metadata.Impacts.Count == 0)
+                    issues.Add($"Missing Metadata.Impacts on {opt.OptimizationKey}");
+
+                if (opt.Metadata.Sources.Count == 0)
+                    issues.Add($"Missing Metadata.Sources on {opt.OptimizationKey}");
+
+                foreach (var source in opt.Metadata.Sources)
+                {
+                    if (
+                        string.IsNullOrWhiteSpace(source.Title)
+                        || !Uri.TryCreate(source.Url, UriKind.Absolute, out var uri)
+                        || uri.Scheme != Uri.UriSchemeHttps
+                    )
+                        issues.Add($"Invalid source on {opt.OptimizationKey}: '{source.Url}'");
+                }
+
+                if (opt is IConfigurableOptimization configurable)
+                {
+                    foreach (var option in configurable.GetOptions(SystemInfo.Unknown))
+                    {
+                        if (!HasKey(option.LabelKey))
+                            issues.Add($"Missing {option.LabelKey}");
+                        if (option.DescriptionKey is not null && !HasKey(option.DescriptionKey))
+                            issues.Add($"Missing {option.DescriptionKey}");
+                        if (option.TradeOffKey is not null && !HasKey(option.TradeOffKey))
+                            issues.Add($"Missing {option.TradeOffKey}");
+                        foreach (var choice in option.Choices)
+                        {
+                            if (!HasKey(choice.LabelKey))
+                                issues.Add($"Missing {choice.LabelKey}");
+                            if (choice.DescriptionKey is not null && !HasKey(choice.DescriptionKey))
+                                issues.Add($"Missing {choice.DescriptionKey}");
+                        }
+                    }
+                }
+            }
+        }
+
+        Assert.True(issues.Count == 0, string.Join("\n", issues));
+    }
+
+    [Fact]
+    public void Discovery_AllImpactAndRestartKeys_Exist()
+    {
+        var missing = new List<string>();
+
+        foreach (var area in Enum.GetValues<ImpactArea>())
+        {
+            foreach (var direction in Enum.GetValues<ImpactDirection>())
+            {
+                var key = $"Optimizer.UI.Impact.{area}.{direction}";
+                if (
+                    Translations.ResourceManager.GetString(key, CultureInfo.InvariantCulture)
+                    is null
+                )
+                    missing.Add(key);
+            }
+        }
+
+        foreach (var restart in Enum.GetValues<RestartRequirement>())
+        {
+            if (restart == RestartRequirement.None)
+                continue;
+
+            var key = $"Optimizer.UI.Restart.{restart}";
+            if (Translations.ResourceManager.GetString(key, CultureInfo.InvariantCulture) is null)
+                missing.Add(key);
+        }
+
+        Assert.True(missing.Count == 0, "Missing resx keys: " + string.Join(", ", missing));
+    }
+
+    [Fact]
+    public void Discovery_AllCustomizeResxKeys_Exist()
+    {
+        var missing = new List<string>();
+
+        foreach (
+            var category in ReflectionHelper.FindImplementationsInLoadedAssemblies<ICustomizeCategory>()
+        )
+        {
+            foreach (
+                var nested in category
+                    .GetNestedTypes(BindingFlags.Public)
+                    .Where(t =>
+                        typeof(ICustomizeSetting).IsAssignableFrom(t) && !t.IsAbstract && t.IsClass
+                    )
+            )
+            {
+                var prefix = $"Customize.{category.Name}.{nested.Name}";
+                if (
+                    Translations.ResourceManager.GetString(
+                        $"{prefix}.Name",
+                        CultureInfo.InvariantCulture
+                    )
+                    is null
+                )
+                    missing.Add($"{prefix}.Name");
+                if (
+                    Translations.ResourceManager.GetString(
+                        $"{prefix}.Description",
+                        CultureInfo.InvariantCulture
+                    )
+                    is null
+                )
+                    missing.Add($"{prefix}.Description");
+            }
+        }
+
+        Assert.True(
+            missing.Count == 0,
+            "Missing customize resx keys: " + string.Join(", ", missing)
+        );
     }
 }

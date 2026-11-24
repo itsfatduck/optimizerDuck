@@ -407,4 +407,96 @@ public class ServiceProcessServiceTests
             await DeleteTestServiceBestEffortAsync();
         }
     }
+
+    [Fact]
+    public void StrictnessRank_OrdersFromLeastToMostRestrictive()
+    {
+        var auto = ServiceProcessService.StrictnessRank(ServiceStartupType.Automatic);
+        var delayed = ServiceProcessService.StrictnessRank(
+            ServiceStartupType.AutomaticDelayedStart
+        );
+        var manual = ServiceProcessService.StrictnessRank(ServiceStartupType.Manual);
+        var disabled = ServiceProcessService.StrictnessRank(ServiceStartupType.Disabled);
+
+        Assert.True(auto < delayed);
+        Assert.True(delayed < manual);
+        Assert.True(manual < disabled);
+    }
+
+    [Fact]
+    public async Task ChangeServiceStartupTypeAsync_DowngradeOnly_AlreadyStricter_SkipsWithoutChanging()
+    {
+        if (!IsElevated())
+            Assert.Skip("Service creation requires an elevated test host.");
+        await EnsureTestServiceAsync();
+        try
+        {
+            await ServiceProcessService.ChangeServiceStartupTypeAsync(
+                NewCall(),
+                new ServiceItem(TestServiceName, ServiceStartupType.Disabled)
+            );
+
+            var call = NewCall();
+            var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
+                call,
+                new ServiceItem(
+                    TestServiceName,
+                    ServiceStartupType.Manual,
+                    ServiceChangeMode.DowngradeOnly
+                )
+            );
+
+            Assert.True(result.Ok, result.Error);
+            var change = Assert.Single(call.Changes.Changes);
+            Assert.Equal(ChangeKind.Skip, change.Kind);
+            Assert.Null(change.Revert);
+            var detail = Assert.IsType<ServiceStartupDetail>(change.Detail);
+            Assert.Equal(ServiceProcessService.ServiceReasonAlreadyStricter, detail.Reason);
+
+            var (currentType, _) = await ServiceProcessService.GetStartupTypeAsync(TestServiceName);
+            Assert.Equal(ServiceStartupType.Disabled, currentType);
+        }
+        finally
+        {
+            await DeleteTestServiceBestEffortAsync();
+        }
+    }
+
+    [Fact]
+    public async Task ChangeServiceStartupTypeAsync_DowngradeOnly_LessStrict_DowngradesAndRecordsRevert()
+    {
+        if (!IsElevated())
+            Assert.Skip("Service creation requires an elevated test host.");
+        await EnsureTestServiceAsync();
+        try
+        {
+            await ServiceProcessService.ChangeServiceStartupTypeAsync(
+                NewCall(),
+                new ServiceItem(TestServiceName, ServiceStartupType.Automatic)
+            );
+
+            var call = NewCall();
+            var result = await ServiceProcessService.ChangeServiceStartupTypeAsync(
+                call,
+                new ServiceItem(
+                    TestServiceName,
+                    ServiceStartupType.Manual,
+                    ServiceChangeMode.DowngradeOnly
+                )
+            );
+
+            Assert.True(result.Ok, result.Error);
+            var change = Assert.Single(call.Changes.Changes);
+            Assert.Equal(ChangeKind.Change, change.Kind);
+            var revert = Assert.IsType<ServiceRevertStep>(change.Revert);
+            Assert.Equal(ServiceStartupType.Automatic, revert.OriginalStartupType);
+
+            var (currentType, _) = await ServiceProcessService.GetStartupTypeAsync(TestServiceName);
+            Assert.Equal(ServiceStartupType.Manual, currentType);
+        }
+        finally
+        {
+            await DeleteTestServiceBestEffortAsync();
+        }
+    }
 }
