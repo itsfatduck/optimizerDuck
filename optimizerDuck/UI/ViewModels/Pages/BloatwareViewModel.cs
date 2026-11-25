@@ -167,9 +167,7 @@ public partial class BloatwareViewModel : ViewModel
             _ => query,
         };
 
-        // Detach PropertyChanged listeners before clearing to avoid unnecessary event overhead
-        foreach (var p in AppxPackages)
-            p.PropertyChanged -= Item_PropertyChanged;
+        DetachSelectionListeners();
 
         var filtered = query.ToList();
         _selectedCount = 0;
@@ -181,6 +179,20 @@ public partial class BloatwareViewModel : ViewModel
         }
 
         AppxPackages.ReplaceAll(filtered);
+    }
+
+    private void ClearDisplayedPackages()
+    {
+        DetachSelectionListeners();
+        _selectedCount = 0;
+        AppxPackages.Clear();
+    }
+
+    private void DetachSelectionListeners()
+    {
+        // Detach PropertyChanged listeners before clearing to avoid unnecessary event overhead.
+        foreach (var p in AppxPackages)
+            p.PropertyChanged -= Item_PropertyChanged;
     }
 
     #region Property Changed
@@ -334,12 +346,12 @@ public partial class BloatwareViewModel : ViewModel
     [RelayCommand]
     private async Task Refresh()
     {
+        if (IsLoading)
+            return;
+
         IsLoading = true;
-        foreach (var p in AppxPackages)
-            p.PropertyChanged -= Item_PropertyChanged;
         _allPackages.Clear();
-        _selectedCount = 0;
-        AppxPackages.Clear();
+        ClearDisplayedPackages();
         UpdateProperties();
 
         try
