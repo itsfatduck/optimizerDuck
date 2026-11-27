@@ -1,3 +1,4 @@
+using System.Windows.Threading;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Win32;
 using optimizerDuck.Domain.Abstractions;
@@ -5,10 +6,12 @@ using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Customize.Models;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
+using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.UI.ViewModels.Customize;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.Test.UI.ViewModels;
@@ -465,6 +468,107 @@ public class CustomizeItemViewModelTests : IDisposable
             watcher.WatchedPaths.OrderBy(p => p).ToArray(),
             watcher.UnwatchedPaths.OrderBy(p => p).ToArray()
         );
+    }
+
+    #endregion
+
+    #region Error feedback
+
+    [CustomizeSetting(Icon = SymbolRegular.Search24)]
+    private sealed class FailingToggleSetting : BaseCustomizeSetting
+    {
+        public override Task<bool> GetStateAsync() => Task.FromResult(false);
+
+        public override Task<OpResult> ApplyAsync(object? value, OpCall call) =>
+            Task.FromResult(OpResult.Fail("Access denied"));
+    }
+
+    private sealed class StubSnackbarService : ISnackbarService
+    {
+        public List<(
+            string Title,
+            string Message,
+            ControlAppearance Appearance
+        )> Shown { get; } = [];
+
+        public TimeSpan DefaultTimeOut { get; set; } = TimeSpan.FromSeconds(3);
+
+        public SnackbarPresenter? GetSnackbarPresenter() => null;
+
+        public void SetSnackbarPresenter(SnackbarPresenter presenter) { }
+
+        public void Show(
+            string title,
+            string message,
+            ControlAppearance appearance,
+            IconElement? icon,
+            TimeSpan timeout
+        ) => Shown.Add((title, message, appearance));
+    }
+
+    [Fact]
+    public async Task Toggle_WhenApplyFails_ShowsErrorSnackbar()
+    {
+        await RunInStaThreadAsync(async () =>
+        {
+            var setting = new FailingToggleSetting { OwnerType = typeof(FailingToggleSetting) };
+            var watcher = new FakeRegistryWatcher();
+            var snackbar = new StubSnackbarService();
+            var vm = new CustomizeItemViewModel(
+                setting,
+                NullLoggerFactory.Instance,
+                watcher,
+                snackbar
+            );
+
+            await vm.LoadStateAsync();
+            vm.ToggleCommand.Execute(null);
+
+            await WaitUntilAsync(() => snackbar.Shown.Count == 1 && !vm.IsLoading);
+
+            Assert.Equal(
+                Loc.Instance["Customize.Snackbar.ApplyFailed.Title"],
+                snackbar.Shown[0].Title
+            );
+            Assert.Contains("Access denied", snackbar.Shown[0].Message);
+            Assert.Equal(ControlAppearance.Danger, snackbar.Shown[0].Appearance);
+        });
+    }
+
+    private static Task RunInStaThreadAsync(Func<Task> action)
+    {
+        var tcs = new TaskCompletionSource();
+        var thread = new Thread(() =>
+        {
+            var dispatcher = Dispatcher.CurrentDispatcher;
+            SynchronizationContext.SetSynchronizationContext(
+                new DispatcherSynchronizationContext(dispatcher)
+            );
+            var frame = new DispatcherFrame();
+
+            dispatcher.InvokeAsync(async () =>
+            {
+                try
+                {
+                    await action();
+                    tcs.SetResult();
+                }
+                catch (Exception ex)
+                {
+                    tcs.SetException(ex);
+                }
+                finally
+                {
+                    frame.Continue = false;
+                }
+            });
+
+            Dispatcher.PushFrame(frame);
+        });
+
+        thread.SetApartmentState(ApartmentState.STA);
+        thread.Start();
+        return tcs.Task;
     }
 
     #endregion

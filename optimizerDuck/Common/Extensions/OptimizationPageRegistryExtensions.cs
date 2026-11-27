@@ -110,7 +110,8 @@ public static class CustomizePageRegistryExtensions
             registry.Categories.First(c => c.GetType() == categoryType),
             sp.GetRequiredService<ILoggerFactory>(),
             sp.GetRequiredService<IRegistryWatcher>(),
-            sp.GetRequiredService<SystemInfoService>()
+            sp.GetRequiredService<SystemInfoService>(),
+            sp.GetRequiredService<ISnackbarService>()
         );
     }
 }

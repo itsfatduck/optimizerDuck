@@ -9185,5 +9185,50 @@ namespace optimizerDuck.Resources.Languages {
                 return ResourceManager.GetString("Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disable WDI Diagnostic Logging.
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableDiagnosticAutoLoggers_Name {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disables the Windows Diagnostics Infrastructure real-time trace sessions (DiagLog and WdiContextLog) at boot to reduce background diagnostic overhead..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableDiagnosticAutoLoggers_ShortDescription {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prevents the Diagnostic Policy Service from loading SRUM, causing Task Manager&apos;s per-process Network column to show 0 Mbps and breaking App History, Data Usage stats, battery reports, and Windows Troubleshooters until reverted and restarted..
+        /// </summary>
+        internal static string Optimizer_SecurityAndPrivacy_DisableDiagnosticAutoLoggers_TradeOff {
+            get {
+                return ResourceManager.GetString("Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not apply setting.
+        /// </summary>
+        internal static string Customize_Snackbar_ApplyFailed_Title {
+            get {
+                return ResourceManager.GetString("Customize.Snackbar.ApplyFailed.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: {1}.
+        /// </summary>
+        internal static string Customize_Snackbar_ApplyFailed_Message {
+            get {
+                return ResourceManager.GetString("Customize.Snackbar.ApplyFailed.Message", resourceCulture);
+            }
+        }
     }
 }

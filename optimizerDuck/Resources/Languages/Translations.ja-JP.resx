@@ -3111,4 +3111,19 @@
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>一部のゲームで無制限フレームレートが制限されたり、フレームペーシングが変化したりする場合があります。</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>WDI 診断ログを無効化</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>起動時に Windows Diagnostics Infrastructure のリアルタイム トレース セッション (DiagLog と WdiContextLog) を無効化し、バックグラウンドの診断負荷を削減します。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>Diagnostic Policy Service が SRUM を読み込めなくなり、Task Manager のプロセス別ネットワーク列が 0 Mbps になるほか、元に戻して再起動するまで App History、Data Usage 統計、バッテリーレポート、Windows Troubleshooters が動作しなくなります。</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>設定を適用できませんでした</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

@@ -3110,4 +3110,19 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>Intel GPU'larda bazı oyunlarda sınırsız kare hızını kısıtlayabilir veya kare zamanlamasını değiştirebilir.</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>WDI Tanılama Günlüğünü Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>Arka plan tanılama yükünü azaltmak için önyüklemede Windows Diagnostics Infrastructure gerçek zamanlı izleme oturumlarını (DiagLog ve WdiContextLog) devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>Diagnostic Policy Service hizmetinin SRUM yüklemesini engeller; bu durum Task Manager içindeki işlem başına Ağ sütununun 0 Mbps göstermesine ve geri alınıp yeniden başlatılana kadar App History, Data Usage istatistikleri, pil raporları ile Windows Troubleshooters araçlarının çalışmamasına yol açar.</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>Ayar uygulanamadı</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

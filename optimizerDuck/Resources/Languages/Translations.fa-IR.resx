@@ -3176,4 +3176,19 @@
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>ممکن است نرخ فریم نامحدود را محدود کند یا زمان‌بندی فریم را در برخی بازی‌ها روی Intel GPU تغییر دهد.</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>غیرفعال کردن ثبت گزارش تشخیصی WDI</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>جلسات ردیابی بلادرنگ Windows Diagnostics Infrastructure (DiagLog و WdiContextLog) را هنگام راه‌اندازی غیرفعال می‌کند تا سربار تشخیصی پس‌زمینه کاهش یابد.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>مانع بارگذاری SRUM توسط Diagnostic Policy Service می‌شود که باعث می‌شود ستون شبکه هر فرآیند در Task Manager مقدار 0 Mbps نشان دهد و App History، آمار Data Usage، گزارش‌های باتری و Windows Troubleshooters تا زمان بازگردانی و راه‌اندازی مجدد کار نکنند.</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>اعمال تنظیمات انجام نشد</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

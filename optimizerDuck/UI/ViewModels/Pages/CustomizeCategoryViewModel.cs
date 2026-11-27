@@ -14,6 +14,7 @@ using optimizerDuck.Services.Conditions;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System;
 using optimizerDuck.UI.ViewModels.Customize;
+using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -72,7 +73,8 @@ public partial class CustomizeCategoryViewModel : ViewModel
         ICustomizeCategory category,
         ILoggerFactory loggerFactory,
         IRegistryWatcher registryWatcher,
-        SystemInfoService systemInfoService
+        SystemInfoService systemInfoService,
+        ISnackbarService? snackbarService = null
     )
     {
         _currentCategory = category;
@@ -85,7 +87,9 @@ public partial class CustomizeCategoryViewModel : ViewModel
 
         _allSettings.Clear();
         foreach (var setting in _currentCategory.Features)
-            _allSettings.Add(new CustomizeItemViewModel(setting, loggerFactory, registryWatcher));
+            _allSettings.Add(
+                new CustomizeItemViewModel(setting, loggerFactory, registryWatcher, snackbarService)
+            );
     }
 
     protected override async Task InitializeOnceAsync()

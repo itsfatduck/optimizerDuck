@@ -3176,4 +3176,19 @@
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>עלול להגביל קצב פריימים בלתי מוגבל או לשנות את קצב הפריימים בחלק מהמשחקים ב-Intel GPU.</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>השבתת רישום אבחון WDI</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>משבית בעת האתחול את הפעלות המעקב בזמן אמת של Windows Diagnostics Infrastructure (DiagLog ו-WdiContextLog) כדי להפחית תקורת אבחון ברקע.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>מונע משירות Diagnostic Policy Service לטעון את SRUM, מה שגורם לעמודת הרשת לפי תהליך ב-Task Manager להציג 0 Mbps ומשבית את App History, נתוני Data Usage, דוחות הסוללה ו-Windows Troubleshooters עד לשחזור והפעלה מחדש.</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>לא ניתן היה להחיל את ההגדרה</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

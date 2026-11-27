@@ -3111,4 +3111,19 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>Có thể giới hạn FPS không khóa hoặc làm thay đổi nhịp khung hình trong một số game trên Intel GPU.</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>Tắt ghi nhật ký chẩn đoán WDI</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>Tắt các phiên theo dõi thời gian thực của Windows Diagnostics Infrastructure (DiagLog và WdiContextLog) khi khởi động để giảm tải chẩn đoán chạy nền.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>Ngăn Diagnostic Policy Service nạp SRUM, khiến cột Network theo tiến trình trong Task Manager hiển thị 0 Mbps và làm hỏng App History, thống kê Data Usage, báo cáo pin cũng như Windows Troubleshooters cho đến khi hoàn tác và khởi động lại.</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>Không thể áp dụng cài đặt</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

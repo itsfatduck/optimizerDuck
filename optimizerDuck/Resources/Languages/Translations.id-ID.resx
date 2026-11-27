@@ -3176,4 +3176,19 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>Dapat membatasi frame rate tanpa batas atau mengubah frame pacing di beberapa game pada Intel GPU.</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>Nonaktifkan Pencatatan Diagnostik WDI</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan sesi pelacakan real-time Windows Diagnostics Infrastructure (DiagLog dan WdiContextLog) saat boot untuk mengurangi beban diagnostik latar belakang.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>Mencegah Diagnostic Policy Service memuat SRUM, sehingga kolom Network per proses di Task Manager menampilkan 0 Mbps serta memutus App History, statistik Data Usage, laporan baterai, dan Windows Troubleshooters hingga dipulihkan dan restart.</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>Tidak dapat menerapkan pengaturan</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

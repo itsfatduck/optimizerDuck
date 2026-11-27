@@ -3177,4 +3177,19 @@
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>Може обмежувати необмежену частоту кадрів або змінювати стабільність кадрів у деяких іграх на Intel GPU.</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>Вимкнути діагностичне журналювання WDI</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>Вимикає під час завантаження сеанси трасування в реальному часі Windows Diagnostics Infrastructure (DiagLog та WdiContextLog) для зменшення фонового діагностичного навантаження.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>Заважає службі Diagnostic Policy Service завантажити SRUM, через що стовпець «Мережа» для процесів у Task Manager показує 0 Mbps, а також припиняють роботу App History, статистика Data Usage, звіти про батарею та Windows Troubleshooters до відкату й перезавантаження.</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>Не вдалося застосувати налаштування</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

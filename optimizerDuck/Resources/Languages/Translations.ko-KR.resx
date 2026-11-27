@@ -3110,4 +3110,19 @@
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>일부 게임에서 무제한 프레임 속도가 제한되거나 프레임 페이싱이 달라질 수 있습니다.</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>WDI 진단 로깅 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>부팅 시 Windows Diagnostics Infrastructure 실시간 추적 세션(DiagLog 및 WdiContextLog)을 비활성화하여 백그라운드 진단 오버헤드를 줄입니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>Diagnostic Policy Service가 SRUM을 로드하지 못해 Task Manager의 프로세스별 네트워크 열이 0 Mbps로 표시되며, 되돌리고 다시 시작할 때까지 App History, Data Usage 통계, 배터리 보고서 및 Windows Troubleshooters가 작동하지 않습니다.</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>설정을 적용하지 못했습니다</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

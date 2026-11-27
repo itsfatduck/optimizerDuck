@@ -12,6 +12,7 @@ using optimizerDuck.Domain.Execution;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.Customize;
 using optimizerDuck.Services.System;
+using Wpf.Ui;
 using Wpf.Ui.Controls;
 
 namespace optimizerDuck.UI.ViewModels.Customize;
@@ -19,7 +20,8 @@ namespace optimizerDuck.UI.ViewModels.Customize;
 public partial class CustomizeItemViewModel(
     ICustomizeSetting setting,
     ILoggerFactory loggerFactory,
-    IRegistryWatcher registryWatcher
+    IRegistryWatcher registryWatcher,
+    ISnackbarService? snackbarService = null
 ) : LocalizedObject, IDisposable
 {
     private readonly ILogger<CustomizeItemViewModel> _logger =
@@ -291,6 +293,24 @@ public partial class CustomizeItemViewModel(
                     applyResult.Error,
                     applyResult.ErrorDetail
                 );
+
+                if (snackbarService is not null)
+                {
+                    var errorText = applyResult.Error ?? applyResult.ErrorDetail ?? string.Empty;
+                    await UiThread.InvokeAsync(() =>
+                        snackbarService.Show(
+                            Loc.Instance["Customize.Snackbar.ApplyFailed.Title"],
+                            Loc.Instance[
+                                "Customize.Snackbar.ApplyFailed.Message",
+                                Name,
+                                errorText
+                            ],
+                            ControlAppearance.Danger,
+                            new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
+                            TimeSpan.FromSeconds(5)
+                        )
+                    );
+                }
             }
 
             IsEnabled = await Task.Run(() => setting.GetStateWithRetryAsync());

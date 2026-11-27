@@ -3161,5 +3161,20 @@
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>قد يحد من معدلات الإطارات غير المقيدة أو يغير وتيرة الإطارات في بعض الألعاب على Intel GPU.</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>تعطيل تسجيل تشخيص WDI</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>تعطيل جلسات التتبع الفورية في Windows Diagnostics Infrastructure (DiagLog وWdiContextLog) عند بدء التشغيل لتقليل عبء التشخيص في الخلفية.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>يمنع خدمة Diagnostic Policy Service من تحميل SRUM، مما يجعل عمود الشبكة لكل عملية في Task Manager يعرض 0 Mbps ويعطل App History وإحصاءات Data Usage وتقارير البطارية وWindows Troubleshooters حتى التراجع وإعادة التشغيل.</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>تعذّر تطبيق الإعداد</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>
 

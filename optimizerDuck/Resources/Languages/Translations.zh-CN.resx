@@ -3127,4 +3127,19 @@
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>部分游戏在 Intel GPU 上的无上限帧率或帧步调可能会受影响。</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>禁用 WDI 诊断日志记录</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>在开机时禁用 Windows Diagnostics Infrastructure 实时跟踪会话（DiagLog 和 WdiContextLog），以减少后台诊断开销。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>会阻止 Diagnostic Policy Service 加载 SRUM，导致 Task Manager 中各进程的网络列显示 0 Mbps，并在还原且重启前使 App History、Data Usage 统计、电池报告和 Windows Troubleshooters 失效。</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>无法应用设置</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

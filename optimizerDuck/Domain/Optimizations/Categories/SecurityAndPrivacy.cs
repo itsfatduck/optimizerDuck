@@ -507,6 +507,9 @@ public class SecurityAndPrivacy()
     )]
     public class DisableAutoLogger : DeclarativeOptimization
     {
+        // DiagLog and WdiContextLog are intentionally kept separate in DisableDiagnosticAutoLoggers
+        // because stopping DiagLog prevents DPS (dps.dll) from loading the srumsvc.dll WDI module,
+        // causing Task Manager's per-process Network column to show 0 Mbps (#23).
         protected override RegistryItem[] RegistryItems { get; } =
         [
             new(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\AppModel", "Start", 0),
@@ -517,7 +520,6 @@ public class SecurityAndPrivacy()
                 0
             ),
             new(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DataMarket", "Start", 0),
-            new(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog", "Start", 0),
             new(
                 @"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\Diagtrack-Listener",
                 "Start",
@@ -525,8 +527,40 @@ public class SecurityAndPrivacy()
             ),
             new(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\LwtNetLog", "Start", 0),
             new(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\SQMLogger", "Start", 0),
-            new(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog", "Start", 0),
             new(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WiFiSession", "Start", 0),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Privacy),
+                    Improves(ImpactArea.Performance),
+                    Costs(ImpactArea.Features),
+                ],
+                Sources =
+                [
+                    Source(
+                        "Configuring and Starting an AutoLogger Session - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/win32/etw/configuring-and-starting-an-autologger-session"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+    }
+
+    [Optimization(
+        Id = "5E2C8B14-9F3D-4A7E-B6C1-2D8F4E7A9B03",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.Privacy | OptimizationTags.System | OptimizationTags.Performance
+    )]
+    public class DisableDiagnosticAutoLoggers : DeclarativeOptimization
+    {
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\DiagLog", "Start", 0),
+            new(@"HKLM\SYSTEM\CurrentControlSet\Control\WMI\Autologger\WdiContextLog", "Start", 0),
         ];
 
         public override OptimizationMetadata Metadata { get; } =

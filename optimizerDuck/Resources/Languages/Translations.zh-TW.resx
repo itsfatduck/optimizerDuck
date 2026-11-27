@@ -3114,4 +3114,19 @@
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>部分遊戲在 Intel GPU 上的無上限幀率或影格節奏可能會受到影響。</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>停用 WDI 診斷記錄</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>在開機時停用 Windows Diagnostics Infrastructure 即時追蹤工作階段（DiagLog 與 WdiContextLog），以減少背景診斷負荷。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>會阻止 Diagnostic Policy Service 載入 SRUM，導致 Task Manager 中各處理程序的網路欄顯示 0 Mbps，並在還原且重新啟動前使 App History、Data Usage 統計、電池報告與 Windows Troubleshooters 無法運作。</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>無法套用設定</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>

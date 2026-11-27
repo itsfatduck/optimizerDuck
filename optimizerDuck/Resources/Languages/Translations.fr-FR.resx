@@ -3119,4 +3119,19 @@ Mettez à jour pour profiter des dernières fonctionnalités, améliorations et 
   <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
     <value>Peut limiter la fréquence d'images illimitée ou modifier le rythme d'images dans certains jeux sur Intel GPU.</value>
   </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.Name" xml:space="preserve">
+    <value>Désactiver la journalisation de diagnostic WDI</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.ShortDescription" xml:space="preserve">
+    <value>Désactive au démarrage les sessions de suivi en temps réel de Windows Diagnostics Infrastructure (DiagLog et WdiContextLog) afin de réduire la charge de diagnostic en arrière-plan.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableDiagnosticAutoLoggers.TradeOff" xml:space="preserve">
+    <value>Empêche le service Diagnostic Policy Service de charger SRUM, ce qui maintient la colonne Réseau par processus du Task Manager à 0 Mbps et désactive App History, les statistiques Data Usage, les rapports de batterie et Windows Troubleshooters jusqu'à restauration et redémarrage.</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Title" xml:space="preserve">
+    <value>Impossible d'appliquer le paramètre</value>
+  </data>
+  <data name="Customize.Snackbar.ApplyFailed.Message" xml:space="preserve">
+    <value>{0}: {1}</value>
+  </data>
 </root>
