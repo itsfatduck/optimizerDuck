@@ -232,11 +232,11 @@ internal static class WmiHelper
     }
 }
 
-internal static class NativeMemory
+internal static partial class NativeMemory
 {
-    [DllImport("kernel32.dll", SetLastError = true)]
+    [LibraryImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool GlobalMemoryStatusEx(ref MEMORYSTATUSEX lpBuffer);
+    private static partial bool GlobalMemoryStatusEx(ref MEMORYSTATUSEX lpBuffer);
 
     /// <summary>Same API Task Manager uses for memory usage.</summary>
     public static MEMORYSTATUSEX? GetMemoryStatus()
@@ -261,12 +261,12 @@ internal static class NativeMemory
 }
 
 [SupportedOSPlatform("windows")]
-internal static class NativeFirmware
+internal static partial class NativeFirmware
 {
     // FIRMWARE_TYPE: 0 Unknown, 1 Bios, 2 Uefi.
-    [DllImport("kernel32.dll", SetLastError = true)]
+    [LibraryImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool GetFirmwareType(out uint firmwareType);
+    private static partial bool GetFirmwareType(out uint firmwareType);
 
     public static FirmwareMode GetMode()
     {
@@ -565,7 +565,7 @@ internal static class MemoryProvider
     }
 }
 
-internal static class DiskMediaDetector
+internal static partial class DiskMediaDetector
 {
     private const uint FILE_SHARE_READ = 0x00000001;
     private const uint FILE_SHARE_WRITE = 0x00000002;
@@ -578,8 +578,13 @@ internal static class DiskMediaDetector
         StringComparer.OrdinalIgnoreCase
     );
 
-    [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-    private static extern SafeFileHandle CreateFile(
+    [LibraryImport(
+        "kernel32.dll",
+        EntryPoint = "CreateFileW",
+        SetLastError = true,
+        StringMarshalling = StringMarshalling.Utf16
+    )]
+    private static partial SafeFileHandle CreateFile(
         string lpFileName,
         uint dwDesiredAccess,
         uint dwShareMode,
@@ -589,14 +594,14 @@ internal static class DiskMediaDetector
         IntPtr hTemplateFile
     );
 
-    [DllImport("kernel32.dll", SetLastError = true)]
+    [LibraryImport("kernel32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool DeviceIoControl(
+    private static partial bool DeviceIoControl(
         SafeFileHandle hDevice,
         uint dwIoControlCode,
-        IntPtr lpInBuffer,
+        ref STORAGE_PROPERTY_QUERY lpInBuffer,
         uint nInBufferSize,
-        IntPtr lpOutBuffer,
+        out DEVICE_SEEK_PENALTY_DESCRIPTOR lpOutBuffer,
         uint nOutBufferSize,
         out uint lpBytesReturned,
         IntPtr lpOverlapped
@@ -633,39 +638,20 @@ internal static class DiskMediaDetector
             {
                 PropertyId = STORAGE_PROPERTY_ID.StorageDeviceSeekPenaltyProperty,
                 QueryType = STORAGE_QUERY_TYPE.PropertyStandardQuery,
-                AdditionalParameters = new byte[1],
             };
-            var querySize = Marshal.SizeOf(query);
-            var resultSize = Marshal.SizeOf<DEVICE_SEEK_PENALTY_DESCRIPTOR>();
-            var queryPtr = IntPtr.Zero;
-            var resultPtr = IntPtr.Zero;
-            try
-            {
-                queryPtr = Marshal.AllocHGlobal(querySize);
-                Marshal.StructureToPtr(query, queryPtr, false);
-                resultPtr = Marshal.AllocHGlobal(resultSize);
-                var ok = DeviceIoControl(
-                    handle,
-                    IOCTL_STORAGE_QUERY_PROPERTY,
-                    queryPtr,
-                    (uint)querySize,
-                    resultPtr,
-                    (uint)resultSize,
-                    out _,
-                    IntPtr.Zero
-                );
-                if (!ok)
-                    return StorageMediaType.Unknown;
-                var desc = Marshal.PtrToStructure<DEVICE_SEEK_PENALTY_DESCRIPTOR>(resultPtr);
-                return desc.IncursSeekPenalty ? StorageMediaType.Hdd : StorageMediaType.Ssd;
-            }
-            finally
-            {
-                if (queryPtr != IntPtr.Zero)
-                    Marshal.FreeHGlobal(queryPtr);
-                if (resultPtr != IntPtr.Zero)
-                    Marshal.FreeHGlobal(resultPtr);
-            }
+            var ok = DeviceIoControl(
+                handle,
+                IOCTL_STORAGE_QUERY_PROPERTY,
+                ref query,
+                (uint)Marshal.SizeOf<STORAGE_PROPERTY_QUERY>(),
+                out var desc,
+                (uint)Marshal.SizeOf<DEVICE_SEEK_PENALTY_DESCRIPTOR>(),
+                out _,
+                IntPtr.Zero
+            );
+            if (!ok)
+                return StorageMediaType.Unknown;
+            return desc.IncursSeekPenalty != 0 ? StorageMediaType.Hdd : StorageMediaType.Ssd;
         }
         catch
         {
@@ -698,9 +684,7 @@ internal static class DiskMediaDetector
     {
         public STORAGE_PROPERTY_ID PropertyId;
         public STORAGE_QUERY_TYPE QueryType;
-
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 1)]
-        public byte[] AdditionalParameters;
+        public byte AdditionalParameters;
     }
 
     [StructLayout(LayoutKind.Sequential)]
@@ -708,9 +692,7 @@ internal static class DiskMediaDetector
     {
         public uint Version;
         public uint Size;
-
-        [MarshalAs(UnmanagedType.U1)]
-        public bool IncursSeekPenalty;
+        public byte IncursSeekPenalty;
     }
 }
 

@@ -3045,4 +3045,73 @@
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>將 Windows 階層功能表的懸停延遲設為零，使子功能表在滑鼠移過時立即展開。</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>停用視覺效果</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>停用工作列動畫、清單檢視陰影、視窗透明度與 Aero Peek，以釋放 GPU/CPU 資源並獲得更好的效能。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>停用「開始」功能表的網路搜尋</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>關閉 Windows 「開始」功能表的網路搜尋，以更快載入本機搜尋結果。</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>更新暫停上限拉滿</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>停用新聞與興趣</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>關閉新聞與興趣摘要並隱藏其工作列按鈕（Windows 10），同時停用小工具面板（Windows 11）。</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>優先處理活躍中的應用程式</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>將更多 CPU 資源分配給您目前正在使用的應用程式，以獲得更快、反應更靈敏的體驗。</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>最佳化多媒體排程器</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>設定多媒體類別排程器服務 (MMCSS) 以優化遊戲和低延遲，透過優先處理多媒體工作負載和停用網路節流。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>停用 AMD 視訊時脈閘控</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>停用 Intel 非同步翻轉</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>將 Windows 設定中的 Windows Update 暫停上限延長至 10 年（520 週）。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>停用 AMD 視訊編解碼引擎（VCE/UVD）的電源與時脈閘控，提升影片播放與錄製穩定性。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>在 Intel 內建顯示卡上強制同步緩衝區翻轉，降低輸入延遲與畫面撕裂。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>移除工作列動畫、視窗透明效果、Aero Peek 與圖示陰影。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>「開始」功能表搜尋將不再顯示網頁結果與線上建議。</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>在您於 Windows 設定選擇延後的期間內，安全性與品質更新都會維持暫停。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>會在 Windows 10 隱藏新聞與興趣，並在 Windows 11 停用小工具面板。</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>可能會提高背景 CPU 使用率並增加筆記型電腦耗電。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>影片播放與硬體編碼時 AMD GPU 耗電量會增加。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>部分遊戲在 Intel GPU 上的無上限幀率或影格節奏可能會受到影響。</value>
+  </data>
 </root>

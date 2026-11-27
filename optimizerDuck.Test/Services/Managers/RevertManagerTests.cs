@@ -1,13 +1,14 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
@@ -49,7 +50,7 @@ public class RevertManagerTests
 
         try
         {
-            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
             await File.WriteAllTextAsync(path, json, cancellationToken);
 
             var data = await RevertManager.GetRevertDataAsync(id);
@@ -162,7 +163,7 @@ public class RevertManagerTests
 
         try
         {
-            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
             await File.WriteAllTextAsync(path, json, cancellationToken);
 
             var manager = new RevertManager(
@@ -224,7 +225,7 @@ public class RevertManagerTests
 
         try
         {
-            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
             await File.WriteAllTextAsync(path, json, cancellationToken);
 
             var manager = new RevertManager(
@@ -291,7 +292,7 @@ public class RevertManagerTests
 
         try
         {
-            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
             await File.WriteAllTextAsync(path, json, cancellationToken);
 
             var manager = new RevertManager(
@@ -427,7 +428,7 @@ public class RevertManagerTests
                 {
                     Index = 1,
                     Type = "NoSuchStepType",
-                    Data = new JObject { ["foo"] = "bar" },
+                    Data = new JsonObject { ["foo"] = "bar" },
                 },
             ],
         };
@@ -436,7 +437,7 @@ public class RevertManagerTests
         {
             await File.WriteAllTextAsync(
                 path,
-                JsonConvert.SerializeObject(payload),
+                JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData),
                 cancellationToken
             );
 
@@ -509,7 +510,7 @@ public class RevertManagerTests
             };
             await File.WriteAllTextAsync(
                 siblingFile,
-                JsonConvert.SerializeObject(payload),
+                JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData),
                 cancellationToken
             );
 
@@ -543,7 +544,7 @@ public class RevertManagerTests
         Assert.NotNull(buildMethod);
 
         var registry =
-            (Dictionary<string, Func<JObject, IRevertStep>>)buildMethod!.Invoke(null, null)!;
+            (Dictionary<string, Func<JsonObject, IRevertStep>>)buildMethod!.Invoke(null, null)!;
         Assert.NotNull(registry);
         Assert.True(registry.ContainsKey("Registry"));
         Assert.True(registry.ContainsKey("Service"));
@@ -772,7 +773,7 @@ public class RevertIntegrityTests
 
         try
         {
-            var future = JsonConvert.SerializeObject(
+            var future = JsonSerializer.Serialize(
                 new RevertData
                 {
                     SchemaVersion = 99,
@@ -780,7 +781,8 @@ public class RevertIntegrityTests
                     OptimizationName = "Future",
                     AppliedAt = DateTime.UtcNow,
                     Steps = Array.Empty<RevertStepData?>(),
-                }
+                },
+                AppJsonContext.Default.RevertData
             );
             await File.WriteAllTextAsync(path, future, cancellationToken);
 
@@ -1002,7 +1004,7 @@ public class RevertIntegrityTests
             // loadable, so the rest of the file still reverts and the failure names the type.
             await File.WriteAllTextAsync(
                 path,
-                JsonConvert.SerializeObject(
+                JsonSerializer.Serialize(
                     new RevertData
                     {
                         SchemaVersion = 1,
@@ -1015,20 +1017,21 @@ public class RevertIntegrityTests
                             {
                                 Index = 1,
                                 Type = "Registry",
-                                Data = new JObject(),
+                                Data = new JsonObject(),
                             },
                             new()
                             {
                                 Index = 2,
                                 Type = "Shell",
-                                Data = new JObject
+                                Data = new JsonObject
                                 {
                                     ["ShellType"] = "CMD",
                                     ["Command"] = "exit 0",
                                 },
                             },
                         },
-                    }
+                    },
+                    AppJsonContext.Default.RevertData
                 ),
                 cancellationToken
             );
@@ -1104,7 +1107,7 @@ public class RevertIntegrityTests
         {
             await File.WriteAllTextAsync(
                 path,
-                JsonConvert.SerializeObject(
+                JsonSerializer.Serialize(
                     new RevertData
                     {
                         SchemaVersion = 1,
@@ -1117,7 +1120,7 @@ public class RevertIntegrityTests
                             {
                                 Index = 1,
                                 Type = "Shell",
-                                Data = new JObject
+                                Data = new JsonObject
                                 {
                                     ["ShellType"] = "CMD",
                                     ["Command"] = "exit 0",
@@ -1127,14 +1130,15 @@ public class RevertIntegrityTests
                             {
                                 Index = 2,
                                 Type = "Shell",
-                                Data = new JObject
+                                Data = new JsonObject
                                 {
                                     ["ShellType"] = "CMD",
                                     ["Command"] = "exit 1",
                                 },
                             },
                         },
-                    }
+                    },
+                    AppJsonContext.Default.RevertData
                 ),
                 cancellationToken
             );
@@ -1187,21 +1191,21 @@ public class RetryableTestRevertStep : IRevertStep
         return Task.FromResult(true);
     }
 
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        return new JObject
+        return new JsonObject
         {
             [nameof(StepId)] = StepId,
             [nameof(RemainingFailures)] = RemainingFailures,
         };
     }
 
-    public static RetryableTestRevertStep FromData(JToken data)
+    public static RetryableTestRevertStep FromData(JsonNode? data)
     {
         return new RetryableTestRevertStep
         {
-            StepId = data[nameof(StepId)]?.ToString() ?? Guid.NewGuid().ToString("N"),
-            RemainingFailures = data[nameof(RemainingFailures)]?.Value<int>() ?? 0,
+            StepId = JsonNodeHelpers.AsString(data?[nameof(StepId)]) ?? Guid.NewGuid().ToString("N"),
+            RemainingFailures = JsonNodeHelpers.GetInt32(data?[nameof(RemainingFailures)]),
         };
     }
 }

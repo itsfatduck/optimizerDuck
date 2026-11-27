@@ -3107,4 +3107,73 @@ Perbarui sekarang untuk menikmati fitur terbaru, peningkatan, dan perbaikan bug.
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>Mengatur jeda tampil submenu Windows ke nol agar submenu langsung terbuka saat kursor diarahkan.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Nonaktifkan Efek Visual</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan animasi taskbar, bayangan listview, transparansi jendela, dan Aero Peek untuk membebaskan sumber daya GPU/CPU demi performa yang lebih baik.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Nonaktifkan Pencarian Web Menu Start</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Matikan pencarian web pada Menu Start Windows agar hasil pencarian lokal dimuat lebih cepat.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Maksimalkan batas jeda pembaruan</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Nonaktifkan Berita &amp; Minat</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Mematikan feed Berita &amp; Minat dan menyembunyikan tombol taskbar-nya (Windows 10), serta menonaktifkan papan Widget (Windows 11).</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Prioritaskan Aplikasi Aktif</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Mengalokasikan lebih banyak sumber daya CPU ke aplikasi yang sedang Anda gunakan untuk pengalaman yang lebih cepat dan responsif.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Optimalkan Penjadwal Multimedia</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Mengonfigurasi Layanan Penjadwal Kelas Multimedia (MMCSS) untuk gaming dan latensi rendah dengan memprioritaskan beban kerja multimedia dan menonaktifkan pembatasan jaringan.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>Nonaktifkan Video Clock Gating AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Nonaktifkan Async Flips Intel</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Memperpanjang batas jeda Windows Update hingga 10 tahun (520 minggu) di Pengaturan Windows.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Menonaktifkan power dan clock gating pada mesin encode dan decode video AMD (VCE/UVD) untuk meningkatkan stabilitas pemutaran dan perekaman.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Memaksa pembalikan buffer tampilan secara sinkron pada Intel iGPU untuk mengurangi latensi input dan screen tearing.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>Menghapus animasi taskbar, transparansi jendela, Aero Peek, dan bayangan ikon.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>Hasil web dan saran online tidak lagi muncul di pencarian menu Start.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>Pembaruan keamanan dan kualitas tetap dijeda selama jangka waktu yang Anda pilih di Pengaturan Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>Menyembunyikan feed Berita &amp; Minat di Windows 10 dan menonaktifkan papan Widgets di Windows 11.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>Dapat meningkatkan penggunaan CPU latar belakang dan konsumsi daya pada laptop.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>AMD GPU menggunakan lebih banyak daya selama pemutaran video dan encoding hardware.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>Dapat membatasi frame rate tanpa batas atau mengubah frame pacing di beberapa game pada Intel GPU.</value>
+  </data>
 </root>

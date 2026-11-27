@@ -1,7 +1,8 @@
 using System.IO;
 using System.Text;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using optimizerDuck.Common.Helpers;
+using optimizerDuck.Domain.Serialization;
 using Xunit;
 
 [assembly: AssemblyFixture(typeof(optimizerDuck.Test.Infrastructure.AppDataCleanupFixture))]
@@ -42,9 +43,9 @@ public sealed class AppDataCleanupFixture : IDisposable
             {
                 try
                 {
-                    var name = JObject
-                        .Parse(File.ReadAllText(file, Encoding.UTF8))[nameField]
-                        ?.ToString();
+                    var name = JsonNodeHelpers.AsString(
+                        JsonNode.Parse(File.ReadAllText(file, Encoding.UTF8))?[nameField]
+                    );
                     if (
                         name is null
                         || !TestNameMarkers.Any(marker =>

@@ -1,5 +1,4 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
@@ -33,7 +32,7 @@ public sealed record ChangeRecord
     public string? WindowsVersion { get; init; }
 
     /// <summary>Which run this record describes: the last apply, or the revert of it.</summary>
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter<ChangeRecordOperation>))]
     public ChangeRecordOperation Operation { get; init; } = ChangeRecordOperation.Apply;
 
     /// <summary>When the item was reverted, for a record that describes a revert.</summary>
@@ -44,7 +43,7 @@ public sealed record ChangeRecord
 
     public IReadOnlyList<ChangeRecordStep> Steps { get; init; } = [];
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public IReadOnlyDictionary<string, string>? SelectedOptions { get; init; }
 
     /// <summary>Counts the steps that ended with one kind and did not fail.</summary>
@@ -209,7 +208,7 @@ public sealed record ChangeRecordStep
 
     public string Description { get; init; } = string.Empty;
 
-    [JsonConverter(typeof(StringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter<ChangeKind>))]
     public ChangeKind Kind { get; init; }
 
     public bool Ok { get; init; } = true;

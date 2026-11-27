@@ -1,4 +1,3 @@
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.UI;
 

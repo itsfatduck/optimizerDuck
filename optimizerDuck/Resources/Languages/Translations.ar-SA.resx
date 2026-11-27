@@ -3092,5 +3092,74 @@
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>يضبط تأخير التمرير على القوائم المتتالية في Windows على الصفر لتفتح القوائم الفرعية فورًا.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>تعطيل المؤثرات البصرية</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>يعطّل حركات شريط المهام وظلال القوائم وشفافية النوافذ وميزة ‎Aero Peek‎ لتحرير موارد المعالج وكرت الرسومات وتحسين الأداء.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>تعطيل بحث الويب في قائمة ابدأ</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>يوقف البحث على الويب في قائمة ابدأ لتحميل نتائج البحث المحلية بشكل أسرع.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>زيادة الحد الأقصى لإيقاف التحديثات مؤقتاً</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>تعطيل الأخبار والاهتمامات</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>يوقف موجز الأخبار والاهتمامات ويخفي زرّه في شريط المهام (Windows 10)، ويعطل لوحة الأدوات (Windows 11).</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>إعطاء الأولوية للتطبيقات النشطة</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>يخصص موارد معالج أكثر للتطبيق الذي تستخدمه حاليًا لتجربة أسرع وأكثر استجابة.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>تحسين مجدول الوسائط المتعددة</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>يضبط خدمة جدولة فئة الوسائط المتعددة (MMCSS) للألعاب وزمن الاستجابة المنخفض عبر إعطاء الأولوية لأحمال الوسائط وتعطيل خنق الشبكة.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>تعطيل ‎Video Clock Gating‎ لكروت ‎AMD‎</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>تعطيل ‎Async Flips‎ لكروت ‎Intel‎</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>يمدّد حد إيقاف Windows Update مؤقتًا إلى 10 سنوات (520 أسبوعًا) في Windows Settings.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>يعطّل بوابات الطاقة والساعة على محركات ترميز وفك ترميز الفيديو في AMD (VCE/UVD) لتحسين استقرار التشغيل والتسجيل.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>يفرض تبديل المخازن المؤقتة بشكل متزامن على GPU المدمج من Intel لتقليل زمن الاستجابة وتمزق الشاشة.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>يزيل حركات شريط المهام وشفافية النوافذ وAero Peek وظلال الأيقونات.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>لن تظهر نتائج الويب والاقتراحات عبر الإنترنت في بحث قائمة Start.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>تظل تحديثات الأمان والجودة متوقفة طوال المدة التي تختار تأجيلها في Windows Settings.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>يخفي موجز News and Interests على Windows 10 ويعطل لوحة Widgets على Windows 11.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>قد يزيد استخدام CPU في الخلفية واستهلاك الطاقة على أجهزة اللابتوب.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>تستهلك بطاقات AMD GPU طاقة أعلى أثناء تشغيل الفيديو والترميز عبر العتاد.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>قد يحد من معدلات الإطارات غير المقيدة أو يغير وتيرة الإطارات في بعض الألعاب على Intel GPU.</value>
+  </data>
 </root>
 

@@ -10,7 +10,7 @@ namespace optimizerDuck.Services.System.Primitives;
 ///     so this must NOT be declared with <c>Pack = 1</c> the way older samples do.
 /// </summary>
 [SupportedOSPlatform("windows")]
-public static class RecycleBinService
+public static partial class RecycleBinService
 {
     private const int S_OK = 0;
 
@@ -60,22 +60,20 @@ public static class RecycleBinService
         public long i64NumItems;
     }
 
-    [DllImport(
+    [LibraryImport(
         "shell32.dll",
         EntryPoint = "SHQueryRecycleBinW",
-        ExactSpelling = true,
-        CharSet = CharSet.Unicode
+        StringMarshalling = StringMarshalling.Utf16
     )]
-    private static extern int SHQueryRecycleBin(
+    private static partial int SHQueryRecycleBin(
         string pszRootPath,
         ref SHQUERYRBINFO pSHQueryRBInfo
     );
 
-    [DllImport(
+    [LibraryImport(
         "shell32.dll",
         EntryPoint = "SHEmptyRecycleBinW",
-        ExactSpelling = true,
-        CharSet = CharSet.Unicode
+        StringMarshalling = StringMarshalling.Utf16
     )]
-    private static extern int SHEmptyRecycleBin(IntPtr hwnd, string pszRootPath, uint dwFlags);
+    private static partial int SHEmptyRecycleBin(IntPtr hwnd, string pszRootPath, uint dwFlags);
 }

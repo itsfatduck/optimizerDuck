@@ -1,7 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
+using System.Text.Json.Nodes;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System.Primitives;
 
@@ -72,17 +74,32 @@ public class UsbPowerRevertStep : IRevertStep
     }
 
     /// <inheritdoc />
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        return new JObject { [nameof(States)] = JArray.FromObject(States) };
+        var arr = new JsonArray();
+        foreach (var state in States)
+        {
+            arr.Add(
+                new JsonObject
+                {
+                    [nameof(DeviceState.InstanceName)] = state.InstanceName,
+                    [nameof(DeviceState.Enable)] = state.Enable,
+                }
+            );
+        }
+
+        return new JsonObject { [nameof(States)] = arr };
     }
 
     /// <summary>
     ///     Deserializes a <see cref="UsbPowerRevertStep" /> from JSON data.
     /// </summary>
-    public static UsbPowerRevertStep FromData(JObject data)
+    public static UsbPowerRevertStep FromData(JsonObject data)
     {
-        var states = data[nameof(States)]?.ToObject<List<DeviceState>>() ?? [];
+        var states =
+            data[nameof(States)] is JsonArray arr
+                ? arr.Deserialize(AppJsonContext.Default.ListDeviceState) ?? []
+                : [];
 
         return new UsbPowerRevertStep { States = states };
     }

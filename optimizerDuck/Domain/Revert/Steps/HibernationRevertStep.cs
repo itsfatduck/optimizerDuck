@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
+using Microsoft.Extensions.Logging;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System.Primitives;
@@ -65,13 +66,11 @@ public class HibernationRevertStep : IRevertStep
     }
 
     /// <inheritdoc />
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        return new JObject
+        return new JsonObject
         {
-            [nameof(WasPresent)] = WasPresent is { } present
-                ? new JValue(present)
-                : JValue.CreateNull(),
+            [nameof(WasPresent)] = WasPresent is { } present ? JsonValue.Create(present) : null,
         };
     }
 
@@ -80,13 +79,12 @@ public class HibernationRevertStep : IRevertStep
     ///     before this change always carry a boolean; a missing or null value means the state was
     ///     not known, which restores nothing.
     /// </summary>
-    public static HibernationRevertStep FromData(JObject data)
+    public static HibernationRevertStep FromData(JsonObject data)
     {
         var token = data[nameof(WasPresent)];
         return new HibernationRevertStep
         {
-            WasPresent =
-                token is null || token.Type == JTokenType.Null ? null : token.Value<bool>(),
+            WasPresent = JsonNodeHelpers.TryGetBool(token, out var present) ? present : null,
         };
     }
 }

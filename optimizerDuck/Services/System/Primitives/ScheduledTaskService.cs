@@ -47,6 +47,38 @@ public static class ScheduledTaskService
     }
 
     /// <summary>
+    ///     Reads both the current Windows state label and enabled state of a scheduled task
+    ///     using a single <see cref="TaskService" /> session.
+    /// </summary>
+    public static (string? State, TaskEnabledState Enabled) GetTaskStateAndEnabled(
+        string fullPath,
+        ILogger? logger = null
+    )
+    {
+        try
+        {
+            using var ts = new TaskService();
+            var task = ts.GetTask(fullPath);
+            if (task is null)
+                return (null, TaskEnabledState.NotFound);
+
+            return (
+                task.State.ToString(),
+                task.Enabled ? TaskEnabledState.Enabled : TaskEnabledState.Disabled
+            );
+        }
+        catch (Exception ex)
+        {
+            logger?.LogWarning(
+                "Failed to check task state {Path}: {Error}",
+                fullPath,
+                ex.Message
+            );
+            return (null, TaskEnabledState.Unknown);
+        }
+    }
+
+    /// <summary>
     ///     Disables a scheduled task, recording the change into <paramref name="call"/>.
     /// </summary>
     /// <param name="call">

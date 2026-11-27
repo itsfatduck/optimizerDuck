@@ -343,15 +343,18 @@ public partial class DashboardViewModel : ViewModel
     ///     Runs on the two second tick, on the UI thread and through the cheap cached service
     ///     paths, so a slow scan can never overlap ticks.
     /// </summary>
-    private void OnUpdateTick(object? sender, EventArgs e)
+    private async void OnUpdateTick(object? sender, EventArgs e)
     {
         if (_ticking)
             return;
         _ticking = true;
         try
         {
-            RuntimeMemory = _systemInfoService.GetLiveMemory();
-            RuntimeStorage = _systemInfoService.GetLiveStorage();
+            var (memory, storage) = await Task.Run(() =>
+                (_systemInfoService.GetLiveMemory(), _systemInfoService.GetLiveStorage())
+            );
+            RuntimeMemory = memory;
+            RuntimeStorage = storage;
             UptimeText =
                 Loc.Instance["Dashboard.SystemInfo.Uptime.Label"]
                 + ": "

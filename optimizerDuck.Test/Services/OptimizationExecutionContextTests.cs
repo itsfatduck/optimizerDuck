@@ -1,5 +1,5 @@
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Services.System.Primitives;
@@ -281,12 +281,12 @@ public class MockRevertStep : IRevertStep
         return Task.FromResult(true);
     }
 
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        return new JObject();
+        return new JsonObject();
     }
 
-    public static MockRevertStep FromData(JObject data)
+    public static MockRevertStep FromData(JsonObject data)
     {
         return new MockRevertStep();
     }

@@ -8,7 +8,28 @@ namespace optimizerDuck.Common.Converters;
 /// <summary>Maps a progress percentage to green below 50%, yellow below 80%, red above.</summary>
 public class ProgressBarValueToBrushConverter : IValueConverter
 {
-    private static readonly SolidColorBrush DefaultBrush = new(Color.FromArgb(0x0, 0x0, 0x0, 0x0));
+    private static readonly SolidColorBrush DefaultBrush = CreateFrozenBrush(
+        Color.FromArgb(0x0, 0x0, 0x0, 0x0)
+    );
+
+    private static readonly SolidColorBrush SuccessFallbackBrush = CreateFrozenBrush(
+        Color.FromRgb(0, 180, 0)
+    );
+
+    private static readonly SolidColorBrush CautionFallbackBrush = CreateFrozenBrush(
+        Color.FromRgb(255, 140, 0)
+    );
+
+    private static readonly SolidColorBrush CriticalFallbackBrush = CreateFrozenBrush(
+        Color.FromRgb(220, 0, 0)
+    );
+
+    private static SolidColorBrush CreateFrozenBrush(Color color)
+    {
+        var brush = new SolidColorBrush(color);
+        brush.Freeze();
+        return brush;
+    }
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -19,11 +40,10 @@ public class ProgressBarValueToBrushConverter : IValueConverter
         {
             < 0 => DefaultBrush,
             < 50 => ThemeResource.Get<Brush>("SystemFillColorSuccessBrush")
-                ?? new SolidColorBrush(Color.FromRgb(0, 180, 0)),
+                ?? SuccessFallbackBrush,
             < 80 => ThemeResource.Get<Brush>("SystemFillColorCautionBrush")
-                ?? new SolidColorBrush(Color.FromRgb(255, 140, 0)),
-            _ => ThemeResource.Get<Brush>("SystemFillColorCriticalBrush")
-                ?? new SolidColorBrush(Color.FromRgb(220, 0, 0)),
+                ?? CautionFallbackBrush,
+            _ => ThemeResource.Get<Brush>("SystemFillColorCriticalBrush") ?? CriticalFallbackBrush,
         };
     }
 

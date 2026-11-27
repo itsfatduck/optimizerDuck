@@ -27,6 +27,7 @@ public partial class BloatwareViewModel : ViewModel
     private readonly BloatwareService _bloatwareService;
     private readonly IContentDialogService _contentDialogService;
     private readonly ILogger<BloatwareViewModel> _logger;
+    private bool _suppressSelectionUpdates;
 
     [ObservableProperty]
     private string _searchText = string.Empty;
@@ -65,7 +66,7 @@ public partial class BloatwareViewModel : ViewModel
         };
     }
 
-    public ObservableCollection<AppXPackage> AppxPackages { get; } = [];
+    public RangeObservableCollection<AppXPackage> AppxPackages { get; } = [];
 
     private int _selectedCount;
 
@@ -171,16 +172,15 @@ public partial class BloatwareViewModel : ViewModel
             p.PropertyChanged -= Item_PropertyChanged;
 
         var filtered = query.ToList();
-        AppxPackages.Clear();
-        foreach (var package in filtered)
-            AppxPackages.Add(package);
-
         _selectedCount = 0;
         foreach (var p in filtered)
         {
+            p.PropertyChanged += Item_PropertyChanged;
             if (p.IsSelected)
                 _selectedCount++;
         }
+
+        AppxPackages.ReplaceAll(filtered);
     }
 
     #region Property Changed
@@ -192,8 +192,11 @@ public partial class BloatwareViewModel : ViewModel
             if (sender is AppXPackage pkg)
                 _selectedCount += pkg.IsSelected ? 1 : -1;
 
-            UpdateProperties();
-            RemoveSelectedCommand.NotifyCanExecuteChanged();
+            if (!_suppressSelectionUpdates)
+            {
+                UpdateProperties();
+                RemoveSelectedCommand.NotifyCanExecuteChanged();
+            }
         }
     }
 
@@ -332,7 +335,10 @@ public partial class BloatwareViewModel : ViewModel
     private async Task Refresh()
     {
         IsLoading = true;
+        foreach (var p in AppxPackages)
+            p.PropertyChanged -= Item_PropertyChanged;
         _allPackages.Clear();
+        _selectedCount = 0;
         AppxPackages.Clear();
         UpdateProperties();
 
@@ -352,8 +358,22 @@ public partial class BloatwareViewModel : ViewModel
     private void SelectAllSafe()
     {
         var shouldDeselect = IsAllSafeSelected;
-        foreach (var package in AppxPackages.Where(x => x.Risk == AppRisk.Safe))
-            package.IsSelected = !shouldDeselect;
+        _suppressSelectionUpdates = true;
+        try
+        {
+            foreach (var package in AppxPackages)
+            {
+                if (package.Risk == AppRisk.Safe && package.IsSelected == shouldDeselect)
+                    package.IsSelected = !shouldDeselect;
+            }
+        }
+        finally
+        {
+            _suppressSelectionUpdates = false;
+        }
+
+        UpdateProperties();
+        RemoveSelectedCommand.NotifyCanExecuteChanged();
     }
 
     #endregion Commands

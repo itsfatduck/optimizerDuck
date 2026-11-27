@@ -1,10 +1,12 @@
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System.Primitives;
@@ -124,9 +126,9 @@ public class RegistryRevertStep : IRevertStep
     }
 
     /// <inheritdoc />
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        var obj = new JObject
+        var obj = new JsonObject
         {
             [nameof(Action)] = Action.ToString(),
             [nameof(Path)] = Path,
@@ -135,18 +137,23 @@ public class RegistryRevertStep : IRevertStep
         };
 
         if (CreatedSubKeys?.Count > 0)
-            obj[nameof(CreatedSubKeys)] = new JArray(CreatedSubKeys);
+        {
+            var subKeys = new JsonArray();
+            foreach (var key in CreatedSubKeys)
+                subKeys.Add(key);
+            obj[nameof(CreatedSubKeys)] = subKeys;
+        }
 
         if (SubSteps?.Count > 0)
         {
-            var subArray = new JArray();
+            var subArray = new JsonArray();
             foreach (var step in SubSteps)
                 subArray.Add(step.ToData());
             obj[nameof(SubSteps)] = subArray;
         }
 
         // Serialize Value based on Kind to ensure deterministic JSON and avoid
-        // JValue rendering issues
+        // rendering ambiguities.
         if (Value == null)
         {
             obj[nameof(Value)] = null;
@@ -156,20 +163,27 @@ public class RegistryRevertStep : IRevertStep
         switch (Kind)
         {
             case RegistryValueKind.DWord:
-                obj[nameof(Value)] = new JValue(Convert.ToInt32(Value));
+                obj[nameof(Value)] = Convert.ToInt32(Value);
                 break;
             case RegistryValueKind.QWord:
-                obj[nameof(Value)] = new JValue(Convert.ToInt64(Value));
+                obj[nameof(Value)] = Convert.ToInt64(Value);
                 break;
             case RegistryValueKind.String:
             case RegistryValueKind.ExpandString:
-                obj[nameof(Value)] = new JValue(Value.ToString());
+                obj[nameof(Value)] = Value.ToString();
                 break;
             case RegistryValueKind.MultiString:
                 if (Value is string[] sa)
-                    obj[nameof(Value)] = new JArray(sa);
+                {
+                    var arr = new JsonArray();
+                    foreach (var s in sa)
+                        arr.Add(s);
+                    obj[nameof(Value)] = arr;
+                }
                 else
-                    obj[nameof(Value)] = JToken.FromObject(Value);
+                {
+                    obj[nameof(Value)] = Value.ToString();
+                }
                 break;
             case RegistryValueKind.Binary:
                 if (Value is byte[] bytes)
@@ -178,12 +192,26 @@ public class RegistryRevertStep : IRevertStep
                     obj[nameof(Value)] = Value.ToString();
                 break;
             default:
-                // Fallback: serialize as token (strings/numbers/arrays)
-                obj[nameof(Value)] = JToken.FromObject(Value);
+                obj[nameof(Value)] = Value switch
+                {
+                    int i => JsonValue.Create(i),
+                    long l => JsonValue.Create(l),
+                    bool b => JsonValue.Create(b),
+                    string[] arr => ToJsonArray(arr),
+                    _ => JsonValue.Create(Value.ToString()),
+                };
                 break;
         }
 
         return obj;
+    }
+
+    private static JsonArray ToJsonArray(string[] values)
+    {
+        var arr = new JsonArray();
+        foreach (var item in values)
+            arr.Add(item);
+        return arr;
     }
 
     /// <summary>
@@ -191,57 +219,74 @@ public class RegistryRevertStep : IRevertStep
     /// </summary>
     /// <param name="data">The JSON data to deserialize.</param>
     /// <returns>A new <see cref="RegistryRevertStep" /> instance.</returns>
-    public static RegistryRevertStep FromData(JObject data)
+    public static RegistryRevertStep FromData(JsonObject data)
     {
-        var kind = Enum.Parse<RegistryValueKind>(data[nameof(Kind)]!.ToString());
+        var kind = Enum.Parse<RegistryValueKind>(
+            JsonNodeHelpers.AsString(data[nameof(Kind)])!
+        );
         var token = data[nameof(Value)];
 
         object? value = null;
-        if (token != null && token.Type != JTokenType.Null)
+        if (
+            token is not null
+            && !(token is JsonValue jv && jv.GetValueKind() == JsonValueKind.Null)
+        )
+        {
             switch (kind)
             {
                 case RegistryValueKind.DWord:
-                    value = token.ToObject<int>();
+                    value = JsonNodeHelpers.GetInt32(token);
                     break;
                 case RegistryValueKind.QWord:
-                    value = token.ToObject<long>();
+                    value = JsonNodeHelpers.GetInt64(token);
                     break;
                 case RegistryValueKind.String:
                 case RegistryValueKind.ExpandString:
-                    value = token.ToObject<string>();
+                    value = JsonNodeHelpers.AsString(token);
                     break;
                 case RegistryValueKind.MultiString:
-                    value = token.ToObject<string[]>();
+                    if (token is JsonArray arr)
+                    {
+                        var items = new string[arr.Count];
+                        for (var i = 0; i < arr.Count; i++)
+                            items[i] = JsonNodeHelpers.AsString(arr[i]) ?? string.Empty;
+                        value = items;
+                    }
                     break;
                 case RegistryValueKind.Binary:
                     // stored as base64 string
-                    var base64 = token.ToObject<string>();
+                    var base64 = JsonNodeHelpers.AsString(token);
                     value = base64 != null ? Convert.FromBase64String(base64) : null;
                     break;
                 default:
-                    // best-effort
-                    value = token.ToObject<object>();
+                    value = JsonNodeHelpers.AsString(token);
                     break;
             }
+        }
 
         List<string>? createdSubKeys = null;
-        if (data[nameof(CreatedSubKeys)] is JArray subKeysArray)
-            createdSubKeys = subKeysArray.ToObject<List<string>>();
+        if (data[nameof(CreatedSubKeys)] is JsonArray subKeysArray)
+        {
+            createdSubKeys = new List<string>(subKeysArray.Count);
+            foreach (var item in subKeysArray)
+                if (JsonNodeHelpers.AsString(item) is { } key)
+                    createdSubKeys.Add(key);
+        }
 
         List<RegistryRevertStep>? subSteps = null;
-        if (data[nameof(SubSteps)] is JArray stepsArray)
+        if (data[nameof(SubSteps)] is JsonArray stepsArray)
         {
-            subSteps = [];
+            subSteps = new List<RegistryRevertStep>(stepsArray.Count);
             foreach (var stepToken in stepsArray)
-                if (stepToken is JObject stepObj)
+                if (stepToken is JsonObject stepObj)
                     subSteps.Add(FromData(stepObj));
         }
 
         return new RegistryRevertStep
         {
-            Action = Enum.Parse<RevertAction>(data[nameof(Action)]!.ToString()),
-            Path = data[nameof(Path)]!.ToString(),
-            Name = data[nameof(Name)]?.ToObject<string>(),
+            Action = Enum.Parse<RevertAction>(JsonNodeHelpers.AsString(data[nameof(Action)])!),
+            Path = JsonNodeHelpers.AsString(data[nameof(Path)])!,
+            Name = JsonNodeHelpers.AsString(data[nameof(Name)]),
             Value = value,
             Kind = kind,
             CreatedSubKeys = createdSubKeys,

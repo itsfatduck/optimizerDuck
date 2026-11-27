@@ -1,9 +1,9 @@
 using System.IO;
-using System.Text;
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Execution;
+using optimizerDuck.Domain.Serialization;
 
 namespace optimizerDuck.Services.History;
 
@@ -31,11 +31,19 @@ public static class ChangeRecordStore
             // Atomic like the revert files: a torn report is worse than no report. No lock is
             // needed because an item is applied through one command at a time.
             var tempPath = path + ".tmp";
-            File.WriteAllText(
-                tempPath,
-                JsonConvert.SerializeObject(record, Formatting.Indented),
-                Encoding.UTF8
-            );
+            using (
+                var stream = new FileStream(
+                    tempPath,
+                    FileMode.Create,
+                    FileAccess.Write,
+                    FileShare.None,
+                    4096,
+                    useAsync: false
+                )
+            )
+            {
+                JsonSerializer.Serialize(stream, record, AppJsonContext.Default.ChangeRecord);
+            }
 
             if (File.Exists(path))
                 File.Replace(tempPath, path, destinationBackupFileName: null);
@@ -65,9 +73,8 @@ public static class ChangeRecordStore
             if (!File.Exists(path))
                 return null;
 
-            return JsonConvert.DeserializeObject<ChangeRecord>(
-                File.ReadAllText(path, Encoding.UTF8)
-            );
+            using var stream = File.OpenRead(path);
+            return JsonSerializer.Deserialize(stream, AppJsonContext.Default.ChangeRecord);
         }
         catch (Exception ex)
         {

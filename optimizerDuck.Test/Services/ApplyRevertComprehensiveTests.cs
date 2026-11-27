@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.Logging.Abstractions;
-using Newtonsoft.Json;
+﻿using System.Text.Json;
+using Microsoft.Extensions.Logging.Abstractions;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
 using optimizerDuck.Domain.Revert.Steps;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Optimization;
 using optimizerDuck.Services.Revert;
@@ -364,7 +365,7 @@ public class ApplyRevertComprehensiveTests
                     },
                 };
 
-                var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+                var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
                 await File.WriteAllTextAsync(revertPath, json);
 
                 var service = CreateService();
@@ -489,7 +490,7 @@ public class ApplyRevertComprehensiveTests
                     },
                 };
 
-                var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+                var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
                 await File.WriteAllTextAsync(revertPath, json);
 
                 var manager = new RevertManager(
@@ -564,7 +565,7 @@ public class ApplyRevertComprehensiveTests
                     },
                 };
 
-                var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+                var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
                 await File.WriteAllTextAsync(revertPath, json);
 
                 var service = CreateService();
@@ -629,7 +630,7 @@ public class ApplyRevertComprehensiveTests
                     },
                 };
 
-                var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+                var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
                 await File.WriteAllTextAsync(revertPath, json);
 
                 var service = CreateService();
@@ -700,7 +701,7 @@ public class ApplyRevertComprehensiveTests
                     },
                 };
 
-                var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+                var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
                 await File.WriteAllTextAsync(revertPath, json);
 
                 var service = CreateService();
@@ -763,7 +764,7 @@ public class ApplyRevertComprehensiveTests
                     },
                 };
 
-                var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+                var json = JsonSerializer.Serialize(payload, AppJsonContext.Default.RevertData);
                 await File.WriteAllTextAsync(revertPath, json);
 
                 var manager = new RevertManager(

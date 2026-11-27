@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Text.Json.Serialization;
+using System.Windows.Media.Imaging;
+using CommunityToolkit.Mvvm.ComponentModel;
 using optimizerDuck.Common.Extensions;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Services.Configuration;
@@ -9,6 +11,7 @@ namespace optimizerDuck.Domain.Optimizations.Models.Bloatware;
 /// <summary>
 ///     Specifies the risk level of removing a bloatware app.
 /// </summary>
+[JsonConverter(typeof(JsonStringEnumConverter<AppRisk>))]
 public enum AppRisk
 {
     Safe,
@@ -28,7 +31,8 @@ public partial class AppXPackage : LocalizedObject
     [ObservableProperty]
     private bool _isSelected;
 
-    public string? LogoImage { get; set; }
+    [JsonIgnore]
+    public BitmapSource? LogoImage { get; set; }
 
     public required string Name { get; init; }
 
@@ -42,6 +46,7 @@ public partial class AppXPackage : LocalizedObject
 
     public AppRisk Risk { get; init; }
 
+    [JsonIgnore]
     public RiskVisual RiskVisual =>
         Risk switch
         {
@@ -62,5 +67,6 @@ public partial class AppXPackage : LocalizedObject
             },
         };
 
+    [JsonIgnore]
     public bool ShouldVisibleRisk => Risk != AppRisk.Unknown;
 }

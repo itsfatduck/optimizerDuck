@@ -217,10 +217,16 @@
                 <ItemsControl
                     Grid.Row="2"
                     ItemsSource="{Binding ViewModel.AppxPackages}"
+                    ScrollViewer.CanContentScroll="True"
+                    VirtualizingPanel.CacheLength="1,1"
+                    VirtualizingPanel.CacheLengthUnit="Page"
+                    VirtualizingPanel.IsVirtualizing="True"
+                    VirtualizingPanel.ScrollUnit="Pixel"
+                    VirtualizingPanel.VirtualizationMode="Recycling"
                     Visibility="{Binding ViewModel.AppxPackages.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                     <ItemsControl.Template>
                         <ControlTemplate TargetType="ItemsControl">
-                            <ScrollViewer HorizontalScrollBarVisibility="Disabled">
+                            <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
                                 <ItemsPresenter />
                             </ScrollViewer>
                         </ControlTemplate>

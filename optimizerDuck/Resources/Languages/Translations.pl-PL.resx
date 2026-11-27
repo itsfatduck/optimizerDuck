@@ -3050,4 +3050,73 @@ Zaktualizuj teraz, aby korzystać z najnowszych funkcji, ulepszeń i poprawek b�
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>Ustawia czas oczekiwania przed rozwinięciem podmenu w systemie Windows na zero.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Wyłącz efekty wizualne</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Wyłącza animacje paska zadań, cienie list, przezroczystość okien oraz Aero Peek, aby zwolnić zasoby GPU/CPU dla lepszej wydajności.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Wyłącz wyszukiwanie internetowe w menu Start</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Wyłącz wyszukiwanie w sieci w menu Start systemu Windows, aby szybciej ładować lokalne wyniki wyszukiwania.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Maksymalizuj limit wstrzymania aktualizacji</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Wyłącz Wiadomości i zainteresowania</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Wyłącza kanał Wiadomości i zainteresowania i ukrywa jego przycisk na pasku zadań (Windows 10) oraz wyłącza panel widżetów (Windows 11).</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Priorytetyzuj aktywne aplikacje</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Przydziela więcej zasobów procesora aktualnie używanej aplikacji, zapewniając szybsze i bardziej responsywne działanie.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Optymalizuj harmonogram multimediów</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Konfiguruje usługę Multimedia Class Scheduler Service (MMCSS) pod kątem gier i niskich opóźnień, priorytetyzując zadania multimedialne i wyłączając ograniczanie przepustowości sieci.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>Wyłącz AMD Video Clock Gating</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Wyłącz Intel Async Flips</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Wydłuża limit wstrzymania Windows Update w Ustawieniach systemu Windows do 10 lat (520 tygodni).</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Wyłącza bramkowanie zasilania i zegara silników wideo AMD (VCE/UVD), poprawiając stabilność odtwarzania i nagrywania.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Wymusza synchroniczne przełączanie buforów na zintegrowanych GPU Intel, zmniejszając opóźnienie wejścia i rozrywanie obrazu.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>Usuwa animacje paska zadań, przezroczystość okien, funkcję Aero Peek i cienie ikon.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>Wyniki z internetu i podpowiedzi online nie będą już wyświetlane w wyszukiwarce menu Start.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>Aktualizacje zabezpieczeń i jakości pozostają wstrzymane przez cały wybrany okres w Ustawieniach systemu Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>Ukrywa kanał Wiadomości i zainteresowania w Windows 10 i wyłącza panel Widżetów w Windows 11.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>Może zwiększyć użycie CPU w tle oraz pobór mocy na laptopach.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>Karty AMD GPU pobierają więcej energii podczas odtwarzania wideo i kodowania sprzętowego.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>Może ograniczać nielimitowaną liczbę klatek lub zmienić płynność klatek w niektórych grach na Intel GPU.</value>
+  </data>
 </root>

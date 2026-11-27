@@ -14,7 +14,28 @@ public class SizeToBrushConverter : IValueConverter
     private const long TenMB = 10L * 1024 * 1024;
     private const long HundredMB = 100L * 1024 * 1024;
 
-    private static readonly SolidColorBrush DefaultBrush = new(Color.FromArgb(0x0, 0x0, 0x0, 0x0));
+    private static readonly SolidColorBrush DefaultBrush = CreateFrozenBrush(
+        Color.FromArgb(0x0, 0x0, 0x0, 0x0)
+    );
+
+    private static readonly SolidColorBrush SuccessFallbackBrush = CreateFrozenBrush(
+        Color.FromRgb(0, 180, 0)
+    );
+
+    private static readonly SolidColorBrush CautionFallbackBrush = CreateFrozenBrush(
+        Color.FromRgb(255, 140, 0)
+    );
+
+    private static readonly SolidColorBrush CriticalFallbackBrush = CreateFrozenBrush(
+        Color.FromRgb(220, 0, 0)
+    );
+
+    private static SolidColorBrush CreateFrozenBrush(Color color)
+    {
+        var brush = new SolidColorBrush(color);
+        brush.Freeze();
+        return brush;
+    }
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
@@ -25,11 +46,10 @@ public class SizeToBrushConverter : IValueConverter
         {
             <= 0 => DefaultBrush,
             < TenMB => ThemeResource.Get<Brush>("SystemFillColorSuccessBrush")
-                ?? new SolidColorBrush(Color.FromRgb(0, 180, 0)),
+                ?? SuccessFallbackBrush,
             < HundredMB => ThemeResource.Get<Brush>("SystemFillColorCautionBrush")
-                ?? new SolidColorBrush(Color.FromRgb(255, 140, 0)),
-            _ => ThemeResource.Get<Brush>("SystemFillColorCriticalBrush")
-                ?? new SolidColorBrush(Color.FromRgb(220, 0, 0)),
+                ?? CautionFallbackBrush,
+            _ => ThemeResource.Get<Brush>("SystemFillColorCriticalBrush") ?? CriticalFallbackBrush,
         };
     }
 

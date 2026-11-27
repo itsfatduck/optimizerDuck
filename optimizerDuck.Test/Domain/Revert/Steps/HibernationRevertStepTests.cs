@@ -1,5 +1,5 @@
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging.Abstractions;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Revert.Steps;
 using optimizerDuck.Services.System.Primitives;
 using optimizerDuck.Test.TestDoubles;
@@ -24,7 +24,7 @@ public class HibernationRevertStepTests
     [Fact]
     public void FromData_PayloadWrittenBeforeTheChange_KeepsItsBoolean()
     {
-        var payload = JObject.Parse("""{ "WasPresent": true }""");
+        var payload = JsonNode.Parse("""{ "WasPresent": true }""")!.AsObject();
 
         Assert.True(HibernationRevertStep.FromData(payload).WasPresent);
     }
@@ -32,11 +32,11 @@ public class HibernationRevertStepTests
     [Fact]
     public void FromData_MissingOrNullState_MeansUnknown()
     {
-        Assert.Null(HibernationRevertStep.FromData(new JObject()).WasPresent);
+        Assert.Null(HibernationRevertStep.FromData(new JsonObject()).WasPresent);
         Assert.Null(
             HibernationRevertStep
                 .FromData(
-                    new JObject { [nameof(HibernationRevertStep.WasPresent)] = JValue.CreateNull() }
+                    new JsonObject { [nameof(HibernationRevertStep.WasPresent)] = null }
                 )
                 .WasPresent
         );

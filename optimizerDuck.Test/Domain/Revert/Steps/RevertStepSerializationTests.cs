@@ -1,5 +1,5 @@
-﻿using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
+using Microsoft.Win32;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Domain.Revert.Steps;
@@ -43,7 +43,7 @@ public class RevertStepSerializationTests
     {
         // An unknown state restores nothing, so a revert cannot create a hibernation file
         // that never existed.
-        var restored = HibernationRevertStep.FromData(new JObject());
+        var restored = HibernationRevertStep.FromData(new JsonObject());
 
         Assert.Null(restored.WasPresent);
         Assert.True(restored.StateUnknown);
@@ -250,9 +250,9 @@ public class RevertStepSerializationTests
     {
         // Literal on-disk shape produced by the PowerShell-era implementation; the step must keep
         // reading it now that restoring goes through the in-process WMI client.
-        var json = JObject.Parse(
+        var json = JsonNode.Parse(
             """{"States":[{"InstanceName":"USB\\ROOT_HUB30\\5&1&0_0","Enable":true},{"InstanceName":"USB\\ROOT_HUB30\\5&2&0_0","Enable":false}]}"""
-        );
+        )!.AsObject();
 
         var restored = UsbPowerRevertStep.FromData(json);
 
@@ -555,6 +555,6 @@ public class RevertStepSerializationTests
     [Fact]
     public void PowerSettingRevertStep_MissingValues_ThrowsFailClosed()
     {
-        Assert.Throws<StepExecutionException>(() => PowerSettingRevertStep.FromData(new JObject()));
+        Assert.Throws<StepExecutionException>(() => PowerSettingRevertStep.FromData(new JsonObject()));
     }
 }

@@ -3107,4 +3107,73 @@ Frissíts most, hogy élvezhesd a legújabb funkciókat, javításokat és hibaj
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>Nullára állítja a Windows almenük megjelenítési késleltetését, így az almenük azonnal megnyílnak.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Vizuális effektek kikapcsolása</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a tálcaanimációkat, a lista nézet árnyékait, az ablakok átlátszóságát és az Aero Peeket, hogy GPU/CPU-erőforrásokat szabadítson fel a jobb teljesítményért.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Start menü webes keresésének kikapcsolása</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a webes keresést a Windows Start menüben, hogy a helyi találatok gyorsabban betöltődjenek.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Frissítésszüneteltetési korlát maximalizálása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Hírek és érdeklődési körök kikapcsolása</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja a Hírek és érdeklődési körök hírfolyamot és elrejti a tálcagombját (Windows 10), valamint kikapcsolja a Widgetek panelt (Windows 11).</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Aktív alkalmazások előnyben részesítése</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Több CPU-erőforrást ad az éppen használt alkalmazásnak a gyorsabb, gördülékenyebb működésért.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Multimédia-ütemező optimalizálása</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>A Multimedia Class Scheduler Service (MMCSS) beállítása játékhoz és alacsony késleltetéshez: a multimédiás feladatok előnyben részesítése és a hálózati szabályozás kikapcsolása.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD videó-órajel-kapuzás kikapcsolása</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel aszinkron flipek kikapcsolása</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>A Windows Update szüneteltetési korlátját 10 évre (520 hétre) bővíti a Windows Gépházban.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Kikapcsolja az AMD videókódoló és dekódoló motorok (VCE/UVD) energia- és órajel-kapuzását a stabilabb lejátszásért és felvételért.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Szinkron puffercserét kényszerít az Intel integrált GPU-kon a kisebb bemeneti késleltetés és a képernyőszakadás csökkentése érdekében.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>Eltávolítja a tálcaanimációkat, az ablakok átlátszóságát, az Aero Peeket és az ikonárnyékokat.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>A webes találatok és online javaslatok többé nem jelennek meg a Start menü keresőjében.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>A biztonsági és minőségi frissítések addig szünetelnek, ameddig elhalasztod őket a Windows Gépházban.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>Elrejti a Hírek és érdeklődési körök hírfolyamot Windows 10 alatt, és kikapcsolja a Widgetek panelt Windows 11 alatt.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>Növelheti a háttérben futó CPU-használatot és a laptopok fogyasztását.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>Az AMD GPU-k több áramot fogyasztanak videolejátszás és hardveres kódolás közben.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>Egyes játékokban korlátozhatja a feloldott képkockaszámot vagy megváltoztathatja a képkocka-ütemezést Intel GPU-n.</value>
+  </data>
 </root>

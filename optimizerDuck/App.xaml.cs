@@ -38,59 +38,93 @@ namespace optimizerDuck;
 
 public class ScopeBlockTextFormatter : ITextFormatter
 {
+    private const string ContinuationIndent =
+        "                                                                      ";
+
     public void Format(LogEvent logEvent, TextWriter output)
     {
-        var timestamp = $"{logEvent.Timestamp:yyyy-MM-dd HH:mm:ss}";
-        var ctx = logEvent.Properties.TryGetValue("SourceContext", out var sourceContext)
-            ? sourceContext is ScalarValue { Value: string s }
-                ? s.Split(".")[^1]
-                : sourceContext.ToString().Split(".")[^1]
-            : "";
+        Span<char> tsBuf = stackalloc char[19];
+        if (logEvent.Timestamp.TryFormat(tsBuf, out var tsLen, "yyyy-MM-dd HH:mm:ss"))
+            output.Write(tsBuf[..tsLen]);
+        else
+            output.Write(logEvent.Timestamp.ToString("yyyy-MM-dd HH:mm:ss"));
+
+        output.Write(" | ");
+
+        ReadOnlySpan<char> ctxSpan = ReadOnlySpan<char>.Empty;
+        if (logEvent.Properties.TryGetValue("SourceContext", out var sourceContext))
+        {
+            var raw = sourceContext is ScalarValue { Value: string s }
+                ? s.AsSpan()
+                : sourceContext.ToString().AsSpan();
+            var lastDot = raw.LastIndexOf('.');
+            ctxSpan = lastDot >= 0 ? raw[(lastDot + 1)..] : raw;
+        }
+
+        output.Write(ctxSpan);
+        if (ctxSpan.Length < 35)
+            output.Write(ContinuationIndent.AsSpan(0, 35 - ctxSpan.Length));
+
+        output.Write(" | ");
+
         var levelText = logEvent.Level switch
         {
             LogEventLevel.Verbose => "VERBOSE",
-            LogEventLevel.Debug => "DEBUG",
-            LogEventLevel.Information => "INFO",
+            LogEventLevel.Debug => "DEBUG  ",
+            LogEventLevel.Information => "INFO   ",
             LogEventLevel.Warning => "WARNING",
-            LogEventLevel.Error => "ERROR",
-            LogEventLevel.Fatal => "FATAL",
+            LogEventLevel.Error => "ERROR  ",
+            LogEventLevel.Fatal => "FATAL  ",
             _ => "UNKNOWN",
         };
+        output.Write(levelText);
+        output.Write(" | ");
 
-        //var prefix = $"{timestamp} | {ctx,-67} | {levelText,-7} | "; // byebye 67 char SourceContext truncation, we have a new design now...
-        var prefix = $"{timestamp} | {ctx, -35} | {levelText, -7} | ";
-
-        output.WriteLine(prefix + RenderWithoutQuotes(logEvent));
+        RenderWithoutQuotes(logEvent, output);
+        output.WriteLine();
 
         foreach (var kvp in logEvent.Properties)
         {
             if (kvp.Key == "SourceContext")
                 continue;
 
-            var usedInMessage = logEvent
-                .MessageTemplate.Tokens.OfType<PropertyToken>()
-                .Any(t => t.PropertyName == kvp.Key);
+            var usedInMessage = false;
+            foreach (var token in logEvent.MessageTemplate.Tokens)
+            {
+                if (token is PropertyToken pt && pt.PropertyName == kvp.Key)
+                {
+                    usedInMessage = true;
+                    break;
+                }
+            }
+
             if (usedInMessage)
                 continue;
 
-            var valueText = kvp.Value is ScalarValue sv
-                ? sv.Value?.ToString() ?? ""
-                : kvp.Value.ToString();
-
-            output.WriteLine(new string(' ', prefix.Length) + $"{kvp.Key} = {valueText}");
+            output.Write(ContinuationIndent);
+            if (ctxSpan.Length > 35)
+                output.Write(new string(' ', ctxSpan.Length - 35));
+            output.Write(kvp.Key);
+            output.Write(" = ");
+            if (kvp.Value is ScalarValue sv)
+                output.Write(sv.Value?.ToString() ?? string.Empty);
+            else
+                output.Write(kvp.Value.ToString());
+            output.WriteLine();
         }
 
         if (logEvent.Exception != null)
         {
             output.WriteLine("Exception : ");
-            output.WriteLine($"    {logEvent.Exception}");
+            output.Write("    ");
+            output.WriteLine(logEvent.Exception);
         }
     }
 
-    private static string RenderWithoutQuotes(LogEvent logEvent)
+    private static void RenderWithoutQuotes(LogEvent logEvent, TextWriter output)
     {
-        var output = new StringWriter();
         foreach (var token in logEvent.MessageTemplate.Tokens)
+        {
             if (
                 token is PropertyToken pt
                 && logEvent.Properties.TryGetValue(pt.PropertyName, out var value)
@@ -105,8 +139,7 @@ public class ScopeBlockTextFormatter : ITextFormatter
             {
                 token.Render(logEvent.Properties, output);
             }
-
-        return output.ToString();
+        }
     }
 }
 
@@ -191,15 +224,27 @@ public partial class App : Application
         var tertiary = GetColor("AccentFillColorTertiary", Color.FromRgb(255, 243, 131));
         var knobOn = GetColor("TextOnAccentFillColorPrimary", Colors.White);
 
-        app.Resources["ToggleSwitchFillOn"] = new SolidColorBrush(primary);
-        app.Resources["ToggleSwitchFillOnPointerOver"] = new SolidColorBrush(secondary);
-        app.Resources["ToggleSwitchFillOnPressed"] = new SolidColorBrush(tertiary);
-        app.Resources["ToggleSwitchStrokeOn"] = new SolidColorBrush(primary);
-        app.Resources["ToggleSwitchStrokeOnPointerOver"] = new SolidColorBrush(secondary);
-        app.Resources["ToggleSwitchStrokeOnPressed"] = new SolidColorBrush(tertiary);
-        app.Resources["ToggleSwitchKnobFillOn"] = new SolidColorBrush(knobOn);
-        app.Resources["ToggleSwitchKnobFillOnPointerOver"] = new SolidColorBrush(knobOn);
-        app.Resources["ToggleSwitchKnobFillOnPressed"] = new SolidColorBrush(knobOn);
+        static SolidColorBrush CreateFrozenBrush(Color color)
+        {
+            var brush = new SolidColorBrush(color);
+            brush.Freeze();
+            return brush;
+        }
+
+        var primaryBrush = CreateFrozenBrush(primary);
+        var secondaryBrush = CreateFrozenBrush(secondary);
+        var tertiaryBrush = CreateFrozenBrush(tertiary);
+        var knobOnBrush = CreateFrozenBrush(knobOn);
+
+        app.Resources["ToggleSwitchFillOn"] = primaryBrush;
+        app.Resources["ToggleSwitchFillOnPointerOver"] = secondaryBrush;
+        app.Resources["ToggleSwitchFillOnPressed"] = tertiaryBrush;
+        app.Resources["ToggleSwitchStrokeOn"] = primaryBrush;
+        app.Resources["ToggleSwitchStrokeOnPointerOver"] = secondaryBrush;
+        app.Resources["ToggleSwitchStrokeOnPressed"] = tertiaryBrush;
+        app.Resources["ToggleSwitchKnobFillOn"] = knobOnBrush;
+        app.Resources["ToggleSwitchKnobFillOnPointerOver"] = knobOnBrush;
+        app.Resources["ToggleSwitchKnobFillOnPressed"] = knobOnBrush;
     }
 
     private static async Task SafeFireAndForgetAsync(Func<Task> taskFactory)
@@ -323,42 +368,61 @@ public partial class App : Application
 
         var logPath = Path.Combine(Shared.RootDirectory, "optimizerDuck.log");
         Log.Logger = new LoggerConfiguration()
+#if DEBUG
             .MinimumLevel.Verbose()
+#else
+            .MinimumLevel.Information()
+#endif
             .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
             .Enrich.FromLogContext()
             .WriteTo.File(
                 new ScopeBlockTextFormatter(),
                 logPath,
-                rollingInterval: RollingInterval.Infinite
+                rollingInterval: RollingInterval.Infinite,
+                buffered: true,
+                flushToDiskInterval: TimeSpan.FromSeconds(2),
+                fileSizeLimitBytes: 10 * 1024 * 1024,
+                rollOnFileSizeLimit: true,
+                retainedFileCountLimit: 3
             )
             .CreateLogger();
 
-        _host = Microsoft
-            .Extensions.Hosting.Host.CreateDefaultBuilder()
-            .UseSerilog()
-            .ConfigureAppConfiguration(c =>
-            {
-                using var loggerFactory = LoggerFactory.Create(b => b.AddSerilog(Log.Logger));
-                ConfigManager.ValidateConfig(loggerFactory.CreateLogger(typeof(ConfigManager)));
-                c.AddJsonFile(Path.Combine(Shared.RootDirectory, "appsettings.json"), false, true);
-            })
-            // Fail fast instead of discovering a broken graph later: ValidateOnBuild catches
-            // an unbuildable registration, ValidateScopes catches a scoped service leaking
-            // into a singleton (the ChangeSet must never be resolved from the root provider).
-            .UseDefaultServiceProvider(options =>
-            {
-                options.ValidateOnBuild = true;
-                options.ValidateScopes = true;
-            })
-            .ConfigureServices(
-                (context, services) => services.AddOptimizerApplication(context.Configuration)
+        using var bootstrapLoggerFactory = new Serilog.Extensions.Logging.SerilogLoggerFactory(
+            Log.Logger,
+            dispose: false
+        );
+        var initialConfigCache = ConfigManager.ValidateConfigAndReturnCache(
+            bootstrapLoggerFactory.CreateLogger(typeof(ConfigManager))
+        );
+
+        var builder = Microsoft.Extensions.Hosting.Host.CreateEmptyApplicationBuilder(
+            new HostApplicationBuilderSettings { DisableDefaults = true }
+        );
+        builder.Configuration.AddJsonFile(
+            Path.Combine(Shared.RootDirectory, "appsettings.json"),
+            optional: false,
+            reloadOnChange: false
+        );
+        // Fail fast instead of discovering a broken graph later: ValidateOnBuild catches
+        // an unbuildable registration, ValidateScopes catches a scoped service leaking
+        // into a singleton (the ChangeSet must never be resolved from the root provider).
+        builder.ConfigureContainer(
+            new DefaultServiceProviderFactory(
+                new ServiceProviderOptions { ValidateOnBuild = true, ValidateScopes = true }
             )
-            .Build();
+        );
+        builder.Services.AddSerilog(Log.Logger, dispose: false);
+        builder.Services.AddOptimizerApplication(builder.Configuration);
+
+        _host = builder.Build();
 
         await _host.StartAsync();
 
         var config = _host.Services.GetRequiredService<ConfigManager>();
-        await config.InitializeAsync();
+        if (initialConfigCache is not null)
+            config.InitializeFromCache(initialConfigCache);
+        else
+            await config.InitializeAsync();
         await config.EnsureDefaultsAsync();
 
         var appOptionsMonitor = _host.Services.GetRequiredService<IOptionsMonitor<AppSettings>>();

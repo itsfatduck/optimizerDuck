@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -17,8 +18,11 @@ using StartupTask = optimizerDuck.Domain.Optimizations.Models.StartupManager.Sta
 
 namespace optimizerDuck.Services.UI;
 
-public class StartupManagerService(ILogger<StartupManagerService> logger)
+public partial class StartupManagerService(ILogger<StartupManagerService> logger)
 {
+    private static readonly ConcurrentDictionary<string, BitmapSource?> IconCache = new(
+        StringComparer.OrdinalIgnoreCase
+    );
     /// <summary>
     ///     Retrieves all startup applications from registry Run/RunOnce keys (including the 32-bit
     ///     Wow6432Node view), startup folders, and packaged (UWP / MSIX) apps with StartupTask
@@ -294,105 +298,144 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             if (repository == null)
                 return entries;
 
+            var packageSpecs = new List<(
+                string PackageKeyName,
+                string InstallPath,
+                string PackageId,
+                string? DisplayName
+            )>();
+
             foreach (var packageKeyName in repository.GetSubKeyNames())
             {
                 using var packageKey = repository.OpenSubKey(packageKeyName);
                 if (packageKey?.GetValue("PackageRootFolder") is not string installPath)
                     continue;
 
-                var manifestPath = Path.Combine(installPath, "AppxManifest.xml");
-                if (!File.Exists(manifestPath))
-                    continue;
+                packageSpecs.Add((
+                    packageKeyName,
+                    installPath,
+                    packageKey.GetValue("PackageID") as string ?? packageKeyName,
+                    packageKey.GetValue("DisplayName") as string
+                ));
+            }
 
-                try
+            var slotEntries = new List<UwpStartupEntry>?[packageSpecs.Count];
+            Parallel.For(
+                0,
+                packageSpecs.Count,
+                new ParallelOptions
                 {
-                    // Read the manifest as text first: the packages that declare no startup task are
-                    // the vast majority, and a substring check beats an XML document for each.
-                    var manifestText = File.ReadAllText(manifestPath);
-                    if (!manifestText.Contains("StartupTask", StringComparison.Ordinal))
-                        continue;
+                    MaxDegreeOfParallelism = Math.Clamp(Environment.ProcessorCount, 2, 8),
+                },
+                i =>
+                {
+                    var spec = packageSpecs[i];
+                    var manifestPath = Path.Combine(spec.InstallPath, "AppxManifest.xml");
+                    if (!File.Exists(manifestPath))
+                        return;
 
-                    var manifest = XDocument.Parse(manifestText);
-                    var startupTasks = manifest
-                        .Descendants()
-                        .Where(e => e.Name.LocalName == "StartupTask")
-                        .ToList();
-                    if (startupTasks.Count == 0)
-                        continue;
-
-                    var familyName = PackageFamilyName(
-                        packageKey.GetValue("PackageID") as string ?? packageKeyName
-                    );
-                    if (familyName == null)
-                        continue;
-
-                    var identity = manifest
-                        .Descendants()
-                        .FirstOrDefault(e => e.Name.LocalName == "Identity");
-                    var displayName = ResolvePackageName(
-                        manifest,
-                        identity,
-                        packageKey.GetValue("DisplayName") as string
-                    );
-                    var publisher = ResolvePublisher(identity);
-                    var logoPath = ResolvePackageLogoPath(manifest, installPath);
-
-                    foreach (var task in startupTasks)
+                    try
                     {
-                        var taskId = (string?)task.Attribute("TaskId");
-                        if (string.IsNullOrWhiteSpace(taskId))
-                            continue;
+                        // Read the manifest as text first: the packages that declare no startup task are
+                        // the vast majority, and a substring check beats an XML document for each.
+                        var manifestText = File.ReadAllText(manifestPath);
+                        if (!manifestText.Contains("StartupTask", StringComparison.Ordinal))
+                            return;
 
-                        // The application that declares the task is the one the shell names, and its
-                        // executable is the one this entry opens.
-                        var application = task.Ancestors()
-                            .FirstOrDefault(e => e.Name.LocalName == "Application");
-                        var name =
-                            ResolveAppName(familyName, (string?)application?.Attribute("Id"))
-                            ?? displayName;
+                        var manifest = XDocument.Parse(manifestText);
+                        var startupTasks = manifest
+                            .Descendants()
+                            .Where(e => e.Name.LocalName == "StartupTask")
+                            .ToList();
+                        if (startupTasks.Count == 0)
+                            return;
 
-                        var manifestEnabled = string.Equals(
-                            (string?)task.Attribute("Enabled"),
-                            "true",
-                            StringComparison.OrdinalIgnoreCase
+                        var familyName = PackageFamilyName(spec.PackageId);
+                        if (familyName == null)
+                            return;
+
+                        var identity = manifest
+                            .Descendants()
+                            .FirstOrDefault(e => e.Name.LocalName == "Identity");
+                        var displayName = ResolvePackageName(
+                            manifest,
+                            identity,
+                            spec.DisplayName
                         );
+                        var publisher = ResolvePublisher(identity);
+                        var logoPath = ResolvePackageLogoPath(manifest, spec.InstallPath);
 
-                        using var stateKey = Registry.CurrentUser.OpenSubKey(
-                            $"{SystemAppDataRoot}\\{familyName}\\{taskId}"
-                        );
-                        var state = stateKey?.GetValue("State") as int?;
-                        var isEnabled = state.HasValue ? state is 2 or 4 : manifestEnabled;
+                        var localEntries = new List<UwpStartupEntry>(startupTasks.Count);
+                        foreach (var task in startupTasks)
+                        {
+                            var taskId = (string?)task.Attribute("TaskId");
+                            if (string.IsNullOrWhiteSpace(taskId))
+                                continue;
 
-                        var exePath = ResolvePackageExecutable(manifest, application, installPath);
+                            // The application that declares the task is the one the shell names, and its
+                            // executable is the one this entry opens.
+                            var application = task.Ancestors()
+                                .FirstOrDefault(e => e.Name.LocalName == "Application");
+                            var name =
+                                ResolveAppName(familyName, (string?)application?.Attribute("Id"))
+                                ?? displayName;
 
-                        entries.Add(
-                            new UwpStartupEntry(
-                                new StartupApp
-                                {
-                                    Name = startupTasks.Count > 1 ? $"{name} ({taskId})" : name,
-                                    Command = exePath ?? familyName,
-                                    Location = StartupAppLocation.UwpStartupTask,
-                                    PathOrKey =
-                                        $@"{Registry.CurrentUser.Name}\{SystemAppDataRoot}\{familyName}",
-                                    OriginalValueNameOrFileName = taskId,
-                                    IsEnabled = isEnabled,
-                                    Publisher = publisher,
-                                    FilePath =
-                                        exePath != null && File.Exists(exePath) ? exePath : null,
-                                },
-                                logoPath
-                            )
+                            var manifestEnabled = string.Equals(
+                                (string?)task.Attribute("Enabled"),
+                                "true",
+                                StringComparison.OrdinalIgnoreCase
+                            );
+
+                            using var stateKey = Registry.CurrentUser.OpenSubKey(
+                                $"{SystemAppDataRoot}\\{familyName}\\{taskId}"
+                            );
+                            var state = stateKey?.GetValue("State") as int?;
+                            var isEnabled = state.HasValue ? state is 2 or 4 : manifestEnabled;
+
+                            var exePath = ResolvePackageExecutable(
+                                manifest,
+                                application,
+                                spec.InstallPath
+                            );
+
+                            localEntries.Add(
+                                new UwpStartupEntry(
+                                    new StartupApp
+                                    {
+                                        Name = startupTasks.Count > 1 ? $"{name} ({taskId})" : name,
+                                        Command = exePath ?? familyName,
+                                        Location = StartupAppLocation.UwpStartupTask,
+                                        PathOrKey =
+                                            $@"{Registry.CurrentUser.Name}\{SystemAppDataRoot}\{familyName}",
+                                        OriginalValueNameOrFileName = taskId,
+                                        IsEnabled = isEnabled,
+                                        Publisher = publisher,
+                                        FilePath =
+                                            exePath != null && File.Exists(exePath) ? exePath : null,
+                                    },
+                                    logoPath
+                                )
+                            );
+                        }
+
+                        if (localEntries.Count > 0)
+                            slotEntries[i] = localEntries;
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.LogWarning(
+                            ex,
+                            "Failed to scan startup task of package {Package}",
+                            spec.PackageKeyName
                         );
                     }
                 }
-                catch (Exception ex)
-                {
-                    logger.LogWarning(
-                        ex,
-                        "Failed to scan startup task of package {Package}",
-                        packageKeyName
-                    );
-                }
+            );
+
+            foreach (var slot in slotEntries)
+            {
+                if (slot != null)
+                    entries.AddRange(slot);
             }
         }
         catch (Exception ex)
@@ -587,22 +630,27 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
     }
 
     /// <summary>Resolves an indirect string (<c>@...</c>) through the shell's own resolver.</summary>
-    private static class IndirectString
+    private static partial class IndirectString
     {
-        [DllImport("shlwapi.dll", CharSet = CharSet.Unicode, ExactSpelling = true)]
-        private static extern int SHLoadIndirectString(
+        [LibraryImport("shlwapi.dll", StringMarshalling = StringMarshalling.Utf16)]
+        private static unsafe partial int SHLoadIndirectString(
             string source,
-            StringBuilder buffer,
-            int bufferLength,
+            char* outBuffer,
+            uint outBufferCount,
             IntPtr reserved
         );
 
-        internal static string? Resolve(string source)
+        internal static unsafe string? Resolve(string source)
         {
-            var buffer = new StringBuilder(1024);
-            return SHLoadIndirectString(source, buffer, buffer.Capacity, IntPtr.Zero) == 0
-                ? buffer.ToString()
-                : null;
+            Span<char> buffer = stackalloc char[1024];
+            fixed (char* ptr = buffer)
+            {
+                if (SHLoadIndirectString(source, ptr, (uint)buffer.Length, IntPtr.Zero) != 0)
+                    return null;
+            }
+
+            var nullIndex = buffer.IndexOf('\0');
+            return new string(nullIndex >= 0 ? buffer[..nullIndex] : buffer);
         }
     }
 
@@ -666,13 +714,14 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         }
     }
 
-    private static BitmapImage? LoadFrozenBitmapImage(string path)
+    internal static BitmapImage? LoadFrozenBitmapImage(string path)
     {
         try
         {
             var image = new BitmapImage();
             image.BeginInit();
             image.CacheOption = BitmapCacheOption.OnLoad;
+            image.DecodePixelWidth = 72;
             image.UriSource = new Uri(path);
             image.EndInit();
             image.Freeze();
@@ -953,26 +1002,38 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
             if (path == null)
                 return null;
 
-            var iconSource = ExtractIconWithShGetFileInfo(path);
-            if (iconSource != null)
-                return iconSource;
+            if (IconCache.TryGetValue(path, out var cached))
+                return cached;
 
-            // fallback to ExtractAssociatedIcon (32x32)
-            using var icon = Icon.ExtractAssociatedIcon(path);
-            if (icon != null)
-            {
-                var imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                    icon.Handle,
-                    Int32Rect.Empty,
-                    BitmapSizeOptions.FromEmptyOptions()
-                );
-                imageSource.Freeze();
-                return imageSource;
-            }
+            var extracted = ExtractIconCore(path);
+            IconCache[path] = extracted;
+            return extracted;
         }
         catch
         {
             // ignored, fallback to generic or null
+        }
+
+        return null;
+    }
+
+    private static BitmapSource? ExtractIconCore(string path)
+    {
+        var iconSource = ExtractIconWithShGetFileInfo(path);
+        if (iconSource != null)
+            return iconSource;
+
+        // fallback to ExtractAssociatedIcon (32x32)
+        using var icon = Icon.ExtractAssociatedIcon(path);
+        if (icon != null)
+        {
+            var imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                icon.Handle,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions()
+            );
+            imageSource.Freeze();
+            return imageSource;
         }
 
         return null;
@@ -1062,10 +1123,11 @@ public class StartupManagerService(ILogger<StartupManagerService> logger)
         return null;
     }
 
-    private static class NativeMethods
+    private static partial class NativeMethods
     {
-        [DllImport("user32.dll", SetLastError = true)]
-        internal static extern bool DestroyIcon(IntPtr hIcon);
+        [LibraryImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        internal static partial bool DestroyIcon(IntPtr hIcon);
     }
 
     /// <summary>

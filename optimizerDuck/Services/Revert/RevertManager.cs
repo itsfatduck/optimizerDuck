@@ -1,16 +1,16 @@
 using System.Collections.Concurrent;
 using System.IO;
 using System.Reflection;
-using System.Text;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Revert;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
@@ -33,7 +33,7 @@ public class RevertManager(
     private const int SchemaVersion = 1;
     private const int FileLockTimeoutSeconds = 30;
 
-    private static readonly Lazy<Dictionary<string, Func<JObject, IRevertStep>>> _stepRegistry =
+    private static readonly Lazy<Dictionary<string, Func<JsonObject, IRevertStep>>> _stepRegistry =
         new(BuildStepRegistry);
 
     /// <summary>
@@ -425,6 +425,35 @@ public class RevertManager(
         return Task.FromResult(File.Exists(path) || FindParkedFile(path) is not null);
     }
 
+    /// <summary>
+    ///     Snapshots all optimization IDs that currently have either live revert JSON or a parked
+    ///     unreadable backup in <see cref="Shared.RevertDirectory" /> using a single directory scan.
+    /// </summary>
+    internal static HashSet<Guid> SnapshotAppliedIds()
+    {
+        var ids = new HashSet<Guid>();
+        if (!Directory.Exists(Shared.RevertDirectory))
+            return ids;
+
+        foreach (var file in Directory.EnumerateFiles(Shared.RevertDirectory))
+        {
+            var name = Path.GetFileName(file).AsSpan();
+            if (name.EndsWith(".json", StringComparison.OrdinalIgnoreCase))
+            {
+                if (Guid.TryParse(name[..^5], out var id))
+                    ids.Add(id);
+                continue;
+            }
+
+            const string unreadableMarker = ".json.unreadable-";
+            var markerIdx = name.IndexOf(unreadableMarker, StringComparison.OrdinalIgnoreCase);
+            if (markerIdx > 0 && Guid.TryParse(name[..markerIdx], out var parkedId))
+                ids.Add(parkedId);
+        }
+
+        return ids;
+    }
+
     public static async Task<RevertData?> GetRevertDataAsync(Guid id)
     {
         return await LoadAsync(GetFilePath(id)).ConfigureAwait(false);
@@ -516,61 +545,47 @@ public class RevertManager(
 
         try
         {
+            // Validate the file is within the expected revert directory
+            // (path traversal guard) before touching disk.
+            var revertDir = Path.GetFullPath(Shared.RevertDirectory)
+                .TrimEnd(Path.DirectorySeparatorChar);
+            var resolvedPath = Path.GetFullPath(path);
+            if (
+                !resolvedPath.StartsWith(
+                    revertDir + Path.DirectorySeparatorChar,
+                    StringComparison.OrdinalIgnoreCase
+                )
+            )
+            {
+                LogCorruptRevertFile(
+                    logger,
+                    path,
+                    new InvalidOperationException("Revert file path outside expected directory")
+                );
+                return null;
+            }
+
             for (var i = 0; i < 3; i++)
             {
                 try
                 {
-                    var json = await File.ReadAllTextAsync(path).ConfigureAwait(false);
-                    if (string.IsNullOrWhiteSpace(json))
+                    await using var stream = new FileStream(
+                        resolvedPath,
+                        FileMode.Open,
+                        FileAccess.Read,
+                        FileShare.Read,
+                        4096,
+                        useAsync: true
+                    );
+                    if (stream.Length == 0)
                         return null;
 
-                    var data = JsonConvert.DeserializeObject<RevertData>(json);
+                    var data = await JsonSerializer
+                        .DeserializeAsync(stream, AppJsonContext.Default.RevertData)
+                        .ConfigureAwait(false);
                     if (data == null)
                         return null;
 
-                    // Validate the file is within the expected revert directory
-                    // (path traversal guard)
-                    var resolvedPath = Path.GetFullPath(path);
-                    var revertDir = Path.GetFullPath(Shared.RevertDirectory);
-                    if (!revertDir.EndsWith(Path.DirectorySeparatorChar))
-                        revertDir += Path.DirectorySeparatorChar;
-
-                    if (!resolvedPath.StartsWith(revertDir, StringComparison.OrdinalIgnoreCase))
-                    {
-                        LogCorruptRevertFile(
-                            logger,
-                            path,
-                            new InvalidOperationException(
-                                "Revert file path outside expected directory"
-                            )
-                        );
-                        return null;
-                    }
-
-                    var canonicalRevertDir = Path.GetFullPath(revertDir)
-                        .TrimEnd(Path.DirectorySeparatorChar);
-                    var canonicalPath = Path.GetFullPath(resolvedPath);
-                    if (
-                        !canonicalPath.StartsWith(
-                            canonicalRevertDir + Path.DirectorySeparatorChar,
-                            StringComparison.OrdinalIgnoreCase
-                        )
-                        && !string.Equals(
-                            canonicalPath,
-                            canonicalRevertDir,
-                            StringComparison.OrdinalIgnoreCase
-                        )
-                    )
-                    {
-                        LogCorruptRevertFile(
-                            logger,
-                            path,
-                            new InvalidOperationException(
-                                "Revert file path escapes canonical revert directory"
-                            )
-                        );
-                        return null;
-                    }
                     if (data.SchemaVersion != SchemaVersion)
                     {
                         LogCorruptRevertFile(
@@ -650,7 +665,6 @@ public class RevertManager(
     {
         Directory.CreateDirectory(Path.GetDirectoryName(path)!);
 
-        var json = JsonConvert.SerializeObject(data, Formatting.Indented);
         var tempPath = path + ".tmp";
         await using (
             var stream = new FileStream(
@@ -662,10 +676,11 @@ public class RevertManager(
                 FileOptions.WriteThrough | FileOptions.Asynchronous
             )
         )
-        await using (var writer = new StreamWriter(stream, Encoding.UTF8))
         {
-            await writer.WriteAsync(json).ConfigureAwait(false);
-            await writer.FlushAsync(cancellationToken).ConfigureAwait(false);
+            await JsonSerializer
+                .SerializeAsync(stream, data, AppJsonContext.Default.RevertData, cancellationToken)
+                .ConfigureAwait(false);
+            await stream.FlushAsync(cancellationToken).ConfigureAwait(false);
             stream.Flush(flushToDisk: true);
         }
 
@@ -805,9 +820,9 @@ public class RevertManager(
         }
     }
 
-    private static Dictionary<string, Func<JObject, IRevertStep>> BuildStepRegistry()
+    private static Dictionary<string, Func<JsonObject, IRevertStep>> BuildStepRegistry()
     {
-        var dict = new Dictionary<string, Func<JObject, IRevertStep>>();
+        var dict = new Dictionary<string, Func<JsonObject, IRevertStep>>();
         foreach (var type in ReflectionHelper.FindImplementationsInLoadedAssemblies<IRevertStep>())
         {
             if (type.IsAbstract || type.IsInterface || type == typeof(CorruptedStep))
@@ -841,9 +856,9 @@ public class RevertManager(
         return dict;
     }
 
-    private IRevertStep? DeserializeStep(string type, JToken data)
+    private IRevertStep? DeserializeStep(string type, JsonNode? data)
     {
-        if (data is not JObject obj)
+        if (data is not JsonObject obj)
             return null;
         if (!_stepRegistry.Value.TryGetValue(type, out var factory))
         {
@@ -875,7 +890,7 @@ public class RevertManager(
     ///     of vanishing silently, and round-trips the raw payload so a
     ///     future version can still read it.
     /// </summary>
-    private sealed class CorruptedStep(string rawType, JObject rawData) : IRevertStep
+    private sealed class CorruptedStep(string rawType, JsonObject rawData) : IRevertStep
     {
         public string Type => rawType;
 
@@ -890,9 +905,9 @@ public class RevertManager(
             );
         }
 
-        public JObject ToData()
+        public JsonObject ToData()
         {
-            return rawData;
+            return rawData.DeepClone().AsObject();
         }
     }
 }
