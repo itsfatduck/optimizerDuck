@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.Win32;
 using optimizerDuck.Common.Extensions;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Execution;
@@ -25,18 +26,37 @@ public class Performance() : OptimizationCategoryBase(OptimizationCategoryOrder.
     public class DisableBackgroundApps : DeclarativeOptimization
     {
         protected override RegistryItem[] RegistryItems { get; } =
-        [
-            new(
-                @"HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications",
-                "GlobalUserDisabled",
-                1
-            ),
-            new(
-                @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search",
-                "BackgroundAppGlobalToggle",
-                0
-            ),
-        ];
+            BuildRegistryItems(Shared.IsWindows11OrGreater);
+
+        internal static RegistryItem[] BuildRegistryItems(bool isWindows11OrGreater)
+        {
+            List<RegistryItem> items =
+            [
+                new(
+                    @"HKCU\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications",
+                    "GlobalUserDisabled",
+                    1
+                ),
+                new(
+                    @"HKLM\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy",
+                    "LetAppsRunInBackground",
+                    2
+                ),
+            ];
+
+            if (!isWindows11OrGreater)
+            {
+                items.Add(
+                    new(
+                        @"HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Search",
+                        "BackgroundAppGlobalToggle",
+                        0
+                    )
+                );
+            }
+
+            return [.. items];
+        }
 
         public override OptimizationMetadata Metadata { get; } =
             new()
@@ -54,6 +74,7 @@ public class Performance() : OptimizationCategoryBase(OptimizationCategoryOrder.
                         "https://learn.microsoft.com/en-us/windows/application-management/enterprise-background-activity-controls"
                     ),
                 ],
+                SetsGroupPolicy = true,
             };
     }
 

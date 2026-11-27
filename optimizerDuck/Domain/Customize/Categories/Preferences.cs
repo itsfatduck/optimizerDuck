@@ -499,32 +499,59 @@ public class Preferences : LocalizedObject, ICustomizeCategory
     public class BingSearch : BaseCustomizeSetting
     {
         protected override CustomizeRefreshScope RefreshScope =>
-            CustomizeRefreshScope.TaskbarSettings;
+            CustomizeRefreshScope.TaskbarSettings | CustomizeRefreshScope.PolicyUpdate;
 
         protected override IEnumerable<RegistryToggle> RegistryToggles =>
-            [
-                new()
-                {
-                    Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
-                    Name = "BingSearchEnabled",
-                    // null = value absent, which is Windows' default (Bing search on)
-                    OnValues = [1, null],
-                    OffValues = [0],
-                    DefaultValue = 1,
-                },
+            BuildRegistryToggles(
+                Shared.IsWindows11OrGreater,
+                Shared.IsWindows10_2004OrGreater
+            );
+
+        internal static IReadOnlyList<RegistryToggle> BuildRegistryToggles(
+            bool isWindows11OrGreater,
+            bool isWindows10_2004OrGreater
+        )
+        {
+            static RegistryToggle CreatePolicyToggle(bool isOptional) =>
                 new()
                 {
                     Path = @"HKCU\Software\Policies\Microsoft\Windows\Explorer",
                     Name = "DisableSearchBoxSuggestions",
-                    OnValues = [0],
+                    // null = policy absent, which keeps Windows default (Bing search on)
+                    OnValues = [0, null],
                     OffValues = [1],
                     DefaultValue = 0,
-                },
-            ];
+                    IsOptional = isOptional,
+                };
 
-        // Either mechanism active means Bing search is on
-        public override Task<bool> GetStateAsync() =>
-            Task.Run(() => RegistryToggles.Any(t => t.GetState()));
+            static RegistryToggle CreateLegacySearchToggle(bool isOptional) =>
+                new()
+                {
+                    Path = @"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
+                    Name = "BingSearchEnabled",
+                    // null = value absent, which keeps Windows default (Bing search on)
+                    OnValues = [1, null],
+                    OffValues = [0],
+                    DefaultValue = 1,
+                    IsOptional = isOptional,
+                };
+
+            if (isWindows11OrGreater)
+                return [CreatePolicyToggle(isOptional: false)];
+
+            if (isWindows10_2004OrGreater)
+                return
+                [
+                    CreatePolicyToggle(isOptional: false),
+                    CreateLegacySearchToggle(isOptional: true),
+                ];
+
+            return
+            [
+                CreateLegacySearchToggle(isOptional: false),
+                CreatePolicyToggle(isOptional: true),
+            ];
+        }
     }
 
     [CustomizeSetting(

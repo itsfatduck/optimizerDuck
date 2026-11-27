@@ -1,4 +1,5 @@
 using Microsoft.Win32;
+using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Optimizations.Models;
@@ -181,13 +182,45 @@ public class UserExperience() : OptimizationCategoryBase(OptimizationCategoryOrd
     public sealed class DisableStartMenuWebSearch : DeclarativeOptimization
     {
         protected override RegistryItem[] RegistryItems { get; } =
-        [
-            new(
-                @"HKCU\Software\Policies\Microsoft\Windows\Explorer",
-                "DisableSearchBoxSuggestions",
-                1
-            ),
-        ];
+            BuildRegistryItems(Shared.IsWindows11OrGreater);
+
+        internal static RegistryItem[] BuildRegistryItems(bool isWindows11OrGreater)
+        {
+            List<RegistryItem> items = [];
+
+            if (!isWindows11OrGreater)
+            {
+                items.Add(
+                    new(
+                        @"HKCU\Software\Microsoft\Windows\CurrentVersion\Search",
+                        "BingSearchEnabled",
+                        0
+                    )
+                );
+            }
+
+            items.AddRange(
+                [
+                    new(
+                        @"HKCU\Software\Policies\Microsoft\Windows\Explorer",
+                        "DisableSearchBoxSuggestions",
+                        1
+                    ),
+                    new(
+                        @"HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer",
+                        "DisableSearchBoxSuggestions",
+                        1
+                    ),
+                    new(
+                        @"HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search",
+                        "DisableWebSearch",
+                        1
+                    ),
+                ]
+            );
+
+            return [.. items];
+        }
 
         public override OptimizationMetadata Metadata { get; } =
             new()
@@ -206,6 +239,7 @@ public class UserExperience() : OptimizationCategoryBase(OptimizationCategoryOrd
                     ),
                 ],
                 RequiresRestart = RestartRequirement.Explorer,
+                SetsGroupPolicy = true,
             };
     }
 

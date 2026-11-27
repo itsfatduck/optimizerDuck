@@ -277,6 +277,12 @@ public static class Shared
     /// </summary>
     public static string HistoryDirectory => Path.Combine(RootDirectory, "History");
 
+    /// <summary>
+    ///     Gets a value that indicates whether the OS is Windows 10 version 2004 (build 19041) or later.
+    /// </summary>
+    public static bool IsWindows10_2004OrGreater =>
+        OperatingSystem.IsWindowsVersionAtLeast(10, 0, 19041);
+
     /// <summary>Gets a value that indicates whether the OS is Windows 11 or later.</summary>
     public static bool IsWindows11OrGreater =>
         OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
