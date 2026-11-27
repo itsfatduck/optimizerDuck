@@ -187,42 +187,85 @@ public partial class App : Application
     ///     dark keeps the brighter golden tones. Centralized so startup and theme
     ///     switches always use the same palettes.
     /// </summary>
-    internal static void ApplyAccentFor(ApplicationTheme theme)
+    private readonly record struct AccentPalette(
+        Color SystemAccent,
+        Color Primary,
+        Color Secondary,
+        Color Tertiary,
+        Color FillDefault,
+        Color FillSecondary,
+        Color FillTertiary,
+        Color TextPrimary,
+        Color TextSecondary,
+        Color TextTertiary,
+        Color OnAccentPrimary,
+        Color OnAccentSecondary,
+        Color AccentYellow
+    );
+
+    private static AccentPalette GetAccentPalette(ApplicationTheme theme)
     {
         if (theme == ApplicationTheme.Dark)
         {
-            ApplicationAccentColorManager.Apply(
-                systemAccent: Color.FromRgb(216, 155, 29),
-                primaryAccent: Color.FromRgb(235, 193, 94),
-                secondaryAccent: Color.FromRgb(255, 247, 200),
-                tertiaryAccent: Color.FromRgb(255, 243, 131)
+            var primary = Color.FromRgb(235, 193, 94);
+            var secondary = Color.FromRgb(255, 247, 200);
+            var tertiary = Color.FromRgb(255, 243, 131);
+            return new AccentPalette(
+                SystemAccent: Color.FromRgb(216, 155, 29),
+                Primary: primary,
+                Secondary: secondary,
+                Tertiary: tertiary,
+                FillDefault: secondary,
+                FillSecondary: Color.FromArgb(0xE5, 255, 247, 200),
+                FillTertiary: Color.FromArgb(0xCC, 255, 247, 200),
+                TextPrimary: secondary,
+                TextSecondary: tertiary,
+                TextTertiary: primary,
+                OnAccentPrimary: Colors.Black,
+                OnAccentSecondary: Color.FromArgb(0x80, 0, 0, 0),
+                AccentYellow: Color.FromRgb(255, 209, 20)
             );
-            RefreshToggleSwitchBrushes();
-            return;
         }
 
-        ApplicationAccentColorManager.Apply(
-            systemAccent: Color.FromRgb(138, 94, 0),
-            primaryAccent: Color.FromRgb(138, 94, 0),
-            secondaryAccent: Color.FromRgb(122, 88, 0),
-            tertiaryAccent: Color.FromRgb(110, 75, 0)
+        var lightPrimary = Color.FromRgb(138, 94, 0);
+        var lightSecondary = Color.FromRgb(122, 88, 0);
+        var lightTertiary = Color.FromRgb(110, 75, 0);
+        return new AccentPalette(
+            SystemAccent: lightPrimary,
+            Primary: lightPrimary,
+            Secondary: lightSecondary,
+            Tertiary: lightTertiary,
+            FillDefault: lightPrimary,
+            FillSecondary: Color.FromArgb(0xE5, 138, 94, 0),
+            FillTertiary: Color.FromArgb(0xCC, 138, 94, 0),
+            TextPrimary: lightSecondary,
+            TextSecondary: lightTertiary,
+            TextTertiary: lightPrimary,
+            OnAccentPrimary: Colors.White,
+            OnAccentSecondary: Color.FromArgb(0xB3, 255, 255, 255),
+            AccentYellow: lightPrimary
         );
-        RefreshToggleSwitchBrushes();
     }
 
-    private static void RefreshToggleSwitchBrushes()
+    internal static void ApplyAccentFor(ApplicationTheme theme)
     {
-        var app = Application.Current;
-        if (app == null)
-            return;
+        var palette = GetAccentPalette(theme);
+        ApplicationAccentColorManager.Apply(
+            systemAccent: palette.SystemAccent,
+            primaryAccent: palette.Primary,
+            secondaryAccent: palette.Secondary,
+            tertiaryAccent: palette.Tertiary
+        );
+        if (Current is { } app)
+            RefreshAccentBrushes(app.Resources, theme);
+    }
 
-        Color GetColor(string key, Color fallback) =>
-            app.Resources[key] is Color color ? color : fallback;
-
-        var primary = GetColor("SystemAccentColorPrimary", Color.FromRgb(235, 193, 94));
-        var secondary = GetColor("AccentFillColorSecondary", Color.FromRgb(255, 247, 200));
-        var tertiary = GetColor("AccentFillColorTertiary", Color.FromRgb(255, 243, 131));
-        var knobOn = GetColor("TextOnAccentFillColorPrimary", Colors.White);
+    internal static void RefreshAccentBrushes(
+        ResourceDictionary resources,
+        ApplicationTheme theme
+    )
+    {
+        var palette = GetAccentPalette(theme);
 
         static SolidColorBrush CreateFrozenBrush(Color color)
         {
@@ -231,20 +274,51 @@ public partial class App : Application
             return brush;
         }
 
-        var primaryBrush = CreateFrozenBrush(primary);
-        var secondaryBrush = CreateFrozenBrush(secondary);
-        var tertiaryBrush = CreateFrozenBrush(tertiary);
-        var knobOnBrush = CreateFrozenBrush(knobOn);
+        var primaryBrush = CreateFrozenBrush(palette.Primary);
+        var secondaryBrush = CreateFrozenBrush(palette.Secondary);
+        var tertiaryBrush = CreateFrozenBrush(palette.Tertiary);
+        var fillDefaultBrush = CreateFrozenBrush(palette.FillDefault);
+        var fillSecondaryBrush = CreateFrozenBrush(palette.FillSecondary);
+        var fillTertiaryBrush = CreateFrozenBrush(palette.FillTertiary);
+        var textPrimaryBrush = CreateFrozenBrush(palette.TextPrimary);
+        var textSecondaryBrush = CreateFrozenBrush(palette.TextSecondary);
+        var textTertiaryBrush = CreateFrozenBrush(palette.TextTertiary);
+        var onAccentPrimaryBrush = CreateFrozenBrush(palette.OnAccentPrimary);
+        var onAccentSecondaryBrush = CreateFrozenBrush(palette.OnAccentSecondary);
 
-        app.Resources["ToggleSwitchFillOn"] = primaryBrush;
-        app.Resources["ToggleSwitchFillOnPointerOver"] = secondaryBrush;
-        app.Resources["ToggleSwitchFillOnPressed"] = tertiaryBrush;
-        app.Resources["ToggleSwitchStrokeOn"] = primaryBrush;
-        app.Resources["ToggleSwitchStrokeOnPointerOver"] = secondaryBrush;
-        app.Resources["ToggleSwitchStrokeOnPressed"] = tertiaryBrush;
-        app.Resources["ToggleSwitchKnobFillOn"] = knobOnBrush;
-        app.Resources["ToggleSwitchKnobFillOnPointerOver"] = knobOnBrush;
-        app.Resources["ToggleSwitchKnobFillOnPressed"] = knobOnBrush;
+        resources["SystemAccentColorPrimaryBrush"] = primaryBrush;
+        resources["SystemAccentColorSecondaryBrush"] = secondaryBrush;
+        resources["SystemAccentColorTertiaryBrush"] = tertiaryBrush;
+        resources["AccentFillColorDefaultBrush"] = fillDefaultBrush;
+        resources["AccentFillColorSecondaryBrush"] = fillSecondaryBrush;
+        resources["AccentFillColorTertiaryBrush"] = fillTertiaryBrush;
+        resources["AccentTextFillColorPrimaryBrush"] = textPrimaryBrush;
+        resources["AccentTextFillColorSecondaryBrush"] = textSecondaryBrush;
+        resources["AccentTextFillColorTertiaryBrush"] = textTertiaryBrush;
+        resources["TextOnAccentFillColorPrimaryBrush"] = onAccentPrimaryBrush;
+        resources["TextOnAccentFillColorSecondaryBrush"] = onAccentSecondaryBrush;
+
+        resources["AccentButtonBackground"] = fillDefaultBrush;
+        resources["AccentButtonBackgroundPointerOver"] = fillSecondaryBrush;
+        resources["AccentButtonBackgroundPressed"] = fillTertiaryBrush;
+        resources["AccentButtonForeground"] = onAccentPrimaryBrush;
+        resources["AccentButtonForegroundPointerOver"] = onAccentPrimaryBrush;
+        resources["AccentButtonForegroundPressed"] = onAccentSecondaryBrush;
+        resources["HyperlinkButtonForeground"] = textPrimaryBrush;
+        resources["HyperlinkButtonForegroundPointerOver"] = textSecondaryBrush;
+        resources["HyperlinkButtonForegroundPressed"] = textTertiaryBrush;
+        resources["BadgeBackground"] = fillDefaultBrush;
+        resources["AccentYellowBrush"] = CreateFrozenBrush(palette.AccentYellow);
+
+        resources["ToggleSwitchFillOn"] = primaryBrush;
+        resources["ToggleSwitchFillOnPointerOver"] = fillSecondaryBrush;
+        resources["ToggleSwitchFillOnPressed"] = fillTertiaryBrush;
+        resources["ToggleSwitchStrokeOn"] = primaryBrush;
+        resources["ToggleSwitchStrokeOnPointerOver"] = fillSecondaryBrush;
+        resources["ToggleSwitchStrokeOnPressed"] = fillTertiaryBrush;
+        resources["ToggleSwitchKnobFillOn"] = onAccentPrimaryBrush;
+        resources["ToggleSwitchKnobFillOnPointerOver"] = onAccentPrimaryBrush;
+        resources["ToggleSwitchKnobFillOnPressed"] = onAccentPrimaryBrush;
     }
 
     private static async Task SafeFireAndForgetAsync(Func<Task> taskFactory)
