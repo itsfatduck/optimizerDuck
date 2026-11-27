@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text.RegularExpressions;
 using Microsoft.Extensions.Logging;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
@@ -119,21 +118,104 @@ public static class GitHubSourceHelper
         string? baseClassPattern = null
     )
     {
-        var classNameEscaped = Regex.Escape(className);
-        var pattern =
-            baseClassPattern != null
-                ? $@"class\s+{classNameEscaped}\s*:\s*{Regex.Escape(baseClassPattern)}\b"
-                : $@"class\s+{classNameEscaped}\b";
+        var remaining = source.AsSpan();
+        var classSpan = className.AsSpan();
+        var baseSpan = baseClassPattern.AsSpan();
+        var hasBase = baseClassPattern != null;
+        var lineIndex = 0;
 
-        var lines = source.Split('\n');
-        for (var i = 0; i < lines.Length; i++)
+        while (true)
         {
-            if (Regex.IsMatch(lines[i], pattern, RegexOptions.IgnoreCase))
-                return i;
+            var newlineIdx = remaining.IndexOf('\n');
+            ReadOnlySpan<char> line;
+            if (newlineIdx >= 0)
+            {
+                line = remaining[..newlineIdx];
+                remaining = remaining[(newlineIdx + 1)..];
+            }
+            else
+            {
+                line = remaining;
+            }
+
+            if (MatchesClassDeclarationLine(line, classSpan, baseSpan, hasBase))
+                return lineIndex;
+
+            if (newlineIdx < 0)
+                break;
+
+            lineIndex++;
         }
 
         return -1;
     }
+
+    private static bool MatchesClassDeclarationLine(
+        ReadOnlySpan<char> line,
+        ReadOnlySpan<char> className,
+        ReadOnlySpan<char> baseClassPattern,
+        bool hasBase
+    )
+    {
+        const string keyword = "class";
+        var searchStart = 0;
+
+        while (searchStart <= line.Length - keyword.Length)
+        {
+            var hit = line[searchStart..].IndexOf(keyword, StringComparison.OrdinalIgnoreCase);
+            if (hit < 0)
+                return false;
+
+            var idx = searchStart + hit + keyword.Length;
+            searchStart += hit + 1;
+
+            if (idx >= line.Length || !char.IsWhiteSpace(line[idx]))
+                continue;
+
+            while (idx < line.Length && char.IsWhiteSpace(line[idx]))
+                idx++;
+
+            if (!line[idx..].StartsWith(className, StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            idx += className.Length;
+
+            if (!hasBase)
+            {
+                if (className.Length == 0 || !IsWordChar(className[^1]))
+                    return true;
+
+                if (idx == line.Length || !IsWordChar(line[idx]))
+                    return true;
+
+                continue;
+            }
+
+            while (idx < line.Length && char.IsWhiteSpace(line[idx]))
+                idx++;
+
+            if (idx >= line.Length || line[idx] != ':')
+                continue;
+
+            idx++;
+            while (idx < line.Length && char.IsWhiteSpace(line[idx]))
+                idx++;
+
+            if (!line[idx..].StartsWith(baseClassPattern, StringComparison.OrdinalIgnoreCase))
+                continue;
+
+            idx += baseClassPattern.Length;
+            if (baseClassPattern.Length == 0 || !IsWordChar(baseClassPattern[^1]))
+                return true;
+
+            if (idx == line.Length || !IsWordChar(line[idx]))
+                return true;
+        }
+
+        return false;
+    }
+
+    private static bool IsWordChar(char c) => char.IsLetterOrDigit(c) || c == '_';
 
     private static async Task<(string? Content, string ResolvedRef)> TryGetSourceAsync(
         string relativePath,

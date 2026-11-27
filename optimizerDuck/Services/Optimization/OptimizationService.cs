@@ -318,6 +318,8 @@ public class OptimizationService(
         if (optimizations.Length == 0)
             return;
 
+        var appliedIds = optimizations.Length > 1 ? RevertManager.SnapshotAppliedIds() : null;
+
         await Parallel
             .ForEachAsync(
                 optimizations,
@@ -327,9 +329,10 @@ public class OptimizationService(
                 },
                 async (opt, ct) =>
                 {
-                    var hasRevert = await RevertManager
-                        .IsAppliedAsync(opt.Id)
-                        .ConfigureAwait(false);
+                    var hasRevert =
+                        appliedIds is not null
+                            ? appliedIds.Contains(opt.Id)
+                            : await RevertManager.IsAppliedAsync(opt.Id).ConfigureAwait(false);
                     var record = ChangeRecordStore.TryRead(opt.Id);
 
                     bool? matchesSystem = null;

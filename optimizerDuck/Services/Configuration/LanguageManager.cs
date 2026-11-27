@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
@@ -15,6 +16,11 @@ public sealed class LanguageChangedEventArgs(CultureInfo newCulture) : EventArgs
 /// <summary>App language manager. Singleton that updates UI when language changes.</summary>
 public class Loc : INotifyPropertyChanged
 {
+    private readonly ConcurrentDictionary<
+        string,
+        ConcurrentDictionary<string, string?>
+    > _cultureCaches = new(StringComparer.OrdinalIgnoreCase);
+
     /// <summary>Single instance used everywhere (Loc.Instance["Key"]). </summary>
     public static Loc Instance { get; } = new();
 
@@ -27,9 +33,28 @@ public class Loc : INotifyPropertyChanged
     /// <summary>Layout direction for current language (LeftToRight or RightToLeft).</summary>
     public FlowDirection Direction => IsRtl ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
 
+    private ConcurrentDictionary<string, string?> ActiveCache =>
+        _cultureCaches.GetOrAdd(
+            (Translations.Culture ?? CultureInfo.InvariantCulture).Name,
+            static _ => new ConcurrentDictionary<string, string?>(StringComparer.Ordinal)
+        );
+
     /// <summary>Get text for key in current language. Returns key if not found.</summary>
-    public string this[string key] =>
-        Translations.ResourceManager.GetString(key, Translations.Culture) ?? key;
+    public string this[string key]
+    {
+        get
+        {
+            var cache = ActiveCache;
+            if (cache.TryGetValue(key, out var cached))
+                return cached ?? key;
+
+            var found = Translations.ResourceManager.GetString(key, Translations.Culture);
+            if (found != null)
+                cache.TryAdd(key, found);
+
+            return found ?? key;
+        }
+    }
 
     /// <summary>Returns whether a non-empty neutral resource string exists for <paramref name="key" />.</summary>
     public bool HasKey(string key) =>
@@ -40,7 +65,14 @@ public class Loc : INotifyPropertyChanged
     /// <summary>Attempts to resolve <paramref name="key" /> in the active UI culture.</summary>
     public bool TryGet(string key, out string value)
     {
-        var found = Translations.ResourceManager.GetString(key, Translations.Culture);
+        var cache = ActiveCache;
+        if (!cache.TryGetValue(key, out var found))
+        {
+            found = Translations.ResourceManager.GetString(key, Translations.Culture);
+            if (found != null)
+                cache.TryAdd(key, found);
+        }
+
         value = found ?? string.Empty;
         return !string.IsNullOrEmpty(found);
     }
