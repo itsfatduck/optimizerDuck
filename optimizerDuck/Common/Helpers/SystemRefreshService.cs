@@ -2,58 +2,74 @@ using System.Runtime.InteropServices;
 
 namespace optimizerDuck.Common.Helpers;
 
-internal static class SystemRefreshService
+internal static partial class SystemRefreshService
 {
     #region P/Invoke declarations
 
-    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-    private static extern IntPtr SendMessageTimeout(
+    [LibraryImport(
+        "user32.dll",
+        EntryPoint = "SendMessageTimeoutW",
+        SetLastError = true,
+        StringMarshalling = StringMarshalling.Utf16
+    )]
+    private static partial IntPtr SendMessageTimeout(
         IntPtr hWnd,
         uint Msg,
         IntPtr wParam,
-        [MarshalAs(UnmanagedType.LPWStr)] string? lParam,
+        string? lParam,
         uint fuFlags,
         uint uTimeout,
         out IntPtr lpdwResult
     );
 
-    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-    private static extern IntPtr FindWindow(string? lpClassName, string? lpWindowName);
+    [LibraryImport(
+        "user32.dll",
+        EntryPoint = "FindWindowW",
+        SetLastError = true,
+        StringMarshalling = StringMarshalling.Utf16
+    )]
+    private static partial IntPtr FindWindow(string? lpClassName, string? lpWindowName);
 
-    [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-    private static extern IntPtr FindWindowEx(
+    [LibraryImport(
+        "user32.dll",
+        EntryPoint = "FindWindowExW",
+        SetLastError = true,
+        StringMarshalling = StringMarshalling.Utf16
+    )]
+    private static partial IntPtr FindWindowEx(
         IntPtr hWndParent,
         IntPtr hWndChildAfter,
         string? lpszClass,
         string? lpszWindow
     );
 
-    [DllImport("user32.dll")]
+    [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool InvalidateRect(
+    private static partial bool InvalidateRect(
         IntPtr hWnd,
         IntPtr lpRect,
         [MarshalAs(UnmanagedType.Bool)] bool bErase
     );
 
-    [DllImport("user32.dll")]
+    [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool UpdateWindow(IntPtr hWnd);
+    private static partial bool UpdateWindow(IntPtr hWnd);
 
-    [DllImport("user32.dll")]
+    [LibraryImport("user32.dll")]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool IsWindowVisible(IntPtr hWnd);
+    private static partial bool IsWindowVisible(IntPtr hWnd);
 
-    [DllImport("shell32.dll", CharSet = CharSet.Auto)]
-    private static extern void SHChangeNotify(
+    [LibraryImport("shell32.dll")]
+    private static partial void SHChangeNotify(
         uint wEventId,
         uint uFlags,
         IntPtr dwItem1,
         IntPtr dwItem2
     );
 
-    [DllImport("user32.dll", SetLastError = true)]
-    private static extern bool SystemParametersInfo(
+    [LibraryImport("user32.dll", EntryPoint = "SystemParametersInfoW", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool SystemParametersInfo(
         uint uiAction,
         uint uiParam,
         IntPtr pvParam,

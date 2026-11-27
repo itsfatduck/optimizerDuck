@@ -16,7 +16,7 @@ namespace optimizerDuck.Services.System.Primitives;
 ///     child process. Stateless and static: callers pass an <see cref="OpCall" /> that receives the
 ///     recorded changes.
 /// </summary>
-public static class ServiceProcessService
+public static partial class ServiceProcessService
 {
     private const int ErrorServiceDoesNotExist = 1060;
 
@@ -579,7 +579,8 @@ public static class ServiceProcessService
                 {
                     var info = new SERVICE_DELAYED_AUTO_START_INFO
                     {
-                        fDelayedAutostart = startupType == ServiceStartupType.AutomaticDelayedStart,
+                        fDelayedAutostart =
+                            startupType == ServiceStartupType.AutomaticDelayedStart ? 1 : 0,
                     };
 
                     try
@@ -619,48 +620,45 @@ public static class ServiceProcessService
     [StructLayout(LayoutKind.Sequential)]
     private struct SERVICE_DELAYED_AUTO_START_INFO
     {
-        [MarshalAs(UnmanagedType.Bool)]
-        public bool fDelayedAutostart;
+        public int fDelayedAutostart;
     }
 
-    [DllImport(
+    [LibraryImport(
         "advapi32.dll",
         EntryPoint = "OpenSCManagerW",
-        ExactSpelling = true,
-        CharSet = CharSet.Unicode,
-        SetLastError = true
+        SetLastError = true,
+        StringMarshalling = StringMarshalling.Utf16
     )]
-    private static extern IntPtr OpenSCManager(
+    private static partial IntPtr OpenSCManager(
         string? machineName,
         string? databaseName,
         int desiredAccess
     );
 
-    [DllImport(
+    [LibraryImport(
         "advapi32.dll",
         EntryPoint = "OpenServiceW",
-        ExactSpelling = true,
-        CharSet = CharSet.Unicode,
-        SetLastError = true
+        SetLastError = true,
+        StringMarshalling = StringMarshalling.Utf16
     )]
-    private static extern IntPtr OpenService(
+    private static partial IntPtr OpenService(
         IntPtr scManager,
         string serviceName,
         int desiredAccess
     );
 
-    [DllImport("advapi32.dll", SetLastError = true)]
+    [LibraryImport("advapi32.dll", EntryPoint = "QueryServiceConfigW", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool QueryServiceConfig(
+    private static partial bool QueryServiceConfig(
         IntPtr service,
         IntPtr queryServiceConfig,
         int bufferSize,
         out int bytesNeeded
     );
 
-    [DllImport("advapi32.dll", SetLastError = true)]
+    [LibraryImport("advapi32.dll", EntryPoint = "QueryServiceConfig2W", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool QueryServiceConfig2(
+    private static partial bool QueryServiceConfig2(
         IntPtr service,
         uint infoLevel,
         IntPtr buffer,
@@ -668,15 +666,14 @@ public static class ServiceProcessService
         out int bytesNeeded
     );
 
-    [DllImport(
+    [LibraryImport(
         "advapi32.dll",
         EntryPoint = "ChangeServiceConfigW",
-        ExactSpelling = true,
-        CharSet = CharSet.Unicode,
-        SetLastError = true
+        SetLastError = true,
+        StringMarshalling = StringMarshalling.Utf16
     )]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool ChangeServiceConfig(
+    private static partial bool ChangeServiceConfig(
         IntPtr service,
         uint serviceType,
         uint startType,
@@ -690,17 +687,17 @@ public static class ServiceProcessService
         string? displayName
     );
 
-    [DllImport("advapi32.dll", SetLastError = true)]
+    [LibraryImport("advapi32.dll", EntryPoint = "ChangeServiceConfig2W", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool ChangeServiceConfig2(
+    private static partial bool ChangeServiceConfig2(
         IntPtr service,
         uint infoLevel,
         ref SERVICE_DELAYED_AUTO_START_INFO info
     );
 
-    [DllImport("advapi32.dll", SetLastError = true)]
+    [LibraryImport("advapi32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool CloseServiceHandle(IntPtr serviceHandle);
+    private static partial bool CloseServiceHandle(IntPtr serviceHandle);
 
     internal const string ServiceReasonNotFound = "service.notFound";
     internal const string ServiceReasonAlreadyStricter = "service.alreadyStricter";

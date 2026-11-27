@@ -10,7 +10,7 @@ namespace optimizerDuck.Services.System.Primitives;
 ///     level 10 commits or removes the hibernation file.
 /// </summary>
 [SupportedOSPlatform("windows")]
-public static class HibernationService
+public static partial class HibernationService
 {
     private const int SystemPowerCapabilities = 4;
     private const int SystemReserveHiberFile = 10;
@@ -102,8 +102,8 @@ public static class HibernationService
         }
     }
 
-    [DllImport("powrprof.dll")]
-    private static extern int CallNtPowerInformation(
+    [LibraryImport("powrprof.dll")]
+    private static partial int CallNtPowerInformation(
         int informationLevel,
         IntPtr inputBuffer,
         uint inputBufferLength,
@@ -111,8 +111,8 @@ public static class HibernationService
         uint outputBufferLength
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern int CallNtPowerInformation(
+    [LibraryImport("powrprof.dll")]
+    private static partial int CallNtPowerInformation(
         int informationLevel,
         ref byte inputBuffer,
         uint inputBufferLength,

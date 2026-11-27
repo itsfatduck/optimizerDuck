@@ -25,7 +25,7 @@ namespace optimizerDuck.Services.System;
 /// </remarks>
 [SupportedOSPlatform("windows")]
 // Virtual members are a hand-double seam for tests (no mocking libraries).
-public class PowerPlanService
+public partial class PowerPlanService
 {
     private const uint ERROR_SUCCESS = 0;
     private const uint ERROR_MORE_DATA = 234;
@@ -1371,14 +1371,14 @@ public class PowerPlanService
         return ptr;
     }
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerGetActiveScheme(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerGetActiveScheme(
         IntPtr UserRootPowerKey,
         out IntPtr ActivePolicyGuid
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerEnumerate(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerEnumerate(
         IntPtr RootPowerKey,
         IntPtr SchemeGuid,
         IntPtr SubGroupOfPowerSettingsGuid,
@@ -1388,8 +1388,8 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerReadFriendlyName(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadFriendlyName(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         IntPtr SubGroupOfPowerSettingsGuid,
@@ -1398,8 +1398,8 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerReadFriendlyName(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadFriendlyName(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         ref Guid SubGroupOfPowerSettingsGuid,
@@ -1408,8 +1408,8 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerReadFriendlyName(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadFriendlyName(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         ref Guid SubGroupOfPowerSettingsGuid,
@@ -1418,8 +1418,8 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerReadDescription(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadDescription(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         IntPtr SubGroupOfPowerSettingsGuid,
@@ -1428,8 +1428,8 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerReadDescription(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadDescription(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         ref Guid SubGroupOfPowerSettingsGuid,
@@ -1438,8 +1438,8 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerReadDescription(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadDescription(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         ref Guid SubGroupOfPowerSettingsGuid,
@@ -1448,28 +1448,31 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerSetActiveScheme(IntPtr UserRootPowerKey, ref Guid SchemeGuid);
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerSetActiveScheme(
+        IntPtr UserRootPowerKey,
+        ref Guid SchemeGuid
+    );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerImportPowerScheme(
+    [LibraryImport("powrprof.dll", StringMarshalling = StringMarshalling.Utf16)]
+    private static partial uint PowerImportPowerScheme(
         IntPtr RootPowerKey,
         string ImportFileNamePath,
         IntPtr DestinationSchemeGuid
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerDuplicateScheme(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerDuplicateScheme(
         IntPtr RootPowerKey,
         ref Guid SourceSchemeGuid,
         IntPtr DestinationSchemeGuid
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerDeleteScheme(IntPtr RootPowerKey, ref Guid SchemeGuid);
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerDeleteScheme(IntPtr RootPowerKey, ref Guid SchemeGuid);
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerWriteFriendlyName(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerWriteFriendlyName(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         IntPtr SubGroupOfPowerSettingsGuid,
@@ -1478,8 +1481,8 @@ public class PowerPlanService
         uint BufferSize
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerWriteDescription(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerWriteDescription(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         IntPtr SubGroupOfPowerSettingsGuid,
@@ -1488,8 +1491,8 @@ public class PowerPlanService
         uint BufferSize
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerReadACValueIndex(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadACValueIndex(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         ref Guid SubGroupOfPowerSettingsGuid,
@@ -1497,8 +1500,8 @@ public class PowerPlanService
         out uint AcValueIndex
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerReadDCValueIndex(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadDCValueIndex(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         ref Guid SubGroupOfPowerSettingsGuid,
@@ -1506,8 +1509,8 @@ public class PowerPlanService
         out uint DcValueIndex
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerWriteACValueIndex(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerWriteACValueIndex(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         ref Guid SubGroupOfPowerSettingsGuid,
@@ -1515,8 +1518,8 @@ public class PowerPlanService
         uint AcValueIndex
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerWriteDCValueIndex(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerWriteDCValueIndex(
         IntPtr RootPowerKey,
         ref Guid SchemeGuid,
         ref Guid SubGroupOfPowerSettingsGuid,
@@ -1526,39 +1529,39 @@ public class PowerPlanService
 
     // Native return is BOOLEAN (one byte): UnmanagedType.Bool would read four, and the x64 ABI
     // leaves the unused return bits undefined.
-    [DllImport("powrprof.dll")]
+    [LibraryImport("powrprof.dll")]
     [return: MarshalAs(UnmanagedType.U1)]
-    private static extern bool PowerIsSettingRangeDefined(
+    private static partial bool PowerIsSettingRangeDefined(
         ref Guid SubKeyGuid,
         ref Guid SettingGuid
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerReadValueMin(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadValueMin(
         IntPtr RootPowerKey,
         ref Guid SubGroupOfPowerSettingsGuid,
         ref Guid PowerSettingGuid,
         out uint ValueMinimum
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerReadValueMax(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadValueMax(
         IntPtr RootPowerKey,
         ref Guid SubGroupOfPowerSettingsGuid,
         ref Guid PowerSettingGuid,
         out uint ValueMaximum
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerReadValueIncrement(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadValueIncrement(
         IntPtr RootPowerKey,
         ref Guid SubGroupOfPowerSettingsGuid,
         ref Guid PowerSettingGuid,
         out uint ValueIncrement
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerReadValueUnitsSpecifier(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadValueUnitsSpecifier(
         IntPtr RootPowerKey,
         ref Guid SubGroupOfPowerSettingsGuid,
         ref Guid PowerSettingGuid,
@@ -1566,8 +1569,8 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll")]
-    private static extern uint PowerReadPossibleValue(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadPossibleValue(
         IntPtr RootPowerKey,
         ref Guid SubGroupOfPowerSettingsGuid,
         ref Guid PowerSettingGuid,
@@ -1577,8 +1580,8 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerReadPossibleFriendlyName(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadPossibleFriendlyName(
         IntPtr RootPowerKey,
         ref Guid SubGroupOfPowerSettingsGuid,
         ref Guid PowerSettingGuid,
@@ -1587,8 +1590,8 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("powrprof.dll", CharSet = CharSet.Unicode)]
-    private static extern uint PowerReadPossibleDescription(
+    [LibraryImport("powrprof.dll")]
+    private static partial uint PowerReadPossibleDescription(
         IntPtr RootPowerKey,
         ref Guid SubGroupOfPowerSettingsGuid,
         ref Guid PowerSettingGuid,
@@ -1597,6 +1600,6 @@ public class PowerPlanService
         ref uint BufferSize
     );
 
-    [DllImport("kernel32.dll")]
-    private static extern IntPtr LocalFree(IntPtr hMem);
+    [LibraryImport("kernel32.dll")]
+    private static partial IntPtr LocalFree(IntPtr hMem);
 }

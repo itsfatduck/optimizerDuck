@@ -25,7 +25,7 @@ public interface IRegistryWatcher : IDisposable
     void Unwatch(string registryPath);
 }
 
-internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegistryWatcher
+internal sealed partial class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegistryWatcher
 {
     public event EventHandler<string>? RegistryKeyChanged;
 
@@ -315,7 +315,7 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
         }
     }
 
-    private static class NativeMethods
+    private static partial class NativeMethods
     {
         internal static readonly IntPtr HKEY_CURRENT_USER = new(unchecked((int)0x80000001));
         internal static readonly IntPtr HKEY_LOCAL_MACHINE = new(unchecked((int)0x80000002));
@@ -327,8 +327,13 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
         internal const uint REG_NOTIFY_CHANGE_NAME = 0x00000001;
         internal const uint REG_NOTIFY_CHANGE_LAST_SET = 0x00000004;
 
-        [DllImport("advapi32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-        internal static extern int RegOpenKeyEx(
+        [LibraryImport(
+            "advapi32.dll",
+            EntryPoint = "RegOpenKeyExW",
+            SetLastError = true,
+            StringMarshalling = StringMarshalling.Utf16
+        )]
+        internal static partial int RegOpenKeyEx(
             IntPtr hKey,
             string lpSubKey,
             uint ulOptions,
@@ -336,16 +341,16 @@ internal sealed class RegistryWatcher(ILogger<RegistryWatcher> logger) : IRegist
             out IntPtr phkResult
         );
 
-        [DllImport("advapi32.dll", SetLastError = true)]
-        internal static extern int RegNotifyChangeKeyValue(
+        [LibraryImport("advapi32.dll", SetLastError = true)]
+        internal static partial int RegNotifyChangeKeyValue(
             IntPtr hKey,
-            bool bWatchSubtree,
+            [MarshalAs(UnmanagedType.Bool)] bool bWatchSubtree,
             uint dwNotifyFilter,
             IntPtr hEvent,
-            bool fAsynchronous
+            [MarshalAs(UnmanagedType.Bool)] bool fAsynchronous
         );
 
-        [DllImport("advapi32.dll", SetLastError = true)]
-        internal static extern int RegCloseKey(IntPtr hKey);
+        [LibraryImport("advapi32.dll", SetLastError = true)]
+        internal static partial int RegCloseKey(IntPtr hKey);
     }
 }
