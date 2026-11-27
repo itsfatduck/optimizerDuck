@@ -3058,4 +3058,73 @@
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>将 Windows 级联菜单悬停延迟设为 0，使子菜单在鼠标悬停时立即展开。</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>禁用视觉特效</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>关闭任务栏动画、列表阴影、窗口透明和 Aero 预览，释放显卡与 CPU 资源提升性能。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>禁用开始菜单网络搜索</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>关闭 Windows 开始菜单的网页搜索功能，以便更快地加载本地搜索结果。</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>更新暂停上限拉满</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>禁用资讯和兴趣</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>关闭新闻和兴趣信息流并隐藏其任务栏按钮（Windows 10），同时禁用小组件面板（Windows 11）。</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>优先分配前台应用资源</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>为当前使用的应用分配更多 CPU 资源，提升运行速度与响应速度。</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>优化多媒体调度</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>配置多媒体类调度服务 (MMCSS) 以优化游戏和低延迟，通过优先处理多媒体工作负载和禁用网络节流。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>禁用 AMD 视频时钟门控</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>禁用英特尔异步画面翻转</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>将 Windows 设置中的 Windows Update 暂停上限延长至 10 年（520 周）。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>关闭 AMD 视频编解码引擎（VCE/UVD）的电源与时钟门控，提高视频播放与录制稳定性。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>在 Intel 核显上强制同步缓冲区翻转，降低输入延迟并减少画面撕裂。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>移除任务栏动画、窗口透明效果、Aero Peek 以及图标阴影。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>开始菜单搜索将不再显示网页结果和在线建议。</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>在你在 Windows 设置中选择的延长期内，安全更新与质量更新将持续暂停。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>在 Windows 10 中隐藏资讯和兴趣，并在 Windows 11 中禁用小组件面板。</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>可能会提高后台 CPU 占用，并增加笔记本电脑耗电。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>视频播放和硬件编码时 AMD GPU 功耗会上升。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>部分游戏在 Intel GPU 上的无上限帧率或帧步调可能会受影响。</value>
+  </data>
 </root>

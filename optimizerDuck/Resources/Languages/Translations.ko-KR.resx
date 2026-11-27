@@ -3041,4 +3041,73 @@
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>Windows 계단식 메뉴의 호버 지연을 0으로 설정하여 마우스를 올리면 하위 메뉴가 즉시 열리게 합니다.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>시각 효과 비활성화</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>더 나은 성능을 위해 GPU/CPU 리소스를 확보하기 위해 작업 표시줄 애니메이션, 목록 보기 그림자, 창 투명도 및 Aero Peek를 비활성화합니다</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>시작 메뉴 웹 검색 비활성화</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Windows 시작 메뉴의 웹 검색을 끄면 로컬 검색 결과를 더 빠르게 불러올 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>업데이트 일시 중지 한도 최대화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>뉴스 및 관심사 비활성화</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>뉴스 및 관심사 피드를 끄고 작업 표시줄 버튼을 숨기며(Windows 10), 위젯 보드를 사용하지 않도록 설정합니다(Windows 11).</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>활성 앱 우선 처리</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>현재 사용 중인 앱에 더 많은 CPU 자원을 할당해 더 빠르고 반응성 높은 환경을 제공합니다</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>멀티미디어 스케줄러 최적화</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>MMCSS를 게이밍 및 저지연 환경에 맞게 구성하여 멀티미디어 작업의 우선순위를 높이고 네트워크 스로틀링을 비활성화합니다</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD 비디오 클럭 게이팅 비활성화</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel Async Flip 비활성화</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Windows 설정에서 Windows Update 일시 중지 한도를 10년(520주)까지 확장합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>AMD 비디오 인코드 및 디코드 엔진(VCE/UVD)의 전력 및 클럭 게이팅을 비활성화해 재생과 녹화 안정성을 높입니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Intel 내장 GPU에서 동기식 버퍼 플립을 강제해 입력 지연과 화면 찢어짐을 줄입니다.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>작업 표시줄 애니메이션, 창 투명도, Aero Peek, 아이콘 그림자가 제거됩니다.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>시작 메뉴 검색에 웹 결과와 온라인 추천이 더 이상 표시되지 않습니다.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>Windows 설정에서 연기한 기간 동안 보안 업데이트와 품질 업데이트도 계속 일시 중지됩니다.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>Windows 10의 뉴스 및 관심사 피드를 숨기고 Windows 11의 위젯 보드를 비활성화합니다.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>노트북에서 백그라운드 CPU 사용량과 전력 소비가 늘어날 수 있습니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>동영상 재생 및 하드웨어 인코딩 중 AMD GPU 전력 소비가 증가합니다.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>일부 게임에서 무제한 프레임 속도가 제한되거나 프레임 페이싱이 달라질 수 있습니다.</value>
+  </data>
 </root>

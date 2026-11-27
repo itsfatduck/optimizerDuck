@@ -293,6 +293,43 @@ public class SecurityAndPrivacy()
     }
 
     [Optimization(
+        Id = "26F3AE39-4EAA-45D4-9375-B244159D5EB3",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.Privacy | OptimizationTags.System
+    )]
+    public class DisableNewsAndInterests : DeclarativeOptimization
+    {
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(@"HKLM\SOFTWARE\Policies\Microsoft\Dsh", "AllowNewsAndInterests", 0),
+            new(
+                @"HKCU\Software\Microsoft\Windows\CurrentVersion\Feeds",
+                "ShellFeedsTaskbarViewMode",
+                0
+            ),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Clutter),
+                    Improves(ImpactArea.Privacy),
+                    Costs(ImpactArea.Features),
+                ],
+                Sources =
+                [
+                    Source(
+                        "AllowNewsAndInterests Policy CSP - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-newsandinterests#allownewsandinterests"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Explorer,
+            };
+    }
+
+    [Optimization(
         Id = "6D217B90-0957-4861-B3F5-58ECF3E236EE",
         Risk = OptimizationRisk.Safe,
         Tags = OptimizationTags.Privacy | OptimizationTags.Windows10Only | OptimizationTags.System,

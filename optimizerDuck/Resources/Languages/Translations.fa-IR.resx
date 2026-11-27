@@ -3107,4 +3107,73 @@
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>تاخیر نمایش زیرمنوها را هنگام رفتن نشانگر روی منوهای ویندوز صفر می‌کند تا بلافاصله باز شوند.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی جلوه‌های بصری و انیمیشن‌ها</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>انیمیشن‌های نوار وظیفه، سایه‌ها، شفافیت پنجره‌ها و Aero Peek را غیرفعال می‌سازد تا بار پردازشی گرافیک و پردازنده کاهش یابد.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی جست‌وجوی وب در منوی استارت</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>جست‌وجوی اینترنتی در منوی استارت را غیرفعال می‌کند تا نتایج جست‌وجوی فایل‌های داخلی سریع‌تر نمایش داده شوند.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>افزایش حداکثر زمان توقف آپدیت‌ها</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی بخش اخبار و علاقه‌مندی‌ها</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>خوراک خبری News and Interests را در ویندوز 10 خاموش کرده و پنل ویجت‌ها را در ویندوز 11 غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>اولویت‌دهی به برنامه‌های فعال</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>منابع پردازنده بیشتری را به برنامه‌ای که در حال استفاده از آن هستید اختصاص می‌دهد تا سرعت پاسخ‌گویی افزایش یابد.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>بهینه‌سازی زمان‌بندی برنامه‌های چندرسانه‌ای</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>سرویس MMCSS را برای بازی و کاهش تأخیر تنظیم می‌کند؛ پردازش‌های چندرسانه‌ای را در اولویت قرار داده و محدودیت سرعت شبکه را برمی‌دارد.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی AMD Video Clock Gating</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>غیرفعال‌سازی Intel Async Flips</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>حداکثر زمان توقف موقت Windows Update را در تنظیمات ویندوز به 10 سال (520 هفته) افزایش می‌دهد.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>مدیریت توان و کلاک موتورهای رمزگذاری و رمزگشایی ویدئوی AMD (VCE/UVD) را غیرفعال می‌کند تا پایداری پخش و ضبط ویدئو بیشتر شود.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>جابه‌جایی بافر نمایش را در GPU یکپارچه Intel همگام می‌کند تا تأخیر ورودی و پارگی تصویر کاهش یابد.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>انیمیشن‌های نوار وظیفه، شفافیت پنجره‌ها، Aero Peek و سایه آیکون‌ها را حذف می‌کند.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>نتایج وب و پیشنهادهای آنلاین دیگر در جست‌وجوی منوی Start نمایش داده نمی‌شوند.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>آپدیت‌های امنیتی و کیفی تا زمانی که در تنظیمات Windows Update به تعویق بیندازید متوقف می‌مانند.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>خوراک خبری را در Windows 10 پنهان کرده و پنل Widgets را در Windows 11 غیرفعال می‌کند.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>ممکن است مصرف CPU در پس‌زمینه و مصرف باتری در لپ‌تاپ‌ها را افزایش دهد.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>پردازنده‌های گرافیکی AMD هنگام پخش ویدئو و رمزگذاری سخت‌افزاری برق بیشتری مصرف می‌کنند.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>ممکن است نرخ فریم نامحدود را محدود کند یا زمان‌بندی فریم را در برخی بازی‌ها روی Intel GPU تغییر دهد.</value>
+  </data>
 </root>

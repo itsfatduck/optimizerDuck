@@ -143,6 +143,88 @@ public class Performance() : OptimizationCategoryBase(OptimizationCategoryOrder.
     }
 
     [Optimization(
+        Id = "C51E4187-BE49-4376-A97D-46C967A033B5",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.System | OptimizationTags.Performance
+    )]
+    public class ProcessPriority : DeclarativeOptimization
+    {
+        // 38 (0x26) = Short, Variable, High foreground boost.
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(
+                @"HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl",
+                "Win32PrioritySeparation",
+                38
+            ),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Performance), Improves(ImpactArea.Latency)],
+                Sources =
+                [
+                    Source(
+                        "Scheduling Priorities - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities"
+                    ),
+                ],
+            };
+    }
+
+    [Optimization(
+        Id = "FFB49D94-CCA9-4591-B329-6FDA3A2758F9",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.System
+            | OptimizationTags.Performance
+            | OptimizationTags.Latency
+            | OptimizationTags.Audio
+            | OptimizationTags.Display
+    )]
+    public class OptimizeMultimediaScheduler : DeclarativeOptimization
+    {
+        private const string SystemProfileKey =
+            @"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
+
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(SystemProfileKey, "NoLazyMode", 1),
+            new(SystemProfileKey, "AlwaysOn", 1),
+            new(
+                SystemProfileKey,
+                "NetworkThrottlingIndex",
+                unchecked((int)0xFFFFFFFF),
+                RegistryValueKind.DWord
+            ),
+            new(SystemProfileKey, "SystemResponsiveness", 10, RegistryValueKind.DWord),
+            new($@"{SystemProfileKey}\Tasks\Games", "Priority", 2),
+            new($@"{SystemProfileKey}\Tasks\Games", "Scheduling Category", "High"),
+            new($@"{SystemProfileKey}\Tasks\Games", "SFIO Priority", "High"),
+            new($@"{SystemProfileKey}\Tasks\Games", "GPU Priority", 8),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Latency),
+                    Improves(ImpactArea.Performance),
+                    Costs(ImpactArea.Power),
+                ],
+                Sources =
+                [
+                    Source(
+                        "Multimedia Class Scheduler Service - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/win32/procthread/multimedia-class-scheduler-service"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+    }
+
+    [Optimization(
         Id = "613FE85C-770D-441C-B97A-147B89B99028",
         Risk = OptimizationRisk.Safe,
         Tags = OptimizationTags.Latency | OptimizationTags.System | OptimizationTags.Performance
