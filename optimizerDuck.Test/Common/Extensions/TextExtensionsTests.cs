@@ -78,4 +78,20 @@ public class TextExtensionsTests
 
         Assert.Equal("<Objs><S S=\"Error\">broken", malformed.ParseCliXml());
     }
+
+    [Fact]
+    public void ParseCliXml_PlainTextWithXmlCharacters_DoesNotLeakWrapperTags()
+    {
+        const string input = "error: value < 10 & path <file> failed";
+
+        Assert.Equal(input, input.ParseCliXml());
+    }
+
+    [Fact]
+    public void ParseCliXml_CliXmlFragmentWithoutObjsWrapper_ExtractsText()
+    {
+        const string input = "<S S=\"Error\">Missing key_x000D__x000A_</S>";
+
+        Assert.Equal("Missing key", input.ParseCliXml());
+    }
 }
