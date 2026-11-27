@@ -38,7 +38,7 @@ public partial class BloatwareService(
     ///     Gets all removable AppX packages on the system.
     /// </summary>
     /// <returns>A list of <see cref="AppXPackage" />.</returns>
-    public async Task<List<AppXPackage>> GetAppXPackagesAsync()
+    public virtual async Task<List<AppXPackage>> GetAppXPackagesAsync()
     {
         try
         {
