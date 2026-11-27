@@ -133,7 +133,8 @@ public class SecurityAndPrivacy()
             ),
         ];
 
-        protected override ServiceItem[] Services { get; } = [ServiceItem.Disable("WerSvc")];
+        protected override ServiceItem[] Services { get; } =
+        [ServiceItem.Disable("WerSvc"), ServiceItem.Disable("wercplsupport")];
 
         protected override string[] ScheduledTasks { get; } =
         [
@@ -477,6 +478,13 @@ public class SecurityAndPrivacy()
     {
         protected override RegistryItem[] RegistryItems { get; } =
         [new(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\LocationAndSensors", "DisableSensors", 1)];
+
+        protected override ServiceItem[] Services { get; } =
+        [
+            ServiceItem.Disable("SensorDataService"),
+            ServiceItem.Disable("SensorService"),
+            ServiceItem.Disable("SensrSvc"),
+        ];
 
         public override OptimizationMetadata Metadata { get; } =
             new()

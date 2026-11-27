@@ -120,6 +120,7 @@ public class BloatwareAndServices()
                     ServiceItem.Disable("bthserv"),
                     ServiceItem.Disable("BthAvctpSvc"),
                     ServiceItem.Disable("BTAGService"),
+                    ServiceItem.Disable("BthHFSrv"),
                 ]
             ),
             new(
@@ -138,6 +139,8 @@ public class BloatwareAndServices()
                     ServiceItem.Disable("FDResPub"),
                     ServiceItem.Disable("fdPHost"),
                     ServiceItem.Disable("SSDPSRV"),
+                    ServiceItem.Disable("upnphost"),
+                    ServiceItem.Disable("WMPNetworkSvc"),
                 ]
             ),
             new("DisableBiometrics", [ServiceItem.Disable("WbioSrvc")]),
@@ -279,6 +282,9 @@ public class BloatwareAndServices()
             new(EdgePolicyPath, "StartupBoostEnabled", 0),
             new(EdgePolicyPath, "BackgroundModeEnabled", 0),
         ];
+
+        protected override ServiceItem[] Services { get; } =
+        [ServiceItem.Manual("edgeupdate"), ServiceItem.Manual("edgeupdatem")];
 
         public override OptimizationMetadata Metadata { get; } =
             new()
