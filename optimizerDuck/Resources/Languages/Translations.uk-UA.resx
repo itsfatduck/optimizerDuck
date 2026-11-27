@@ -3108,4 +3108,73 @@
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>Встановлює нульову затримку наведення на каскадні меню Windows для миттєвого відкриття підменю.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Вимкнути зайві візуальні ефекти</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Вимикає анімацію вікон, прозорість, тіні списків та Aero Peek для розвантаження відеокарти й процесора.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Вимкнути інтернет-пошук у "Пуск"</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Вимикає онлайн-пошук у меню "Пуск", завдяки чому локальні файли та програми знаходяться миттєво.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Максимальний термін призупинення оновлень</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Вимкнути "Новини та інтереси" (Віджети)</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Вимикає стрічку новин та віджет погоди на панелі завдань Windows 10 та Windows 11.</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Пріоритет активних програм</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Виділяє більше квантів часу процесора активному вікну для швидшого відгуку та плавної роботи додатків.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Оптимізація планувальника мультимедіа (MMCSS)</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Налаштовує планувальник MMCSS для ігор: вимикає мережеве дроселювання та надає пріоритет обробці звуку й графіки.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>Вимкнути стробування тактової частоти відео AMD</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Вимкнути асинхронний фліп Intel</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Збільшує ліміт призупинення Windows Update у Параметрах Windows до 10 років (520 тижнів).</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Вимикає керування живленням і тактуванням відеорушіїв AMD (VCE/UVD) для стабільнішого відтворення та запису відео.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Примусово вмикає синхронне перемикання буферів на вбудованій графіці Intel для зменшення затримки введення та розривів зображення.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>Прибирає анімацію панелі завдань, прозорість вікон, Aero Peek і тіні значків.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>Результати пошуку в інтернеті та онлайн-підказки більше не з'являтимуться в меню Пуск.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>Оновлення безпеки та якості залишаються на паузі на весь термін, вибраний у Параметрах Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>Приховує стрічку новин у Windows 10 та вимикає панель віджетів у Windows 11.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>Може збільшити фонове навантаження на CPU та споживання енергії на ноутбуках.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>Відеокарти AMD споживають більше енергії під час відтворення відео та апаратного кодування.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>Може обмежувати необмежену частоту кадрів або змінювати стабільність кадрів у деяких іграх на Intel GPU.</value>
+  </data>
 </root>

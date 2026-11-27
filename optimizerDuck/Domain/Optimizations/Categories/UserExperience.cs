@@ -1,3 +1,4 @@
+using Microsoft.Win32;
 using optimizerDuck.Domain.Attributes;
 using optimizerDuck.Domain.Conditions;
 using optimizerDuck.Domain.Optimizations.Models;
@@ -122,6 +123,120 @@ public class UserExperience() : OptimizationCategoryBase(OptimizationCategoryOrd
                     Source(
                         "Experience Policy CSP (Cloud Content) - Microsoft Learn",
                         "https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-experience"
+                    ),
+                ],
+            };
+    }
+
+    [Optimization(
+        Id = "A3D1E8F2-7B4C-4A5D-9E62-8F3A1B7C4D59",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.System | OptimizationTags.Performance | OptimizationTags.Visual
+    )]
+    public sealed class DisableVisualEffects : DeclarativeOptimization
+    {
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(
+                @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                "TaskbarAnimations",
+                0
+            ),
+            new(
+                @"HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced",
+                "ListviewShadow",
+                0
+            ),
+            new(
+                @"HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize",
+                "EnableTransparency",
+                0
+            ),
+            new(@"HKCU\Software\Microsoft\Windows\DWM", "EnableAeroPeek", 0),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Performance), Costs(ImpactArea.Features)],
+                Sources =
+                [
+                    Source(
+                        "Tips to improve PC performance in Windows - Microsoft Support",
+                        "https://support.microsoft.com/en-us/windows/tips-to-improve-pc-performance-in-windows-b3b3ef5b-5953-fb6a-2528-4bbed82fba96"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Explorer,
+            };
+    }
+
+    [Optimization(
+        Id = "950cd979-7483-400b-a207-abd4741a1270",
+        Risk = OptimizationRisk.Safe,
+        Tags = OptimizationTags.System
+            | OptimizationTags.Performance
+            | OptimizationTags.Latency
+            | OptimizationTags.Privacy
+    )]
+    public sealed class DisableStartMenuWebSearch : DeclarativeOptimization
+    {
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(
+                @"HKCU\Software\Policies\Microsoft\Windows\Explorer",
+                "DisableSearchBoxSuggestions",
+                1
+            ),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Latency),
+                    Improves(ImpactArea.Privacy),
+                    Costs(ImpactArea.Features),
+                ],
+                Sources =
+                [
+                    Source(
+                        "DisableSearchBoxSuggestions Explorer Policy - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows/client-management/mdm/policy-csp-admx-windowsexplorer"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Explorer,
+            };
+    }
+
+    [Optimization(
+        Id = "3F8B91D2-6A47-4E05-9C2B-E70D14F8A5C6",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.System | OptimizationTags.Network
+    )]
+    public sealed class MaximizeUpdatePauseLimit : DeclarativeOptimization
+    {
+        // 3640 days (520 weeks, ~10 years): exact multiple of 7 so the Settings pause dropdown
+        // populates cleanly without the date-math overflow / UI hang caused by 0xFFFFFFFF.
+        protected override RegistryItem[] RegistryItems { get; } =
+        [
+            new(
+                @"HKLM\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings",
+                "FlightSettingsMaxPauseDays",
+                3640,
+                RegistryValueKind.DWord
+            ),
+        ];
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Stability), Costs(ImpactArea.Security)],
+                Sources =
+                [
+                    Source(
+                        "Manage updates in Windows - Microsoft Support",
+                        "https://support.microsoft.com/en-us/windows/manage-updates-in-windows-643e9ea7-3cf6-7da6-a25c-95d4f7f099fe"
                     ),
                 ],
             };

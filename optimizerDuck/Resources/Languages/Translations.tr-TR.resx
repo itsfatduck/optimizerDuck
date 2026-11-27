@@ -3041,4 +3041,73 @@ En son özelliklerden, iyileştirmelerden ve hata düzeltmelerinden yararlanmak 
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>Windows alt menülerinin üzerine gelindiğindeki bekleme süresini sıfırlayarak anında açılmasını sağlar.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Görsel Efektleri Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Daha iyi performans için GPU/CPU kaynaklarını serbest bırakmak amacıyla görev çubuğu animasyonlarını, liste görünümü gölgelerini, pencere şeffaflığını ve Aero Peek'i devre dışı bırakır.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Başlat Menüsü Web Aramasını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Windows Başlat Menüsü için web aramasını kapatır; yerel arama sonuçlarını daha hızlı yükler.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Güncelleme duraklatma sınırını en üst düzeye çıkar</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Haberler ve İlgi Alanlarını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Haberler ve ilgi alanları akışını kapatır ve görev çubuğu düğmesini gizler (Windows 10) ve Widget'lar panosunu devre dışı bırakır (Windows 11).</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Aktif Uygulamalara Öncelik Ver</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Daha hızlı ve daha duyarlı bir deneyim için o anda kullandığınız uygulamaya daha fazla CPU kaynağı ayırır.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Multimedya Zamanlayıcısını Optimize Et</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Multimedya iş yüklerine öncelik vererek ve ağ kısıtlamasını devre dışı bırakarak Multimedya Sınıf Zamanlayıcı Servisi'ni (MMCSS) oyun ve düşük gecikme için yapılandırır.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD Video Saat Kapılamasını Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel Asenkron Çevirmelerini Devre Dışı Bırak</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Windows Ayarları'ndaki Windows Update duraklatma sınırını 10 yıla (520 hafta) uzatır.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Oynatma ve kayıt kararlılığını artırmak için AMD video kodlama ve kod çözme motorlarındaki (VCE/UVD) güç ve saat denetimini kapatır.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Giriş gecikmesini ve ekran yırtılmasını azaltmak için Intel tümleşik GPU'larda eşzamanlı arabellek değişimini zorlar.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>Görev çubuğu animasyonlarını, pencere saydamlığını, Aero Peek özelliğini ve simge gölgelerini kaldırır.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>Başlat menüsü aramasında artık web sonuçları ve çevrimiçi öneriler görünmez.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>Güvenlik ve kalite güncellemeleri, Windows Ayarları'nda ertelediğiniz süre boyunca duraklatılmış kalır.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>Windows 10'da Haberler ve ilgi alanları akışını gizler ve Windows 11'de Widget panosunu kapatır.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>Dizüstü bilgisayarlarda arka plan CPU kullanımını ve güç tüketimini artırabilir.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>AMD GPU'lar video oynatma ve donanım kodlaması sırasında daha fazla güç tüketir.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>Intel GPU'larda bazı oyunlarda sınırsız kare hızını kısıtlayabilir veya kare zamanlamasını değiştirebilir.</value>
+  </data>
 </root>

@@ -3107,4 +3107,73 @@
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>מגדיר את השהיית הריחוף בתפריטי משנה של Windows לאפס כדי שיפתחו מיד תחת הסמן.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>השבתת אפקטים חזותיים</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>משבית אנימציות של שורת המשימות, צללים ברשימות, שקיפות חלונות ו-Aero Peek כדי לפנות משאבי מעבד גרפי/מעבד לשיפור הביצועים.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>השבתת חיפוש באינטרנט בתפריט התחלה</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>כיבוי החיפוש באינטרנט בתפריט התחלה של Windows לטעינה מהירה יותר של תוצאות החיפוש המקומיות.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>מקסום הגבלת השהיית העדכונים</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>השבתת חדשות ותחומי עניין</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>מכבה את עדכון החדשות והעניינים ומסתיר את הכפתור שלו בשורת המשימות (Windows 10), ומשבית את לוח הווידג'טים (Windows 11).</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>תעדוף אפליקציות פעילות</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>מקצה יותר משאבי מעבד לאפליקציה שבה משתמשים כעת, לחוויה מהירה ומגיבה יותר.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>מיטוב מתזמן המולטימדיה</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>מגדיר את שירות מתזמן מחלקת המולטימדיה (MMCSS) לגיימינג ולהשהיה נמוכה, על ידי תעדוף עומסי מולטימדיה והשבתת ויסות (throttling) של הרשת.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>השבתת AMD Video Clock Gating</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>השבתת Intel Async Flips</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>מאריך את מגבלת השהיית Windows Update ל-10 שנים (520 שבועות) בהגדרות Windows.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>משבית בקרת חשמל ושעון במנועי הקידוד והפענוח של AMD (VCE/UVD) לשיפור היציבות בצפייה ובהקלטה.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>כופה החלפות מאגר מסונכרנות במעבד הגרפי המשולב של Intel כדי להפחית השהיית קלט וקריעת מסך.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>מסיר אנימציות בשורת המשימות, שקיפות חלונות, Aero Peek וצללי אייקונים.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>תוצאות אינטרנט והצעות מקוונות לא יופיעו עוד בחיפוש של תפריט Start.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>עדכוני אבטחה ואיכות יישארו מושהים למשך כל התקופה שתבחר לדחות בהגדרות Windows.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>מסתיר את עדכון החדשות ב-Windows 10 ומשבית את לוח Widgets ב-Windows 11.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>עלול להגדיל שימוש CPU ברקע וצריכת סוללה במחשבים ניידים.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>כרטיסי AMD GPU צורכים יותר חשמל בזמן ניגון וידאו וקידוד חומרה.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>עלול להגביל קצב פריימים בלתי מוגבל או לשנות את קצב הפריימים בחלק מהמשחקים ב-Intel GPU.</value>
+  </data>
 </root>

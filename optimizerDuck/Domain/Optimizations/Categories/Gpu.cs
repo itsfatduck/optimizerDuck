@@ -215,6 +215,48 @@ public class Gpu() : OptimizationCategoryBase(OptimizationCategoryOrder.Gpu)
     }
 
     [Optimization(
+        Id = "DB379BB5-FC8C-4AD3-BE32-11BE09E76FBA",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.Amd | OptimizationTags.Performance,
+        Condition = typeof(AmdGpuCondition)
+    )]
+    public class AmdDisableVideoClockGating : GpuRegistryOptimization
+    {
+        protected override GpuVendor Vendor => GpuVendor.Amd;
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts =
+                [
+                    Improves(ImpactArea.Stability),
+                    Improves(ImpactArea.Performance),
+                    Costs(ImpactArea.Power),
+                ],
+                Sources =
+                [
+                    Source(
+                        "AMD Graphics Power Saving Registry Options - KernelOS",
+                        "https://kernelos.org/docs/en/post-install/graphics/graphics_amd/"
+                    ),
+                    Source(
+                        "WDDM GPU Power Management of Idle States - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpu-power-management-of-idle-and-active-power"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+
+        protected override IReadOnlyList<RegistryItem> CreateItems(string path) =>
+            [
+                new RegistryItem(path, "DisableVCEPowerGating", 1),
+                new RegistryItem(path, "DisableVceClockGating", 1),
+                new RegistryItem(path, "EnableUvdClockGating", 0),
+                new RegistryItem(path, "EnableVceSwClockGating", 0),
+            ];
+    }
+
+    [Optimization(
         Id = "8A4B4C4D-000E-42DB-8BD7-293067F8FAE7",
         Risk = OptimizationRisk.Moderate,
         Tags = OptimizationTags.Amd | OptimizationTags.Latency,
@@ -300,6 +342,34 @@ public class Gpu() : OptimizationCategoryBase(OptimizationCategoryOrder.Gpu)
 
         protected override IReadOnlyList<RegistryItem> CreateItems(string path) =>
             [new RegistryItem(path, "DisableASyncPstates", 1)];
+    }
+
+    [Optimization(
+        Id = "DF8739FF-E322-4958-B369-DF584BB9B0C1",
+        Risk = OptimizationRisk.Moderate,
+        Tags = OptimizationTags.Intel | OptimizationTags.Latency,
+        Condition = typeof(IntelGpuCondition)
+    )]
+    public class IntelDisableAsyncFlips : GpuRegistryOptimization
+    {
+        protected override GpuVendor Vendor => GpuVendor.Intel;
+
+        public override OptimizationMetadata Metadata { get; } =
+            new()
+            {
+                Impacts = [Improves(ImpactArea.Latency), Costs(ImpactArea.Features)],
+                Sources =
+                [
+                    Source(
+                        "DXGI Flip Model - Microsoft Learn",
+                        "https://learn.microsoft.com/en-us/windows-hardware/drivers/display/dxgi-flip-model"
+                    ),
+                ],
+                RequiresRestart = RestartRequirement.Reboot,
+            };
+
+        protected override IReadOnlyList<RegistryItem> CreateItems(string path) =>
+            [new RegistryItem(path, "Display1_DisableAsyncFlips", 1)];
     }
 
     [Optimization(

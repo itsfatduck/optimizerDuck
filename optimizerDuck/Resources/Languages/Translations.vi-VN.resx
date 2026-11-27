@@ -3042,4 +3042,73 @@ Cập nhật ngay để trải nghiệm các tính năng mới, cải tiến và
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>Đặt độ trễ hiện menu con khi di chuột về 0 để các menu thả xuống mở ra tức thì.</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>Tắt hiệu ứng hình ảnh</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>Tắt hiệu ứng chuyển động, bóng đổ, độ trong suốt và Aero Peek để giải phóng tài nguyên GPU/CPU cho hiệu suất tốt hơn.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>Tắt tìm kiếm web trên Start Menu</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Tắt tìm kiếm web trên Start Menu của Windows để tải kết quả tìm kiếm cục bộ nhanh hơn.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>Tối đa hóa thời gian tạm dừng cập nhật</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>Tắt Tin tức &amp; Sở thích</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>Tắt nguồn cấp tin tức và sở thích (News and Interests) và ẩn nút của nó trên thanh tác vụ (Windows 10), đồng thời vô hiệu hóa bảng Widgets (Windows 11).</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>Ưu tiên ứng dụng đang dùng</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>Cấu hình Win32PrioritySeparation thành 38 (Short, Variable, High foreground boost), ưu tiên ứng dụng đang hoạt động và giảm độ trễ đầu vào.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>Tối ưu hóa Multimedia Scheduler</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>Cấu hình dịch vụ Multimedia Class Scheduler Service (MMCSS) cho gaming và độ trễ thấp bằng cách ưu tiên multimedia và tắt giới hạn băng thông mạng.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>Tắt AMD Video Clock Gating</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Bật đồng bộ hình ảnh Intel</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Mở rộng giới hạn tạm dừng Windows Update lên tối đa 10 năm (520 tuần) trong Windows Settings.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>Tắt điều tiết điện năng và xung nhịp trên bộ mã hóa, giải mã video của AMD (VCE/UVD) để phát và quay video ổn định hơn.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Ép đồng bộ chuyển đổi bộ đệm hiển thị trên Intel iGPU để giảm độ trễ đầu vào và hạn chế xé hình.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>Loại bỏ hiệu ứng thanh tác vụ, độ trong suốt cửa sổ, Aero Peek và bóng đổ biểu tượng.</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>Kết quả web và gợi ý trực tuyến sẽ không còn hiển thị khi tìm kiếm trong menu Start.</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>Các bản cập nhật bảo mật và chất lượng sẽ bị tạm dừng trong suốt thời gian bạn chọn hoãn ở Windows Settings.</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>Ẩn mục Tin tức &amp; Sở thích trên Windows 10 và tắt bảng Widgets trên Windows 11.</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>Có thể làm tăng mức sử dụng CPU nền và hao pin hơn trên laptop.</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>AMD GPU tiêu thụ nhiều điện hơn khi phát video và mã hóa phần cứng.</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>Có thể giới hạn FPS không khóa hoặc làm thay đổi nhịp khung hình trong một số game trên Intel GPU.</value>
+  </data>
 </root>

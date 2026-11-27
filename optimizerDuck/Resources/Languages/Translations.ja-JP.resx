@@ -3042,4 +3042,73 @@
   <data name="Optimizer.UserExperience.ReduceMenuShowDelay.ShortDescription" xml:space="preserve">
     <value>Windows のサブメニュー表示遅延を 0 にして、カーソルを合わせた直後に開くようにします。</value>
   </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.Name" xml:space="preserve">
+    <value>ビジュアル効果を無効化</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.ShortDescription" xml:space="preserve">
+    <value>タスクバー アニメーション、リスト ビューの影、ウィンドウの透明度、Aero Peek を無効化して GPU/CPU リソースを解放し、パフォーマンスを向上させます</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.Name" xml:space="preserve">
+    <value>スタートメニューのウェブ検索を無効化</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.ShortDescription" xml:space="preserve">
+    <value>Windows のスタートメニューのウェブ検索をオフにして、ローカル検索結果の読み込みを高速化します。</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.Name" xml:space="preserve">
+    <value>更新プログラムの一時停止上限を最大化</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.Name" xml:space="preserve">
+    <value>ニュースと関心事項を無効にする</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.ShortDescription" xml:space="preserve">
+    <value>ニュースと関心事項フィードをオフにしてタスクバー ボタンを非表示にし (Windows 10)、ウィジェット ボードを無効にします (Windows 11)。</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.Name" xml:space="preserve">
+    <value>アクティブなアプリを優先</value>
+  </data>
+  <data name="Optimizer.Performance.ProcessPriority.ShortDescription" xml:space="preserve">
+    <value>現在使用中のアプリケーションにより多くの CPU リソースを割り当て、より高速で応答性の高い体験を提供します</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.Name" xml:space="preserve">
+    <value>マルチメディア スケジューラーを最適化</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.ShortDescription" xml:space="preserve">
+    <value>MMCSS をゲームと低遅延向けに構成し、マルチメディア ワークロードを優先してネットワーク スロットリングを無効化します</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.Name" xml:space="preserve">
+    <value>AMD ビデオ クロック ゲーティングを無効化</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.Name" xml:space="preserve">
+    <value>Intel Async Flip を無効化</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.ShortDescription" xml:space="preserve">
+    <value>Windows 設定での Windows Update の一時停止上限を 10 年間 (520 週間) に延長します。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.ShortDescription" xml:space="preserve">
+    <value>AMD ビデオエンジン (VCE/UVD) の電源およびクロックゲーティングを無効にし、再生と録画の安定性を高めます。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.ShortDescription" xml:space="preserve">
+    <value>Intel 内蔵 GPU で同期バッファフリップを強制し、入力遅延と画面のティアリングを抑えます。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableVisualEffects.TradeOff" xml:space="preserve">
+    <value>タスクバーのアニメーション、ウィンドウの透明効果、Aero Peek、アイコンの影が無効になります。</value>
+  </data>
+  <data name="Optimizer.UserExperience.DisableStartMenuWebSearch.TradeOff" xml:space="preserve">
+    <value>スタートメニュー検索に Web の結果やオンライン候補が表示されなくなります。</value>
+  </data>
+  <data name="Optimizer.UserExperience.MaximizeUpdatePauseLimit.TradeOff" xml:space="preserve">
+    <value>Windows 設定で延長した期間中、セキュリティ更新や品質更新も一時停止されたままになります。</value>
+  </data>
+  <data name="Optimizer.SecurityAndPrivacy.DisableNewsAndInterests.TradeOff" xml:space="preserve">
+    <value>Windows 10 ではニュースと関心事項を非表示にし、Windows 11 ではウィジェットボードを無効にします。</value>
+  </data>
+  <data name="Optimizer.Performance.OptimizeMultimediaScheduler.TradeOff" xml:space="preserve">
+    <value>バックグラウンドの CPU 使用率やノート PC の消費電力が増える場合があります。</value>
+  </data>
+  <data name="Optimizer.Gpu.AmdDisableVideoClockGating.TradeOff" xml:space="preserve">
+    <value>動画再生やハードウェアエンコード時の AMD GPU 消費電力が増加します。</value>
+  </data>
+  <data name="Optimizer.Gpu.IntelDisableAsyncFlips.TradeOff" xml:space="preserve">
+    <value>一部のゲームで無制限フレームレートが制限されたり、フレームペーシングが変化したりする場合があります。</value>
+  </data>
 </root>
