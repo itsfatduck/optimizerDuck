@@ -1,9 +1,10 @@
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.ScheduledTask;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System.Primitives;
 
@@ -65,9 +66,9 @@ public class ScheduledTaskRevertStep : IRevertStep
     }
 
     /// <inheritdoc />
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        return new JObject
+        return new JsonObject
         {
             [nameof(FullPath)] = FullPath,
             [nameof(OriginalEnabled)] = OriginalEnabled,
@@ -79,18 +80,18 @@ public class ScheduledTaskRevertStep : IRevertStep
     /// </summary>
     /// <param name="data">The JSON data to deserialize.</param>
     /// <returns>A new <see cref="ScheduledTaskRevertStep" /> instance.</returns>
-    public static ScheduledTaskRevertStep FromData(JObject data)
+    public static ScheduledTaskRevertStep FromData(JsonObject data)
     {
         var enabledToken = data[nameof(OriginalEnabled)];
-        if (enabledToken == null || enabledToken.Type == JTokenType.Null)
+        if (!JsonNodeHelpers.TryGetBool(enabledToken, out var originalEnabled))
             throw new StepExecutionException(
                 $"Missing required '{nameof(OriginalEnabled)}' in scheduled-task revert data.",
-                data.ToString()
+                data.ToJsonString()
             );
         return new ScheduledTaskRevertStep
         {
-            FullPath = data[nameof(FullPath)]?.ToString() ?? string.Empty,
-            OriginalEnabled = enabledToken.Value<bool>(),
+            FullPath = JsonNodeHelpers.AsString(data[nameof(FullPath)]) ?? string.Empty,
+            OriginalEnabled = originalEnabled,
         };
     }
 }

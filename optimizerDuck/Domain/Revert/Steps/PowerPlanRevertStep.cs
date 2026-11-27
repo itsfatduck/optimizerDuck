@@ -1,7 +1,8 @@
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 
@@ -90,22 +91,28 @@ public class PowerPlanRevertStep : IRevertStep
     }
 
     /// <inheritdoc />
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        return new JObject
+        return new JsonObject
         {
             [nameof(PreviousSchemeId)] = PreviousSchemeId.ToString(),
             [nameof(InstalledSchemeId)] = InstalledSchemeId.ToString(),
         };
     }
 
-    public static PowerPlanRevertStep FromData(JToken data)
+    public static PowerPlanRevertStep FromData(JsonNode? data)
     {
-        if (data is not JObject obj)
+        if (data is not JsonObject obj)
             throw new StepExecutionException("Invalid PowerPlan revert data.", "");
         if (
-            !Guid.TryParse(obj[nameof(PreviousSchemeId)]?.ToString(), out var previous)
-            || !Guid.TryParse(obj[nameof(InstalledSchemeId)]?.ToString(), out var installed)
+            !Guid.TryParse(
+                JsonNodeHelpers.AsString(obj[nameof(PreviousSchemeId)]),
+                out var previous
+            )
+            || !Guid.TryParse(
+                JsonNodeHelpers.AsString(obj[nameof(InstalledSchemeId)]),
+                out var installed
+            )
         )
             throw new StepExecutionException("Invalid PowerPlan revert data.", "");
         return new PowerPlanRevertStep

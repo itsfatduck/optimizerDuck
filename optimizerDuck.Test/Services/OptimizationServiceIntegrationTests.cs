@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
-using Newtonsoft.Json.Linq;
+using System.Text.Json.Nodes;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
@@ -77,9 +77,9 @@ public class OptimizationServiceIntegrationTests : IDisposable
             return Task.FromResult(true);
         }
 
-        public JObject ToData()
+        public JsonObject ToData()
         {
-            return new JObject { ["StepId"] = StepId };
+            return new JsonObject { ["StepId"] = StepId };
         }
     }
 

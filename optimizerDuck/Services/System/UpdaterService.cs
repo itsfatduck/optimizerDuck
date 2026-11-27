@@ -1,8 +1,10 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text.Json.Serialization;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using optimizerDuck.Common.Helpers;
+using optimizerDuck.Domain.Serialization;
 
 namespace optimizerDuck.Services.System;
 
@@ -84,8 +86,10 @@ public class UpdaterService : IDisposable
                 ct
             );
             responseMessage.EnsureSuccessStatusCode();
-            var response = await responseMessage.Content.ReadAsStringAsync(ct);
-            var latestRelease = JsonConvert.DeserializeObject<GitHubRelease>(response);
+            var latestRelease = await responseMessage.Content.ReadFromJsonAsync(
+                AppJsonContext.Default.GitHubRelease,
+                ct
+            );
 
             if (latestRelease == null || string.IsNullOrEmpty(latestRelease.TagName))
             {
@@ -150,15 +154,15 @@ public class UpdaterService : IDisposable
 public class GitHubRelease
 {
     /// <summary>Gets or sets the release tag name (e.g., "v1.2.0").</summary>
-    [JsonProperty("tag_name")]
+    [JsonPropertyName("tag_name")]
     public required string TagName { get; set; }
 
     /// <summary>Gets or sets the list of assets attached to this release.</summary>
-    [JsonProperty("assets")]
+    [JsonPropertyName("assets")]
     public required List<GitHubAsset> Assets { get; set; }
 
     /// <summary>Gets or sets the release body text (release notes).</summary>
-    [JsonProperty("body")]
+    [JsonPropertyName("body")]
     public required string Body { get; set; }
 }
 
@@ -166,10 +170,10 @@ public class GitHubRelease
 public class GitHubAsset
 {
     /// <summary>Gets or sets the file name of the asset.</summary>
-    [JsonProperty("name")]
+    [JsonPropertyName("name")]
     public required string Name { get; set; }
 
     /// <summary>Gets or sets the browser-download URL for the asset.</summary>
-    [JsonProperty("browser_download_url")]
+    [JsonPropertyName("browser_download_url")]
     public required string BrowserDownloadUrl { get; set; }
 }

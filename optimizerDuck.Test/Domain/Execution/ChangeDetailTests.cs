@@ -1,9 +1,10 @@
-using Newtonsoft.Json;
+using System.Text.Json;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models;
 using optimizerDuck.Domain.Optimizations.Models.Services;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Domain.UI;
 using optimizerDuck.Test.TestDoubles;
 
@@ -128,7 +129,7 @@ public class ChangeDetailTests
             }
             """;
 
-        var record = JsonConvert.DeserializeObject<ChangeRecord>(json);
+        var record = JsonSerializer.Deserialize(json, AppJsonContext.Default.ChangeRecord);
 
         Assert.NotNull(record);
         Assert.Equal(3, record.Steps.Count);
@@ -239,11 +240,11 @@ public class ChangeDetailTests
         var changes = new ChangeSet();
         changes.Add("Provider", "Description", true, detail: detail);
 
-        var json = JsonConvert.SerializeObject(
+        var json = JsonSerializer.Serialize(
             ChangeRecord.From(changes, new StubItem(), "Success"),
-            Formatting.Indented
+            AppJsonContext.Default.ChangeRecord
         );
-        var read = JsonConvert.DeserializeObject<ChangeRecord>(json);
+        var read = JsonSerializer.Deserialize(json, AppJsonContext.Default.ChangeRecord);
 
         Assert.NotNull(read);
         return Assert.Single(read.Steps);

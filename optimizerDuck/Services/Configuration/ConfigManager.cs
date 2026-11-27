@@ -1,11 +1,12 @@
 using System.IO;
 using System.Linq.Expressions;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Configuration;
+using optimizerDuck.Domain.Serialization;
 
 namespace optimizerDuck.Services.Configuration;
 
@@ -18,7 +19,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
 
     private readonly SemaphoreSlim _lock = new(1, 1);
 
-    private JObject _cache = new();
+    private JsonObject _cache = new();
 
     /// <summary>
     ///     Initializes the configuration manager by loading settings from disk.
@@ -26,6 +27,17 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     public async Task InitializeAsync()
     {
         _cache = await LoadConfigAsync().ConfigureAwait(false);
+    }
+
+    /// <summary>
+    ///     Seeds the configuration cache with an already validated <see cref="JsonObject" /> so
+    ///     startup does not read and parse <c>appsettings.json</c> twice.
+    /// </summary>
+    internal void InitializeFromCache(JsonObject cache)
+    {
+        ArgumentNullException.ThrowIfNull(cache);
+        _cache = cache;
+        logger.LogInformation("Loaded config with {Count} top-level sections", cache.Count);
     }
 
     /// <summary>
@@ -99,15 +111,15 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
         }
     }
 
-    private static bool CheckNestedExists(JObject root, string section, string key)
+    private static bool CheckNestedExists(JsonObject root, string section, string key)
     {
         var sectionToken = GetTokenIgnoreCase(root, section);
-        if (sectionToken is not JObject sectionObj)
+        if (sectionToken is not JsonObject sectionObj)
             return false;
         return GetTokenIgnoreCase(sectionObj, key) != null;
     }
 
-    private static void EnsureNestedValue(JObject root, string section, string key, string value)
+    private static void EnsureNestedValue(JsonObject root, string section, string key, string value)
     {
         var sectionObj = GetOrCreateObjectIgnoreCase(root, section);
         SetValueIgnoreCase(sectionObj, key, value);
@@ -116,7 +128,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// <summary>
     ///     Cleans up duplicate flat keys that also exist in nested format.
     /// </summary>
-    private static void CleanupDuplicateKeys(JObject root)
+    private static void CleanupDuplicateKeys(JsonObject root)
     {
         var properties = typeof(AppSettings).GetProperties();
         var flatKeysToRemove = new List<string>();
@@ -134,7 +146,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
                 {
                     var flatKey = $"{prop.Name}:{nestedProp.Name}";
                     var sectionToken = GetTokenIgnoreCase(root, prop.Name);
-                    if (sectionToken is JObject)
+                    if (sectionToken is JsonObject)
                     {
                         if (GetTokenIgnoreCase(root, flatKey) != null)
                             flatKeysToRemove.Add(flatKey);
@@ -231,7 +243,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             for (var i = 0; i < parts.Length - 1; i++)
             {
                 var next = GetTokenIgnoreCase(current, parts[i]);
-                if (next is not JObject nextObj)
+                if (next is not JsonObject nextObj)
                     return;
                 current = nextObj;
             }
@@ -249,8 +261,8 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// <summary>
     ///     Loads configuration from disk.
     /// </summary>
-    /// <returns>The loaded configuration as a JObject.</returns>
-    private async Task<JObject> LoadConfigAsync()
+    /// <returns>The loaded configuration as a <see cref="JsonObject" />.</returns>
+    private async Task<JsonObject> LoadConfigAsync()
     {
         try
         {
@@ -261,7 +273,7 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             if (!File.Exists(_configPath))
             {
                 logger.LogInformation("Config file not found, starting with empty config");
-                return new JObject();
+                return new JsonObject();
             }
 
             var content = await File.ReadAllTextAsync(_configPath).ConfigureAwait(false);
@@ -269,24 +281,23 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             if (string.IsNullOrWhiteSpace(content))
             {
                 logger.LogInformation("Config file is empty, starting with empty config");
-                return new JObject();
+                return new JsonObject();
             }
 
-            var config = JsonConvert.DeserializeObject<JObject>(content);
-            if (config == null)
+            if (JsonNode.Parse(content) is not JsonObject config)
             {
                 logger.LogInformation("Config file is invalid, starting with empty config");
-                return new JObject();
+                return new JsonObject();
             }
 
-            var propertyCount = config.Properties().Count();
+            var propertyCount = config.Count;
             logger.LogInformation("Loaded config with {Count} top-level sections", propertyCount);
             return config;
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "Invalid config file, resetting");
-            return new JObject();
+            return new JsonObject();
         }
     }
 
@@ -295,97 +306,83 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// </summary>
     private async Task SaveConfigAsync()
     {
-        await File.WriteAllTextAsync(_configPath, _cache.ToString(Formatting.Indented))
+        await File.WriteAllTextAsync(
+                _configPath,
+                _cache.ToJsonString(AppJsonContext.IndentedOptions)
+            )
             .ConfigureAwait(false);
 
         (configuration as IConfigurationRoot)?.Reload();
     }
 
     /// <summary>
-    ///     Gets a token by key (case-insensitive).
+    ///     Gets a node by key (case-insensitive).
     /// </summary>
-    /// <param name="obj">The JObject to search.</param>
-    /// <param name="key">The key to find.</param>
-    /// <returns>The matching token, or null if not found.</returns>
-    private static JToken? GetTokenIgnoreCase(JObject obj, string key)
+    private static JsonNode? GetTokenIgnoreCase(JsonObject obj, string key)
     {
-        var prop = obj.Properties()
-            .FirstOrDefault(p => string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase));
-        return prop?.Value;
+        foreach (var kvp in obj)
+            if (string.Equals(kvp.Key, key, StringComparison.OrdinalIgnoreCase))
+                return kvp.Value;
+        return null;
     }
 
     /// <summary>
     ///     Gets or creates an object by key (case-insensitive).
     /// </summary>
-    /// <param name="current">The current JObject.</param>
-    /// <param name="key">The key to find or create.</param>
-    /// <returns>The existing or newly created JObject.</returns>
-    private static JObject GetOrCreateObjectIgnoreCase(JObject current, string key)
+    private static JsonObject GetOrCreateObjectIgnoreCase(JsonObject current, string key)
     {
-        JProperty? first = null;
-        var extraNames = new List<string>();
+        string? firstKey = null;
+        JsonNode? firstValue = null;
+        List<string>? extraNames = null;
 
-        foreach (var p in current.Properties())
-            if (string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase))
+        foreach (var kvp in current)
+            if (string.Equals(kvp.Key, key, StringComparison.OrdinalIgnoreCase))
             {
-                if (first == null)
-                    first = p;
+                if (firstKey == null)
+                {
+                    firstKey = kvp.Key;
+                    firstValue = kvp.Value;
+                }
                 else
-                    extraNames.Add(p.Name);
+                {
+                    (extraNames ??= []).Add(kvp.Key);
+                }
             }
 
-        foreach (var name in extraNames)
-            current.Remove(name);
+        if (extraNames != null)
+            foreach (var name in extraNames)
+                current.Remove(name);
 
-        if (first?.Value is JObject existing)
+        if (firstValue is JsonObject existing)
             return existing;
 
-        var created = new JObject();
-
-        if (first != null)
-        {
-            first.Value = created;
-            return created;
-        }
-
-        current[key] = created;
+        var created = new JsonObject();
+        current[firstKey ?? key] = created;
         return created;
     }
 
     /// <summary>
     ///     Sets a value by key (case-insensitive).
     /// </summary>
-    /// <param name="current">The current JObject.</param>
-    /// <param name="key">The key to set.</param>
-    /// <param name="value">The value to set.</param>
-    private static void SetValueIgnoreCase(JObject current, string key, string value)
+    private static void SetValueIgnoreCase(JsonObject current, string key, string value)
     {
-        var toRemove = current
-            .Properties()
-            .Where(p => string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase))
-            .Select(p => p.Name)
-            .ToList();
-
-        foreach (var name in toRemove)
-            current.Remove(name);
-
+        RemoveIgnoreCase(current, key);
         current[key] = value;
     }
 
     /// <summary>
     ///     Removes a value by key (case-insensitive).
     /// </summary>
-    /// <param name="current">The current JObject.</param>
-    /// <param name="key">The key to remove.</param>
-    private static void RemoveIgnoreCase(JObject current, string key)
+    private static void RemoveIgnoreCase(JsonObject current, string key)
     {
-        var toRemove = new List<string>();
-        foreach (var p in current.Properties())
-            if (string.Equals(p.Name, key, StringComparison.OrdinalIgnoreCase))
-                toRemove.Add(p.Name);
+        List<string>? toRemove = null;
+        foreach (var kvp in current)
+            if (string.Equals(kvp.Key, key, StringComparison.OrdinalIgnoreCase))
+                (toRemove ??= []).Add(kvp.Key);
 
-        foreach (var name in toRemove)
-            current.Remove(name);
+        if (toRemove != null)
+            foreach (var name in toRemove)
+                current.Remove(name);
     }
 
     /// <summary>
@@ -393,15 +390,27 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
     /// </summary>
     public static void ValidateConfig(ILogger logger)
     {
+        _ = ValidateConfigAndReturnCache(logger);
+    }
+
+    /// <summary>
+    ///     Validates <c>appsettings.json</c> once and returns the parsed root object for reuse.
+    /// </summary>
+    internal static JsonObject ValidateConfigAndReturnCache(ILogger logger)
+    {
         var configPath = Path.Combine(Shared.RootDirectory, "appsettings.json");
 
         try
         {
+            var configDir = Path.GetDirectoryName(configPath);
+            if (!string.IsNullOrEmpty(configDir))
+                Directory.CreateDirectory(configDir);
+
             if (!File.Exists(configPath))
             {
                 File.WriteAllText(configPath, "{}");
                 logger.LogInformation("Created default empty config file: {Path}", configPath);
-                return;
+                return new JsonObject();
             }
 
             var content = File.ReadAllText(configPath);
@@ -409,11 +418,11 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
             {
                 File.WriteAllText(configPath, "{}");
                 logger.LogWarning("Config file was empty, reset to empty: {Path}", configPath);
-                return;
+                return new JsonObject();
             }
 
             // Quick check for basic JSON structure before full parse
-            var trimmed = content.Trim();
+            var trimmed = content.AsSpan().Trim();
             if (!trimmed.StartsWith('{') || !trimmed.EndsWith('}'))
             {
                 File.WriteAllText(configPath, "{}");
@@ -421,15 +430,19 @@ public class ConfigManager(IConfiguration configuration, ILogger<ConfigManager> 
                     "Config file was not valid JSON, reset to empty: {Path}",
                     configPath
                 );
-                return;
+                return new JsonObject();
             }
 
-            JsonConvert.DeserializeObject<JObject>(content);
+            if (JsonNode.Parse(content) is not JsonObject parsed)
+                throw new JsonException("Config root must be a JSON object.");
+
+            return parsed;
         }
         catch
         {
             File.WriteAllText(configPath, "{}");
             logger.LogWarning("Config file was corrupted, reset to empty: {Path}", configPath);
+            return new JsonObject();
         }
     }
 }

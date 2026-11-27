@@ -1,8 +1,9 @@
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Power;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 
@@ -74,9 +75,9 @@ public class PowerSettingRevertStep : IRevertStep
     }
 
     /// <inheritdoc />
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        return new JObject
+        return new JsonObject
         {
             [nameof(SchemeId)] = SchemeId.ToString(),
             [nameof(SubgroupId)] = SubgroupId.ToString(),
@@ -86,16 +87,16 @@ public class PowerSettingRevertStep : IRevertStep
         };
     }
 
-    public static PowerSettingRevertStep FromData(JToken data)
+    public static PowerSettingRevertStep FromData(JsonNode? data)
     {
-        if (data is not JObject obj)
+        if (data is not JsonObject obj)
             throw new StepExecutionException("Invalid PowerSetting revert data.", "");
         if (
-            !Guid.TryParse(obj[nameof(SchemeId)]?.ToString(), out var scheme)
-            || !Guid.TryParse(obj[nameof(SubgroupId)]?.ToString(), out var subgroup)
-            || !Guid.TryParse(obj[nameof(SettingId)]?.ToString(), out var setting)
-            || !uint.TryParse(obj[nameof(PreviousAcValue)]?.ToString(), out var ac)
-            || !uint.TryParse(obj[nameof(PreviousDcValue)]?.ToString(), out var dc)
+            !Guid.TryParse(JsonNodeHelpers.AsString(obj[nameof(SchemeId)]), out var scheme)
+            || !Guid.TryParse(JsonNodeHelpers.AsString(obj[nameof(SubgroupId)]), out var subgroup)
+            || !Guid.TryParse(JsonNodeHelpers.AsString(obj[nameof(SettingId)]), out var setting)
+            || !JsonNodeHelpers.TryGetUInt32(obj[nameof(PreviousAcValue)], out var ac)
+            || !JsonNodeHelpers.TryGetUInt32(obj[nameof(PreviousDcValue)], out var dc)
         )
             throw new StepExecutionException("Invalid PowerSetting revert data.", "");
         return new PowerSettingRevertStep

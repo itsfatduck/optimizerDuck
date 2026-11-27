@@ -1,9 +1,10 @@
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Execution;
 using optimizerDuck.Domain.Optimizations.Models.Services;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System.Primitives;
@@ -80,9 +81,9 @@ public class ServiceRevertStep : IRevertStep
     }
 
     /// <inheritdoc />
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        return new JObject
+        return new JsonObject
         {
             [nameof(ServiceName)] = ServiceName,
             [nameof(OriginalStartupType)] = OriginalStartupType.ToString(),
@@ -94,13 +95,13 @@ public class ServiceRevertStep : IRevertStep
     /// </summary>
     /// <param name="data">The JSON data to deserialize.</param>
     /// <returns>A new <see cref="ServiceRevertStep" /> instance.</returns>
-    public static ServiceRevertStep FromData(JObject data)
+    public static ServiceRevertStep FromData(JsonObject data)
     {
         return new ServiceRevertStep
         {
-            ServiceName = data[nameof(ServiceName)]?.ToString() ?? string.Empty,
+            ServiceName = JsonNodeHelpers.AsString(data[nameof(ServiceName)]) ?? string.Empty,
             OriginalStartupType = Enum.Parse<ServiceStartupType>(
-                data[nameof(OriginalStartupType)]?.ToString() ?? "Manual"
+                JsonNodeHelpers.AsString(data[nameof(OriginalStartupType)]) ?? "Manual"
             ),
         };
     }

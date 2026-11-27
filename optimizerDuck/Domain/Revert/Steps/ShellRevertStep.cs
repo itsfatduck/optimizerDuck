@@ -1,8 +1,9 @@
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Abstractions;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Optimizations.Models.Services;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Resources.Languages;
 using optimizerDuck.Services.Configuration;
 using optimizerDuck.Services.System.Primitives;
@@ -64,9 +65,9 @@ public class ShellRevertStep : IRevertStep
     }
 
     /// <inheritdoc />
-    public JObject ToData()
+    public JsonObject ToData()
     {
-        return new JObject
+        return new JsonObject
         {
             [nameof(ShellType)] = ShellType.ToString(),
             [nameof(Command)] = Command,
@@ -78,12 +79,14 @@ public class ShellRevertStep : IRevertStep
     /// </summary>
     /// <param name="data">The JSON data to deserialize.</param>
     /// <returns>A new <see cref="ShellRevertStep" /> instance.</returns>
-    public static ShellRevertStep FromData(JToken data)
+    public static ShellRevertStep FromData(JsonNode? data)
     {
         return new ShellRevertStep
         {
-            ShellType = Enum.Parse<ShellType>(data[nameof(ShellType)]?.ToString() ?? "PowerShell"),
-            Command = data[nameof(Command)]?.ToString() ?? string.Empty,
+            ShellType = Enum.Parse<ShellType>(
+                JsonNodeHelpers.AsString(data?[nameof(ShellType)]) ?? "PowerShell"
+            ),
+            Command = JsonNodeHelpers.AsString(data?[nameof(Command)]) ?? string.Empty,
         };
     }
 }

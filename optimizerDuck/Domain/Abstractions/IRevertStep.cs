@@ -1,5 +1,5 @@
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Optimizations.Models.Services;
 using optimizerDuck.Services.System.Primitives;
 
@@ -29,6 +29,6 @@ public interface IRevertStep
     /// <summary>
     ///     Serializes this revert step to a JSON object for persistence.
     /// </summary>
-    /// <returns>A <see cref="JObject" /> containing the serialized step data.</returns>
-    JObject ToData();
+    /// <returns>A <see cref="JsonObject" /> containing the serialized step data.</returns>
+    JsonObject ToData();
 }

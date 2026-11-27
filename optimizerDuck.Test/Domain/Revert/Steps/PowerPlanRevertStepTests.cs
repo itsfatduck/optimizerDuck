@@ -1,5 +1,5 @@
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging.Abstractions;
-using Newtonsoft.Json.Linq;
 using optimizerDuck.Domain.Exceptions;
 using optimizerDuck.Domain.Revert.Steps;
 
@@ -26,9 +26,9 @@ public class PowerPlanRevertStepTests
     [Fact]
     public void FromData_MissingIds_ThrowsFailClosed()
     {
-        Assert.Throws<StepExecutionException>(() => PowerPlanRevertStep.FromData(new JObject()));
+        Assert.Throws<StepExecutionException>(() => PowerPlanRevertStep.FromData(new JsonObject()));
         Assert.Throws<StepExecutionException>(() =>
-            PowerPlanRevertStep.FromData(JToken.Parse("{}"))
+            PowerPlanRevertStep.FromData(JsonNode.Parse("{}"))
         );
     }
 }

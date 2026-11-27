@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json.Nodes;
 
 namespace optimizerDuck.Domain.Revert;
 
@@ -22,7 +22,7 @@ public class RevertStepData
     ///     Gets or sets the serialized JSON data for the revert step.
     ///     The structure of this object depends on <see cref="Type"/>.
     /// </summary>
-    public JObject Data { get; set; } = new();
+    public JsonObject Data { get; set; } = new();
 }
 
 /// <summary>
