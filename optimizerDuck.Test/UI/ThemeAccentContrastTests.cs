@@ -16,6 +16,10 @@ public class ThemeAccentContrastTests
     public Task SwitchingDarkToLight_UpdatesLivePrimaryButtonAndHyperlinkWithReadableContrast() =>
         RunInStaThreadAsync(() =>
         {
+            // Touching Application's static members runs its static constructor, which registers
+            // the pack:// web request prefix without creating an Application instance. Other
+            // tests may do this first, so the test must not depend on run order.
+            _ = Application.Current;
             _ = PackUriHelper.UriSchemePack;
 
             var themesDict = new ThemesDictionary { Theme = ApplicationTheme.Dark };
