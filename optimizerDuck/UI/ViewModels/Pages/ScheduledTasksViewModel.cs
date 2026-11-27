@@ -56,7 +56,7 @@ public partial class ScheduledTasksViewModel : ViewModel
         _logger = logger;
     }
 
-    public ObservableCollection<ScheduledTaskModel> Tasks { get; } = [];
+    public RangeObservableCollection<ScheduledTaskModel> Tasks { get; } = [];
 
     public bool IsNotLoading => !IsLoading;
     public bool HasData => _allTasks.Count > 0;
@@ -278,16 +278,15 @@ public partial class ScheduledTasksViewModel : ViewModel
     {
         try
         {
-            var newState = await Task.Run(() => ScheduledTaskService.GetTaskState(task.FullPath));
+            var (newState, enabled) = await Task.Run(() =>
+                ScheduledTaskService.GetTaskStateAndEnabled(task.FullPath)
+            );
             if (newState != null)
             {
                 task.State = newState;
                 task.NotifyStateChanged();
             }
 
-            var enabled = await Task.Run(() =>
-                ScheduledTaskService.GetTaskEnabledState(task.FullPath)
-            );
             if (enabled is TaskEnabledState.Enabled or TaskEnabledState.Disabled)
             {
                 task.PropertyChanged -= Task_PropertyChanged;
@@ -347,7 +346,6 @@ public partial class ScheduledTasksViewModel : ViewModel
     {
         foreach (var task in Tasks)
             task.PropertyChanged -= Task_PropertyChanged;
-        Tasks.Clear();
 
         var search = SearchText.Trim();
         var hasSearch = !string.IsNullOrWhiteSpace(search);
@@ -361,6 +359,7 @@ public partial class ScheduledTasksViewModel : ViewModel
             _ => _allTasks.OrderBy(t => t.Name),
         };
 
+        var filtered = new List<ScheduledTaskModel>();
         foreach (var task in sorted)
         {
             if (HideMicrosoftTasks && task.IsMicrosoftTask)
@@ -379,8 +378,10 @@ public partial class ScheduledTasksViewModel : ViewModel
 
             task.PropertyChanged -= Task_PropertyChanged;
             task.PropertyChanged += Task_PropertyChanged;
-            Tasks.Add(task);
+            filtered.Add(task);
         }
+
+        Tasks.ReplaceAll(filtered);
 
         OnPropertyChanged(nameof(HasData));
         OnPropertyChanged(nameof(HasResults));

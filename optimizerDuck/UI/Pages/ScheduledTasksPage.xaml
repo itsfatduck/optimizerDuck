@@ -162,14 +162,25 @@
             <ItemsControl
                 Grid.Row="1"
                 ItemsSource="{Binding ViewModel.Tasks}"
+                ScrollViewer.CanContentScroll="True"
+                VirtualizingPanel.CacheLength="1,1"
+                VirtualizingPanel.CacheLengthUnit="Page"
+                VirtualizingPanel.IsVirtualizing="True"
+                VirtualizingPanel.ScrollUnit="Pixel"
+                VirtualizingPanel.VirtualizationMode="Recycling"
                 Visibility="{Binding ViewModel.Tasks.Count, Converter={StaticResource GreaterThanZeroToVisibilityConverter}}">
                 <ItemsControl.Template>
                     <ControlTemplate TargetType="ItemsControl">
-                        <ScrollViewer CanContentScroll="False" HorizontalScrollBarVisibility="Disabled">
+                        <ScrollViewer CanContentScroll="True" HorizontalScrollBarVisibility="Disabled">
                             <ItemsPresenter />
                         </ScrollViewer>
                     </ControlTemplate>
                 </ItemsControl.Template>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type scheduledTask:ScheduledTaskModel}">
                         <Border Style="{StaticResource ListRowStyle}">
@@ -215,7 +226,7 @@
                                         FontTypography="Caption"
                                         Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                                         Text="{Binding Description}"
-                                        TextWrapping="Wrap"
+                                        TextTrimming="CharacterEllipsis"
                                         Visibility="{Binding Description, Converter={StaticResource NotEmptyToVisibilityConverter}}" />
 
                                     <!--  Row 3: Path  -->

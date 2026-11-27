@@ -148,13 +148,34 @@ public static class SmoothScrollBehavior
                 && _stateTable.TryGetValue(sv, out var state)
             )
             {
-                sv.CanContentScroll = _globalEnabled ? false : state.PreviousCanContentScroll;
+                sv.CanContentScroll =
+                    _globalEnabled && !SupportsPixelContentScroll(sv, state.PreviousCanContentScroll)
+                        ? false
+                        : state.PreviousCanContentScroll;
             }
             else
             {
                 _attachedScrolls.RemoveAt(i);
             }
         }
+    }
+
+    private static bool SupportsPixelContentScroll(ScrollViewer sv, bool wantsContentScroll)
+    {
+        if (!wantsContentScroll)
+            return false;
+
+        if (
+            sv.TemplatedParent is ItemsControl ic
+            && VirtualizingPanel.GetIsVirtualizing(ic)
+            && VirtualizingPanel.GetScrollUnit(ic) == ScrollUnit.Pixel
+        )
+        {
+            return true;
+        }
+
+        return VirtualizingPanel.GetIsVirtualizing(sv)
+            && VirtualizingPanel.GetScrollUnit(sv) == ScrollUnit.Pixel;
     }
 
     private static void Attach(ScrollViewer sv)
@@ -165,7 +186,7 @@ public static class SmoothScrollBehavior
 
         state.IsAttached = true;
         state.PreviousCanContentScroll = sv.CanContentScroll;
-        if (GlobalEnabled)
+        if (GlobalEnabled && !SupportsPixelContentScroll(sv, state.PreviousCanContentScroll))
             sv.CanContentScroll = false;
         sv.PreviewMouseWheel += OnPreviewMouseWheel;
         sv.Unloaded += OnScrollViewerUnloaded;

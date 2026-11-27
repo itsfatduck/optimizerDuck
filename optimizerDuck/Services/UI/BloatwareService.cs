@@ -1,38 +1,38 @@
 using System.Collections.Concurrent;
 using System.IO;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
+using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using optimizerDuck.Common.Helpers;
 using optimizerDuck.Domain.Configuration;
 using optimizerDuck.Domain.Optimizations.Models.Bloatware;
+using optimizerDuck.Domain.Serialization;
 using optimizerDuck.Services.System.Primitives;
 using AppXPackage = optimizerDuck.Domain.Optimizations.Models.Bloatware.AppXPackage;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace optimizerDuck.Services.UI;
 
-public class BloatwareService(
+public partial class BloatwareService(
     ILogger<BloatwareService> logger,
     IOptionsMonitor<AppSettings> appOptionsMonitor,
     ShellService shellService
 )
 {
-    private static readonly ConcurrentDictionary<string, string?> LogoCache = new(
+    private static readonly ConcurrentDictionary<string, BitmapSource?> LogoCache = new(
         StringComparer.OrdinalIgnoreCase
     );
-    private static readonly Regex ScaleRegex = new(
-        @"(?:^|[._])scale-(\d+)",
-        RegexOptions.IgnoreCase | RegexOptions.Compiled
-    );
-    private static readonly Regex TargetSizeRegex = new(
-        @"(?:^|[._])targetsize-(\d+)",
-        RegexOptions.IgnoreCase | RegexOptions.Compiled
-    );
+    private static readonly Regex ScaleRegex = CreateScaleRegex();
+    private static readonly Regex TargetSizeRegex = CreateTargetSizeRegex();
     private static readonly string[] SupportedImageExtensions = [".png", ".jpg", ".jpeg", ".ico"];
+
+    [GeneratedRegex(@"(?:^|[._])scale-(\d+)", RegexOptions.IgnoreCase)]
+    private static partial Regex CreateScaleRegex();
+
+    [GeneratedRegex(@"(?:^|[._])targetsize-(\d+)", RegexOptions.IgnoreCase)]
+    private static partial Regex CreateTargetSizeRegex();
 
     /// <summary>
     ///     Gets all removable AppX packages on the system.
@@ -188,32 +188,32 @@ public class BloatwareService(
     /// </summary>
     internal static List<AppXPackage> ParsePackages(string stdout)
     {
-        var json = stdout.TrimStart();
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true,
-            Converters = { new JsonStringEnumConverter() },
-        };
+        var json = stdout.AsSpan().TrimStart();
+        if (json.IsEmpty)
+            return [];
 
         if (json.StartsWith('['))
-            return JsonSerializer.Deserialize<List<AppXPackage>>(json, options) ?? [];
+            return JsonSerializer.Deserialize(json, AppJsonContext.Default.ListAppXPackage) ?? [];
 
-        var single = JsonSerializer.Deserialize<AppXPackage>(json, options);
+        var single = JsonSerializer.Deserialize(json, AppJsonContext.Default.AppXPackage);
         return single is null ? [] : [single];
     }
 
     // Validates an AppX package name/identifier to prevent PowerShell injection.
     // AppX names follow: Publisher.PackageName (alphanumeric, dots, dashes)
     // PackageFullName follows: Name_Version_Architecture__ResourceId
-    private static readonly Regex AppXNameValidationRegex = new(
-        @"^[a-zA-Z0-9._\-]+$",
-        RegexOptions.Compiled
-    );
+    private static readonly Regex AppXNameValidationRegex = CreateAppXNameValidationRegex();
 
-    private static readonly Regex AppXPackageFullNameValidationRegex = new(
-        @"^[a-zA-Z0-9._\-]+_[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+_[a-zA-Z0-9_]+__[a-zA-Z0-9_]+$",
-        RegexOptions.Compiled
-    );
+    private static readonly Regex AppXPackageFullNameValidationRegex =
+        CreateAppXPackageFullNameValidationRegex();
+
+    [GeneratedRegex(@"^[a-zA-Z0-9._\-]+$")]
+    private static partial Regex CreateAppXNameValidationRegex();
+
+    [GeneratedRegex(
+        @"^[a-zA-Z0-9._\-]+_[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+_[a-zA-Z0-9_]+__[a-zA-Z0-9_]+$"
+    )]
+    private static partial Regex CreateAppXPackageFullNameValidationRegex();
 
     /// <summary>
     ///     Validates whether an AppX package has standard, safe identifiers.
@@ -357,7 +357,7 @@ public class BloatwareService(
         }
     }
 
-    private static string? ResolveLogo(string installLocation)
+    private static BitmapSource? ResolveLogo(string installLocation)
     {
         if (string.IsNullOrWhiteSpace(installLocation))
             return null;
@@ -365,7 +365,9 @@ public class BloatwareService(
         if (LogoCache.TryGetValue(installLocation, out var cachedLogo))
             return cachedLogo;
 
-        var resolved = ResolveLogoCore(installLocation);
+        var resolvedPath = ResolveLogoCore(installLocation);
+        var resolved =
+            resolvedPath != null ? StartupManagerService.LoadFrozenBitmapImage(resolvedPath) : null;
         LogoCache[installLocation] = resolved;
         return resolved;
     }
@@ -566,15 +568,13 @@ public class BloatwareService(
 
     private static string StripKnownQualifiers(string fileNameWithoutExtension)
     {
-        return Regex
-            .Replace(
-                fileNameWithoutExtension,
-                @"(?:[._](?:scale|targetsize)-\d+|_[^._]+)+$",
-                string.Empty,
-                RegexOptions.IgnoreCase
-            )
+        return StripKnownQualifiersRegex()
+            .Replace(fileNameWithoutExtension, string.Empty)
             .TrimEnd('.', '_');
     }
+
+    [GeneratedRegex(@"(?:[._](?:scale|targetsize)-\d+|_[^._]+)+$", RegexOptions.IgnoreCase)]
+    private static partial Regex StripKnownQualifiersRegex();
 
     private static int GuessLogicalBaseSize(string baseName)
     {

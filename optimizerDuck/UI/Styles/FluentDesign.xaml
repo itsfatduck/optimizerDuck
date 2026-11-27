@@ -185,6 +185,8 @@
         <Setter Property="HorizontalAlignment" Value="Stretch" />
     </Style>
 
+    <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarButtonHeightKey}">44</sys:Double>
+
     <Style TargetType="ScrollViewer">
         <Setter Property="behaviors:SmoothScrollBehavior.IsEnabled" Value="True" />
         <Setter Property="behaviors:SmoothScrollBehavior.Smoothing" Value="0.20" />

@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -66,8 +67,8 @@ public partial class StartupManagerViewModel : ViewModel
         _logger = logger;
     }
 
-    public ObservableCollection<StartupApp> Apps { get; } = [];
-    public ObservableCollection<StartupTask> Tasks { get; } = [];
+    public RangeObservableCollection<StartupApp> Apps { get; } = [];
+    public RangeObservableCollection<StartupTask> Tasks { get; } = [];
 
     public bool IsNotLoading => !IsLoading;
 
@@ -142,10 +143,7 @@ public partial class StartupManagerViewModel : ViewModel
             var rawPath = app.FilePath.Trim().Trim('"');
             if (!File.Exists(rawPath) && !Directory.Exists(rawPath))
             {
-                var match = System.Text.RegularExpressions.Regex.Match(
-                    app.FilePath,
-                    @"^(?:""([^""]+)""|([^\s]+))"
-                );
+                var match = QuotedOrFirstTokenRegex().Match(app.FilePath);
                 if (match.Success)
                 {
                     var extracted = match.Groups[1].Success
@@ -298,7 +296,6 @@ public partial class StartupManagerViewModel : ViewModel
     {
         foreach (var app in Apps)
             app.PropertyChanged -= App_PropertyChanged;
-        Apps.Clear();
 
         var search = AppSearchText.Trim();
         var hasSearch = !string.IsNullOrWhiteSpace(search);
@@ -311,6 +308,7 @@ public partial class StartupManagerViewModel : ViewModel
             _ => _allApps.OrderBy(a => a.Name),
         };
 
+        var filteredApps = new List<StartupApp>();
         foreach (var app in sortedApps)
         {
             if (
@@ -323,8 +321,10 @@ public partial class StartupManagerViewModel : ViewModel
 
             app.PropertyChanged -= App_PropertyChanged;
             app.PropertyChanged += App_PropertyChanged;
-            Apps.Add(app);
+            filteredApps.Add(app);
         }
+
+        Apps.ReplaceAll(filteredApps);
 
         OnPropertyChanged(nameof(HasApps));
         OnPropertyChanged(nameof(HasData));
@@ -336,7 +336,6 @@ public partial class StartupManagerViewModel : ViewModel
     {
         foreach (var task in Tasks)
             task.PropertyChanged -= Task_PropertyChanged;
-        Tasks.Clear();
 
         var search = TaskSearchText.Trim();
         var hasSearch = !string.IsNullOrWhiteSpace(search);
@@ -349,6 +348,7 @@ public partial class StartupManagerViewModel : ViewModel
             _ => _allTasks.OrderBy(t => t.TaskName),
         };
 
+        var filteredTasks = new List<StartupTask>();
         foreach (var task in sortedTasks)
         {
             if (HideMicrosoftTasks && task.IsMicrosoftTask)
@@ -366,8 +366,10 @@ public partial class StartupManagerViewModel : ViewModel
 
             task.PropertyChanged -= Task_PropertyChanged;
             task.PropertyChanged += Task_PropertyChanged;
-            Tasks.Add(task);
+            filteredTasks.Add(task);
         }
+
+        Tasks.ReplaceAll(filteredTasks);
 
         OnPropertyChanged(nameof(HasTasks));
         OnPropertyChanged(nameof(HasData));
@@ -493,4 +495,7 @@ public partial class StartupManagerViewModel : ViewModel
             _logger.LogError(ex, "Failed to reload startup tasks");
         }
     }
+
+    [GeneratedRegex(@"^(?:""([^""]+)""|([^\s]+))")]
+    private static partial Regex QuotedOrFirstTokenRegex();
 }
