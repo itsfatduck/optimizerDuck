@@ -25,12 +25,15 @@ public partial class DiskCleanupViewModel(
     private ObservableCollection<CleanupItem> _cleanupItems = [];
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanClean))]
     private bool _isCleaning;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(HasData))]
     private bool _isLoading;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(CanClean))]
     private bool _isScanning;
 
     private List<CleanupItem> _originalOrder = [];
@@ -114,7 +117,7 @@ public partial class DiskCleanupViewModel(
     [RelayCommand]
     private async Task ScanAsync()
     {
-        if (IsScanning)
+        if (IsScanning || IsCleaning)
             return;
 
         IsScanning = true;
@@ -134,11 +137,12 @@ public partial class DiskCleanupViewModel(
     }
 
     [RelayCommand]
-    private async Task CleanItemAsync(CleanupItem item)
+    private async Task CleanItemAsync(CleanupItem? item)
     {
-        if (item.SizeBytes <= 0)
+        if (item is null || item.SizeBytes <= 0 || IsCleaning || IsScanning)
             return;
 
+        IsCleaning = true;
         try
         {
             var sw = Stopwatch.StartNew();
@@ -179,10 +183,8 @@ public partial class DiskCleanupViewModel(
         }
         finally
         {
-            await diskCleanupService.ScanAllAsync(CleanupItems);
-
-            UpdateProperties();
-            ApplySort();
+            IsCleaning = false;
+            await RescanItemsAsync();
         }
     }
 
@@ -264,16 +266,14 @@ public partial class DiskCleanupViewModel(
         finally
         {
             IsCleaning = false;
-            await diskCleanupService.ScanAllAsync(CleanupItems);
-            UpdateProperties();
-            ApplySort();
+            await RescanItemsAsync();
         }
     }
 
     [RelayCommand]
-    private async Task RefreshItemAsync(CleanupItem item)
+    private async Task RefreshItemAsync(CleanupItem? item)
     {
-        if (item is null)
+        if (item is null || IsCleaning || IsScanning)
             return;
 
         await diskCleanupService.ScanAsync(item);
@@ -334,6 +334,25 @@ public partial class DiskCleanupViewModel(
                 new SymbolIcon { Symbol = SymbolRegular.ErrorCircle24, Filled = true },
                 TimeSpan.FromSeconds(3)
             );
+        }
+    }
+
+    private async Task RescanItemsAsync()
+    {
+        IsScanning = true;
+        try
+        {
+            await diskCleanupService.ScanAllAsync(CleanupItems);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to refresh cleanup items");
+        }
+        finally
+        {
+            IsScanning = false;
+            UpdateProperties();
+            ApplySort();
         }
     }
 
